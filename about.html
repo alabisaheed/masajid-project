@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Masajid Project</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="The story, 9-point charter, 6-stage project lifecycle, and multi-tier governance structure guiding Masajid Project.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="About Us — Masajid Project">
+  <meta property="og:description" content="The story, 9-point charter, 6-stage project lifecycle, and multi-tier governance structure guiding Masajid Project.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Us — Masajid Project">
+  <meta name="twitter:description" content="The story, 9-point charter, 6-stage project lifecycle, and multi-tier governance structure guiding Masajid Project.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link active">About</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); text-align: center; background: var(--bg-surface); border-bottom: 1px solid var(--border-card);">
+    <div class="container animate-in">
+      <h1 class="section__title">About <span>Masajid Project</span></h1>
+      <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; font-size: 1.05rem;">
+        The foundational charter, 6-stage project lifecycle, 8 intervention categories, and governance framework guiding our platform.
+      </p>
+    </div>
+  </section>
+
+  <!-- 1. EXECUTIVE SUMMARY & FOUNDING STORY -->
+  <section class="section">
+    <div class="container">
+      <div class="card animate-in" style="max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow);"><i class="fa-solid fa-book-open"></i></div>
+          <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-primary);">The Story & Vision</h2>
+        </div>
+
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.25rem; font-size: 1.05rem;">
+          Across urban and rural communities, many masajid suffer from practical, overlooked facility issues: failing audio amplifiers during Friday sermons, unlit prayer halls during power outages, inadequate Qur'an storage shelves, worn carpets requiring deep sanitation, or leaking roofs. While major mosque construction campaigns frequently receive public attention, small and moderate maintenance needs are often neglected.
+        </p>
+
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.25rem; font-size: 1.05rem;">
+          At the same time, Muslims seeking avenues for <strong style="color: var(--primary);">Sadaqah Jariyah</strong> (ongoing voluntary charity) want guaranteed assurance that their contributions reach genuine needs, are managed with zero waste, and produce documented, long-term spiritual benefit.
+        </p>
+
+        <div style="background: var(--bg-surface); border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 1.75rem 0;">
+          <div style="font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Our Governing Philosophy</div>
+          <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin-top: 0.25rem;">"Small Acts. Lasting Benefit."</div>
+          <p style="font-size: 0.925rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.6;">
+            We do not operate as a major construction charity. We focus specifically on practical, high-impact interventions that immediately enhance the dignity, safety, and functionality of existing masajid.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FOUNDATIONAL 9-POINT CHARTER -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container text-center">
+      <h2 class="section__title" style="margin-bottom: 0.5rem;">The 9-Point <span>Foundational Charter</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; font-size: 1.025rem;">Core organizational principles governing how needs are audited, funded, and reported transparently.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left;" class="animate-in">
+        
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.25rem; margin-bottom: 0.5rem;">01. Genuine Need Assessment</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Identify authentic, practical facility requirements within masajid through community nominations and physical audits.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--emerald); font-size: 1.25rem; margin-bottom: 0.5rem;">02. Targeted Support</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Focus on small to moderate improvement projects that create immediate, tangible benefit for worshippers.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--sky); font-size: 1.25rem; margin-bottom: 0.5rem;">03. Essential Resources</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Supply high-quality Qur'ans, lighting, sound equipment, and wudhu fittings that directly support worship and learning.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.25rem; margin-bottom: 0.5rem;">04. Hygiene & Sanitation</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Promote deep carpet cleaning, anti-bacterial washing, and clean wudhu facilities to uphold sacred cleanliness.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--emerald); font-size: 1.25rem; margin-bottom: 0.5rem;">05. Facility Safety</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Fix electrical hazards, roof leaks, slippery tiles, and security gaps to ensure a secure environment for worshippers.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--sky); font-size: 1.25rem; margin-bottom: 0.5rem;">06. Sadaqah Jariyah Access</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Provide accessible, transparent opportunities for donors of all giving capacities to participate in ongoing charity.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.25rem; margin-bottom: 0.5rem;">07. Visual Evidence</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Document every completed intervention with high-resolution before, during, and after photographic proof.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--emerald); font-size: 1.25rem; margin-bottom: 0.5rem;">08. 100% Public Ledger</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Publish all received donations and itemized contractor payments on an unalterable Transparency Dashboard.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <div style="font-weight: 800; color: var(--sky); font-size: 1.25rem; margin-bottom: 0.5rem;">09. Shared Responsibility</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Foster collective community responsibility for the care, maintenance, and long-term upkeep of houses of Allah.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. THE 6-STAGE PROJECT LIFECYCLE -->
+  <section class="section">
+    <div class="container text-center">
+      <h2 class="section__title" style="margin-bottom: 0.5rem;">The 6-Stage <span>Project Lifecycle</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; font-size: 1.025rem;">Our systematic methodology from community identification to 12-month post-completion monitoring.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left;" class="animate-in">
+        
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--primary);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--primary); margin-bottom: 0.25rem;">STAGE 1</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Identification</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Need submitted via community nomination or field team discovery.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--emerald);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--emerald); margin-bottom: 0.25rem;">STAGE 2</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Verification Audit</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Physical site visit, safety audit, and initial feasibility assessment.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--sky);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--sky); margin-bottom: 0.25rem;">STAGE 3</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Scope & Consent</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Itemized technical budget approval and consent from mosque leadership.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--primary);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--primary); margin-bottom: 0.25rem;">STAGE 4</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Crowdfunding</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Project published with itemized scope budget and live donation progress.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--emerald);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--emerald); margin-bottom: 0.25rem;">STAGE 5</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Execution</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Materials purchased, work executed by licensed technicians, and receipts logged.</p>
+        </div>
+
+        <div class="card" style="padding: 1.5rem; border-top: 3px solid var(--sky);">
+          <div style="font-weight: 800; font-size: 0.8rem; color: var(--sky); margin-bottom: 0.25rem;">STAGE 6</div>
+          <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">12-Mo Monitoring</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Check-ins conducted at 3, 6, and 12 months to verify ongoing performance.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. GOVERNANCE & OVERSIGHT -->
+  <section class="section" style="background: var(--bg-surface);" id="governance">
+    <div class="container text-center">
+      <h2 class="section__title" style="margin-bottom: 0.5rem;">Governance & <span>Oversight</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; font-size: 1.025rem;">Independent trustees, financial auditors, and field operations teams ensuring total accountability.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; text-align: left;" class="animate-in">
+        
+        <div class="card">
+          <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow); margin-bottom: 1rem;"><i class="fa-solid fa-user-shield"></i></div>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Board of Trustees</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Provides overarching fiduciary oversight, strategic direction, and ensures adherence to the core charter.</p>
+        </div>
+
+        <div class="card">
+          <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow); margin-bottom: 1rem;"><i class="fa-solid fa-scale-balanced"></i></div>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Advisory Council</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Offers guidance on Sadaqah guidelines, project eligibility standards, and community engagement integrity.</p>
+        </div>
+
+        <div class="card">
+          <div class="stat-icon-circle" style="color:var(--sky); background:rgba(2, 132, 199, 0.1); margin-bottom: 1rem;"><i class="fa-solid fa-calculator"></i></div>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Finance & Audit Function</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Monitors donor receipts, verifies contractor invoices, and logs all disbursements on the Transparency Dashboard.</p>
+        </div>
+
+        <div class="card">
+          <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow); margin-bottom: 1rem;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Field Operations Team</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Conducts site audits, manages technical vendors, captures photographic proof, and executes monitoring check-ins.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

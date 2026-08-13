@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Initiative — Masajid Project</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Governance rules, fund restriction policies, competitive procurement standards, and zero unverified cash guidelines.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Terms of Initiative — Masajid Project">
+  <meta property="og:description" content="Governance rules, fund restriction policies, competitive procurement standards, and zero unverified cash guidelines.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Initiative — Masajid Project">
+  <meta name="twitter:description" content="Governance rules, fund restriction policies, competitive procurement standards, and zero unverified cash guidelines.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="faq" class="nav__link">FAQ</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); text-align: center; background: var(--bg-surface); border-bottom: 1px solid var(--border-card);">
+    <div class="container animate-in">
+      <h1 class="section__title">Terms of <span>Initiative</span></h1>
+      <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; font-size: 1.05rem;">
+        Governance principles, fund allocation restrictions, procurement standards, and project execution policies.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN STRUCTURE (SIDEBAR + BENTO POLICY CARDS) -->
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: start;">
+        
+        <!-- SIDEBAR INDEX -->
+        <div class="card" style="position: sticky; top: calc(var(--nav-height) + 1.5rem); padding: 1.5rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 1rem;">Governance Index</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.875rem;">
+            <li><a href="#platform-scope" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">1. Purpose & Mandate</a></li>
+            <li><a href="#sadaqah-restriction" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">2. Sadaqah Restrictions</a></li>
+            <li><a href="#vetting-standards" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">3. Project Vetting Standards</a></li>
+            <li><a href="#zero-cash-policy" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">4. Zero Unverified Cash</a></li>
+            <li><a href="#procurement-policy" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">5. Procurement Guidelines</a></li>
+            <li><a href="#public-proof" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">6. Photo & Receipt Proof</a></li>
+            <li><a href="#surplus-policy" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">7. Surplus Allocation</a></li>
+            <li><a href="#disclaimers-contact" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">8. Disclaimers & Governance</a></li>
+          </ul>
+        </div>
+
+        <!-- POLICY CARDS -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          
+          <div class="card animate-in visible" id="platform-scope" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow);"><i class="fa-solid fa-hands-holding-child"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">1. Platform Purpose & Mandate</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              Masajid Project operates exclusively as a structured crowdfunding and project management initiative for Sadaqah Jariyah. We connect willing donors with verified, practical maintenance needs in masajid. The platform does not function as a general financial intermediary or commercial contractor.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="sadaqah-restriction" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow);"><i class="fa-solid fa-vault"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">2. Sadaqah Jariyah Fund Restriction</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              All contributions designated for specific listed projects are strictly restricted to the procurement of materials, equipment, and verified labor for that individual project. General Sadaqah Jariyah Fund contributions are allocated transparently to approved active projects with urgent funding gaps.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="vetting-standards" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--sky); background:rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-clipboard-check"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">3. Project Vetting & Selection Criteria</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              Before publication, every nominated mosque intervention must pass a 4-point verification process: (a) physical site audit by our field team, (b) technical cost estimate validation, (c) written approval from the mosque committee, and (d) safety compliance check.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="zero-cash-policy" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow);"><i class="fa-solid fa-ban"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">4. Zero Unverified Cash Policy</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              To uphold 100% financial integrity, project funds are never handed over as cash to mosque leadership or unverified individuals. Payments are disbursed directly to verified material vendors, electricians, plumbers, and solar technicians upon presentation of itemized invoices.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="procurement-policy" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow);"><i class="fa-solid fa-calculator"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">5. Procurement & Quotation Guidelines</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              Our procurement policy mandates securing at least 3 competitive quotations for any technical procurement over ₦100,000. Vendors are selected based on material durability, local warranty terms, pricing competitiveness, and past performance.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="public-proof" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--sky); background:rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-camera"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">6. Receipt Publishing & Media Authorization</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              By submitting a mosque or contributing to a project, participants consent to the public publication of non-sensitive before/after photographs, vendor invoice references, and completion logs on our public Transparency Dashboard.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="surplus-policy" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow);"><i class="fa-solid fa-coins"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">7. Surplus & Maintenance Pool Guidelines</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+              Any minor surplus funds remaining after project completion are retained transparently within the general Sadaqah Jariyah pool to fund urgent maintenance repairs or 12-month follow-up check-ins across supported masajid.
+            </p>
+          </div>
+
+          <div class="card animate-in visible" id="disclaimers-contact" style="padding: 2.25rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow);"><i class="fa-solid fa-gavel"></i></div>
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary);">8. Governance & Committee Oversight</h2>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem; margin-bottom: 1rem;">
+              These terms are reviewed annually by the Board of Trustees and Advisory Committee to ensure compliance with legal regulations and Islamic charitable principles. For governance enquiries:
+            </p>
+            <a href="mailto:governance@masajidproject.org" class="btn btn--primary" style="display: inline-flex;">Contact Governance Committee</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

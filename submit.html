@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit a Masjid Need | Masajid Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Submit a Masjid Need — Masajid Project">
+  <meta property="og:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Submit a Masjid Need — Masajid Project">
+  <meta name="twitter:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="submit" class="nav__link active">Support a Masjid</a></li>
+      </ul>
+      <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="transparency" class="nav__link">Transparency</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); text-align: center;">
+    <div class="container animate-in">
+      <h1 class="section__title">Submit a <span>Masjid Need</span></h1>
+      
+      <p style="color: var(--text-secondary); max-width: 680px; margin: 0 auto; font-size: 1.05rem;">
+        Know a mosque that requires essential repairs, lighting, solar backup, sound equipment, or Qur'ans? Submit details for our field audit team to review.
+      </p>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="card animate-in" style="max-width: 780px; margin: 0 auto; padding: 2.5rem;">
+        
+        <form onsubmit="handleFormSubmit(event)">
+          
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+            1. Masjid Details
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label">Masjid Name (English)</label>
+            <input type="text" class="form-input" placeholder="e.g. Masjid Al-Nuur" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Masjid Name (Arabic - Optional)</label>
+            <input type="text" class="form-input" placeholder="مثال: مسجد النور">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">City / Town</label>
+              <input type="text" class="form-input" placeholder="e.g. Surulere" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State / Region</label>
+              <input type="text" class="form-input" placeholder="e.g. Lagos State" required>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 2rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+            2. Describe the Need
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label">Category of Need</label>
+            <select class="form-select" required>
+              <option value="">Select a Category...</option>
+              <option value="lighting">Lighting & Electrical</option>
+              <option value="solar">Solar & Power Backup</option>
+              <option value="cleaning">Cleaning & Carpet Sanitation</option>
+              <option value="quran">Qur'ans & Book Storage</option>
+              <option value="furniture">Furniture & Facilities</option>
+              <option value="sound">Sound System & Audio</option>
+              <option value="security">Security & Safety</option>
+              <option value="repairs">Minor Repairs</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Detailed Description of the Need</label>
+            <textarea class="form-input" rows="4" placeholder="Please describe what needs repair or installation, current condition, and estimated urgency..." required></textarea>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 2rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+            3. Contact Information
+          </h3>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Phone / Email</label>
+              <input type="text" class="form-input" placeholder="Phone or email address" required>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn btn--primary" style="width: 100%; font-size: 1.05rem; padding: 1rem;">
+              Submit Nomination for Review
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      if (typeof showToast === 'function') {
+        showToast('Nomination submitted successfully! Our field team will review it within 24 hours.');
+      } else {
+        alert('Nomination submitted successfully!');
+      }
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

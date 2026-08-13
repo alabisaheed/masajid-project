@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Project Impact Record — Masajid Project">
+  <meta property="og:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Impact Record — Masajid Project">
+  <meta name="twitter:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link active">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+      </ul>
+                  <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="transparency" class="nav__link">Transparency</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- BREADCRUMB & HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 2rem); padding-bottom: 2rem; background: var(--bg-surface); border-bottom: 1px solid var(--border-card);">
+    <div class="container animate-in">
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+        <a href="./">Home</a> / <a href="projects">Projects</a> / <span id="bread-id" style="color:var(--primary);">MP-LAG-2026-003</span>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+        <span class="badge badge--category" id="proj-badge-cat">Lighting</span>
+        <span class="badge badge--funding" id="proj-badge-status">Funding</span>
+      </div>
+
+      <h1 id="proj-title-en" style="font-size: clamp(1.8rem, 4vw, 2.75rem); margin-bottom: 0.75rem;">Project Title</h1>
+
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-muted);">
+        <span><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <span id="proj-location">Lagos</span></span>
+        <span><i class="fa-solid fa-users" style="color:var(--primary);"></i> Approx. <span id="proj-beneficiaries">450</span> Worshippers</span>
+        <span><i class="fa-solid fa-calendar" style="color:var(--primary);"></i> Published <span id="proj-date">2026-08-01</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN DETAILS & SIDEBAR -->
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start;" id="detail-layout">
+
+        <!-- MAIN TABS & BODY -->
+        <div>
+          <!-- IMAGES GALLERY -->
+          <div class="card animate-in" style="padding: 0; overflow: hidden; margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-light);" id="proj-images-grid">
+              <div style="position: relative; height: 280px;">
+                <img id="proj-img-before" src="images/proj-003-before.jpg" alt="Before" style="width: 100%; height: 100%; object-fit: cover;">
+                <span class="img-label" style="background: rgba(15,23,42,0.85); color: #94a3b8; border: 1px solid #475569;">BEFORE</span>
+              </div>
+              <div style="position: relative; height: 280px; background: var(--bg-surface); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                <img id="proj-img-after" src="images/proj-001-after.jpg" alt="After/During" style="width: 100%; height: 100%; object-fit: cover;">
+                <span class="img-label" style="background: rgba(16,185,129,0.9); color: #fff; border: 1px solid #059669;" id="after-img-badge">AFTER / IN-PROGRESS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DESCRIPTION CARD -->
+          <div class="card animate-in" style="margin-bottom: 2rem; padding: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color:var(--primary);">Project Overview</h3>
+            <p id="proj-desc-en" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 0; font-size: 1rem;"></p>
+          </div>
+
+          <!-- SCOPE & BUDGET TABLE -->
+          <div class="card animate-in" style="margin-bottom: 2rem; padding: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color:var(--primary);">Project Scope & Budget Breakdown</h3>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Item Description</th>
+                    <th>Estimated Cost</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="proj-scope-table">
+                  <!-- Scope rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TIMELINE -->
+          <div class="card animate-in" style="padding: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-timeline"></i> Verified Activity Timeline</h3>
+            <div id="proj-timeline-list" style="display: flex; flex-direction: column; gap: 1rem;">
+              <!-- Timeline entries -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR FUNDING CARD -->
+        <div style="position: sticky; top: calc(var(--nav-height) + 1.5rem);" class="animate-in">
+          
+          <div class="card" style="border-top: 4px solid var(--primary); padding: 2rem;">
+            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem;">Funding Status</div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+              <span id="proj-pct-large" style="font-family: var(--font-display); font-size: 2.75rem; font-weight: 700; color:var(--primary);">67%</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-users"></i> <strong id="proj-supporters-count" style="color:var(--text-primary);">24</strong> Supporters</span>
+            </div>
+
+            <div class="progress-bar-container" style="height: 10px; margin-bottom: 1.25rem;">
+              <div class="progress-bar" id="proj-sidebar-bar" style="width: 67%;"></div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+              <div>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Raised:</span>
+                <strong id="proj-raised-display" style="font-size: 1.15rem; color:var(--primary);" data-amount="335000">?335,000</strong>
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Goal:</span>
+                <strong id="proj-goal-display" style="font-size: 1.15rem; color: var(--text-primary);" data-amount="500000">?500,000</strong>
+              </div>
+            </div>
+
+            <a id="donate-btn-sidebar" href="donate?project=MP-LAG-2026-003" class="btn btn--primary" style="width: 100%; padding: 0.9rem; font-size: 1.05rem; margin-bottom: 0.75rem;">
+              Support This Project
+            </a>
+            <a href="transparency#ledger" class="btn btn--outline" style="width: 100%; padding: 0.75rem; font-size: 0.875rem;">
+              View Financial Log
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function loadProjectDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const projId = params.get('id') || 'MP-LAG-2026-002';
+
+      if (!window.MP) return;
+      const proj = MP.getProject(projId) || MP.projects[0];
+
+      if (!proj) return;
+
+      const catObj = MP.getCategory(proj.categoryId);
+      const percent = MP.getProgressPercent(proj);
+      const statusObj = MP.statuses[proj.status.toUpperCase()] || { label: proj.status, color: '#94a3b8' };
+
+      document.title = `${proj.titleEN} | Masajid Project`;
+
+      // Header
+      const breadId = document.getElementById('bread-id');
+      if (breadId) breadId.textContent = proj.id;
+
+      const catBadge = document.getElementById('proj-badge-cat');
+      if (catBadge) catBadge.textContent = catObj ? catObj.labelEN : 'General';
+
+      const statusBadge = document.getElementById('proj-badge-status');
+      if (statusBadge) {
+        statusBadge.textContent = statusObj.label;
+        statusBadge.style.background = statusObj.color + '20';
+        statusBadge.style.color = statusObj.color;
+        statusBadge.style.border = `1px solid ${statusObj.color}50`;
+      }
+
+      const titleEn = document.getElementById('proj-title-en');
+      if (titleEn) titleEn.textContent = proj.titleEN;
+
+      const locationEl = document.getElementById('proj-location');
+      if (locationEl) locationEl.textContent = MP.getLocation(proj);
+
+      const benEl = document.getElementById('proj-beneficiaries');
+      if (benEl) benEl.textContent = proj.beneficiaries || '300+';
+
+      const dateEl = document.getElementById('proj-date');
+      if (dateEl) dateEl.textContent = proj.createdAt;
+
+      // Images
+      const imgBefore = document.getElementById('proj-img-before');
+      if (imgBefore && proj.images && proj.images.before) {
+        imgBefore.src = proj.images.before;
+      }
+      const imgAfter = document.getElementById('proj-img-after');
+      if (imgAfter && proj.images && (proj.images.after || proj.images.during)) {
+        imgAfter.src = proj.images.after || proj.images.during;
+      }
+
+      // Description
+      const descEn = document.getElementById('proj-desc-en');
+      if (descEn) descEn.textContent = proj.descriptionEN;
+
+      // Scope table
+      const scopeBody = document.getElementById('proj-scope-table');
+      if (scopeBody) {
+        if (proj.scope && proj.scope.length > 0) {
+          scopeBody.innerHTML = proj.scope.map(s => `
+            <tr>
+              <td style="color:var(--text-primary); font-weight:600;">${s.item}</td>
+              <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">${s.costNGN}</td>
+              <td><span class="badge ${s.status === 'Completed' || s.status === 'Purchased' ? 'badge--completed' : 'badge--category'}">${s.status}</span></td>
+            </tr>
+          `).join('');
+        } else {
+          scopeBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Scope detail currently being audited.</td></tr>`;
+        }
+      }
+
+      // Timeline
+      const timelineBox = document.getElementById('proj-timeline-list');
+      if (timelineBox && proj.timeline && proj.timeline.length > 0) {
+        timelineBox.innerHTML = proj.timeline.map(t => `
+          <div style="display:flex; gap:1rem; align-items:flex-start; background:var(--bg-surface); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid ${t.done ? 'var(--emerald)' : 'var(--border-light)'};">
+            <i class="fa-solid ${t.done ? 'fa-circle-check' : 'fa-circle-notch'}" style="color:${t.done ? 'var(--emerald)' : 'var(--text-muted)'}; margin-top:0.25rem;"></i>
+            <div>
+              <div style="font-weight:600; color:${t.done ? 'var(--text-primary)' : 'var(--text-muted)'};">${t.event}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">${t.date}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Sidebar stats
+      const pctLarge = document.getElementById('proj-pct-large');
+      if (pctLarge) pctLarge.textContent = `${percent}%`;
+
+      const supportersCount = document.getElementById('proj-supporters-count');
+      if (supportersCount) supportersCount.textContent = proj.supporters || 0;
+
+      const sidebarBar = document.getElementById('proj-sidebar-bar');
+      if (sidebarBar) sidebarBar.style.width = `${percent}%`;
+
+      const raisedEl = document.getElementById('proj-raised-display');
+      const goalEl = document.getElementById('proj-goal-display');
+      if (raisedEl) raisedEl.setAttribute('data-amount', proj.raisedNGN);
+      if (goalEl) goalEl.setAttribute('data-amount', proj.goalNGN);
+
+      const donateBtn = document.getElementById('donate-btn-sidebar');
+      if (donateBtn) donateBtn.href = `donate.html?project=${proj.id}`;
+
+      if (typeof setCurrency === 'function') {
+        setCurrency(currentCurrency || 'NGN');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProjectDetail();
+    });
+  </script>
+</body>
+</html>

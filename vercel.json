@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/dashboard", "dest": "/dashboard.html" },
+    { "src": "/admin", "dest": "/dashboard.html" },
+    { "src": "/login", "dest": "/login.html" },
+    { "src": "/projects", "dest": "/projects.html" },
+    { "src": "/project-detail", "dest": "/project-detail.html" },
+    { "src": "/transparency", "dest": "/transparency.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/blog", "dest": "/blog.html" },
+    { "src": "/blog-post", "dest": "/blog-post.html" },
+    { "src": "/faq", "dest": "/faq.html" },
+    { "src": "/submit", "dest": "/submit.html" },
+    { "src": "/donate", "dest": "/donate.html" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/terms", "dest": "/terms.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

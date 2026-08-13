@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Domain SSL / WWW Canonicalization
+RewriteCond %{HTTP_HOST} ^dashboard\.masajidproject\.org$ [NC]
+RewriteRule ^$ dashboard.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L,QSA]

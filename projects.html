@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="Browse verified mosque improvement projects from lighting and solar power to deep sanitation and Qur'ans.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Our Projects — Masajid Project">
+  <meta property="og:description" content="Browse verified mosque improvement projects from lighting and solar power to deep sanitation and Qur'ans.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Projects — Masajid Project">
+  <meta name="twitter:description" content="Browse verified mosque improvement projects from lighting and solar power to deep sanitation and Qur'ans.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link active">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+      </ul>
+                  <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="transparency" class="nav__link">Transparency</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.1) 0%, rgba(11, 15, 25, 0) 70%); text-align: center;">
+    <div class="container animate-in">
+      <h1 class="section__title">Our <span>Projects</span></h1>
+      
+      <p style="color: var(--text-secondary); max-width: 680px; margin: 0 auto 2rem; font-size: 1.05rem;">
+        Every project is verified, budgeted transparently, and tracked from community identification through to completion and continuous monitoring.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+
+      <!-- FILTER & SEARCH BAR -->
+      <div class="card" style="margin-bottom: 2.5rem; padding: 1.5rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+          
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="status-filters">
+            <button class="filter-btn active" data-status="all" onclick="setStatusFilter('all', this)">All Statuses</button>
+            <button class="filter-btn" data-status="funding" onclick="setStatusFilter('funding', this)">Funding</button>
+            <button class="filter-btn" data-status="in-progress" onclick="setStatusFilter('in-progress', this)">In Progress</button>
+            <button class="filter-btn" data-status="verified" onclick="setStatusFilter('verified', this)">Verified</button>
+            <button class="filter-btn" data-status="completed" onclick="setStatusFilter('completed', this)">Completed</button>
+          </div>
+
+          <div style="position: relative; min-width: 260px;">
+            <input type="text" id="project-search" class="form-input" placeholder="Search by mosque or city..." onkeyup="filterProjects()" style="padding-left: 2.5rem;">
+            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+          </div>
+
+        </div>
+
+        <!-- CATEGORY PILLS -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light);" id="category-filters">
+          <button class="filter-btn active" data-cat="all" onclick="setCategoryFilter('all', this)">All Categories</button>
+          <!-- Category buttons dynamically added -->
+        </div>
+      </div>
+
+      <!-- RESULTS COUNT -->
+      <div style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+        <span id="results-count-text">Showing all projects</span>
+      </div>
+
+      <!-- PROJECTS GRID -->
+      <div class="projects-grid" id="all-projects-grid">
+        
+        <!-- Project Card 1: Funding -->
+        <div class="project-card animate-in visible" data-status="funding" data-category="solar">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Solar & Power</span>
+              <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Solar Energy Inverter System</h3>
+            <div class="project-card__location">Surulere, Lagos</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Installation of a 5kVA solar inverter system with 8 monocrystalline solar panels...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 67%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="837500">₦837,500</strong></span>
+                <span style="color:var(--primary); font-weight:800;">67%</span>
+                <span>Target: <strong data-amount="1250000">₦1,250,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-LAG-2026-002" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 2: In Progress -->
+        <div class="project-card animate-in visible" data-status="in-progress" data-category="lighting">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Lighting & Electrical</span>
+              <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">LED Energy Efficient Lighting</h3>
+            <div class="project-card__location">Ikeja, Lagos</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Replacement of 45 high-wattage fluorescent bulbs with energy-efficient LED panel lighting...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="380000">₦380,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">100%</span>
+                <span>Target: <strong data-amount="380000">₦380,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-LAG-2026-003" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 3: Funding -->
+        <div class="project-card animate-in visible" data-status="funding" data-category="cleaning">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Cleaning & Maintenance</span>
+              <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Carpet Steam Sanitation</h3>
+            <div class="project-card__location">Abeokuta, Ogun</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Professional industrial steam washing, deep anti-bacterial sanitation, and edging repairs...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 70%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="154000">₦154,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">70%</span>
+                <span>Target: <strong data-amount="220000">₦220,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-OG-2026-004" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 4: Verified -->
+        <div class="project-card animate-in visible" data-status="verified" data-category="quran">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Qur'ans & Books</span>
+              <span class="badge" style="background:rgba(37, 99, 235, 0.1); color:#2563EB; border:1px solid rgba(37, 99, 235, 0.3);">Verified</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Qur'an Storage & Bookshelves</h3>
+            <div class="project-card__location">Yaba, Lagos</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Crafting and mounting of 6 solid mahogany wall-mounted wooden bookshelf units...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="195000">₦195,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">100%</span>
+                <span>Target: <strong data-amount="195000">₦195,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-LAG-2026-005" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 5: Funding -->
+        <div class="project-card animate-in visible" data-status="funding" data-category="repairs">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Minor Repairs</span>
+              <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Public Wudhu Area Plumbing</h3>
+            <div class="project-card__location">Agege, Lagos</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Replacing 16 damaged brass faucets, fixing supply leakage, and laying anti-slip floor tiles...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 45%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="139500">₦139,500</strong></span>
+                <span style="color:var(--primary); font-weight:800;">45%</span>
+                <span>Target: <strong data-amount="310000">₦310,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-LAG-2026-006" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 6: In Progress -->
+        <div class="project-card animate-in visible" data-status="in-progress" data-category="repairs">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Minor Repairs</span>
+              <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Roof Leak & Waterproofing</h3>
+            <div class="project-card__location">Tudun Wada, Kaduna</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Emergency roof sealing with bitumen waterproofing membrane and replacing damaged sheets...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="480000">₦480,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">100%</span>
+                <span>Target: <strong data-amount="480000">₦480,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-KAD-2026-007" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 7: Verified -->
+        <div class="project-card animate-in visible" data-status="verified" data-category="sound">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Sound Systems</span>
+              <span class="badge" style="background:rgba(37, 99, 235, 0.1); color:#2563EB; border:1px solid rgba(37, 99, 235, 0.3);">Verified</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Acoustic Audio Mixer Upgrade</h3>
+            <div class="project-card__location">Bodija, Ibadan</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Procurement of a 12-channel digital audio mixer console and dual wireless UHF mics...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="540000">₦540,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">100%</span>
+                <span>Target: <strong data-amount="540000">₦540,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-OYO-2026-008" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 8: Funding -->
+        <div class="project-card animate-in visible" data-status="funding" data-category="security">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">Security & Safety</span>
+              <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">CCTV Security Camera Setup</h3>
+            <div class="project-card__location">Fagge, Kano</div>
+            <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom: 0.75rem; line-height:1.5;">
+              Installation of an 8-camera 1080p night-vision CCTV system with digital video recorder...
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 30%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="135000">₦135,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">30%</span>
+                <span>Target: <strong data-amount="450000">₦450,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-KN-2026-009" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOMINATE FOOTER BANNER -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container text-center animate-in">
+      <div class="card" style="max-width: 760px; margin: 0 auto; padding: 3rem 2rem;">
+        <i class="fa-solid fa-mosque" style="font-size: 2.5rem; color:var(--primary); margin-bottom: 1rem;"></i>
+        <h2 style="margin-bottom: 0.5rem;">Know a Masjid That Needs Support?</h2>
+        
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+          If a mosque in your community needs repairs, lighting, solar power, Qur'ans, or sound equipment, let us know.
+        </p>
+        <a href="submit" class="btn btn--primary">Submit a Masjid Need</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeStatus = 'all';
+    let activeCategory = 'all';
+
+    function initCategoryFilters() {
+      const catContainer = document.getElementById('category-filters');
+      if (!catContainer || !window.MP) return;
+
+      MP.categories.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.setAttribute('data-cat', c.id);
+        btn.textContent = c.labelEN;
+        btn.onclick = () => setCategoryFilter(c.id, btn);
+        catContainer.appendChild(btn);
+      });
+    }
+
+    function setStatusFilter(status, btn) {
+      activeStatus = status;
+      document.querySelectorAll('#status-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterProjects();
+    }
+
+    function setCategoryFilter(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('#category-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterProjects();
+    }
+
+    function filterProjects() {
+      const searchInput = document.getElementById('project-search');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+      const grid = document.getElementById('all-projects-grid');
+      const countText = document.getElementById('results-count-text');
+
+      if (!grid) return;
+
+      // Filter DOM cards directly for instant responsiveness
+      const cards = grid.querySelectorAll('.project-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardStatus = (card.getAttribute('data-status') || '').toLowerCase().replace(/_/g, '-');
+        const cardCat = (card.getAttribute('data-category') || '').toLowerCase();
+        const textContent = card.textContent.toLowerCase();
+
+        const statusMatch = (activeStatus === 'all') || (cardStatus === activeStatus);
+        const catMatch = (activeCategory === 'all') || (cardCat === activeCategory);
+        const searchMatch = !query || textContent.includes(query);
+
+        if (statusMatch && catMatch && searchMatch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (countText) {
+        countText.textContent = `Showing ${visibleCount} of ${cards.length} projects`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCategoryFilters();
+
+      // Check URL parameters for status or category
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('cat');
+      const statusParam = params.get('status');
+
+      if (catParam) {
+        activeCategory = catParam;
+        const catBtn = document.querySelector(`#category-filters [data-cat="${catParam}"]`);
+        if (catBtn) setCategoryFilter(catParam, catBtn);
+      }
+      if (statusParam) {
+        activeStatus = statusParam;
+        const statusBtn = document.querySelector(`#status-filters [data-status="${statusParam}"]`);
+        if (statusBtn) setStatusFilter(statusParam, statusBtn);
+      }
+
+      filterProjects();
+    });
+  </script>
+</body>
+</html>

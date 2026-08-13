@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transparency Dashboard | Masajid Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="100% public donation ledger and itemized expenditure record for every mosque project. Full financial accountability.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Transparency Dashboard — Masajid Project">
+  <meta property="og:description" content="100% public donation ledger and itemized expenditure record for every mosque project. Full financial accountability.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Transparency Dashboard — Masajid Project">
+  <meta name="twitter:description" content="100% public donation ledger and itemized expenditure record for every mosque project. Full financial accountability.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link active">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+      </ul>
+      <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="transparency" class="nav__link">Transparency</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); text-align: center;">
+    <div class="container animate-in">
+      <h1 class="section__title">Transparency <span>Dashboard</span></h1>
+      
+      <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto 1.5rem; font-size: 1.05rem;">
+        Every donation received and every expense incurred is logged publicly with complete verifiable records.
+      </p>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">
+        <i class="fa-solid fa-clock-rotate-left"></i> Live Ledger Status: <strong>Ready for Initial Launch</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRIC SUMMARY CARDS -->
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="stats-grid animate-in" style="margin-bottom: 3rem;">
+        
+        <div class="stat-card-bento">
+          <div class="stat-header-flex">
+            <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow);"><i class="fa-solid fa-wallet"></i></div>
+            <span class="stat-tag-badge">DONATIONS</span>
+          </div>
+          <div>
+            <div class="stat-number-animated" id="dash-total-received" data-amount="0">₦0</div>
+            <div class="stat-label-en">Total Received</div>
+          </div>
+        </div>
+
+        <div class="stat-card-bento">
+          <div class="stat-header-flex">
+            <div class="stat-icon-circle"><i class="fa-solid fa-receipt"></i></div>
+            <span class="stat-tag-badge">EXPENDITURES</span>
+          </div>
+          <div>
+            <div class="stat-number-animated" id="dash-total-spent" data-amount="0">₦0</div>
+            <div class="stat-label-en">Spent on Projects</div>
+          </div>
+        </div>
+
+        <div class="stat-card-bento">
+          <div class="stat-header-flex">
+            <div class="stat-icon-circle" style="color:var(--amber); background:rgba(217, 119, 6, 0.1);"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <span class="stat-tag-badge">ACTIVE</span>
+          </div>
+          <div>
+            <div class="stat-number-animated" id="dash-active-count">0</div>
+            <div class="stat-label-en">Active Projects</div>
+          </div>
+        </div>
+
+        <div class="stat-card-bento">
+          <div class="stat-header-flex">
+            <div class="stat-icon-circle"><i class="fa-solid fa-circle-check"></i></div>
+            <span class="stat-tag-badge">Completed</span>
+          </div>
+          <div>
+            <div class="stat-number-animated" id="dash-completed-count">0</div>
+            <div class="stat-label-en">Projects Completed</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PRINCIPLE STATEMENT -->
+      <div class="card animate-in" style="background:var(--bg-surface); border:1.5px solid var(--primary-border-strong); text-align:center; padding:3rem 2rem; margin-bottom:4rem;">
+        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"><i class="fa-solid fa-scale-balanced"></i></div>
+        <p style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--text-primary); max-width: 820px; margin: 0 auto; line-height: 1.6;">
+          "If people are entrusted with their wealth as Sadaqah, they deserve to know how it was received, where it went and what it accomplished."
+        </p>
+      </div>
+
+      <!-- DONATION LEDGER -->
+      <div class="section" id="ledger" style="padding-top:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <h2 style="font-size:1.75rem; font-weight:800;">Donations Received Ledger</h2>
+          </div>
+          <div class="badge badge--completed"><i class="fa-solid fa-lock"></i> 100% Public Record</div>
+        </div>
+
+        <div class="table-responsive card" style="padding:0; overflow:hidden;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Reference</th>
+                <th>Project Code</th>
+                <th>Donor Name</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody id="donations-table-body">
+              <tr>
+                <td colspan="6" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">
+                  <i class="fa-solid fa-inbox" style="font-size:2rem; margin-bottom:0.5rem; display:block;"></i>
+                  No donations logged yet. The ledger is ready for initial project launch.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EXPENDITURE LOG -->
+      <div class="section" id="expenses" style="padding-top:2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <h2 style="font-size:1.75rem; font-weight:800;">Expenditure Record Log</h2>
+          </div>
+          <div class="badge badge--verified"><i class="fa-solid fa-receipt"></i> Verified Receipts Only</div>
+        </div>
+
+        <div class="table-responsive card" style="padding:0; overflow:hidden;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Project Code</th>
+                <th>Expense Description</th>
+                <th>Vendor / Contractor</th>
+                <th>Amount</th>
+                <th>Receipt Status</th>
+              </tr>
+            </thead>
+            <tbody id="expenses-table-body">
+              <tr>
+                <td colspan="7" style="text-align:center; padding: 2.5rem; color: var(--text-muted);">
+                  <i class="fa-solid fa-file-invoice" style="font-size:2rem; margin-bottom:0.5rem; display:block;"></i>
+                  No expenditures logged yet. All upcoming supplier invoices will appear here.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!window.MP) return;
+
+      const totalReceived = MP.donations.reduce((sum, d) => sum + (d.amountNGN || 0), 0);
+      const totalSpent = MP.stats.totalSpentNGN || 0;
+      const activeCount = MP.getActiveProjects().length;
+      const completedCount = MP.getCompletedProjects().length;
+
+      const recEl = document.getElementById('dash-total-received');
+      const spentEl = document.getElementById('dash-total-spent');
+      const actEl = document.getElementById('dash-active-count');
+      const compEl = document.getElementById('dash-completed-count');
+
+      if (recEl) recEl.setAttribute('data-amount', totalReceived);
+      if (spentEl) spentEl.setAttribute('data-amount', totalSpent);
+      if (actEl) actEl.textContent = activeCount;
+      if (compEl) compEl.textContent = completedCount;
+
+      setCurrency(currentCurrency);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Masajid Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="Answers to common questions about giving, Sadaqah Jariyah, project vetting, and financial auditing.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Frequently Asked Questions — Masajid Project">
+  <meta property="og:description" content="Answers to common questions about giving, Sadaqah Jariyah, project vetting, and financial auditing.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Frequently Asked Questions — Masajid Project">
+  <meta name="twitter:description" content="Answers to common questions about giving, Sadaqah Jariyah, project vetting, and financial auditing.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="transparency" class="nav__link">Transparency</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+      </ul>
+      <div class="nav__right">
+        <select class="currency-select" onchange="setCurrency(this.value)">
+          <option value="NGN">₦ NGN</option>
+          <option value="GBP">£ GBP</option>
+          <option value="USD">$ USD</option>
+        </select>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="transparency" class="nav__link">Transparency</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 3rem); text-align: center;">
+    <div class="container animate-in">
+      <h1 class="faq-header-title">
+        Got questions?
+        <span class="teal-text">We've got answers.</span>
+      </h1>
+      <p class="faq-header-desc">
+        Everything you need to know about our Sadaqah Jariyah project model, financial transparency, project auditing, and mosque nomination process.
+      </p>
+
+      <!-- Category Toggle Pills (No Icons) -->
+      <div class="faq-toggle-container">
+        <div class="faq-pill-wrapper">
+          <button class="faq-pill-btn active" onclick="toggleFaqTab('donors', this)">For Donors</button>
+          <button class="faq-pill-btn" onclick="toggleFaqTab('masajid', this)">For Masajid</button>
+          <button class="faq-pill-btn" onclick="toggleFaqTab('transparency', this)">Transparency & Governance</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ STACKS CONTAINER -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      
+      <!-- FAQ Stack 1: Donors -->
+      <div class="faq-accordion-stack" id="faq-stack-donors">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Where does my donation go?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            100% of your donation is directed toward materials and vendor labor for the specific project you select. Masajid Project operates on a 100% restricted fund policy. Zero platform fees are deducted from project contributions. All administrative costs are covered separately.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Can I give anonymously?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. You may contribute without your name appearing anywhere on the public donation ledger. We only require your email address internally so we can send your payment receipt and project completion progress reports.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Can I dedicate a contribution in memory of someone?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. During the donation flow, you may enter a dedication or Niyyah in memory of or on behalf of a parent, family member, or loved one. This intention is recorded privately with your contribution.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What currencies are accepted for giving?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            We accept contributions in NGN (Nigerian Naira), GBP (£ British Pounds), and USD ($ US Dollars). All foreign currency gifts are converted transparently at prevailing exchange rates and logged on the project escrow record.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Will I receive a receipt for my payment?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. An automated digital receipt containing your unique transaction reference code, project details, currency amount, and date is sent immediately to your email address upon payment confirmation.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Why does mosque maintenance qualify as Sadaqah Jariyah?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            The Prophet Muhammad (peace be upon him) taught that when a person passes away, their deeds cease except for three, including Sadaqah Jariyah (ongoing charity). Providing lighting, sound amplification, carpets, or Qur'ans for a mosque yields continuous reward every time worshippers pray, read, or listen.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ Stack 2: Masajid -->
+      <div class="faq-accordion-stack" id="faq-stack-masajid" style="display:none;">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How do I submit or nominate a mosque for support?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Visit our "Support a Masjid" page and fill out the simple nomination form. Tell us about the mosque, location, and the specific practical need (lighting, sound, solar power, deep clean, Qur'ans). Our field team will review it within 24 hours.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Is there any cost or fee charged to the mosque?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. Masajid Project does not charge masajid for technical assessments, vendor management, or project execution. All supported interventions are funded entirely through crowdsourced Sadaqah Jariyah.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What types of needs are eligible for support?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            We focus on practical, moderate mosque needs: energy efficient LED lighting, solar power backup, sound system upgrades, carpet deep cleaning & sanitation, Qur'ans & book storage, security equipment, and minor facility repairs.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Who approves project execution at the mosque?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No work commences without formal written consent from the Imam and executive committee of the mosque. Our field team meets directly with mosque leadership before listing any project.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How long does a project take from nomination to completion?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Smaller interventions (lighting or carpet deep cleaning) are typically executed within 7 to 14 days after funding completion. Solar power or sound system upgrades take between 2 to 4 weeks.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What happens after the project is completed?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            After execution, high-resolution before/after photographs and supplier invoices are published publicly. The project then enters a 12-month monitoring cycle where our field team conducts check-ins at 3, 6, and 12 months.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ Stack 3: Transparency -->
+      <div class="faq-accordion-stack" id="faq-stack-transparency" style="display:none;">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How can I verify how money was spent on a project?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Visit our Transparency Dashboard at any time. Every naira received and every naira disbursed to contractors is published with supplier business name, invoice date, bank transfer reference, and receipt proof.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Are cash payments given directly to mosque leadership?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. To maintain complete financial integrity, Masajid Project never disburses unverified cash. Payments are transferred directly to verified material suppliers, electricians, and contractors upon presentation of audited invoices.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Who oversees the financial management of Masajid Project?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Financial management is overseen by our Finance & Audit Committee under the governance of the Board of Trustees. Quarterly financial audits are published publicly on our Transparency Dashboard.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Does Masajid Project accept Zakat funds?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. Masajid Project accepts voluntary Sadaqah only and does not accept Zakat. Zakat has specific jurisprudence guidelines for eligible human recipients. Mosque physical infrastructure falls under Sadaqah Jariyah.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What happens if a project raises more than its required goal?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Any surplus funds are handled transparently: they are either retained for a follow-up maintenance reserve at the same mosque or transferred to the General Sadaqah Jariyah Fund to support the next urgent masjid need.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How are vendors and contractors selected?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Our procurement policy requires at least 3 competitive quotations for any technical procurement over ₦100,000. Vendors are evaluated on material quality, pricing, delivery speed, and local warranty commitments.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name"><i class="fa-solid fa-mosque"></i> Masajid Project</div>
+          <p class="footer__brand-desc">A structured initiative to identify, fund, and document practical improvements in masajid. Every naira accounted for.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Projects</div>
+          <ul class="footer__links">
+            <li><a href="projects">Active Projects</a></li>
+            <li><a href="projects?status=completed">Completed Projects</a></li>
+            <li><a href="submit">Nominate a Masjid</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Transparency</div>
+          <ul class="footer__links">
+            <li><a href="transparency">Financial Dashboard</a></li>
+            <li><a href="transparency#ledger">Donation Ledger</a></li>
+            <li><a href="transparency#expenses">Expenditure Log</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal & Resources</div>
+          <ul class="footer__links">
+            <li><a href="about">About Us</a></li>`n          <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p style="color: #FFFFFF;">Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
