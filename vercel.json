@@ -2,9 +2,14 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "routes": [
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/admin", "dest": "/dashboard.html" },
-    { "src": "/login", "dest": "/login.html" },
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
+      "dest": "/dashboard/index.html"
+    },
+    { "src": "/dashboard", "dest": "/dashboard/index.html" },
+    { "src": "/admin", "dest": "/dashboard/index.html" },
+    { "src": "/login", "dest": "/login/index.html" },
     { "src": "/projects", "dest": "/projects.html" },
     { "src": "/project-detail", "dest": "/project-detail.html" },
     { "src": "/transparency", "dest": "/transparency.html" },
