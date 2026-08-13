@@ -269,31 +269,31 @@
       <i class="fa-solid fa-arrow-left"></i> Back to Blog
     </a>
 
-    <span class="article-tag-badge">FIELD REPORT</span>
+    <span class="article-tag-badge" id="article-category">FIELD REPORT</span>
 
-    <h1 class="article-main-title">
+    <h1 class="article-main-title" id="article-title">
       Why Technical Audits Guarantee Trust in Mosque Projects
     </h1>
 
     <div class="article-meta-bar">
       <div class="article-author-left">
-        <div class="article-avatar">MP</div>
+        <div class="article-avatar" id="article-avatar">MP</div>
         <div>
-          <div style="font-weight: 700; font-size: 0.875rem; color: var(--text-primary);">Masajid Operations Team</div>
-          <div style="font-size: 0.775rem; color: var(--text-muted);">August 12, 2026 • 4 min read</div>
+          <div style="font-weight: 700; font-size: 0.875rem; color: var(--text-primary);" id="article-author-name">Masajid Operations Team</div>
+          <div style="font-size: 0.775rem; color: var(--text-muted);" id="article-meta-info">August 12, 2026 • 4 min read</div>
         </div>
       </div>
 
       <div class="social-share-strip">
-        <i class="fa-solid fa-link social-share-btn" onclick="showToast('Article link copied to clipboard!')" title="Copy Link"></i>
-        <i class="fa-brands fa-x-twitter social-share-btn" onclick="showToast('Share on Twitter/X')" title="Twitter"></i>
-        <i class="fa-brands fa-linkedin social-share-btn" onclick="showToast('Share on LinkedIn')" title="LinkedIn"></i>
-        <i class="fa-brands fa-facebook social-share-btn" onclick="showToast('Share on Facebook')" title="Facebook"></i>
+        <i class="fa-solid fa-link social-share-btn" onclick="shareCopyLink()" title="Copy Link"></i>
+        <i class="fa-brands fa-x-twitter social-share-btn" onclick="shareTwitter()" title="Twitter"></i>
+        <i class="fa-brands fa-linkedin social-share-btn" onclick="shareLinkedIn()" title="LinkedIn"></i>
+        <i class="fa-brands fa-facebook social-share-btn" onclick="shareFacebook()" title="Facebook"></i>
       </div>
     </div>
 
     <!-- ARTICLE BODY -->
-    <article class="article-content">
+    <article class="article-content" id="article-body-content">
       <p>
         When worshippers and supporters contribute toward a mosque project, they place a sacred trust (<em>Amanah</em>) in the hands of the initiative. At Masajid Project, our philosophy is grounded in one non-negotiable principle: <strong>Every dirham must be accounted for through rigorous field verification.</strong>
       </p>
@@ -470,12 +470,103 @@
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
   <script>
+    let currentArticle = null;
+
+    function renderArticle() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug') || urlParams.get('id') || 'why-technical-audits-guarantee-trust-in-mosque-projects';
+      
+      currentArticle = window.MP ? MP.getArticleBySlug(slug) : null;
+      if (!currentArticle) return;
+
+      document.title = `${currentArticle.title} — Masajid Project`;
+      
+      const categoryEl = document.getElementById('article-category');
+      if (categoryEl) categoryEl.textContent = (currentArticle.category || 'INSIGHTS').toUpperCase();
+
+      const titleEl = document.getElementById('article-title');
+      if (titleEl) titleEl.textContent = currentArticle.title;
+
+      const authorEl = document.getElementById('article-author-name');
+      if (authorEl) authorEl.textContent = currentArticle.author || 'Masajid Editorial Team';
+
+      const metaEl = document.getElementById('article-meta-info');
+      if (metaEl) metaEl.textContent = `${currentArticle.date || 'Aug 2026'} • ${currentArticle.readTime || '4 min read'}`;
+
+      const avatarEl = document.getElementById('article-avatar');
+      if (avatarEl) avatarEl.textContent = currentArticle.authorAvatar || 'MP';
+
+      const contentEl = document.getElementById('article-body-content');
+      if (contentEl) contentEl.innerHTML = currentArticle.content;
+
+      renderComments();
+    }
+
+    function renderComments() {
+      if (!currentArticle) return;
+      const comments = window.MP ? MP.getComments(currentArticle.slug).filter(c => c.status === 'approved') : [];
+      const listEl = document.getElementById('comments-list-container');
+      if (!listEl) return;
+
+      if (comments.length === 0) {
+        listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem; font-style: italic;">No approved comments yet. Be the first to share your thoughts!</p>';
+        return;
+      }
+
+      listEl.innerHTML = comments.map(c => `
+        <div style="padding: 1.25rem; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-card); margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <strong style="color: var(--text-primary); font-size: 0.95rem;">${c.author}</strong>
+            <span style="color: var(--text-muted); font-size: 0.775rem;">${c.date}</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">${c.comment}</p>
+        </div>
+      `).join('');
+    }
+
+    function shareCopyLink() {
+      copyToClipboard(window.location.href, 'Article link copied to clipboard!');
+    }
+
+    function shareTwitter() {
+      const title = currentArticle ? currentArticle.title : document.title;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank', 'width=600,height=400');
+    }
+
+    function shareFacebook() {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank', 'width=600,height=400');
+    }
+
+    function shareLinkedIn() {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank', 'width=600,height=400');
+    }
+
     function handleCommentSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('comment-name').value;
-      showToast(`Thank you, ${name}! Your reply has been submitted for review.`);
+      const email = document.getElementById('comment-email').value;
+      const text = document.getElementById('comment-text').value;
+
+      if (!currentArticle) return;
+
+      MP.saveComment({
+        articleSlug: currentArticle.slug,
+        author: name,
+        email: email,
+        comment: text,
+        status: 'pending'
+      });
+
+      showToast(`Thank you, ${name}! Your comment has been submitted for moderation.`);
       e.target.reset();
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderArticle();
+    });
   </script>
 </body>
 </html>
