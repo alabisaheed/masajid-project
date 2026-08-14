@@ -207,7 +207,11 @@
         localStorage.setItem('masajid_admin_session', JSON.stringify(sessionData));
         sessionStorage.setItem('masajid_admin_session', JSON.stringify(sessionData));
 
-        window.location.href = 'dashboard';
+        if (window.location.hostname.includes('dashboard')) {
+          window.location.href = window.location.origin + '/';
+        } else {
+          window.location.href = 'dashboard';
+        }
       } else {
         errorBanner.style.display = 'block';
       }
