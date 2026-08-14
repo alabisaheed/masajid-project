@@ -1841,17 +1841,19 @@ footer {
 
 
 /* ── FOOTER PURE WHITE COLOR ENFORCEMENT & MOBILE COLLAPSE ─ */
-.footer, .footer *, .footer h4, .footer p, .footer a, .footer li, .footer-col, .footer-col * {
+footer, .footer, footer *, .footer *, .footer h4, .footer p, .footer a, .footer li, .footer-col, .footer-col * {
   color: #FFFFFF !important;
 }
 
-.footer a {
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
+footer a, .footer a {
+  opacity: 0.95;
+  color: #FFFFFF !important;
+  text-decoration: none;
 }
 
-.footer a:hover {
+footer a:hover, .footer a:hover {
   opacity: 1;
+  color: #FFFFFF !important;
   text-decoration: underline;
 }
 
