@@ -142,11 +142,19 @@
     </div>
     <div class="login-subtitle">Executive Control Panel Authentication</div>
 
+<<<<<<< HEAD
     <form onsubmit="handleLoginSubmit(event)">
       <div id="login-error" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #FCA5A5; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1.25rem;">
         <i class="fa-solid fa-circle-exclamation" style="margin-right: 0.4rem;"></i> Invalid credentials. Please check your email and password.
       </div>
 
+=======
+    <div class="error-banner" id="login-error">
+      <i class="fa-solid fa-circle-exclamation"></i> Invalid email address or password. Please try again.
+    </div>
+
+    <form onsubmit="handleLoginSubmit(event)" autocomplete="off">
+>>>>>>> e60198ce277c01a380e0532c9f13585dd4c9ad0c
       <div class="form-group">
         <label class="form-label" for="login-email">Email Address</label>
         <div class="form-input-wrapper">
@@ -164,6 +172,7 @@
       </div>
 
       <button type="submit" class="btn btn--primary" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; font-weight: 800; background: #13547A;">
+<<<<<<< HEAD
         Login to Dashboard
       </button>
     </form>
@@ -179,13 +188,24 @@
         <span style="color: #38BDF8; font-family: monospace;">Pass: MasajidSupport2026!</span>
       </div>
     </div>
+=======
+        Login
+      </button>
+    </form>
+>>>>>>> e60198ce277c01a380e0532c9f13585dd4c9ad0c
   </div>
 
   <script>
     const validAdmins = {
+<<<<<<< HEAD
       'admin@masajidproject.org': { pass: 'MasajidAdmin2026!', name: 'Super Admin', role: 'Super Administrator' },
       'hello@masajidproject.org': { pass: 'MasajidOps2026!', name: 'Operations Lead', role: 'Operations & Procurement' },
       'support@masajidproject.org': { pass: 'MasajidSupport2026!', name: 'Support Moderator', role: 'Community Moderator' }
+=======
+      'admin@masajidproject.org': { pass: 'MasajidAdmin#2026', name: 'Super Admin', role: 'Super Administrator' },
+      'hello@masajidproject.org': { pass: 'MasajidHello#2026', name: 'Operations Admin', role: 'Operations & General Admin' },
+      'support@masajidproject.org': { pass: 'MasajidSupport#2026', name: 'Support Lead', role: 'Donor Support Lead' }
+>>>>>>> e60198ce277c01a380e0532c9f13585dd4c9ad0c
     };
 
     function handleLoginSubmit(e) {
