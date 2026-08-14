@@ -3,6 +3,16 @@
   "trailingSlash": false,
   "routes": [
     {
+      "src": "/login",
+      "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
+      "dest": "/login/index.html"
+    },
+    {
+      "src": "/dashboard(.*)",
+      "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
+      "dest": "/dashboard/index.html"
+    },
+    {
       "src": "/(.*)",
       "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
       "dest": "/dashboard/index.html"

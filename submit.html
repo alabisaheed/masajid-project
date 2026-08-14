@@ -94,22 +94,22 @@
 
           <div class="form-group">
             <label class="form-label">Masjid Name (English)</label>
-            <input type="text" class="form-input" placeholder="e.g. Masjid Al-Nuur" required>
+            <input type="text" id="masjid-name" class="form-input" placeholder="e.g. Masjid Al-Nuur" required>
           </div>
 
           <div class="form-group">
             <label class="form-label">Masjid Name (Arabic - Optional)</label>
-            <input type="text" class="form-input" placeholder="مثال: مسجد النور">
+            <input type="text" id="masjid-name-ar" class="form-input" placeholder="مثال: مسجد النور">
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label">City / Town</label>
-              <input type="text" class="form-input" placeholder="e.g. Surulere" required>
+              <input type="text" id="city" class="form-input" placeholder="e.g. Surulere" required>
             </div>
             <div class="form-group">
               <label class="form-label">State / Region</label>
-              <input type="text" class="form-input" placeholder="e.g. Lagos State" required>
+              <input type="text" id="state" class="form-input" placeholder="e.g. Lagos State" required>
             </div>
           </div>
 
@@ -119,22 +119,22 @@
 
           <div class="form-group">
             <label class="form-label">Category of Need</label>
-            <select class="form-select" required>
+            <select id="category" class="form-select" required>
               <option value="">Select a Category...</option>
-              <option value="lighting">Lighting & Electrical</option>
-              <option value="solar">Solar & Power Backup</option>
-              <option value="cleaning">Cleaning & Carpet Sanitation</option>
-              <option value="quran">Qur'ans & Book Storage</option>
-              <option value="furniture">Furniture & Facilities</option>
-              <option value="sound">Sound System & Audio</option>
-              <option value="security">Security & Safety</option>
-              <option value="repairs">Minor Repairs</option>
+              <option value="Lighting & Electrical">Lighting & Electrical</option>
+              <option value="Solar & Power Backup">Solar & Power Backup</option>
+              <option value="Cleaning & Sanitation">Cleaning & Carpet Sanitation</option>
+              <option value="Qur'ans & Books">Qur'ans & Book Storage</option>
+              <option value="Furniture & Facilities">Furniture & Facilities</option>
+              <option value="Sound System">Sound System & Audio</option>
+              <option value="Security & Safety">Security & Safety</option>
+              <option value="Minor Repairs">Minor Repairs</option>
             </select>
           </div>
 
           <div class="form-group">
             <label class="form-label">Detailed Description of the Need</label>
-            <textarea class="form-input" rows="4" placeholder="Please describe what needs repair or installation, current condition, and estimated urgency..." required></textarea>
+            <textarea id="need-desc" class="form-input" rows="4" placeholder="Please describe what needs repair or installation, current condition, and estimated urgency..." required></textarea>
           </div>
 
           <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 2rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
@@ -144,11 +144,11 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label">Your Name</label>
-              <input type="text" class="form-input" placeholder="Your full name" required>
+              <input type="text" id="your-name" class="form-input" placeholder="Your full name" required>
             </div>
             <div class="form-group">
               <label class="form-label">Your Phone / Email</label>
-              <input type="text" class="form-input" placeholder="Phone or email address" required>
+              <input type="text" id="your-contact" class="form-input" placeholder="Phone or email address" required>
             </div>
           </div>
 
@@ -209,10 +209,12 @@
     function handleFormSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('masjid-name')?.value || 'Local Masjid';
-      const city = document.getElementById('city')?.value || 'Lagos';
-      const state = document.getElementById('state')?.value || 'Lagos';
-      const desc = document.getElementById('need-desc')?.value || 'Masjid improvement need';
+      const city = document.getElementById('city')?.value || 'Surulere';
+      const state = document.getElementById('state')?.value || 'Lagos State';
+      const category = document.getElementById('category')?.value || 'Lighting & Electrical';
+      const desc = document.getElementById('need-desc')?.value || 'Masjid improvement need description';
       const submitter = document.getElementById('your-name')?.value || 'Community Worshipper';
+      const contact = document.getElementById('your-contact')?.value || 'N/A';
 
       if (window.MP) {
         MP.saveNomination({
@@ -221,7 +223,8 @@
           state: state,
           description: desc,
           submittingName: submitter,
-          needTypes: ['general'],
+          submittingContact: contact,
+          needTypes: [category],
           urgency: 'Medium'
         });
       }

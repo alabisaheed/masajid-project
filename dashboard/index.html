@@ -53,43 +53,43 @@
     }
 
     .dash-sidebar__brand {
-      height: var(--topbar-height);
+      height: 56px;
       display: flex;
       align-items: center;
-      padding: 0 1.5rem;
-      font-size: 1.15rem;
+      padding: 0 1.25rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: #FFFFFF;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     .dash-sidebar__brand i {
       color: #38BDF8;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
     }
 
     .dash-sidebar__menu {
       list-style: none;
-      padding: 1.25rem 0.75rem;
+      padding: 0.5rem 0.5rem;
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.1rem;
       flex: 1;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
 
     .dash-sidebar__link {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      padding: 0.75rem 1rem;
+      gap: 0.75rem;
+      padding: 0.45rem 0.75rem;
       color: #94A3B8;
       text-decoration: none;
       border-radius: var(--radius-sm);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.835rem;
       transition: all 0.2s ease;
       cursor: pointer;
     }
@@ -100,13 +100,13 @@
     }
 
     .dash-sidebar__link i {
-      font-size: 1.1rem;
-      width: 20px;
+      font-size: 1rem;
+      width: 18px;
       text-align: center;
     }
 
     .dash-sidebar__footer {
-      padding: 1.25rem;
+      padding: 0.75rem 1rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
@@ -345,7 +345,22 @@
         </li>
         <li>
           <a class="dash-sidebar__link" onclick="switchDashTab('projects', this)">
-            <i class="fa-solid fa-folder-kanban"></i> Projects Manager
+            <i class="fa-solid fa-folder-tree"></i> Projects Manager
+          </a>
+        </li>
+        <li>
+          <a class="dash-sidebar__link" onclick="switchDashTab('nominations', this)">
+            <i class="fa-solid fa-inbox"></i> Nominations
+          </a>
+        </li>
+        <li>
+          <a class="dash-sidebar__link" onclick="switchDashTab('articles', this)">
+            <i class="fa-solid fa-newspaper"></i> Blog & Articles
+          </a>
+        </li>
+        <li>
+          <a class="dash-sidebar__link" onclick="switchDashTab('featured', this)">
+            <i class="fa-solid fa-star"></i> Featured Projects
           </a>
         </li>
         <li>
@@ -417,7 +432,7 @@
             <i class="fa-solid fa-right-from-bracket"></i> Logout
           </button>
 
-          <a href="../" class="btn btn--outline" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;">
+          <a href="./" class="btn btn--outline" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;">
             <i class="fa-solid fa-globe"></i> View Site
           </a>
         </div>
@@ -543,6 +558,115 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- PANE: NOMINATIONS -->
+        <div class="dash-tab-pane" id="tab-nominations">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div>
+              <h1 style="font-size: 1.6rem; font-weight: 800; margin: 0;">Community Nominations</h1>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Review submissions from the public "Submit a Masjid Need" form.</p>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1.5rem;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Nomination ID</th>
+                    <th>Masjid & Location</th>
+                    <th>Need Types</th>
+                    <th>Urgency</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-nominations-body">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: ARTICLES & COMMENTS -->
+        <div class="dash-tab-pane" id="tab-articles">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div>
+              <h1 style="font-size: 1.6rem; font-weight: 800; margin: 0;">Blog & Article Manager</h1>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Publish field reports, articles, and moderate reader comments.</p>
+            </div>
+            <button class="btn btn--primary" onclick="openCreateArticleModal()"><i class="fa-solid fa-plus"></i> New Article</button>
+          </div>
+
+          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem;">Published Articles</h3>
+          <div class="card" style="padding: 1.5rem; margin-bottom: 2rem;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Article Title</th>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-articles-body">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem;">Reader Comments Moderation</h3>
+          <div class="card" style="padding: 1.5rem;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Author</th>
+                    <th>Article Slug</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-comments-body">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE: FEATURED PROJECTS -->
+        <div class="dash-tab-pane" id="tab-featured">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div>
+              <h1 style="font-size: 1.6rem; font-weight: 800; margin: 0;">Homepage Featured Projects</h1>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Select which active or completed projects are highlighted on the public homepage.</p>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1.5rem;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Project Code</th>
+                    <th>Project Title</th>
+                    <th>Status</th>
+                    <th>Homepage Feature Toggle</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-featured-body">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <!-- PANE 3: FINANCIALS & EXPENSES -->
@@ -818,6 +942,60 @@
     </div>
   </div>
 
+  <!-- MODAL: CREATE ARTICLE -->
+  <div class="modal-backdrop" id="modal-create-article">
+    <div class="modal-window">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--primary);">Write & Publish New Article</h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-create-article')">✕</button>
+      </div>
+
+      <form onsubmit="handleCreateArticleSubmit(event)">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Article Title:</label>
+          <input type="text" id="new-art-title" class="form-input" placeholder="e.g. Technical Audits Guarantee Trust in Mosque Projects" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Category:</label>
+            <select id="new-art-cat" class="form-select">
+              <option value="FIELD REPORT">Field Report</option>
+              <option value="TRANSPARENCY">Transparency</option>
+              <option value="GOVERNANCE">Governance</option>
+              <option value="COMMUNITY">Community Impact</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Author Name:</label>
+            <input type="text" id="new-art-author" class="form-input" placeholder="e.g. Masajid Field Team" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Featured Image URL (Upload or Link):</label>
+            <input type="text" id="new-art-img" class="form-input" placeholder="e.g. images/mosque-hero.jpg or https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Video Embed URL (YouTube/Vimeo):</label>
+            <input type="text" id="new-art-video" class="form-input" placeholder="e.g. https://www.youtube.com/embed/...">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Article Text Content:</label>
+          <textarea id="new-art-body" class="form-input" style="height: 140px;" placeholder="Full text-based content of the article..." required></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-create-article')">Cancel</button>
+          <button type="submit" class="btn btn--primary">Publish Article</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- SCRIPTS -->
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
@@ -1037,10 +1215,175 @@
       window.location.href = 'login';
     }
 
+    function renderAdminNominations() {
+      const container = document.getElementById('admin-nominations-body');
+      if (!container || !window.MP) return;
+      const list = MP.getNominations();
+      if (list.length === 0) {
+        container.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">No nominations submitted yet.</td></tr>';
+        return;
+      }
+      container.innerHTML = list.map(n => `
+        <tr>
+          <td><span style="font-family: monospace; font-size: 0.8rem;">${n.id}</span></td>
+          <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city}, ${n.state}</small></td>
+          <td>${(n.needTypes || ['General']).join(', ')}</td>
+          <td><span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
+          <td><span class="badge badge--category">${n.status || 'Pending Review'}</span></td>
+          <td>
+            <div style="display:flex; gap:0.4rem;">
+              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')">Approve & Publish</button>
+              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function approveNomination(nomId) {
+      if (!window.MP) return;
+      MP.updateNominationStatus(nomId, 'Approved');
+      showToast(`Nomination ${nomId} approved and converted to Active Project!`);
+      renderAdminNominations();
+    }
+
+    function declineNomination(nomId) {
+      if (!window.MP) return;
+      MP.updateNominationStatus(nomId, 'Declined');
+      showToast(`Nomination ${nomId} declined.`);
+      renderAdminNominations();
+    }
+
+    function openCreateArticleModal() {
+      const modal = document.getElementById('modal-create-article');
+      if (modal) modal.classList.add('open');
+    }
+
+    function handleCreateArticleSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('new-art-title').value.trim();
+      const cat = document.getElementById('new-art-cat').value;
+      const author = document.getElementById('new-art-author').value.trim();
+      const img = document.getElementById('new-art-img').value.trim();
+      const video = document.getElementById('new-art-video').value.trim();
+      const body = document.getElementById('new-art-body').value.trim();
+
+      if (!title || !body) return;
+
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+      if (window.MP) {
+        MP.saveArticle({
+          title: title,
+          slug: slug,
+          category: cat,
+          author: author,
+          imageUrl: img || 'images/mosque-hero.jpg',
+          videoUrl: video || '',
+          content: body,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        });
+      }
+
+      closeModal('modal-create-article');
+      showToast(`Article "${title}" published successfully!`);
+      renderAdminArticles();
+      e.target.reset();
+    }
+
+    function renderAdminArticles() {
+      const artContainer = document.getElementById('admin-articles-body');
+      const comContainer = document.getElementById('admin-comments-body');
+      if (!window.MP) return;
+
+      if (artContainer) {
+        const articles = MP.getArticles();
+        artContainer.innerHTML = articles.map(a => `
+          <tr>
+            <td><strong>${a.title}</strong><br><small style="color:var(--text-muted); font-family:monospace;">${a.slug}</small></td>
+            <td><span class="badge badge--category">${a.category || 'Governance'}</span></td>
+            <td>${a.author || 'Masajid Editorial'}</td>
+            <td>${a.date || 'Aug 2026'}</td>
+            <td>
+              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteArticleQuick('${a.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      if (comContainer) {
+        const comments = MP.getComments();
+        if (comments.length === 0) {
+          comContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No comments awaiting moderation.</td></tr>';
+          return;
+        }
+        comContainer.innerHTML = comments.map(c => `
+          <tr>
+            <td><strong>${c.author}</strong><br><small style="color:var(--text-muted);">${c.email}</small></td>
+            <td><span style="font-size:0.8rem; font-family:monospace;">${c.articleSlug}</span></td>
+            <td>${c.comment}</td>
+            <td><span class="badge" style="background:${c.status==='approved'?'rgba(5,150,105,0.15)':'rgba(217,119,6,0.15)'}; color:${c.status==='approved'?'#059669':'#D97706'};">${c.status}</span></td>
+            <td>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="updateCommentStatusQuick('${c.id}', 'approved')">Approve</button>
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="updateCommentStatusQuick('${c.id}', 'rejected')">Reject</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function deleteArticleQuick(artId) {
+      if (!confirm('Are you sure you want to delete this article?')) return;
+      if (window.MP) {
+        MP.deleteArticle(artId);
+        showToast('Article deleted.');
+        renderAdminArticles();
+      }
+    }
+
+    function updateCommentStatusQuick(comId, status) {
+      if (window.MP) {
+        MP.updateCommentStatus(comId, status);
+        showToast(`Comment ${status}.`);
+        renderAdminArticles();
+      }
+    }
+
+    function renderAdminFeatured() {
+      const container = document.getElementById('admin-featured-body');
+      if (!container || !window.MP) return;
+      const list = MP.getProjects();
+      container.innerHTML = list.map(p => `
+        <tr>
+          <td><span style="font-family:monospace;">${p.id}</span></td>
+          <td><strong>${p.titleEN}</strong></td>
+          <td><span class="badge badge--category">${p.status}</span></td>
+          <td>
+            <button class="btn ${p.isFeatured ? 'btn--primary' : 'btn--outline'}" style="padding:0.35rem 0.85rem; font-size:0.8rem;" onclick="toggleFeaturedQuick('${p.id}')">
+              <i class="fa-solid fa-star" style="margin-right:0.3rem; color:${p.isFeatured?'#F59E0B':'inherit'};"></i> ${p.isFeatured ? 'Featured on Homepage' : 'Not Featured'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function toggleFeaturedQuick(projId) {
+      if (window.MP) {
+        MP.toggleFeatured(projId);
+        showToast(`Homepage featured status updated for project ${projId}!`);
+        renderAdminFeatured();
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       checkAdminSession();
       renderAdminProjects();
       renderAdminFinancials();
+      renderAdminNominations();
+      renderAdminArticles();
+      renderAdminFeatured();
       setCurrency(currentCurrency);
     });
   </script>
