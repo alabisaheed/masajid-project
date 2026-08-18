@@ -238,14 +238,14 @@
         <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
       </a>
 
-      <div class="nav__links">
-        <a href="./" class="nav__link">Home</a>
-        <a href="projects" class="nav__link">Projects</a>
-        <a href="transparency" class="nav__link">Transparency</a>
-        <a href="about" class="nav__link">About Us</a>
-        <a href="blog" class="nav__link active">Blog</a>
-        <a href="faq" class="nav__link">FAQ</a>
-      </div>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link">Home</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+        <li><a href="blog" class="nav__link active">Blog & Insights</a></li>
+        <li><a href="faq" class="nav__link">FAQ</a></li>
+      </ul>
 
       <div class="nav__right">
         <select class="currency-select" onchange="setCurrency(this.value)">
@@ -253,14 +253,25 @@
           <option value="GBP">£ GBP</option>
           <option value="USD">$ USD</option>
         </select>
-        <a href="donate" class="btn btn--primary nav__btn">Support a Project</a>
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
       </div>
 
       <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
-        <i class="fa-solid fa-bars"></i>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link">Home</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="blog" class="nav__link active">Blog & Insights</a>
+    <a href="faq" class="nav__link">FAQ</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
 
   <!-- ARTICLE MAIN CONTAINER -->
   <main class="article-container">

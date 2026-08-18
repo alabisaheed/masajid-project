@@ -1735,16 +1735,22 @@ footer {
   gap: 0.8rem;
 }
 
+.footer a,
 .footer__links a {
   font-size: 0.925rem;
   color: #FFFFFF;
   opacity: 0.92;
+  text-decoration: none !important;
   transition: var(--transition-fast);
 }
 
-.footer__links a:hover {
+.footer a:hover,
+.footer__links a:hover,
+.footer a:focus,
+.footer__links a:focus {
   color: #FFFFFF;
   opacity: 1;
+  text-decoration: none !important;
   transform: translateX(4px);
 }
 
