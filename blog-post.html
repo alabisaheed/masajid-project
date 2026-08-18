@@ -292,6 +292,11 @@
       </div>
     </div>
 
+    <!-- FEATURED MEDIA CONTAINER (IMAGE / VIDEO) -->
+    <div id="article-featured-media" style="margin-bottom: 2.5rem; border-radius: var(--radius-md); overflow: hidden;">
+      <!-- Populated dynamically -->
+    </div>
+
     <!-- ARTICLE BODY -->
     <article class="article-content" id="article-body-content">
       <p>
@@ -491,6 +496,45 @@
 
       const avatarEl = document.getElementById('article-avatar');
       if (avatarEl) avatarEl.textContent = currentArticle.authorAvatar || 'MP';
+
+      // Render Media (Image / Video)
+      const mediaEl = document.getElementById('article-featured-media');
+      if (mediaEl) {
+        let mediaHtml = '';
+        if (currentArticle.videoUrl) {
+          if (currentArticle.videoUrl.startsWith('data:video') || currentArticle.videoUrl.endsWith('.mp4') || currentArticle.videoUrl.endsWith('.webm')) {
+            mediaHtml += `
+              <div style="margin-bottom:1.5rem; background:#000; border-radius:12px; overflow:hidden; box-shadow:var(--shadow-md);">
+                <video controls autoplay muted playsinline style="width:100%; max-height:480px; display:block;">
+                  <source src="${currentArticle.videoUrl}">
+                  Your browser does not support HTML video.
+                </video>
+              </div>
+            `;
+          } else if (currentArticle.videoUrl.includes('youtube') || currentArticle.videoUrl.includes('youtu.be') || currentArticle.videoUrl.includes('vimeo')) {
+            let embedSrc = currentArticle.videoUrl;
+            if (embedSrc.includes('watch?v=')) {
+              embedSrc = embedSrc.replace('watch?v=', 'embed/');
+            } else if (embedSrc.includes('youtu.be/')) {
+              embedSrc = embedSrc.replace('youtu.be/', 'www.youtube.com/embed/');
+            }
+            mediaHtml += `
+              <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px; margin-bottom:1.5rem; box-shadow:var(--shadow-md);">
+                <iframe src="${embedSrc}" frameborder="0" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"></iframe>
+              </div>
+            `;
+          }
+        }
+        
+        if (currentArticle.imageUrl && !currentArticle.videoUrl) {
+          mediaHtml += `
+            <div style="max-height:450px; overflow:hidden; border-radius:12px; box-shadow:var(--shadow-md); margin-bottom:1.5rem;">
+              <img src="${currentArticle.imageUrl}" alt="${currentArticle.title}" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+          `;
+        }
+        mediaEl.innerHTML = mediaHtml;
+      }
 
       const contentEl = document.getElementById('article-body-content');
       if (contentEl) contentEl.innerHTML = currentArticle.content;

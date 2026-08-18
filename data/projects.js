@@ -217,7 +217,7 @@ const initialProjects = [
   }
 ];
 
-// Local Storage Helper
+// Local Storage & Cross-Tab Synchronization Engine
 function loadLocal(key, defaultVal) {
   if (typeof localStorage === 'undefined') return defaultVal;
   try {
@@ -232,6 +232,13 @@ function saveLocal(key, data) {
   if (typeof localStorage === 'undefined') return;
   try {
     localStorage.setItem('masajid_' + key, JSON.stringify(data));
+    // Broadcast change across tabs
+    if (typeof BroadcastChannel !== 'undefined' && g.MP && g.MP.channel) {
+      g.MP.channel.postMessage({ type: 'update', key: key, data: data });
+    }
+    if (g.MP && typeof g.MP.onDataChange === 'function') {
+      g.MP.onDataChange(key, data);
+    }
   } catch (e) {
     console.error('Storage error', e);
   }
@@ -275,6 +282,17 @@ g.MP = {
     { id: "MSQ-005", nameEN: "Masjid Rahmah", nameAR: "مسجد الرحمة", city: "Yaba", state: "Lagos" }
   ],
 
+  donations: [
+    { ref: "MP-DON-901", projectId: "MP-LAG-2026-002", amountNGN: 50000, date: "2026-08-13", donorName: "Anonymous", status: "Received" },
+    { ref: "MP-DON-902", projectId: "MP-LAG-2026-002", amountNGN: 100000, date: "2026-08-12", donorName: "Hajia Fatima B.", status: "Received" },
+    { ref: "MP-DON-903", projectId: "MP-LAG-2026-003", amountNGN: 25000, date: "2026-08-11", donorName: "Brother Yusuf A.", status: "Received" },
+    { ref: "MP-DON-904", projectId: "MP-OG-2026-004", amountNGN: 75000, date: "2026-08-10", donorName: "Community Contributor", status: "Received" }
+  ],
+
+  // Real-time broadcast channel
+  channel: typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('masajid_channel') : null,
+  onDataChange: null,
+
   // Projects Methods
   getProjects: function() {
     return loadLocal('projects', initialProjects);
@@ -286,7 +304,7 @@ g.MP = {
     if (idx >= 0) {
       list[idx] = proj;
     } else {
-      list.push(proj);
+      list.unshift(proj);
     }
     saveLocal('projects', list);
     return list;
@@ -326,6 +344,20 @@ g.MP = {
     return this.getProjects().find(p => p.id === id) || this.getProjects()[0];
   },
 
+  getCategory: function(catId) {
+    return this.categories.find(c => c.id === catId || c.labelEN.toLowerCase().includes((catId||'').toLowerCase()));
+  },
+
+  getProgressPercent: function(proj) {
+    if (!proj.goalNGN || proj.goalNGN <= 0) return 0;
+    return Math.min(100, Math.round(((proj.raisedNGN || 0) / proj.goalNGN) * 100));
+  },
+
+  getLocation: function(proj) {
+    const msq = this.mosques.find(m => m.id === proj.mosqueId);
+    return msq ? `${msq.city}, ${msq.state}` : (proj.location || 'Lagos, Nigeria');
+  },
+
   // Nominations Methods
   getNominations: function() {
     return loadLocal('nominations', defaultNominations);
@@ -333,7 +365,7 @@ g.MP = {
 
   saveNomination: function(nom) {
     const list = this.getNominations();
-    nom.id = nom.id || 'NOM-' + Date.now();
+    nom.id = nom.id || 'NOM-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-4);
     nom.submittedAt = nom.submittedAt || new Date().toISOString().split('T')[0];
     nom.status = nom.status || 'Pending Review';
     list.unshift(nom);
@@ -347,6 +379,42 @@ g.MP = {
     if (item) {
       item.status = status;
       saveLocal('nominations', list);
+
+      // If approved, automatically convert to an active project
+      if (status === 'Approved') {
+        const catMap = {
+          'Lighting & Electrical': 'lighting',
+          'Solar & Power Backup': 'solar',
+          'Cleaning & Sanitation': 'cleaning',
+          "Qur'ans & Books": 'quran',
+          'Furniture & Facilities': 'furniture',
+          'Sound System': 'sound',
+          'Security & Safety': 'security',
+          'Minor Repairs': 'repairs'
+        };
+        const catName = (item.needTypes && item.needTypes[0]) || 'solar';
+        const catId = catMap[catName] || 'solar';
+        const newProjId = 'MP-NOM-' + String(Date.now()).slice(-4);
+
+        const newProj = {
+          id: newProjId,
+          mosqueId: "MSQ-001",
+          categoryId: catId,
+          status: "FUNDING",
+          isFeatured: false,
+          titleEN: item.masjidName + " — " + (item.needTypes ? item.needTypes.join(', ') : 'Improvement Need'),
+          titleAR: item.masjidNameAR || "",
+          location: `${item.city || 'Lagos'}, ${item.state || 'State'}`,
+          descriptionEN: item.description || "Essential mosque improvement project nominated by community.",
+          descriptionAR: "",
+          goalNGN: 500000,
+          raisedNGN: 0,
+          spentNGN: 0,
+          imageBefore: "images/proj-002-before.jpg",
+          expenses: []
+        };
+        this.saveProject(newProj);
+      }
     }
     return list;
   },
@@ -372,6 +440,7 @@ g.MP = {
     } else {
       art.id = art.id || String(Date.now());
       art.date = art.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      art.readTime = art.readTime || '4 min read';
       list.unshift(art);
     }
     saveLocal('articles', list);
@@ -408,5 +477,35 @@ g.MP = {
       saveLocal('comments', list);
     }
     return list;
+  },
+
+  // Currency Formatter
+  formatCurrency: function(amountNGN, currency = 'NGN') {
+    const rates = { NGN: 1, GBP: 0.0005, USD: 0.00067 };
+    const symbols = { NGN: '₦', GBP: '£', USD: '$' };
+    const rate = rates[currency] || 1;
+    const symbol = symbols[currency] || '₦';
+    const converted = Math.round(amountNGN * rate);
+    return `${symbol}${converted.toLocaleString()}`;
   }
 };
+
+// Global cross-tab listener
+if (typeof window !== 'undefined') {
+  if (g.MP.channel) {
+    g.MP.channel.onmessage = function(e) {
+      if (e.data && e.data.key && typeof g.MP.onDataChange === 'function') {
+        g.MP.onDataChange(e.data.key, e.data.data);
+      }
+    };
+  }
+  window.addEventListener('storage', function(e) {
+    if (e.key && e.key.startsWith('masajid_') && typeof g.MP.onDataChange === 'function') {
+      const keyName = e.key.replace('masajid_', '');
+      try {
+        const val = JSON.parse(e.newValue);
+        g.MP.onDataChange(keyName, val);
+      } catch(err){}
+    }
+  });
+}

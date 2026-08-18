@@ -73,8 +73,8 @@
   <!-- HERO SECTION (KOBBLE STRUCTURE) -->
   <section class="hero">
     <div class="hero__content animate-in">
-      <h1 class="hero__title">MASJID <span>PROJECT</span></h1>
-      <div class="hero__subtitle-ar arabic">مشروع المسجد</div>
+      <h1 class="hero__title">Masajid <span>Project</span></h1>
+      <div class="hero__subtitle-ar arabic">مشروع المساجد</div>
 
       <div class="hero__tagline">Small Acts. Lasting Benefit.</div>
       <div class="hero__tagline-ar arabic">أعمال صغيرة. فائدة دائمة.</div>
@@ -1004,7 +1004,8 @@
       }
 
       container.innerHTML = matching.map(p => {
-        const catLabel = MP.getCategoryLabel(p.categoryId);
+        const catObj = MP.getCategory(p.categoryId);
+        const catLabel = catObj ? catObj.labelEN : 'General';
         const percent = MP.getProgressPercent(p);
         const statusObj = MP.statuses[p.status.toUpperCase()] || { label: p.status, color: '#94a3b8' };
         const statusSlug = p.status.toLowerCase().replace('_', '-');
@@ -1017,6 +1018,7 @@
               <div class="badges">
                 <span class="badge badge--category">${catLabel}</span>
                 <span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span>
+                ${p.isFeatured ? '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
               </div>
             </div>
             <div class="project-card__body">
@@ -1185,6 +1187,16 @@
       if (!isOpen) {
         cardEl.classList.add('open');
       }
+    }
+
+    // Real-time project synchronization hook
+    if (window.MP) {
+      MP.onDataChange = function(key) {
+        if (key === 'projects') {
+          const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+          renderHomepageProjects(activeFilter);
+        }
+      };
     }
 
     document.addEventListener('DOMContentLoaded', () => {

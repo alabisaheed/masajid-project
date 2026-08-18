@@ -944,8 +944,8 @@
 
   <!-- MODAL: CREATE ARTICLE -->
   <div class="modal-backdrop" id="modal-create-article">
-    <div class="modal-window">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <div class="modal-window" style="max-width: 680px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
         <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--primary);">Write & Publish New Article</h3>
         <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-create-article')">✕</button>
       </div>
@@ -960,10 +960,10 @@
           <div class="form-group">
             <label class="form-label">Category:</label>
             <select id="new-art-cat" class="form-select">
-              <option value="FIELD REPORT">Field Report</option>
-              <option value="TRANSPARENCY">Transparency</option>
-              <option value="GOVERNANCE">Governance</option>
-              <option value="COMMUNITY">Community Impact</option>
+              <option value="Field Reports">Field Reports</option>
+              <option value="Governance">Governance</option>
+              <option value="Sadaqah Jariyah">Sadaqah Jariyah</option>
+              <option value="Community Impact">Community Impact</option>
             </select>
           </div>
           <div class="form-group">
@@ -972,15 +972,41 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-          <div class="form-group">
-            <label class="form-label">Featured Image URL (Upload or Link):</label>
-            <input type="text" id="new-art-img" class="form-input" placeholder="e.g. images/mosque-hero.jpg or https://...">
+        <!-- Featured Image Upload & URL -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem;">
+          <label class="form-label" style="font-weight: 700; color: var(--primary);"><i class="fa-solid fa-image"></i> Featured Image (Upload from Computer or URL):</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; align-items: center; margin-top: 0.35rem;">
+            <div>
+              <input type="file" id="new-art-img-file" class="form-input" accept="image/*" onchange="previewArticleImage(this)" style="padding: 0.4rem; font-size: 0.8rem;">
+            </div>
+            <div>
+              <input type="text" id="new-art-img" class="form-input" placeholder="Or enter image URL (e.g. images/mosque-hero.jpg)">
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Video Embed URL (YouTube/Vimeo):</label>
-            <input type="text" id="new-art-video" class="form-input" placeholder="e.g. https://www.youtube.com/embed/...">
+          <div id="art-img-preview-box" style="display: none; margin-top: 0.75rem; text-align: center;">
+            <img id="art-img-preview" src="" alt="Preview" style="max-height: 140px; border-radius: 6px; border: 1px solid var(--dash-border); object-fit: cover;">
           </div>
+        </div>
+
+        <!-- Video Upload & Embed URL -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem;">
+          <label class="form-label" style="font-weight: 700; color: var(--primary);"><i class="fa-solid fa-video"></i> Video (Upload Video File or Paste Embed URL):</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; align-items: center; margin-top: 0.35rem;">
+            <div>
+              <input type="file" id="new-art-video-file" class="form-input" accept="video/*" onchange="previewArticleVideo(this)" style="padding: 0.4rem; font-size: 0.8rem;">
+            </div>
+            <div>
+              <input type="text" id="new-art-video" class="form-input" placeholder="Or paste YouTube / Vimeo URL">
+            </div>
+          </div>
+          <div id="art-video-preview-box" style="display: none; margin-top: 0.75rem;">
+            <video id="art-video-preview" controls style="max-height: 140px; width: 100%; border-radius: 6px; background: #000;"></video>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Article Excerpt (Short Summary):</label>
+          <input type="text" id="new-art-excerpt" class="form-input" placeholder="Brief summary of the article for listings...">
         </div>
 
         <div class="form-group" style="margin-bottom: 1.5rem;">
@@ -990,7 +1016,7 @@
 
         <div style="display: flex; justify-content: flex-end; gap: 1rem;">
           <button type="button" class="btn btn--outline" onclick="closeModal('modal-create-article')">Cancel</button>
-          <button type="submit" class="btn btn--primary">Publish Article</button>
+          <button type="submit" class="btn btn--primary" id="btn-submit-article"><i class="fa-solid fa-paper-plane"></i> Publish Article</button>
         </div>
       </form>
     </div>
@@ -1215,25 +1241,26 @@
       window.location.href = 'login';
     }
 
+    // ── Real-Time Nominations Rendering ──
     function renderAdminNominations() {
       const container = document.getElementById('admin-nominations-body');
       if (!container || !window.MP) return;
       const list = MP.getNominations();
       if (list.length === 0) {
-        container.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">No nominations submitted yet.</td></tr>';
+        container.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">No nominations submitted yet.</td></tr>';
         return;
       }
       container.innerHTML = list.map(n => `
         <tr>
-          <td><span style="font-family: monospace; font-size: 0.8rem;">${n.id}</span></td>
-          <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city}, ${n.state}</small></td>
+          <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${n.id}</span></td>
+          <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city || ''}, ${n.state || ''}</small></td>
           <td>${(n.needTypes || ['General']).join(', ')}</td>
           <td><span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
-          <td><span class="badge badge--category">${n.status || 'Pending Review'}</span></td>
+          <td><span class="badge ${n.status === 'Approved' ? 'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
           <td>
             <div style="display:flex; gap:0.4rem;">
-              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')">Approve & Publish</button>
-              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>
+              ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve & Publish</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Published</span>`}
+              ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
             </div>
           </td>
         </tr>
@@ -1245,6 +1272,8 @@
       MP.updateNominationStatus(nomId, 'Approved');
       showToast(`Nomination ${nomId} approved and converted to Active Project!`);
       renderAdminNominations();
+      renderAdminProjects();
+      renderAdminFeatured();
     }
 
     function declineNomination(nomId) {
@@ -1254,9 +1283,55 @@
       renderAdminNominations();
     }
 
+    // ── Article & Media Upload Handling ──
+    let uploadedImageBase64 = null;
+    let uploadedVideoBase64 = null;
+
     function openCreateArticleModal() {
+      uploadedImageBase64 = null;
+      uploadedVideoBase64 = null;
+      const imgBox = document.getElementById('art-img-preview-box');
+      const vidBox = document.getElementById('art-video-preview-box');
+      if (imgBox) imgBox.style.display = 'none';
+      if (vidBox) vidBox.style.display = 'none';
+
+      const form = document.querySelector('#modal-create-article form');
+      if (form) form.reset();
+
       const modal = document.getElementById('modal-create-article');
       if (modal) modal.classList.add('open');
+    }
+
+    function previewArticleImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImageBase64 = e.target.result;
+          const previewImg = document.getElementById('art-img-preview');
+          const previewBox = document.getElementById('art-img-preview-box');
+          if (previewImg && previewBox) {
+            previewImg.src = e.target.result;
+            previewBox.style.display = 'block';
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function previewArticleVideo(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedVideoBase64 = e.target.result;
+          const previewVid = document.getElementById('art-video-preview');
+          const previewBox = document.getElementById('art-video-preview-box');
+          if (previewVid && previewBox) {
+            previewVid.src = e.target.result;
+            previewBox.style.display = 'block';
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
 
     function handleCreateArticleSubmit(e) {
@@ -1264,25 +1339,34 @@
       const title = document.getElementById('new-art-title').value.trim();
       const cat = document.getElementById('new-art-cat').value;
       const author = document.getElementById('new-art-author').value.trim();
-      const img = document.getElementById('new-art-img').value.trim();
-      const video = document.getElementById('new-art-video').value.trim();
+      const imgUrlInput = document.getElementById('new-art-img').value.trim();
+      const videoUrlInput = document.getElementById('new-art-video').value.trim();
+      const excerpt = document.getElementById('new-art-excerpt').value.trim();
       const body = document.getElementById('new-art-body').value.trim();
 
       if (!title || !body) return;
 
       const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const finalImage = uploadedImageBase64 || imgUrlInput || 'images/mosque-hero.jpg';
+      const finalVideo = uploadedVideoBase64 || videoUrlInput || '';
+
+      const articleObj = {
+        title: title,
+        slug: slug,
+        category: cat,
+        author: author,
+        authorAvatar: author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'MP',
+        authorTitle: 'Masajid Contributor',
+        imageUrl: finalImage,
+        videoUrl: finalVideo,
+        excerpt: excerpt || body.slice(0, 140) + '...',
+        content: body.includes('<p>') ? body : `<p>${body.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`,
+        readTime: `${Math.max(1, Math.round(body.split(' ').length / 180))} min read`,
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+      };
 
       if (window.MP) {
-        MP.saveArticle({
-          title: title,
-          slug: slug,
-          category: cat,
-          author: author,
-          imageUrl: img || 'images/mosque-hero.jpg',
-          videoUrl: video || '',
-          content: body,
-          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        });
+        MP.saveArticle(articleObj);
       }
 
       closeModal('modal-create-article');
@@ -1298,23 +1382,38 @@
 
       if (artContainer) {
         const articles = MP.getArticles();
-        artContainer.innerHTML = articles.map(a => `
-          <tr>
-            <td><strong>${a.title}</strong><br><small style="color:var(--text-muted); font-family:monospace;">${a.slug}</small></td>
-            <td><span class="badge badge--category">${a.category || 'Governance'}</span></td>
-            <td>${a.author || 'Masajid Editorial'}</td>
-            <td>${a.date || 'Aug 2026'}</td>
-            <td>
-              <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteArticleQuick('${a.id}')"><i class="fa-solid fa-trash"></i></button>
-            </td>
-          </tr>
-        `).join('');
+        if (articles.length === 0) {
+          artContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">No published articles yet.</td></tr>';
+        } else {
+          artContainer.innerHTML = articles.map(a => `
+            <tr>
+              <td>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                  ${a.imageUrl ? `<img src="${a.imageUrl}" style="width:40px; height:40px; border-radius:6px; object-fit:cover;">` : ''}
+                  <div>
+                    <strong>${a.title}</strong>
+                    <div style="color:var(--text-muted); font-family:monospace; font-size:0.75rem;">${a.slug}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge--category">${a.category || 'Governance'}</span></td>
+              <td>${a.author || 'Masajid Editorial'}</td>
+              <td>${a.date || 'Aug 2026'}</td>
+              <td>
+                <div style="display:flex; gap:0.4rem;">
+                  <a href="blog-post?slug=${a.slug}" target="_blank" class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                  <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteArticleQuick('${a.id}')"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+        }
       }
 
       if (comContainer) {
         const comments = MP.getComments();
         if (comments.length === 0) {
-          comContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No comments awaiting moderation.</td></tr>';
+          comContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No comments awaiting moderation.</td></tr>';
           return;
         }
         comContainer.innerHTML = comments.map(c => `
@@ -1346,23 +1445,24 @@
     function updateCommentStatusQuick(comId, status) {
       if (window.MP) {
         MP.updateCommentStatus(comId, status);
-        showToast(`Comment ${status}.`);
+        showToast(`Comment marked as ${status}.`);
         renderAdminArticles();
       }
     }
 
+    // ── Featured Projects Star Toggling ──
     function renderAdminFeatured() {
       const container = document.getElementById('admin-featured-body');
       if (!container || !window.MP) return;
       const list = MP.getProjects();
       container.innerHTML = list.map(p => `
         <tr>
-          <td><span style="font-family:monospace;">${p.id}</span></td>
+          <td><span style="font-family:monospace; font-weight:700;">${p.id}</span></td>
           <td><strong>${p.titleEN}</strong></td>
           <td><span class="badge badge--category">${p.status}</span></td>
           <td>
-            <button class="btn ${p.isFeatured ? 'btn--primary' : 'btn--outline'}" style="padding:0.35rem 0.85rem; font-size:0.8rem;" onclick="toggleFeaturedQuick('${p.id}')">
-              <i class="fa-solid fa-star" style="margin-right:0.3rem; color:${p.isFeatured?'#F59E0B':'inherit'};"></i> ${p.isFeatured ? 'Featured on Homepage' : 'Not Featured'}
+            <button class="btn ${p.isFeatured ? 'btn--primary' : 'btn--outline'}" style="padding:0.35rem 0.85rem; font-size:0.8rem; cursor:pointer;" onclick="toggleFeaturedQuick('${p.id}')">
+              <i class="fa-${p.isFeatured ? 'solid' : 'regular'} fa-star" style="margin-right:0.35rem; color:${p.isFeatured ? '#F59E0B' : 'inherit'};"></i> ${p.isFeatured ? 'Featured on Homepage' : 'Click to Star as Featured'}
             </button>
           </td>
         </tr>
@@ -1374,7 +1474,23 @@
         MP.toggleFeatured(projId);
         showToast(`Homepage featured status updated for project ${projId}!`);
         renderAdminFeatured();
+        renderAdminProjects();
       }
+    }
+
+    // ── Real-Time Cross-Tab Listener Hook ──
+    if (window.MP) {
+      MP.onDataChange = function(key, data) {
+        if (key === 'nominations') {
+          renderAdminNominations();
+          showToast('New community nomination received in real-time!', 4000);
+        } else if (key === 'articles' || key === 'comments') {
+          renderAdminArticles();
+        } else if (key === 'projects') {
+          renderAdminProjects();
+          renderAdminFeatured();
+        }
+      };
     }
 
     document.addEventListener('DOMContentLoaded', () => {

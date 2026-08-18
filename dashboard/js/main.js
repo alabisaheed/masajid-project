@@ -4,7 +4,14 @@
  */
 
 const gWin = typeof window !== 'undefined' ? window : global;
-gWin.currentCurrency = (typeof localStorage !== 'undefined' && localStorage.getItem('mp_currency')) || 'NGN';
+window.MP = window.MP || {};
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.remove('open');
+}
+
+gWin.currentCurrency = (typeof localStorage !== 'undefined' && localStorage.getItem('masajid_currency')) || 'NGN';
 var currentCurrency = gWin.currentCurrency;
 
 // Set Global Currency
@@ -29,11 +36,69 @@ function setCurrency(curr) {
   });
 }
 
-// Mobile Navigation Toggle
+// Robust Mobile Navigation Toggle
 function toggleMobileNav() {
   const navMobile = document.getElementById('nav-mobile');
   if (navMobile) {
     navMobile.classList.toggle('open');
+  }
+}
+
+// Toast Notification Utility
+function showToast(msg, duration = 3000) {
+  let toast = document.getElementById('mp-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'mp-toast';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #13547A;
+      color: #FFFFFF;
+      padding: 0.85rem 1.4rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(20px);
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10B981;"></i> <span>${msg}</span>`;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateY(0)';
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(20px)';
+  }, duration);
+}
+
+// Copy to Clipboard Utility
+function copyToClipboard(text, successMsg = 'Copied to clipboard!') {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => showToast(successMsg));
+  } else {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showToast(successMsg);
+    } catch (err) {
+      showToast('Failed to copy text.');
+    }
+    document.body.removeChild(textArea);
   }
 }
 
@@ -102,156 +167,61 @@ function initCounters() {
     });
   }, { threshold: 0.2 });
 
-  document.querySelectorAll('[data-count-to]').forEach(el => observer.observe(el));
+  document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
 }
 
-// Toast Notifications
-function showToast(message, duration = 3000) {
-  let toast = document.getElementById('global-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'global-toast';
-    toast.style.cssText = `
-      position: fixed; bottom: 30px; right: 30px;
-      background: #0C3852; color: #FFFFFF;
-      border: 1px solid #13547A; padding: 14px 20px;
-      border-radius: 8px; box-shadow: 0 10px 25px rgba(19,84,122,0.3);
-      font-size: 0.9rem; font-weight: 600; z-index: 9999;
-      opacity: 0; transform: translateY(20px); transition: all 0.3s ease;
-      display: flex; align-items: center; gap: 10px;
-    `;
-    document.body.appendChild(toast);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  highlightActiveNav();
+  initScrollAnimations();
+  initCounters();
+  if (currentCurrency) setCurrency(currentCurrency);
 
-  toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#D4AF37"></i> ${message}`;
-  toast.style.opacity = '1';
-  toast.style.transform = 'translateY(0)';
-
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(20px)';
-  }, duration);
-}
-
-// Back to top button
-function initBackToTop() {
-  let btn = document.getElementById('back-to-top');
-  if (!btn) {
-    btn = document.createElement('button');
-    btn.id = 'back-to-top';
-    btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-    btn.style.cssText = `
-      position: fixed; bottom: 24px; right: 24px;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--primary); color: #FFFFFF; border: none;
-      font-size: 1.1rem; font-weight: bold; cursor: pointer;
-      box-shadow: 0 4px 15px rgba(19,84,122,0.4);
-      opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
-      z-index: 9999; display: flex; align-items: center; justify-content: center;
-      pointer-events: none;
-    `;
-    document.body.appendChild(btn);
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        btn.style.opacity = '1';
-        btn.style.transform = 'translateY(0)';
-        btn.style.pointerEvents = 'auto';
-      } else {
-        btn.style.opacity = '0';
-        btn.style.transform = 'translateY(10px)';
-        btn.style.pointerEvents = 'none';
+  // Close mobile nav on click outside
+  document.addEventListener('click', (e) => {
+    const navMobile = document.getElementById('nav-mobile');
+    const toggleBtn = document.querySelector('.nav__hamburger');
+    if (navMobile && navMobile.classList.contains('open')) {
+      if (!navMobile.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        navMobile.classList.remove('open');
       }
-    });
-
-    btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-}
-
-// Global FAQ Tab & Accordion Controller
-function toggleFaqTab(tabName, btn) {
-  document.querySelectorAll('.faq-pill-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  const donorStack = document.getElementById('faq-stack-donors');
-  const masajidStack = document.getElementById('faq-stack-masajid');
-  const transparencyStack = document.getElementById('faq-stack-transparency');
-
-  if (donorStack) donorStack.style.display = (tabName === 'donors') ? 'flex' : 'none';
-  if (masajidStack) masajidStack.style.display = (tabName === 'masajid') ? 'flex' : 'none';
-  if (transparencyStack) transparencyStack.style.display = (tabName === 'transparency') ? 'flex' : 'none';
-}
-
-function toggleFaqCard(cardEl) {
-  if (!cardEl) return;
-  const isOpen = cardEl.classList.contains('open');
-  
-  // Close sibling cards in the same stack
-  const parentStack = cardEl.parentElement;
-  if (parentStack) {
-    parentStack.querySelectorAll('.kobble-faq-card').forEach(c => c.classList.remove('open'));
-  }
-
-  if (!isOpen) {
-    cardEl.classList.add('open');
-  }
-}
-
-// Global Filter Projects Handler
-gWin.filterProjects = function(filter, btn) {
-  const normFilter = String(filter || 'all').toLowerCase().replace(/_/g, '-');
-
-  // 1. Highlight active pill button
-  const allBtns = document.querySelectorAll('.filter-btn');
-  allBtns.forEach(b => b.classList.remove('active'));
-
-  if (btn) {
-    btn.classList.add('active');
-  } else {
-    const targetBtn = Array.from(allBtns).find(b => {
-      const df = (b.getAttribute('data-filter') || b.textContent || '').toLowerCase().replace(/_/g, '-');
-      return df.includes(normFilter);
-    });
-    if (targetBtn) targetBtn.classList.add('active');
-  }
-
-  // 2. Toggle project card visibility in DOM
-  const cards = document.querySelectorAll('.projects-grid .project-card, #homepage-projects .project-card');
-  let matchCount = 0;
-
-  cards.forEach(card => {
-    const cardStatus = (card.getAttribute('data-status') || '').toLowerCase().replace(/_/g, '-');
-    if (normFilter === 'all' || cardStatus === normFilter) {
-      card.style.display = 'flex';
-      card.style.opacity = '1';
-      card.style.visibility = 'visible';
-      matchCount++;
-    } else {
-      card.style.display = 'none';
     }
   });
+});
 
-  return matchCount;
+// Additional MP helper methods for dashboard UI
+MP.getNominations = () => MP.nominations;
+MP.updateNominationStatus = (id, status) => {
+  const nom = MP.nominations.find(n => n.id == id);
+  if (nom) {
+    nom.status = status;
+    MP.set('nominations', MP.nominations);
+  }
 };
 
-// Global DOM Loaded
-if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
-    highlightActiveNav();
-    initScrollAnimations();
-    initCounters();
-    initBackToTop();
-    setCurrency(currentCurrency);
+MP.getArticles = () => MP.articles;
+MP.deleteArticle = (id) => {
+  MP.articles = MP.articles.filter(a => a.id != id);
+  MP.set('articles', MP.articles);
+};
 
-    // Bind filter button click events automatically
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const filterVal = this.getAttribute('data-filter') || this.textContent.trim().toLowerCase().replace(/\s+/g, '-');
-        window.filterProjects(filterVal, this);
-      });
-    });
-  });
-}
+MP.getComments = () => MP.comments || [];
+MP.updateCommentStatus = (id, status) => {
+  if (!MP.comments) return;
+  const com = MP.comments.find(c => c.id == id);
+  if (com) {
+    com.status = status;
+    MP.set('comments', MP.comments);
+  }
+};
+
+MP.getProjects = () => MP.projects;
+MP.toggleFeatured = (projId) => {
+  const proj = MP.projects.find(p => p.id == projId);
+  if (proj) {
+    proj.isFeatured = !proj.isFeatured;
+    MP.set('projects', MP.projects);
+  }
+};
+
+// Alias for compatibility
+MP.toggleFeaturedProject = MP.toggleFeatured;

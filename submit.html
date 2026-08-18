@@ -208,28 +208,32 @@
   <script>
     function handleFormSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('masjid-name')?.value || 'Local Masjid';
-      const city = document.getElementById('city')?.value || 'Surulere';
-      const state = document.getElementById('state')?.value || 'Lagos State';
+      const name = document.getElementById('masjid-name')?.value.trim() || 'Masjid Community';
+      const nameAR = document.getElementById('masjid-name-ar')?.value.trim() || '';
+      const city = document.getElementById('city')?.value.trim() || 'Lagos';
+      const state = document.getElementById('state')?.value.trim() || 'Lagos State';
       const category = document.getElementById('category')?.value || 'Lighting & Electrical';
-      const desc = document.getElementById('need-desc')?.value || 'Masjid improvement need description';
-      const submitter = document.getElementById('your-name')?.value || 'Community Worshipper';
-      const contact = document.getElementById('your-contact')?.value || 'N/A';
+      const desc = document.getElementById('need-desc')?.value.trim() || 'Essential mosque improvement need.';
+      const submitter = document.getElementById('your-name')?.value.trim() || 'Community Member';
+      const contact = document.getElementById('your-contact')?.value.trim() || 'N/A';
 
       if (window.MP) {
-        MP.saveNomination({
+        const saved = MP.saveNomination({
           masjidName: name,
+          masjidNameAR: nameAR,
           city: city,
           state: state,
+          country: 'Nigeria',
           description: desc,
           submittingName: submitter,
           submittingContact: contact,
           needTypes: [category],
-          urgency: 'Medium'
+          urgency: 'Medium',
+          status: 'Pending Review'
         });
       }
 
-      showToast('Nomination submitted successfully! Our field team will review it within 24 hours.');
+      showToast('Nomination submitted successfully! Transmitted to audit dashboard in real-time.', 5000);
       e.target.reset();
     }
   </script>

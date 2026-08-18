@@ -4,7 +4,14 @@
  */
 
 const gWin = typeof window !== 'undefined' ? window : global;
-gWin.currentCurrency = (typeof localStorage !== 'undefined' && localStorage.getItem('mp_currency')) || 'NGN';
+window.MP = window.MP || {};
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.remove('open');
+}
+
+gWin.currentCurrency = (typeof localStorage !== 'undefined' && localStorage.getItem('masajid_currency')) || 'NGN';
 var currentCurrency = gWin.currentCurrency;
 
 // Set Global Currency
@@ -180,3 +187,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Additional MP helper methods for dashboard UI
+MP.getNominations = () => MP.nominations;
+MP.updateNominationStatus = (id, status) => {
+  const nom = MP.nominations.find(n => n.id == id);
+  if (nom) {
+    nom.status = status;
+    MP.set('nominations', MP.nominations);
+  }
+};
+
+MP.getArticles = () => MP.articles;
+MP.deleteArticle = (id) => {
+  MP.articles = MP.articles.filter(a => a.id != id);
+  MP.set('articles', MP.articles);
+};
+
+MP.getComments = () => MP.comments || [];
+MP.updateCommentStatus = (id, status) => {
+  if (!MP.comments) return;
+  const com = MP.comments.find(c => c.id == id);
+  if (com) {
+    com.status = status;
+    MP.set('comments', MP.comments);
+  }
+};
+
+MP.getProjects = () => MP.projects;
+MP.toggleFeatured = (projId) => {
+  const proj = MP.projects.find(p => p.id == projId);
+  if (proj) {
+    proj.isFeatured = !proj.isFeatured;
+    MP.set('projects', MP.projects);
+  }
+};
+
+// Alias for compatibility
+MP.toggleFeaturedProject = MP.toggleFeatured;
