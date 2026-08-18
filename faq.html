@@ -81,6 +81,12 @@
         Everything you need to know about our Sadaqah Jariyah project model, financial transparency, project auditing, and mosque nomination process.
       </p>
 
+      <!-- Search Input Box -->
+      <div style="max-width: 480px; margin: 1.5rem auto 1.5rem; position: relative;">
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;"></i>
+        <input type="text" id="faq-search" placeholder="Search questions or keywords..." class="form-input" style="padding-left: 2.85rem; border-radius: 9999px; box-shadow: var(--shadow-sm);" oninput="filterFaqQuestions(this.value)">
+      </div>
+
       <!-- Category Toggle Pills (No Icons) -->
       <div class="faq-toggle-container">
         <div class="faq-pill-wrapper">

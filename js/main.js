@@ -214,14 +214,59 @@ MP.updateCommentStatus = (id, status) => {
   }
 };
 
-MP.getProjects = () => MP.projects;
-MP.toggleFeatured = (projId) => {
-  const proj = MP.projects.find(p => p.id == projId);
-  if (proj) {
-    proj.isFeatured = !proj.isFeatured;
-    MP.set('projects', MP.projects);
-  }
-};
+// FAQ Accordion & Category Filter Controllers
+function toggleFaqTab(tabName, btn) {
+  document.querySelectorAll('.faq-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
 
-// Alias for compatibility
-MP.toggleFeaturedProject = MP.toggleFeatured;
+  const donorStack = document.getElementById('faq-stack-donors');
+  const masajidStack = document.getElementById('faq-stack-masajid');
+  const transparencyStack = document.getElementById('faq-stack-transparency');
+
+  if (donorStack) donorStack.style.display = (tabName === 'donors') ? 'flex' : 'none';
+  if (masajidStack) masajidStack.style.display = (tabName === 'masajid') ? 'flex' : 'none';
+  if (transparencyStack) transparencyStack.style.display = (tabName === 'transparency') ? 'flex' : 'none';
+}
+
+function toggleFaqCard(cardEl) {
+  if (!cardEl) return;
+  const isOpen = cardEl.classList.contains('open');
+  
+  // Close sibling cards in the same stack
+  const parentStack = cardEl.closest('.faq-accordion-stack') || cardEl.parentElement;
+  if (parentStack) {
+    parentStack.querySelectorAll('.kobble-faq-card').forEach(c => {
+      if (c !== cardEl) c.classList.remove('open');
+    });
+  }
+
+  // Toggle clicked card
+  if (isOpen) {
+    cardEl.classList.remove('open');
+  } else {
+    cardEl.classList.add('open');
+  }
+}
+
+function filterFaqQuestions(query) {
+  const q = query.toLowerCase().trim();
+  const allCards = document.querySelectorAll('.kobble-faq-card');
+  
+  allCards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (!q || text.includes(q)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // If searching, show all stacks
+  if (q) {
+    document.querySelectorAll('.faq-accordion-stack').forEach(s => s.style.display = 'flex');
+  }
+}
+
+gWin.toggleFaqTab = toggleFaqTab;
+gWin.toggleFaqCard = toggleFaqCard;
+gWin.filterFaqQuestions = filterFaqQuestions;
