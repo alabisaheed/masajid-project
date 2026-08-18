@@ -1401,7 +1401,7 @@
               <td>${a.date || 'Aug 2026'}</td>
               <td>
                 <div style="display:flex; gap:0.4rem;">
-                  <a href="blog-post?slug=${a.slug}" target="_blank" class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                  <a href="${a.slug || a.id}" target="_blank" class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem;" title="View Article"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                   <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteArticleQuick('${a.id}')"><i class="fa-solid fa-trash"></i></button>
                 </div>
               </td>

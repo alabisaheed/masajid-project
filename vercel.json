@@ -31,6 +31,9 @@
     { "src": "/donate", "dest": "/donate.html" },
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/terms", "dest": "/terms.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/blog/(.*)", "dest": "/blog-post.html" },
+    { "src": "/(css|js|images|data|fonts|icons)/(.*)", "dest": "/$1/$2" },
+    { "src": "/(favicon.ico|favicon.svg|robots.txt|sitemap.xml)", "dest": "/$1" },
+    { "src": "/([^/]+)", "dest": "/blog-post.html" }
   ]
 }

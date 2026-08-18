@@ -33,7 +33,7 @@
     .article-container {
       max-width: 760px;
       margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
+      padding: calc(var(--nav-height) + 3.5rem) 1.5rem 5rem;
     }
 
     .back-blog-link {
@@ -274,7 +274,7 @@
   </div>
 
   <!-- ARTICLE MAIN CONTAINER -->
-  <main class="article-container">
+  <main class="article-container" style="padding-top: calc(var(--nav-height) + 3.5rem);">
     
     <a href="blog" class="back-blog-link">
       <i class="fa-solid fa-arrow-left"></i> Back to Blog
@@ -482,12 +482,33 @@
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
   <script>
-    let currentArticle = null;
+    function getArticleSlugFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('slug')) return urlParams.get('slug');
+      if (urlParams.get('id')) {
+        const id = urlParams.get('id');
+        if (window.MP) {
+          const list = MP.getArticles();
+          const match = list.find(a => String(a.id) === String(id));
+          if (match && match.slug) return match.slug;
+        }
+        return id;
+      }
+
+      // Check pathname (e.g. /why-technical-audits-guarantee-trust-in-mosque-projects or /articletitle)
+      const cleanPath = window.location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+      const segments = cleanPath.split('/').filter(Boolean);
+      if (segments.length > 0) {
+        const last = segments[segments.length - 1];
+        if (last && !['blog-post', 'blog', 'index', 'projects', 'about', 'transparency', 'faq', 'submit', 'donate'].includes(last)) {
+          return last;
+        }
+      }
+      return 'why-technical-audits-guarantee-trust-in-mosque-projects';
+    }
 
     function renderArticle() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const slug = urlParams.get('slug') || urlParams.get('id') || 'why-technical-audits-guarantee-trust-in-mosque-projects';
-      
+      const slug = getArticleSlugFromUrl();
       currentArticle = window.MP ? MP.getArticleBySlug(slug) : null;
       if (!currentArticle) return;
 
