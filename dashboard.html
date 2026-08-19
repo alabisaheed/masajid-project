@@ -801,6 +801,8 @@
                     <tr>
                       <th>Ref Code</th>
                       <th>Project</th>
+                      <th>Donor</th>
+                      <th>Item Funded</th>
                       <th>Amount</th>
                     </tr>
                   </thead>
@@ -818,9 +820,12 @@
                 <table class="admin-table">
                   <thead>
                     <tr>
-                      <th>Voucher</th>
+                      <th>Invoice/Voucher</th>
+                      <th>Project</th>
                       <th>Vendor</th>
+                      <th>Item Description</th>
                       <th>Amount</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody id="admin-expense-body">
@@ -847,34 +852,43 @@
             <table class="admin-table">
               <thead>
                 <tr>
-                  <th>Vendor Name</th>
-                  <th>Trade Specialization</th>
-                  <th>Contact Phone</th>
-                  <th>Projects Executed</th>
-                  <th>Verification Rating</th>
+                  <th>Vendor / Supplier</th>
+                  <th>Scope & Items Costed</th>
+                  <th>Invoices / Quote Reference</th>
+                  <th>Disbursement & Receipts</th>
+                  <th>Verification Audit</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Apex Solar Solutions Ltd</strong></td>
-                  <td>Solar Inverters & Power</td>
-                  <td>+234 803 123 4567</td>
-                  <td>2 Masajid</td>
-                  <td><span class="badge badge--completed">5.0 <i class="fa-solid fa-star" style="color:var(--emerald); margin-left:0.15rem;"></i> Audited</span></td>
+                  <td>
+                    <strong>Ariish Furniture</strong>
+                    <div style="font-size:0.8rem; color:var(--text-muted);">Carpentry & Woodwork Workshop</div>
+                  </td>
+                  <td>Solid Wooden Book Shelves & 3x Qur'an Reading Placeholders (Rehal)</td>
+                  <td>
+                    <span style="font-family:monospace; font-weight:700; color:var(--primary);">AR-INV-2026-01 / 02</span><br>
+                    <span style="font-family:monospace; font-weight:700; color:var(--primary);">AR-INV-2026-03 / 04</span>
+                  </td>
+                  <td>
+                    <span class="badge badge--completed" style="font-weight:700;"><i class="fa-solid fa-receipt"></i> Paid (₦128,000) • Receipts Verified</span>
+                  </td>
+                  <td><span class="badge badge--completed">5.0 <i class="fa-solid fa-star" style="color:var(--emerald); margin-left:0.15rem;"></i> Verified</span></td>
                 </tr>
                 <tr>
-                  <td><strong>Lagos Electrical Engineering Co</strong></td>
-                  <td>Lighting & High-Voltage Panel</td>
-                  <td>+234 802 987 6543</td>
-                  <td>3 Masajid</td>
-                  <td><span class="badge badge--completed">4.9 <i class="fa-solid fa-star" style="color:var(--emerald); margin-left:0.15rem;"></i> Audited</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Acoustics Sound Systems Nig</strong></td>
-                  <td>Audio Mixing & Microphones</td>
-                  <td>+234 805 555 1212</td>
-                  <td>1 Masjid</td>
-                  <td><span class="badge badge--completed">5.0 <i class="fa-solid fa-star" style="color:var(--emerald); margin-left:0.15rem;"></i> Audited</span></td>
+                  <td>
+                    <strong>Munar Bookstore</strong>
+                    <div style="font-size:0.8rem; color:var(--text-muted);">Madani Islamic Books & Publishing</div>
+                  </td>
+                  <td>20 Copies of Holy Qur'an (@ ₦10,000/ea = ₦200,000 for 2 Masajid)</td>
+                  <td>
+                    <span style="font-family:monospace; font-weight:700; color:var(--text-muted);">MB-QT-2026-08</span><br>
+                    <span style="font-family:monospace; font-weight:700; color:var(--text-muted);">MB-QT-2026-09</span>
+                  </td>
+                  <td>
+                    <span class="badge" style="background:rgba(217,119,6,0.15); color:#D97706; border:1px solid rgba(217,119,6,0.3); font-weight:700;"><i class="fa-solid fa-file-invoice"></i> Invoice Received (Unpaid — No Receipt Yet)</span>
+                  </td>
+                  <td><span class="badge badge--verified">Audited Quote</span></td>
                 </tr>
               </tbody>
             </table>
@@ -1294,9 +1308,11 @@
       if (inflowBody && MP.donations) {
         inflowBody.innerHTML = MP.donations.map(d => `
           <tr>
-            <td><span style="font-family: monospace; font-size: 0.8rem;">${d.ref}</span></td>
-            <td>${d.projectId}</td>
-            <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">${d.amountNGN}</strong></td>
+            <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700; color:var(--primary);">${d.ref}</span></td>
+            <td><strong style="font-family: monospace;">${d.projectId}</strong></td>
+            <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
+            <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
+            <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${d.amountNGN.toLocaleString()}</strong></td>
           </tr>
         `).join('');
       }
@@ -1314,13 +1330,16 @@
         if (allExpenses.length > 0) {
           expenseBody.innerHTML = allExpenses.map(e => `
             <tr>
-              <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${e.id || e.voucher || 'EXP-01'}</span></td>
-              <td>${e.vendor || 'Vendor Contractor'}</td>
-              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">${e.amountNGN}</strong></td>
+              <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700; color:var(--primary);">${e.invoiceNo || e.id || 'EXP-01'}</span></td>
+              <td><strong style="font-family: monospace;">${e.projectCode}</strong></td>
+              <td><strong>${e.vendor || 'Ariish Furniture'}</strong></td>
+              <td style="font-size:0.85rem; color:var(--text-secondary);">${e.desc}</td>
+              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">₦${e.amountNGN.toLocaleString()}</strong></td>
+              <td><span class="badge badge--completed" style="font-size:0.75rem;"><i class="fa-solid fa-receipt"></i> Verified</span></td>
             </tr>
           `).join('');
         } else {
-          expenseBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No vendor disbursements logged yet.</td></tr>`;
+          expenseBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">No vendor disbursements logged yet.</td></tr>`;
         }
       }
     }

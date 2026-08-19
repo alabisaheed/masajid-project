@@ -125,42 +125,7 @@ const defaultArticles = [
   }
 ];
 
-const defaultNominations = [
-  {
-    id: "NOM-2026-001",
-    masjidName: "Masjid Al-Ansar",
-    city: "Surulere",
-    state: "Lagos",
-    country: "Nigeria",
-    congregation: "200-500",
-    needTypes: ["solar", "lighting"],
-    description: "The mosque main prayer hall suffers constant power blackouts during Maghrib and Isha prayers. Solar inverter installation needed urgently.",
-    urgency: "High",
-    contactName: "Imam Ibrahim Alabi",
-    contactPhone: "+234 803 123 4567",
-    submittingName: "Kabir Usman",
-    submittingEmail: "kabir.usman@example.com",
-    submittedAt: "2026-08-10",
-    status: "Pending Review"
-  },
-  {
-    id: "NOM-2026-002",
-    masjidName: "Central Juma'at Masjid",
-    city: "Epe",
-    state: "Lagos",
-    country: "Nigeria",
-    congregation: "500+",
-    needTypes: ["sound", "repairs"],
-    description: "Amplifier system broken. Worshippers in the balcony area cannot hear the Friday sermon clear audio.",
-    urgency: "Medium",
-    contactName: "Secretary Al-Hassan",
-    contactPhone: "+234 802 987 6543",
-    submittingName: "Mariam Yusuf",
-    submittingEmail: "mariam.y@example.com",
-    submittedAt: "2026-08-11",
-    status: "Approved"
-  }
-];
+const defaultNominations = [];
 
 const defaultComments = [
   {
@@ -181,12 +146,12 @@ const initialProjects = [
     categoryId: "quran",
     status: "IN_PROGRESS",
     isFeatured: true,
-    titleEN: "Qur'an Bookshelf & Reading Placeholders",
-    titleAR: "توفير رف الكتب وحوامل المصاحف",
+    titleEN: "Bookshelf, Reading Placeholders and Quran",
+    titleAR: "رف الكتب وحوامل المصاحف والمصاحف الشريفة",
     location: "Adumbu, Itori, Ewekoro, Ogun State",
     mosqueName: "Medinat Dhikr Central Mosque",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an (@ ₦10,000 each) for worshippers and madrasah students.",
-    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم (10,000 نيرة للنسخة) للمصلين وطلاب العلم.",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal) from Ariish Furniture, and 10 copies of the Holy Qur'an (@ ₦10,000 each) quoted by Munar Bookstore for worshippers and madrasah students.",
+    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف من مفروشات عريش، و10 نسخ من القرآن الكريم (10,000 نيرة للنسخة) من مكتبة منار للمصلين وطلاب العلم.",
     goalNGN: 164000,
     raisedNGN: 64000,
     spentNGN: 64000,
@@ -194,13 +159,17 @@ const initialProjects = [
     imageBefore: "images/proj-004-before.jpg",
     imageAfter: "images/mosque-hero.jpg",
     expenses: [
-      { id: "EXP-001", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Carpentry & Joinery Workshop", amountNGN: 40000, receiptVerified: true },
-      { id: "EXP-002", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true }
+      { id: "EXP-001", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-01", receiptNo: "AR-REC-2026-01", amountNGN: 40000, receiptVerified: true, status: "Paid & Receipt Verified" },
+      { id: "EXP-002", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-02", receiptNo: "AR-REC-2026-02", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
+    ],
+    vendorQuotes: [
+      { id: "VQ-001", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Placeholders", invoiceNo: "AR-INV-2026-01/02", receiptNo: "AR-REC-2026-01/02", amountNGN: 64000, status: "Paid & Receipt Verified" },
+      { id: "VQ-002", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-08", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — No Receipt Yet)" }
     ],
     scope: [
-      { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
-      { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
-      { item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", costNGN: 100000, status: "Pending Funding (₦100,000 needed)" }
+      { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-01)", invoice: "AR-INV-2026-01" },
+      { item: "3x Qur'an Placeholders for Reading (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-02)", invoice: "AR-INV-2026-02" },
+      { item: "10x Copies of Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Invoice Received / Unpaid (MB-QT-2026-08)", invoice: "MB-QT-2026-08" }
     ]
   },
   {
@@ -209,12 +178,12 @@ const initialProjects = [
     categoryId: "quran",
     status: "IN_PROGRESS",
     isFeatured: true,
-    titleEN: "Bookshelf, Qur'ans & Reading Placeholders",
-    titleAR: "رف كتب ومصاحف وحوامل قراءة",
+    titleEN: "Bookshelf, Reading Placeholders and Quran",
+    titleAR: "رف الكتب وحوامل المصاحف والمصاحف الشريفة",
     location: "Behind Al-Fathia School, Itori, Ewekoro, Ogun State",
     mosqueName: "Masjid Markaz Diyar",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an (@ ₦10,000 each) for daily recitation and learning sessions.",
-    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية، و10 مصاحف (10,000 نيرة للنسخة) للتلاوة اليومية وحلقات تحفيظ القرآن.",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal) from Ariish Furniture, and 10 copies of the Holy Qur'an (@ ₦10,000 each) quoted by Munar Bookstore for daily recitation and learning sessions.",
+    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية من مفروشات عريش، و10 مصاحف (10,000 نيرة للنسخة) من مكتبة منار للتلاوة اليومية وحلقات تحفيظ القرآن.",
     goalNGN: 164000,
     raisedNGN: 64000,
     spentNGN: 64000,
@@ -222,13 +191,17 @@ const initialProjects = [
     imageBefore: "images/proj-005-before.jpg",
     imageAfter: "images/mosque-hero.jpg",
     expenses: [
-      { id: "EXP-003", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Carpentry & Joinery Workshop", amountNGN: 40000, receiptVerified: true },
-      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true }
+      { id: "EXP-003", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-03", receiptNo: "AR-REC-2026-03", amountNGN: 40000, receiptVerified: true, status: "Paid & Receipt Verified" },
+      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-04", receiptNo: "AR-REC-2026-04", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
+    ],
+    vendorQuotes: [
+      { id: "VQ-003", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Placeholders", invoiceNo: "AR-INV-2026-03/04", receiptNo: "AR-REC-2026-03/04", amountNGN: 64000, status: "Paid & Receipt Verified" },
+      { id: "VQ-004", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-09", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — No Receipt Yet)" }
     ],
     scope: [
-      { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
-      { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
-      { item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", costNGN: 100000, status: "Pending Funding (₦100,000 needed)" }
+      { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-03)", invoice: "AR-INV-2026-03" },
+      { item: "3x Qur'an Placeholders for Reading (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-04)", invoice: "AR-INV-2026-04" },
+      { item: "10x Copies of Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Invoice Received / Unpaid (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
     ]
   }
 ];
@@ -237,11 +210,15 @@ const initialProjects = [
 function loadLocal(key, defaultVal) {
   if (typeof localStorage === 'undefined') return defaultVal;
   try {
+    if (key === 'nominations') {
+      localStorage.removeItem('masajid_nominations');
+      return [];
+    }
     const val = localStorage.getItem('masajid_' + key);
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
     if (key === 'projects') {
-      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || (p.id && p.id.startsWith('MP-LAG-'))))) {
+      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || p.titleEN !== "Bookshelf, Reading Placeholders and Quran" || (p.id && p.id.startsWith('MP-LAG-'))))) {
         localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
         return defaultVal;
       }
@@ -275,7 +252,7 @@ g.MP = {
     totalSpentNGN: 128000,
     masajidSupported: 2,
     activeProjects: 2,
-    totalDonors: 16
+    totalDonors: 1
   },
 
   categories: [
@@ -304,10 +281,10 @@ g.MP = {
   ],
 
   donations: [
-    { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
-    { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" },
-    { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
-    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" }
+    { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", status: "Received" },
+    { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", status: "Received" },
+    { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", status: "Received" },
+    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", status: "Received" }
   ],
 
   // Real-time broadcast channel

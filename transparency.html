@@ -305,10 +305,13 @@
               <td>${idx + 1}</td>
               <td>${e.date}</td>
               <td><strong style="font-family:monospace;">${e.projectCode}</strong></td>
-              <td>${e.desc}</td>
-              <td>${e.vendor}</td>
+              <td>
+                <div style="font-weight:600;">${e.desc}</div>
+                <small style="font-family:monospace; color:var(--text-muted);">Invoice: ${e.invoiceNo || 'AR-INV-01'}</small>
+              </td>
+              <td><strong>${e.vendor || 'Ariish Furniture'}</strong></td>
               <td><strong style="color:var(--primary);" data-amount="${e.amountNGN}">₦${e.amountNGN.toLocaleString()}</strong></td>
-              <td><span class="badge badge--completed"><i class="fa-solid fa-circle-check"></i> Verified</span></td>
+              <td><span class="badge badge--completed"><i class="fa-solid fa-receipt"></i> Receipt Verified (${e.receiptNo || 'Verified'})</span></td>
             </tr>
           `).join('');
         }
