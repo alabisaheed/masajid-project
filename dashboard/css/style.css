@@ -2234,11 +2234,11 @@ footer a:hover, .footer a:hover {
 }
 
 .modal-window {
-  background: #0B132B !important;
-  color: #F8FAFC !important;
-  border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.15) !important;
+  background: #FFFFFF;
+  color: #0F172A;
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.35);
   position: relative;
   max-height: 92vh;
   overflow-y: auto;
@@ -2246,24 +2246,27 @@ footer a:hover, .footer a:hover {
   max-width: 580px;
   animation: modalScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
-}
-
-.modal-window::-webkit-scrollbar {
-  width: 6px;
-}
-
-.modal-window::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
-  border-radius: 4px;
 }
 
 .modal-window h2, .modal-window h3, .modal-window h4 {
-  color: #FFFFFF !important;
+  color: #0F172A;
 }
 
 .modal-window p {
+  color: #334155;
+}
+
+.modal-window--dark {
+  background: #0B132B !important;
+  color: #F8FAFC !important;
+  border: 1.5px solid rgba(19, 84, 122, 0.4) !important;
+}
+
+.modal-window--dark h2, .modal-window--dark h3, .modal-window--dark h4 {
+  color: #FFFFFF !important;
+}
+
+.modal-window--dark p {
   color: #CBD5E1 !important;
 }
 
