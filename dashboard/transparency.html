@@ -366,62 +366,62 @@
       const printArea = document.getElementById('doc-printable-area');
       if (printArea) {
         printArea.innerHTML = `
-          <div style="border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 2.25rem 2rem; background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #0F172A; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+          <div style="border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 2rem 1.75rem; background: #FFFFFF; font-family: 'Figtree', system-ui, -apple-system, sans-serif; color: #0F172A; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
             <!-- Header -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid #D4AF37; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid #13547A; padding-bottom: 1.25rem; margin-bottom: 1.25rem;">
               <div>
-                <div style="font-family: 'Cinzel', Georgia, serif; font-size: 1.5rem; font-weight: 800; color: #0F172A; letter-spacing: 0.5px;">MASJID PROJECT</div>
-                <div style="font-family: 'Amiri', serif; font-size: 1.05rem; color: #D4AF37; margin-top: 1px;">مشروع المسجد • A Sadaqah Jariyah Initiative</div>
-                <div style="font-size: 0.775rem; color: #64748B; margin-top: 0.25rem; font-family: 'Plus Jakarta Sans', sans-serif;">Transparency-First Masjid Care</div>
+                <div style="font-family: 'Figtree', sans-serif; font-size: 1.45rem; font-weight: 900; color: #13547A; letter-spacing: -0.02em;">MASJID PROJECT</div>
+                <div style="font-family: 'Amiri', serif; font-size: 1.05rem; color: #13547A; margin-top: 1px;">مشروع المسجد • A Sadaqah Jariyah Initiative</div>
+                <div style="font-size: 0.775rem; color: #64748B; margin-top: 0.25rem; font-family: 'Figtree', sans-serif;">Transparency-First Masjid Care</div>
               </div>
               <div style="text-align: right;">
-                <div style="font-family: 'Cinzel', Georgia, serif; font-size: 1.05rem; font-weight: 800; color: #0F172A; text-transform: uppercase;">Donation Receipt</div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #D4AF37; margin-top: 0.25rem;">${d.ref}</div>
-                <div style="font-size: 0.8rem; color: #64748B; font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 0.15rem;">Date: ${d.date}</div>
+                <div style="font-family: 'Figtree', sans-serif; font-size: 1.05rem; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.03em;">Donation Receipt</div>
+                <div style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: #13547A; margin-top: 0.25rem;">${d.ref}</div>
+                <div style="font-size: 0.8rem; color: #64748B; font-family: 'Figtree', sans-serif; margin-top: 0.15rem;">Date: ${d.date}</div>
               </div>
             </div>
 
             <!-- Details Card -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 0.95rem; margin-bottom: 1.25rem;">
               <div>
-                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif;">Received From (Donor)</small>
-                <div style="font-size: 1rem; font-weight: 700; color: #0F172A; font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 0.2rem;">${d.donorName || 'Anonymous'}</div>
+                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; font-family: 'Figtree', sans-serif;">Received From (Donor)</small>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0F172A; font-family: 'Figtree', sans-serif; margin-top: 0.2rem;">${d.donorName || 'Anonymous'}</div>
               </div>
               <div>
-                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif;">Mosque Project Allocation</small>
-                <div style="font-size: 1rem; font-weight: 700; color: #0F172A; font-family: 'JetBrains Mono', monospace; margin-top: 0.2rem;">${d.projectId}</div>
+                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; font-family: 'Figtree', sans-serif;">Mosque Project Allocation</small>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #13547A; font-family: monospace; margin-top: 0.2rem;">${d.projectId}</div>
               </div>
             </div>
 
             <!-- Table -->
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-family: 'Figtree', sans-serif;">
               <thead>
-                <tr style="background: #0B132B; color: #FFFFFF; font-size: 0.8rem;">
-                  <th style="padding: 0.75rem 1rem; text-align: left; font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.5px;">Item Description / Purpose</th>
-                  <th style="padding: 0.75rem 1rem; text-align: right; font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.5px;">Amount (NGN)</th>
+                <tr style="background: #0E3F5C; color: #FFFFFF; font-size: 0.8rem;">
+                  <th style="padding: 0.65rem 0.9rem; text-align: left; font-weight: 800; letter-spacing: 0.02em;">Item Description / Purpose</th>
+                  <th style="padding: 0.65rem 0.9rem; text-align: right; font-weight: 800; letter-spacing: 0.02em;">Amount (NGN)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr style="border-bottom: 1px solid #E2E8F0;">
-                  <td style="padding: 1rem; font-size: 0.9rem; font-weight: 600; color: #0F172A;">
+                  <td style="padding: 0.85rem 0.9rem; font-size: 0.875rem; font-weight: 600; color: #0F172A;">
                     ${d.purpose || 'Direct Mosque Intervention Funding'}
-                    <div style="font-size: 0.8rem; color: #64748B; font-weight: 400; margin-top: 0.25rem;">Dedicated Sadaqah Jariyah for mosque infrastructure and learning facilities.</div>
+                    <div style="font-size: 0.775rem; color: #64748B; font-weight: 400; margin-top: 0.2rem;">Dedicated Sadaqah Jariyah for mosque infrastructure and learning facilities.</div>
                   </td>
-                  <td style="padding: 1rem; font-size: 1.1rem; font-weight: 800; text-align: right; color: #0F172A; font-family: 'JetBrains Mono', monospace;">
+                  <td style="padding: 0.85rem 0.9rem; font-size: 1.05rem; font-weight: 800; text-align: right; color: #059669; font-family: monospace;">
                     ₦${Number(d.amountNGN).toLocaleString()}
                   </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr style="background: #F8FAFC; border-top: 1.5px solid #CBD5E1;">
-                  <td style="padding: 0.9rem 1rem; font-weight: 800; font-size: 0.95rem; font-family: 'Cinzel', Georgia, serif; color: #0F172A;">Total Donation Received</td>
-                  <td style="padding: 0.9rem 1rem; font-weight: 900; font-size: 1.2rem; text-align: right; color: #0F172A; font-family: 'JetBrains Mono', monospace;">₦${Number(d.amountNGN).toLocaleString()}</td>
+                  <td style="padding: 0.8rem 0.9rem; font-weight: 800; font-size: 0.9rem; color: #0F172A; font-family: 'Figtree', sans-serif;">Total Donation Received</td>
+                  <td style="padding: 0.8rem 0.9rem; font-weight: 900; font-size: 1.15rem; text-align: right; color: #059669; font-family: monospace;">₦${Number(d.amountNGN).toLocaleString()}</td>
                 </tr>
               </tfoot>
             </table>
 
             <!-- Footer -->
-            <div style="border-top: 1px solid #E2E8F0; padding-top: 1rem; font-size: 0.75rem; color: #64748B; line-height: 1.5; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <div style="border-top: 1px solid #E2E8F0; padding-top: 0.85rem; font-size: 0.725rem; color: #64748B; line-height: 1.45; font-family: 'Figtree', sans-serif;">
               <strong style="color: #0F172A;">Transparency Commitment:</strong> 100% of this contribution is disbursed directly to vetted mosque contractors without administrative deductions. Documented on the public Transparency Ledger.
             </div>
           </div>
@@ -444,64 +444,64 @@
       const printArea = document.getElementById('doc-printable-area');
       if (printArea) {
         printArea.innerHTML = `
-          <div style="border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 2.25rem 2rem; background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #0F172A; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+          <div style="border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 2rem 1.75rem; background: #FFFFFF; font-family: 'Figtree', system-ui, -apple-system, sans-serif; color: #0F172A; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
             <!-- Header -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid #D4AF37; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid #13547A; padding-bottom: 1.25rem; margin-bottom: 1.25rem;">
               <div>
-                <div style="font-family: 'Cinzel', Georgia, serif; font-size: 1.45rem; font-weight: 800; color: #0F172A; letter-spacing: 0.5px;">${vendor}</div>
-                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem; font-family: 'Plus Jakarta Sans', sans-serif;">Audited Mosque Technical Contractor & Supplier</div>
-                <div style="font-size: 0.75rem; color: #94A3B8; font-family: 'Plus Jakarta Sans', sans-serif;">Masajid Project Verified Supplier Directory</div>
+                <div style="font-family: 'Figtree', sans-serif; font-size: 1.45rem; font-weight: 900; color: #13547A; letter-spacing: -0.02em;">${vendor}</div>
+                <div style="font-size: 0.775rem; color: #64748B; margin-top: 0.25rem; font-family: 'Figtree', sans-serif;">Audited Mosque Technical Contractor & Supplier</div>
+                <div style="font-size: 0.725rem; color: #94A3B8; font-family: 'Figtree', sans-serif;">Masajid Project Verified Supplier Directory</div>
               </div>
               <div style="text-align: right;">
-                <div style="font-family: 'Cinzel', Georgia, serif; font-size: 1.05rem; font-weight: 800; color: #0F172A; text-transform: uppercase;">Vendor Invoice</div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 800; color: #D4AF37; margin-top: 0.25rem;">${invNo}</div>
-                <div style="font-size: 0.8rem; color: #64748B; font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 0.15rem;">Project: <strong>${projectCode}</strong></div>
+                <div style="font-family: 'Figtree', sans-serif; font-size: 1.05rem; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.03em;">Vendor Invoice</div>
+                <div style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: #13547A; margin-top: 0.25rem;">${invNo}</div>
+                <div style="font-size: 0.8rem; color: #64748B; font-family: 'Figtree', sans-serif; margin-top: 0.15rem;">Project: <strong>${projectCode}</strong></div>
               </div>
             </div>
 
             <!-- Details Card -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 0.95rem; margin-bottom: 1.25rem;">
               <div>
-                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif;">Client / Beneficiary</small>
-                <div style="font-size: 1rem; font-weight: 700; color: #0F172A; font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 0.2rem;">Masajid Project (${projectCode})</div>
+                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; font-family: 'Figtree', sans-serif;">Client / Beneficiary</small>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0F172A; font-family: 'Figtree', sans-serif; margin-top: 0.2rem;">Masajid Project (${projectCode})</div>
               </div>
               <div>
-                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; font-family: 'Plus Jakarta Sans', sans-serif;">Disbursement Status</small>
-                <div style="font-size: 0.95rem; font-weight: 800; color: #0F172A; font-family: 'Plus Jakarta Sans', sans-serif; margin-top: 0.2rem;">
+                <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; font-family: 'Figtree', sans-serif;">Disbursement Status</small>
+                <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid ? '#059669' : '#D97706'}; font-family: 'Figtree', sans-serif; margin-top: 0.2rem;">
                   ${isPaid ? 'PAID (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING FUNDING'}
                 </div>
               </div>
             </div>
 
             <!-- Table -->
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-family: 'Figtree', sans-serif;">
               <thead>
-                <tr style="background: #0B132B; color: #FFFFFF; font-size: 0.8rem;">
-                  <th style="padding: 0.75rem 1rem; text-align: left; font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.5px;">Scope Item & Technical Description</th>
-                  <th style="padding: 0.75rem 1rem; text-align: right; font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.5px;">Amount (NGN)</th>
+                <tr style="background: #0E3F5C; color: #FFFFFF; font-size: 0.8rem;">
+                  <th style="padding: 0.65rem 0.9rem; text-align: left; font-weight: 800; letter-spacing: 0.02em;">Scope Item & Technical Description</th>
+                  <th style="padding: 0.65rem 0.9rem; text-align: right; font-weight: 800; letter-spacing: 0.02em;">Amount (NGN)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr style="border-bottom: 1px solid #E2E8F0;">
-                  <td style="padding: 1rem; font-size: 0.9rem; font-weight: 600; color: #0F172A;">
+                  <td style="padding: 0.85rem 0.9rem; font-size: 0.875rem; font-weight: 600; color: #0F172A;">
                     ${desc}
-                    <div style="font-size: 0.8rem; color: #64748B; font-weight: 400; margin-top: 0.25rem;">Contracted specification per Masajid Project verified standards.</div>
+                    <div style="font-size: 0.775rem; color: #64748B; font-weight: 400; margin-top: 0.2rem;">Contracted specification per Masajid Project verified standards.</div>
                   </td>
-                  <td style="padding: 1rem; font-size: 1.1rem; font-weight: 800; text-align: right; color: #0F172A; font-family: 'JetBrains Mono', monospace;">
+                  <td style="padding: 0.85rem 0.9rem; font-size: 1.05rem; font-weight: 800; text-align: right; color: #0F172A; font-family: monospace;">
                     ₦${Number(amount).toLocaleString()}
                   </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr style="background: #F8FAFC; border-top: 1.5px solid #CBD5E1;">
-                  <td style="padding: 0.9rem 1rem; font-weight: 800; font-size: 0.95rem; font-family: 'Cinzel', Georgia, serif; color: #0F172A;">Total Invoice Amount</td>
-                  <td style="padding: 0.9rem 1rem; font-weight: 900; font-size: 1.2rem; text-align: right; color: #0F172A; font-family: 'JetBrains Mono', monospace;">₦${Number(amount).toLocaleString()}</td>
+                  <td style="padding: 0.8rem 0.9rem; font-weight: 800; font-size: 0.9rem; font-family: 'Figtree', sans-serif; color: #0F172A;">Total Invoice Amount</td>
+                  <td style="padding: 0.8rem 0.9rem; font-weight: 900; font-size: 1.15rem; text-align: right; color: #0F172A; font-family: monospace;">₦${Number(amount).toLocaleString()}</td>
                 </tr>
               </tfoot>
             </table>
 
             <!-- Footer -->
-            <div style="border-top: 1px solid #E2E8F0; padding-top: 1rem; font-size: 0.75rem; color: #64748B; line-height: 1.5; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <div style="border-top: 1px solid #E2E8F0; padding-top: 0.85rem; font-size: 0.725rem; color: #64748B; line-height: 1.45; font-family: 'Figtree', sans-serif;">
               <strong style="color: #0F172A;">Verification:</strong> Verified technical scope audited by Masajid Project Operations & Audit Team.
             </div>
           </div>
@@ -518,14 +518,14 @@
 
   <!-- MODAL: DOCUMENT & RECEIPT / INVOICE VIEWER GENERATOR -->
   <div class="modal-backdrop" id="modal-document-viewer">
-    <div class="modal-window" style="max-width: 680px; background: #FFFFFF; color: #0F172A; padding: 0; border: 1.5px solid rgba(212,175,55,0.4); border-radius: var(--radius-lg); overflow: hidden;">
+    <div class="modal-window" style="max-width: 650px; background: #FFFFFF; color: #0F172A; padding: 0; border: 1.5px solid #CBD5E1; border-radius: 12px; overflow: hidden; font-family: 'Figtree', system-ui, -apple-system, sans-serif;">
       <!-- Viewer Header Bar -->
-      <div style="display: flex; justify-content: space-between; align-items: center; background: #0B132B; color: #FFFFFF; padding: 0.85rem 1.25rem; border-bottom: 1.5px solid rgba(212,175,55,0.3);">
-        <div style="font-family: 'Cinzel', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #FFFFFF;">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #0E3F5C; color: #FFFFFF; padding: 0.85rem 1.25rem; border-bottom: 1.5px solid #13547A;">
+        <div style="font-family: 'Figtree', sans-serif; font-weight: 800; font-size: 1.05rem; color: #FFFFFF;">
           <span id="doc-viewer-title">Donation Receipt</span>
         </div>
         <div>
-          <button type="button" onclick="closeModal('modal-document-viewer')" style="background: rgba(255,255,255,0.12) !important; color: #FFFFFF !important; border: 1px solid rgba(255,255,255,0.35) !important; padding: 0.4rem 0.95rem !important; font-size: 0.85rem !important; font-weight: 700 !important; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem;" title="Close Document">
+          <button type="button" onclick="closeModal('modal-document-viewer')" style="background: rgba(255,255,255,0.15) !important; color: #FFFFFF !important; border: 1px solid rgba(255,255,255,0.35) !important; padding: 0.35rem 0.85rem !important; font-size: 0.825rem !important; font-weight: 700 !important; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;" title="Close Document">
             ✕ Close
           </button>
         </div>
