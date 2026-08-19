@@ -309,16 +309,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .currency-select {
-  background: #FFFFFF;
-  color: var(--text-primary);
-  border: 1px solid var(--border-light);
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 700;
-  outline: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  display: none !important;
 }
 
 .nav__hamburger {
@@ -1863,16 +1854,28 @@ footer {
   .nav__links {
     display: none !important;
   }
+  .nav__right {
+    display: flex !important;
+    align-items: center;
+    gap: 0.65rem;
+    margin-left: auto !important;
+    margin-right: 0.75rem !important;
+  }
   .nav__right .btn-donate-nav {
-    display: none !important;
+    display: inline-flex !important;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
   }
   .nav__hamburger {
     display: flex !important;
-    padding: 0.5rem;
+    padding: 0.4rem;
     z-index: 1001;
   }
   .nav__logo-en {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     white-space: nowrap;
   }
   .nav__inner {
