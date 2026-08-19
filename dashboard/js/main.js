@@ -188,40 +188,93 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Additional MP helper methods for dashboard UI
-MP.getNominations = () => MP.nominations;
-MP.updateNominationStatus = (id, status) => {
-  const nom = MP.nominations.find(n => n.id == id);
-  if (nom) {
-    nom.status = status;
-    MP.set('nominations', MP.nominations);
+// Additional MP helper methods for dashboard UI (safely preserve data/projects.js implementations if loaded)
+if (!MP.getNominations) MP.getNominations = () => MP.nominations || [];
+if (!MP.updateNominationStatus) {
+  MP.updateNominationStatus = (id, status) => {
+    const nom = (MP.nominations || []).find(n => n.id == id);
+    if (nom) {
+      nom.status = status;
+      MP.set('nominations', MP.nominations);
+    }
+  };
+}
+
+if (!MP.getArticles) MP.getArticles = () => MP.articles || [];
+if (!MP.deleteArticle) {
+  MP.deleteArticle = (id) => {
+    if (MP.articles) {
+      MP.articles = MP.articles.filter(a => a.id != id);
+      MP.set('articles', MP.articles);
+    }
+  };
+}
+
+if (!MP.getComments) MP.getComments = () => MP.comments || [];
+if (!MP.updateCommentStatus) {
+  MP.updateCommentStatus = (id, status) => {
+    if (!MP.comments) return;
+    const com = MP.comments.find(c => c.id == id);
+    if (com) {
+      com.status = status;
+      MP.set('comments', MP.comments);
+    }
+  };
+}
+
+// FAQ Accordion & Category Filter Controllers
+function toggleFaqTab(tabName, btn) {
+  document.querySelectorAll('.faq-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const donorStack = document.getElementById('faq-stack-donors');
+  const masajidStack = document.getElementById('faq-stack-masajid');
+  const transparencyStack = document.getElementById('faq-stack-transparency');
+
+  if (donorStack) donorStack.style.display = (tabName === 'donors') ? 'flex' : 'none';
+  if (masajidStack) masajidStack.style.display = (tabName === 'masajid') ? 'flex' : 'none';
+  if (transparencyStack) transparencyStack.style.display = (tabName === 'transparency') ? 'flex' : 'none';
+}
+
+function toggleFaqCard(cardEl) {
+  if (!cardEl) return;
+  const isOpen = cardEl.classList.contains('open');
+  
+  // Close sibling cards in the same stack
+  const parentStack = cardEl.closest('.faq-accordion-stack') || cardEl.parentElement;
+  if (parentStack) {
+    parentStack.querySelectorAll('.kobble-faq-card').forEach(c => {
+      if (c !== cardEl) c.classList.remove('open');
+    });
   }
-};
 
-MP.getArticles = () => MP.articles;
-MP.deleteArticle = (id) => {
-  MP.articles = MP.articles.filter(a => a.id != id);
-  MP.set('articles', MP.articles);
-};
-
-MP.getComments = () => MP.comments || [];
-MP.updateCommentStatus = (id, status) => {
-  if (!MP.comments) return;
-  const com = MP.comments.find(c => c.id == id);
-  if (com) {
-    com.status = status;
-    MP.set('comments', MP.comments);
+  // Toggle clicked card
+  if (isOpen) {
+    cardEl.classList.remove('open');
+  } else {
+    cardEl.classList.add('open');
   }
-};
+}
 
-MP.getProjects = () => MP.projects;
-MP.toggleFeatured = (projId) => {
-  const proj = MP.projects.find(p => p.id == projId);
-  if (proj) {
-    proj.isFeatured = !proj.isFeatured;
-    MP.set('projects', MP.projects);
+function filterFaqQuestions(query) {
+  const q = query.toLowerCase().trim();
+  const allCards = document.querySelectorAll('.kobble-faq-card');
+  
+  allCards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (!q || text.includes(q)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // If searching, show all stacks
+  if (q) {
+    document.querySelectorAll('.faq-accordion-stack').forEach(s => s.style.display = 'flex');
   }
-};
+}
 
-// Alias for compatibility
-MP.toggleFeaturedProject = MP.toggleFeatured;
+gWin.toggleFaqTab = toggleFaqTab;
+gWin.toggleFaqCard = toggleFaqCard;
+gWin.filterFaqQuestions = filterFaqQuestions;

@@ -74,6 +74,54 @@ const defaultArticles = [
       <p>Every time a worshipper hears the Adhan clearly through a sound system you funded, reads from a Qur'an placed on a shelf you provided, or prays under LED lighting you installed, the reward continues to reach your scale of good deeds.</p>
     `,
     readTime: "3 min read"
+  },
+  {
+    id: "4",
+    slug: "upgrading-audio-acoustics-at-masjid-baitul-hikmah",
+    title: "Upgrading Audio Acoustics at Masjid Baitul Hikmah",
+    category: "Field Reports",
+    date: "19 Jul 2026",
+    author: "Field Ops Team",
+    authorTitle: "Acoustic Engineering Unit",
+    authorAvatar: "FO",
+    excerpt: "A case study on replacing faulty speaker columns with balanced acoustic mixers to serve over 800 daily worshippers in Ikeja.",
+    content: `
+      <p class="article-lead">High-quality audio acoustics ensure that every worshipper in the prayer hall and overflow balcony hears the Imam and Adhan with crystal-clear fidelity.</p>
+      
+      <h3>Acoustic Balancing & Mixer Calibration</h3>
+      <p>Our technical team installed multi-channel sound mixers and weather-resistant horn speakers calibrated specifically for architectural reverberation reduction.</p>
+    `,
+    readTime: "4 min read"
+  },
+  {
+    id: "5",
+    slug: "maintaining-wudhu-sanitation-health-and-dignity",
+    title: "Maintaining Wudhu Sanitation: Health & Dignity",
+    category: "Sadaqah Jariyah",
+    date: "10 Jul 2026",
+    author: "Masajid Care Team",
+    authorTitle: "Sanitation & Hygiene Function",
+    authorAvatar: "MC",
+    excerpt: "Proper ablution facilities prevent water wastage and ensure clean, hygienic conditions for community members before prayer.",
+    content: `
+      <p class="article-lead">Cleanliness is half of faith. Ensuring that mosque ablution (wudhu) areas have functioning taps, non-slip rubber flooring, and clean water drainage is a high-impact Sadaqah Jariyah intervention.</p>
+    `,
+    readTime: "3 min read"
+  },
+  {
+    id: "6",
+    slug: "how-communities-nominate-masajid-in-need",
+    title: "How Communities Nominate Masajid in Need",
+    category: "Governance",
+    date: "25 Jun 2026",
+    author: "Audit Committee",
+    authorTitle: "Governance & Vetting Desk",
+    authorAvatar: "AC",
+    excerpt: "Step-by-step walkthrough of the nomination assessment process: from submission to technical field verification.",
+    content: `
+      <p class="article-lead">Anyone can nominate a local mosque in need of practical maintenance. Our field assessment team reviews each submission within 24 hours to schedule an on-site audit.</p>
+    `,
+    readTime: "4 min read"
   }
 ];
 
@@ -425,8 +473,23 @@ g.MP = {
   },
 
   getArticleBySlug: function(slug) {
+    if (!slug) return defaultArticles[0];
     const list = this.getArticles();
-    return list.find(a => a.slug === slug || a.id === slug) || list[0];
+    const clean = String(slug).toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+    
+    // Direct match by slug
+    let found = list.find(a => a.slug && a.slug.toLowerCase() === clean);
+    if (found) return found;
+
+    // Match by ID
+    found = list.find(a => String(a.id) === clean);
+    if (found) return found;
+
+    // Match by slug generated from title
+    found = list.find(a => a.title && a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === clean);
+    if (found) return found;
+
+    return defaultArticles[0];
   },
 
   saveArticle: function(art) {
