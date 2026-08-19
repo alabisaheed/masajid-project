@@ -786,24 +786,71 @@
               <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Record received donations and verify contractor invoices.</p>
             </div>
             <div style="display: flex; gap: 0.75rem;">
-              <button class="btn btn--outline" onclick="openLogDonationModal()"><i class="fa-solid fa-plus"></i> Log Inflow</button>
+              <button class="btn btn--outline" onclick="openLogDonationModal()"><i class="fa-solid fa-plus"></i> Log Direct Inflow</button>
               <button class="btn btn--primary" onclick="openLogExpenseModal()"><i class="fa-solid fa-receipt"></i> Log Disbursement</button>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <!-- INFLOW LEDGER -->
-            <div class="card" style="padding: 1.25rem;">
-              <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color: var(--emerald);"><i class="fa-solid fa-wallet"></i> Logged Inflows (Donations)</h3>
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            
+            <!-- PENDING BANK VERIFICATIONS CARD (Auto-populated when donors submit on website) -->
+            <div class="card" id="admin-pending-inflow-card" style="padding: 1.5rem; border-left: 4px solid var(--amber); display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 800; margin: 0; color: var(--amber); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Incoming Donations Awaiting Bank Alert Confirmation
+                  </h3>
+                  <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">
+                    Donations submitted via website. Confirm only after verifying incoming bank transfer alert to credit the project fund.
+                  </p>
+                </div>
+                <span class="badge" id="pending-donations-badge" style="background: rgba(217, 119, 6, 0.15); color: #D97706; font-size: 0.8rem; font-weight: 800;">
+                  0 Pending
+                </span>
+              </div>
+
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Ref Code</th>
+                      <th>Date</th>
+                      <th>Donor Details</th>
+                      <th>Mosque Project</th>
+                      <th>Purpose / Dedication</th>
+                      <th>Amount</th>
+                      <th>Action / Verification</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-pending-inflow-body">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- CONFIRMED INFLOW LEDGER -->
+            <div class="card" style="padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 800; margin: 0; color: var(--emerald); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-wallet"></i> Verified Inflow Ledger (Credited Donations)
+                  </h3>
+                  <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">All confirmed funds successfully credited to active mosque projects.</p>
+                </div>
+                <span class="badge badge--completed"><i class="fa-solid fa-shield-check"></i> 100% Public Ledger Sync</span>
+              </div>
+
               <div class="table-responsive">
                 <table class="admin-table">
                   <thead>
                     <tr>
                       <th>Ref Code</th>
                       <th>Project</th>
-                      <th>Donor</th>
+                      <th>Donor Name</th>
                       <th>Item Funded</th>
                       <th>Amount</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody id="admin-inflow-body">
@@ -813,16 +860,25 @@
               </div>
             </div>
 
-            <!-- EXPENSE LOG -->
-            <div class="card" style="padding: 1.25rem;">
-              <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color: var(--primary);"><i class="fa-solid fa-file-invoice-dollar"></i> Direct Expenditures</h3>
+            <!-- DIRECT EXPENDITURES (FULL-WIDTH, NO OVERFLOW) -->
+            <div class="card" style="padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 800; margin: 0; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Direct Expenditures & Contractor Invoices
+                  </h3>
+                  <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem;">Track supplier quotes, invoices, and verified payment vouchers.</p>
+                </div>
+                <span class="badge badge--verified"><i class="fa-solid fa-receipt"></i> Audited Receipts</span>
+              </div>
+
               <div class="table-responsive">
                 <table class="admin-table">
                   <thead>
                     <tr>
                       <th>Invoice/Voucher</th>
-                      <th>Project</th>
-                      <th>Vendor</th>
+                      <th>Project Code</th>
+                      <th>Contractor / Supplier</th>
                       <th>Item Description</th>
                       <th>Amount</th>
                       <th>Status</th>
@@ -835,6 +891,7 @@
                 </table>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -1560,27 +1617,72 @@
       }
     }
 
-    // ── FINANCIALS: INFLOWS & EXPENSES ──
+    // ── FINANCIALS: INFLOWS & EXPENSES (WITH AUTOMATED VERIFICATION WORKFLOW) ──
     function renderAdminFinancials() {
       if (!window.MP) return;
 
+      const pendingCard = document.getElementById('admin-pending-inflow-card');
+      const pendingBadge = document.getElementById('pending-donations-badge');
+      const pendingBody = document.getElementById('admin-pending-inflow-body');
       const inflowBody = document.getElementById('admin-inflow-body');
       const expenseBody = document.getElementById('admin-expense-body');
 
-      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
-
-      if (inflowBody && donations) {
-        inflowBody.innerHTML = donations.map(d => `
-          <tr>
-            <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700; color:var(--primary);">${d.ref}</span></td>
-            <td><strong style="font-family: monospace;">${d.projectId}</strong></td>
-            <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
-            <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
-            <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
-          </tr>
-        `).join('');
+      // 1. Pending Donations (From Website Form Submissions)
+      const pendingDonations = (typeof MP.getPendingDonations === 'function') ? MP.getPendingDonations() : [];
+      if (pendingCard) {
+        if (pendingDonations.length > 0) {
+          pendingCard.style.display = 'block';
+          if (pendingBadge) pendingBadge.textContent = `${pendingDonations.length} Pending Alert Confirmation`;
+          if (pendingBody) {
+            pendingBody.innerHTML = pendingDonations.map(d => `
+              <tr style="background: rgba(217, 119, 6, 0.04);">
+                <td><span style="font-family: monospace; font-size: 0.85rem; font-weight:800; color:var(--amber);">${d.ref}</span></td>
+                <td><span style="font-size:0.8rem; color:var(--text-muted);">${d.date}</span></td>
+                <td>
+                  <strong style="color:var(--text-primary);">${d.donorName || 'Anonymous'}</strong>
+                  ${d.email ? `<br><small style="color:var(--text-muted); font-size:0.75rem;">${d.email}</small>` : ''}
+                </td>
+                <td><strong style="font-family: monospace; color:var(--primary);">${d.projectId}</strong></td>
+                <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Direct Mosque Project Funding'}</td>
+                <td><strong style="color: var(--amber); font-size:0.95rem;" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
+                <td>
+                  <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                    <button class="btn btn--outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:800;" onclick="confirmDonationQuick('${d.ref}')" title="Acknowledge bank alert received & credit project">
+                      <i class="fa-solid fa-circle-check"></i> Received & Acknowledged
+                    </button>
+                    <button class="btn btn--outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineDonationQuick('${d.ref}')" title="Alert not received — do not credit">
+                      <i class="fa-solid fa-circle-xmark"></i> Not Received
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `).join('');
+          }
+        } else {
+          pendingCard.style.display = 'none';
+        }
       }
 
+      // 2. Confirmed & Credited Inflows
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
+      if (inflowBody && donations) {
+        if (donations.length === 0) {
+          inflowBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No verified inflows logged yet.</td></tr>`;
+        } else {
+          inflowBody.innerHTML = donations.map(d => `
+            <tr>
+              <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700; color:var(--primary);">${d.ref}</span></td>
+              <td><strong style="font-family: monospace;">${d.projectId}</strong></td>
+              <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
+              <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
+              <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
+              <td><span class="badge badge--completed" style="font-size:0.7rem;"><i class="fa-solid fa-circle-check"></i> Credited to Project</span></td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // 3. Direct Expenditures
       if (expenseBody) {
         let allExpenses = [];
         MP.projects.forEach(p => {
@@ -1612,8 +1714,28 @@
             </tr>
           `).join('');
         } else {
-          expenseBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">No vendor disbursements logged yet.</td></tr>`;
+          expenseBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No vendor disbursements logged yet.</td></tr>`;
         }
+      }
+    }
+
+    function confirmDonationQuick(ref) {
+      if (window.MP && typeof MP.confirmDonation === 'function') {
+        const confirmed = MP.confirmDonation(ref);
+        showToast(`Donation ${ref} confirmed! ₦${Number(confirmed.amountNGN).toLocaleString()} credited to ${confirmed.projectId}.`, 4500);
+        renderAdminFinancials();
+        renderAdminProjects();
+        renderAdminFeatured();
+        setCurrency(currentCurrency);
+      }
+    }
+
+    function declineDonationQuick(ref) {
+      if (!confirm(`Are you sure bank alert was not received for ${ref}? This submission will be removed and not added to project funds.`)) return;
+      if (window.MP && typeof MP.declineDonation === 'function') {
+        MP.declineDonation(ref);
+        showToast(`Submission ${ref} declined (not received).`, 3500);
+        renderAdminFinancials();
       }
     }
 

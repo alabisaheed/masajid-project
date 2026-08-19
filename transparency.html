@@ -257,8 +257,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (!window.MP) return;
 
-      const donations = MP.donations || [];
-      const totalReceived = donations.reduce((sum, d) => sum + (d.amountNGN || 0), 0);
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : (MP.donations || []);
+      const totalReceived = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
       const totalSpent = MP.stats.totalSpentNGN || 128000;
       const activeCount = MP.getActiveProjects().length;
       const completedCount = MP.getCompletedProjects().length;

@@ -561,18 +561,72 @@ g.MP = {
     return list;
   },
 
-  // Inflows & Donations Methods
-  getDonations: function() {
-    return loadLocal('donations', this.donations);
+  // Inflows & Donations Methods (Automated Submission & Admin Verification Workflow)
+  getDonations: function(includePending = false) {
+    const list = loadLocal('donations', this.donations);
+    if (includePending) return list;
+    return list.filter(d => d.status === 'CONFIRMED' || d.status === 'Received' || !d.status);
   },
 
+  getPendingDonations: function() {
+    const list = loadLocal('donations', this.donations);
+    return list.filter(d => d.status === 'PENDING');
+  },
+
+  // Called from donate.html when donor completes submission
+  submitDonation: function(d) {
+    const list = loadLocal('donations', this.donations);
+    d.ref = d.ref || 'MP-DON-' + String(Math.floor(1000 + Math.random() * 9000));
+    d.date = d.date || new Date().toISOString().split('T')[0];
+    d.donorName = (d.donorName && d.donorName.trim()) ? d.donorName.trim() : 'Anonymous';
+    d.amountNGN = Number(d.amountNGN) || 0;
+    d.status = 'PENDING'; // Awaiting admin bank alert confirmation
+    d.channel = d.channel || 'Direct Bank Transfer';
+    d.purpose = d.purpose || 'Direct Mosque Intervention Funding';
+    
+    list.unshift(d);
+    saveLocal('donations', list);
+    return d;
+  },
+
+  // Called by admin on dashboard when payment alert is received and acknowledged
+  confirmDonation: function(ref) {
+    const list = loadLocal('donations', this.donations);
+    const d = list.find(item => item.ref === ref);
+    if (d) {
+      d.status = 'CONFIRMED';
+      saveLocal('donations', list);
+
+      // Increment project raisedNGN only after confirmation
+      if (d.projectId) {
+        const projList = this.getProjects();
+        const proj = projList.find(p => p.id === d.projectId);
+        if (proj) {
+          proj.raisedNGN = (Number(proj.raisedNGN) || 0) + Number(d.amountNGN);
+          this.saveProject(proj);
+        }
+      }
+      this.stats.totalRaisedNGN = (Number(this.stats.totalRaisedNGN) || 0) + Number(d.amountNGN);
+    }
+    return d;
+  },
+
+  // Called by admin when payment alert was not received
+  declineDonation: function(ref) {
+    let list = loadLocal('donations', this.donations);
+    list = list.filter(item => item.ref !== ref);
+    saveLocal('donations', list);
+    return list;
+  },
+
+  // Direct manual logging by admin (already confirmed)
   saveDonation: function(d) {
-    const list = this.getDonations();
+    const list = loadLocal('donations', this.donations);
     d.ref = d.ref || 'MP-DON-' + String(Date.now()).slice(-4);
     d.date = d.date || new Date().toISOString().split('T')[0];
-    d.donorName = d.donorName || 'Anonymous';
+    d.donorName = (d.donorName && d.donorName.trim()) ? d.donorName.trim() : 'Anonymous';
     d.amountNGN = Number(d.amountNGN) || 0;
-    d.status = d.status || 'Received';
+    d.status = 'CONFIRMED';
     list.unshift(d);
     saveLocal('donations', list);
 

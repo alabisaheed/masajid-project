@@ -400,12 +400,61 @@
       const email = document.getElementById('donor-email').value;
       if (!email) return;
 
-      if (typeof showToast === 'function') {
-        showToast('JazakAllahu Khairan! Donation submission recorded.');
+      const name = document.getElementById('donor-name').value;
+      const niyyah = document.getElementById('donor-niyyah').value;
+      const targetRadio = document.querySelector('input[name="support_target"]:checked');
+      const select = document.getElementById('project-select');
+      const targetProjId = (targetRadio && targetRadio.value === 'general') ? 'MP-GENERAL' : (select ? select.value : 'MP-OG-2026-001');
+      const projObj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(targetProjId) : null;
+      const projName = projObj ? projObj.titleEN + ' (' + projObj.mosqueName + ')' : (targetProjId === 'MP-GENERAL' ? 'General Sadaqah Jariyah Fund' : targetProjId);
+
+      const newDonation = {
+        projectId: targetProjId,
+        donorName: name.trim() || 'Anonymous',
+        email: email.trim(),
+        amountNGN: selectedAmountNGN,
+        purpose: niyyah ? niyyah.trim() : (projObj ? `Support for ${projObj.titleEN}` : 'General Mosque Support'),
+        channel: 'Direct Bank Transfer',
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      let savedRecord = null;
+      if (window.MP && typeof MP.submitDonation === 'function') {
+        savedRecord = MP.submitDonation(newDonation);
+      } else {
+        savedRecord = newDonation;
+        savedRecord.ref = 'MP-DON-' + Math.floor(1000 + Math.random() * 9000);
       }
-      setTimeout(() => {
-        alert('Thank you for your generous contribution! Please complete your transfer using the bank details provided. An instant receipt has been queued to your email.');
-      }, 300);
+
+      // Populate confirmation modal
+      const modalRef = document.getElementById('conf-ref-text');
+      const modalAmount = document.getElementById('conf-amount-text');
+      const modalTarget = document.getElementById('conf-target-text');
+      const modalDonor = document.getElementById('conf-donor-text');
+
+      if (modalRef) modalRef.textContent = savedRecord.ref;
+      if (modalAmount) modalAmount.textContent = `₦${Number(savedRecord.amountNGN).toLocaleString()}`;
+      if (modalTarget) modalTarget.textContent = projName;
+      if (modalDonor) modalDonor.textContent = savedRecord.donorName;
+
+      const modal = document.getElementById('modal-donation-confirmation');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+
+      if (typeof showToast === 'function') {
+        showToast('JazakAllahu Khairan! Contribution submitted for verification.');
+      }
+    }
+
+    function closeDonationModal() {
+      const modal = document.getElementById('modal-donation-confirmation');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+      }
+      window.location.href = 'transparency#ledger';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -414,5 +463,56 @@
       updateSummaryAmount();
     });
   </script>
+
+  <!-- MODAL: DONATION SUBMISSION CONFIRMATION -->
+  <div class="modal-backdrop" id="modal-donation-confirmation">
+    <div class="modal-window" style="max-width: 640px; text-align: center; padding: 2.5rem 2rem;">
+      <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--emerald-glow); color: var(--emerald); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; border: 2px solid var(--emerald-border);">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+      </div>
+
+      <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">JazakAllahu Khairan!</h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Your contribution pledge has been logged. Please make your transfer to our dedicated project account below.
+      </p>
+
+      <div style="background: var(--bg-surface); border: 1.5px solid var(--primary-border-strong); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Reference Code:</span>
+            <div id="conf-ref-text" style="font-family: monospace; font-size: 1.1rem; font-weight: 800; color: var(--primary);">MP-DON-0000</div>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Pledged Amount:</span>
+            <div id="conf-amount-text" style="font-size: 1.15rem; font-weight: 900; color: var(--emerald);">₦0</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Target Project / Mosque:</span>
+          <div id="conf-target-text" style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Medinat Dhikr Central Mosque</div>
+        </div>
+
+        <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">First Bank of Nigeria • Account:</span>
+            <strong style="font-family: monospace; font-size: 1.05rem; color: var(--primary);">3012345678</strong>
+          </div>
+          <span class="badge" style="background: rgba(217, 119, 6, 0.15); color: #D97706; font-size: 0.75rem; font-weight: 800;">
+            <i class="fa-solid fa-clock"></i> Awaiting Bank Alert Verification
+          </span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6;">
+        <i class="fa-solid fa-shield-check" style="color: var(--emerald);"></i>
+        Once your bank transfer alert is acknowledged by the finance team, this donation will be credited to the project fund and published on the live Transparency Ledger.
+      </p>
+
+      <button type="button" class="btn btn--primary" onclick="closeDonationModal()" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+        View Transparency Dashboard
+      </button>
+    </div>
+  </div>
 </body>
 </html>
