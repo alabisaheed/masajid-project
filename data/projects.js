@@ -175,8 +175,8 @@ const initialProjects = [
     titleAR: "رف الكتب وحوامل المصاحف والمصاحف الشريفة",
     location: "Adumbu, Itori, Ewekoro, Ogun State",
     mosqueName: "Medinat Dhikr Central Mosque",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal) from Ariish Furniture, and 10 copies of the Holy Qur'an (@ ₦10,000 each) quoted by Munar Bookstore for worshippers and madrasah students.",
-    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف من مفروشات عريش، و10 نسخ من القرآن الكريم (10,000 نيرة للنسخة) من مكتبة منار للمصلين وطلاب العلم.",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.",
+    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للمصلين وطلاب العلم.",
     goalNGN: 164000,
     raisedNGN: 64000,
     spentNGN: 64000,
@@ -207,8 +207,8 @@ const initialProjects = [
     titleAR: "رف الكتب وحوامل المصاحف والمصاحف الشريفة",
     location: "Behind Al-Fathia School, Itori, Ewekoro, Ogun State",
     mosqueName: "Masjid Markaz Diyar",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal) from Ariish Furniture, and 10 copies of the Holy Qur'an (@ ₦10,000 each) quoted by Munar Bookstore for daily recitation and learning sessions.",
-    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية من مفروشات عريش، و10 مصاحف (10,000 نيرة للنسخة) من مكتبة منار للتلاوة اليومية وحلقات تحفيظ القرآن.",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.",
+    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للتلاوة اليومية وحلقات تحفيظ القرآن.",
     goalNGN: 164000,
     raisedNGN: 64000,
     spentNGN: 64000,
@@ -243,7 +243,7 @@ function loadLocal(key, defaultVal) {
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
     if (key === 'projects') {
-      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || p.titleEN !== "Bookshelf, Reading Placeholders and Quran" || (p.id && p.id.startsWith('MP-LAG-'))))) {
+      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || p.titleEN !== "Bookshelf, Reading Placeholders and Quran" || (p.descriptionEN && p.descriptionEN.includes('paid')) || (p.id && p.id.startsWith('MP-LAG-'))))) {
         localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
         return defaultVal;
       }

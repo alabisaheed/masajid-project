@@ -804,7 +804,6 @@
                       <th>Donor</th>
                       <th>Item Funded</th>
                       <th>Amount</th>
-                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="admin-inflow-body">
@@ -1578,16 +1577,6 @@
             <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
             <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
             <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
-            <td>
-              <div style="display:flex; gap:0.4rem;">
-                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--emerald); border-color:var(--emerald);" onclick="viewDonationReceipt('${d.ref}')">
-                  <i class="fa-solid fa-receipt"></i> View Receipt
-                </button>
-                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteDonationQuick('${d.ref}')">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
-            </td>
           </tr>
         `).join('');
       }

@@ -111,7 +111,7 @@
           <span class="stat-tag-badge" style="color:var(--emerald); background:var(--emerald-glow);">TOTAL RAISED</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-amount="0">₦0</div>
+          <div class="stat-number-animated" data-amount="128000">₦128,000</div>
           <div class="stat-label-en">Total Funds Raised</div>
           <div class="stat-label-ar arabic">إجمالي التبرعات المستلمة</div>
         </div>
@@ -124,7 +124,7 @@
           <span class="stat-tag-badge">BENEFICIARIES</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-count-to="0">0</div>
+          <div class="stat-number-animated" data-count-to="2">2</div>
           <div class="stat-label-en">Masajid Supported</div>
           <div class="stat-label-ar arabic">المساجد المدعومة</div>
         </div>
@@ -137,7 +137,7 @@
           <span class="stat-tag-badge" style="color:var(--amber); background:rgba(217, 119, 6, 0.1);">ACTIVE</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-count-to="0">0</div>
+          <div class="stat-number-animated" data-count-to="2">2</div>
           <div class="stat-label-en">Active Projects</div>
           <div class="stat-label-ar arabic">المشاريع النشطة</div>
         </div>
@@ -334,7 +334,7 @@
             <h3 class="project-card__title">Bookshelf, Reading Placeholders and Quran</h3>
             <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>Medinat Dhikr Central Mosque, Adumbu, Itori, Ewekoro, Ogun State</div>
             <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
-              Provision of a solid wooden book shelf (₦40,000 paid), 3 Qur'an reading placeholders / Rehal (₦24,000 paid), and funding for 10 copies of the Holy Qur'an (@ ₦10,000/ea = ₦100,000 remaining).
+              Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.
             </p>
             <div class="project-card__progress">
               <div class="progress-bar-container">
@@ -364,7 +364,7 @@
             <h3 class="project-card__title">Bookshelf, Reading Placeholders and Quran</h3>
             <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>Masjid Markaz Diyar, behind Al-Fathia School, Itori, Ewekoro, Ogun State</div>
             <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
-              Provision of a solid wooden book shelf (₦40,000 paid), 3 Qur'an reading placeholders / Rehal (₦24,000 paid), and funding for 10 copies of the Holy Qur'an (@ ₦10,000/ea = ₦100,000 remaining).
+              Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.
             </p>
             <div class="project-card__progress">
               <div class="progress-bar-container">
@@ -450,36 +450,14 @@
     </div>
   </section>
 
-  <!-- FEATURED COMPLETED PROJECT -->
-  <section class="section" style="background: var(--bg-surface);">
+  <!-- FEATURED COMPLETED PROJECT (Dynamic — Only shown when projects are marked Completed) -->
+  <section class="section" id="recent-completion-section" style="background: var(--bg-surface); display: none;">
     <div class="container">
       <h2 class="section__title">Recent <span>Completion</span></h2>
-      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">Direct proof of impact from our recently completed mosque projects.</p>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">Direct proof of impact from our completed mosque projects.</p>
 
       <div class="featured-project animate-in" id="featured-project-box">
-        <div class="featured-images">
-          <div class="featured-img-box featured-img-before">
-            <img src="images/proj-001-before.jpg" alt="Before Intervention">
-            <span class="img-label">BEFORE</span>
-          </div>
-          <div class="featured-img-box featured-img-after">
-            <img src="images/proj-001-after.jpg" alt="After Intervention">
-            <span class="img-label">AFTER</span>
-          </div>
-        </div>
-        <div class="featured-content">
-          <div class="featured-meta"><i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> MP-LAG-2026-001 • COMPLETED</div>
-          <h3 class="featured-title">Sound System Upgrade • Masjid Baitul Hikmah</h3>
-          
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
-            Complete overhaul of audio amplification with 6 ceiling column speakers, dual wireless UHF microphones, and acoustic balancing. Over 800 worshippers benefit during Friday Khutbah and daily prayers.
-          </p>
-          <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
-            <div><strong style="color:var(--primary);">Amount Raised & Spent:</strong> <span data-amount="435000">₦435,000</span></div>
-            <div><strong style="color:var(--primary);">Beneficiaries:</strong> Approx. 800 Worshippers</div>
-          </div>
-          <a href="project-detail?id=MP-LAG-2026-001" class="btn btn--outline">View Full Impact Report</a>
-        </div>
+        <!-- Dynamically rendered when a project is completed -->
       </div>
     </div>
   </section>
@@ -1002,12 +980,82 @@
       }
     }
 
+    function renderRecentCompletion() {
+      const section = document.getElementById('recent-completion-section');
+      const box = document.getElementById('featured-project-box');
+      if (!section || !box || !window.MP) return;
+
+      const completed = (typeof MP.getCompletedProjects === 'function') ? MP.getCompletedProjects() : [];
+      if (!completed || completed.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+
+      section.style.display = 'block';
+      const p = completed[0];
+
+      box.innerHTML = `
+        <div class="featured-images">
+          <div class="featured-img-box featured-img-before">
+            <img src="${p.imageBefore || 'images/mosque-hero.jpg'}" alt="Before Intervention">
+            <span class="img-label">BEFORE</span>
+          </div>
+          <div class="featured-img-box featured-img-after">
+            <img src="${p.imageAfter || 'images/mosque-hero.jpg'}" alt="After Intervention">
+            <span class="img-label">AFTER</span>
+          </div>
+        </div>
+        <div class="featured-content">
+          <div class="featured-meta"><i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> ${p.id} • COMPLETED</div>
+          <h3 class="featured-title">${p.titleEN} • ${p.mosqueName}</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            ${p.descriptionEN}
+          </p>
+          <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+            <div><strong style="color:var(--primary);">Amount Raised & Spent:</strong> <span data-amount="${p.spentNGN || p.raisedNGN}">₦${Number(p.spentNGN || p.raisedNGN).toLocaleString()}</span></div>
+            <div><strong style="color:var(--primary);">Location:</strong> ${p.location}</div>
+          </div>
+          <a href="project-detail?id=${p.id}" class="btn btn--outline">View Full Impact Report</a>
+        </div>
+      `;
+    }
+
+    function syncHomepageStats() {
+      if (!window.MP) return;
+      const completedCount = (typeof MP.getCompletedProjects === 'function') ? MP.getCompletedProjects().length : 0;
+      const activeCount = (typeof MP.getActiveProjects === 'function') ? MP.getActiveProjects().length : 2;
+      const totalRaised = (typeof MP.getDonations === 'function') ? MP.getDonations().reduce((sum, d) => sum + (d.amountNGN || 0), 0) : 128000;
+      const masajidCount = (MP.projects && MP.projects.length) ? MP.projects.length : 2;
+
+      const statCards = document.querySelectorAll('.stats-strip .stat-card-bento');
+      if (statCards.length >= 4) {
+        // Card 1: Completed
+        const c1 = statCards[0].querySelector('.stat-number-animated');
+        if (c1) { c1.setAttribute('data-count-to', completedCount); c1.textContent = completedCount; }
+
+        // Card 2: Total Raised
+        const c2 = statCards[1].querySelector('.stat-number-animated');
+        if (c2) { c2.setAttribute('data-amount', totalRaised); c2.textContent = `₦${Number(totalRaised).toLocaleString()}`; }
+
+        // Card 3: Masajid Supported
+        const c3 = statCards[2].querySelector('.stat-number-animated');
+        if (c3) { c3.setAttribute('data-count-to', masajidCount); c3.textContent = masajidCount; }
+
+        // Card 4: Active Projects
+        const c4 = statCards[3].querySelector('.stat-number-animated');
+        if (c4) { c4.setAttribute('data-count-to', activeCount); c4.textContent = activeCount; }
+      }
+    }
+
     // Real-time project synchronization hook
     if (window.MP) {
       MP.onDataChange = function(key) {
-        if (key === 'projects') {
+        if (key === 'projects' || key === 'donations') {
           const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
           renderHomepageProjects(activeFilter);
+          renderRecentCompletion();
+          syncHomepageStats();
+          if (typeof setCurrency === 'function') setCurrency(currentCurrency);
         }
       };
     }
@@ -1015,6 +1063,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderHomepageProjects('all');
       renderHomepageCategories();
+      renderRecentCompletion();
+      syncHomepageStats();
 
       // Bind filter button click events explicitly
       document.querySelectorAll('.filter-btn').forEach(btn => {
