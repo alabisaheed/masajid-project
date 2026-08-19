@@ -87,10 +87,10 @@
     <div class="container">
 
       <!-- FILTER & SEARCH BAR -->
-      <div class="card" style="margin-bottom: 2.5rem; padding: 1.5rem;">
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+      <div class="card" style="margin-bottom: 2rem; padding: 1.25rem;">
+        <div class="projects-filter-inner">
           
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="status-filters">
+          <div class="status-filters-scroll" id="status-filters">
             <button class="filter-btn active" data-status="all" onclick="setStatusFilter('all', this)">All Statuses</button>
             <button class="filter-btn" data-status="funding" onclick="setStatusFilter('funding', this)">Funding</button>
             <button class="filter-btn" data-status="in-progress" onclick="setStatusFilter('in-progress', this)">In Progress</button>
@@ -98,7 +98,7 @@
             <button class="filter-btn" data-status="completed" onclick="setStatusFilter('completed', this)">Completed</button>
           </div>
 
-          <div style="position: relative; min-width: 260px;">
+          <div class="projects-search-wrap">
             <input type="text" id="project-search" class="form-input" placeholder="Search by mosque or city..." onkeyup="filterProjects()" style="padding-left: 2.5rem;">
             <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
           </div>
@@ -106,10 +106,7 @@
         </div>
       </div>
 
-      <!-- RESULTS COUNT -->
-      <div style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
-        <span id="results-count-text">Showing all projects</span>
-      </d      <!-- PROJECTS GRID -->
+      <!-- PROJECTS GRID -->
       <div class="projects-grid" id="all-projects-grid">
         
         <!-- Project Card 1: Funding -->
