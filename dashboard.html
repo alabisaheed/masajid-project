@@ -1122,6 +1122,14 @@
           <textarea id="new-art-body" class="form-input" style="height: 140px;" placeholder="Full text-based content of the article..." required></textarea>
         </div>
 
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-create-article')">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="btn-submit-article"><i class="fa-solid fa-paper-plane"></i> Publish Article</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: EDIT ARTICLE -->
   <div class="modal-backdrop" id="modal-edit-article">
     <div class="modal-window" style="max-width: 680px;">
@@ -1572,11 +1580,32 @@
       }
     }
 
+    function openCreateArticleModal() {
+      const modal = document.getElementById('modal-create-article');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
     function openEditArticleModal(artId) {
-      if (!window.MP) return;
-      const articles = MP.getArticles();
-      const article = articles.find(a => String(a.id) === String(artId) || a.slug === artId);
+      let articles = [];
+      if (window.MP && typeof MP.getArticles === 'function') {
+        articles = MP.getArticles();
+      }
+      if (!articles || articles.length === 0) {
+        if (typeof defaultArticles !== 'undefined') articles = defaultArticles;
+      }
+
+      const cleanId = String(artId).toLowerCase().trim();
+      const article = articles.find(a => 
+        String(a.id).toLowerCase() === cleanId || 
+        (a.slug && a.slug.toLowerCase() === cleanId) ||
+        (a.title && a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === cleanId)
+      );
+
       if (!article) {
+        console.warn('Article not found for ID/Slug:', artId);
         showToast('Article not found', 3000);
         return;
       }
@@ -1608,7 +1637,10 @@
       }
 
       const modal = document.getElementById('modal-edit-article');
-      if (modal) modal.classList.add('open');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
     }
 
     function handleEditArticleSubmit(e) {
@@ -1623,8 +1655,9 @@
 
       if (!title || !body) return;
 
-      const articles = MP.getArticles();
-      const existing = articles.find(a => String(a.id) === String(id) || a.slug === id) || {};
+      const articles = (window.MP && typeof MP.getArticles === 'function') ? MP.getArticles() : (defaultArticles || []);
+      const cleanId = String(id).toLowerCase().trim();
+      const existing = articles.find(a => String(a.id).toLowerCase() === cleanId || (a.slug && a.slug.toLowerCase() === cleanId)) || {};
 
       const finalImage = uploadedEditImageBase64 || imgUrlInput || existing.imageUrl || 'images/mosque-hero.jpg';
 
