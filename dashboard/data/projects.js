@@ -235,10 +235,6 @@ const initialProjects = [
 function loadLocal(key, defaultVal) {
   if (typeof localStorage === 'undefined') return defaultVal;
   try {
-    if (key === 'nominations') {
-      localStorage.removeItem('masajid_nominations');
-      return [];
-    }
     const val = localStorage.getItem('masajid_' + key);
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
@@ -502,20 +498,89 @@ g.MP = {
     return list;
   },
 
-  // Comments Methods
+  // ── Security Firewall & Anti-Spam / Anti-Scam Guard ──
+  securityFirewall: {
+    spamKeywords: [
+      'crypto', 'bitcoin', 'btc', 'eth', 'binance', 'forex', 'invest and earn',
+      'guaranteed return', 'double your money', 'telegram channel', 't.me/', 'whatsapp +',
+      'chat me on whatsapp', 'passive income', 'cashapp', 'paypal transfer', 'buy cheap',
+      'viagra', 'cialis', 'casino', 'slot online', 'betting', 'loan offer', 'urgent loan',
+      'escort', 'seo service', 'guest post', 'backlinks', 'traffic generator', 'free gift',
+      'claim bonus', 'make money fast', 'pills', 'darkweb', 'hack', 'click here to win'
+    ],
+    suspiciousDomains: ['.xyz', '.top', '.click', '.ru', '.biz', '.cc', 'bit.ly', 'tinyurl.com', 'cutt.ly', 'is.gd', 't.co'],
+    lastSubmissionTime: 0,
+
+    inspect: function(data) {
+      const textToScan = `${data.comment || ''} ${data.author || ''} ${data.email || ''}`.toLowerCase();
+      
+      // 1. Rate Limiting / Anti-Flood (Cooldown of 4s)
+      const now = Date.now();
+      if (now - this.lastSubmissionTime < 4000) {
+        return { allowed: false, reason: "Flood Protection: Please wait a few seconds before submitting again." };
+      }
+      this.lastSubmissionTime = now;
+
+      // 2. Keyword Filtering (Scam, Pitching, Gambling)
+      for (const word of this.spamKeywords) {
+        if (textToScan.includes(word)) {
+          return { allowed: false, reason: `Security Firewall Alert: Prohibited spam or promotional keyword detected ("${word}").` };
+        }
+      }
+
+      // 3. Suspicious / Shortened Scam Domains
+      for (const domain of this.suspiciousDomains) {
+        if (textToScan.includes(domain)) {
+          return { allowed: false, reason: "Security Firewall Alert: Unverified URL or link shortener detected." };
+        }
+      }
+
+      // 4. XSS Sanitization & Stripping of Executable Tags
+      const cleanAuthor = String(data.author || '').replace(/<[^>]*>?/gm, '').trim();
+      const cleanEmail = String(data.email || '').replace(/<[^>]*>?/gm, '').trim();
+      const cleanComment = String(data.comment || '').replace(/<[^>]*>?/gm, '').trim();
+
+      if (!cleanAuthor || !cleanComment) {
+        return { allowed: false, reason: "Validation Error: Name and comment content cannot be empty." };
+      }
+
+      return {
+        allowed: true,
+        sanitized: {
+          author: cleanAuthor,
+          email: cleanEmail,
+          comment: cleanComment
+        }
+      };
+    }
+  },
+
+  // Comments Methods (Protected by Security Firewall)
   getComments: function(slug) {
     const all = loadLocal('comments', defaultComments);
     return slug ? all.filter(c => c.articleSlug === slug) : all;
   },
 
   saveComment: function(com) {
+    const inspection = this.securityFirewall.inspect(com);
+    if (!inspection.allowed) {
+      return { success: false, error: inspection.reason };
+    }
+
     const list = loadLocal('comments', defaultComments);
-    com.id = com.id || 'COM-' + Date.now();
-    com.date = com.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-    com.status = com.status || 'pending';
-    list.unshift(com);
+    const newCom = {
+      id: com.id || 'COM-' + Date.now(),
+      articleSlug: com.articleSlug,
+      author: inspection.sanitized.author,
+      email: inspection.sanitized.email,
+      comment: inspection.sanitized.comment,
+      date: com.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      status: 'pending' // Mandatory moderation quarantine
+    };
+
+    list.unshift(newCom);
     saveLocal('comments', list);
-    return com;
+    return { success: true, comment: newCom };
   },
 
   updateCommentStatus: function(id, status) {

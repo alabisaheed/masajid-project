@@ -616,9 +616,9 @@
       const email = document.getElementById('comment-email').value;
       const text = document.getElementById('comment-text').value;
 
-      if (!currentArticle) return;
+      if (!currentArticle || !window.MP) return;
 
-      MP.saveComment({
+      const result = MP.saveComment({
         articleSlug: currentArticle.slug,
         author: name,
         email: email,
@@ -626,8 +626,15 @@
         status: 'pending'
       });
 
-      showToast(`Thank you, ${name}! Your comment has been submitted for moderation.`);
-      e.target.reset();
+      if (result && result.success) {
+        showToast(`JazakAllahu Khairan, ${name}! Your comment has been received and queued for editorial moderation.`, 5000);
+        e.target.reset();
+      } else if (result && result.error) {
+        alert(result.error);
+        if (typeof showToast === 'function') {
+          showToast(result.error, 5000);
+        }
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
