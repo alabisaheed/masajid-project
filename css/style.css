@@ -891,7 +891,40 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 900px) {
   .kobble-step-row, .kobble-step-row.reverse {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+    text-align: center;
+  }
+  .step-content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+  .step-title-bold {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .step-body-desc {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .step-checklist-kobble {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin: 0.75rem auto 0;
+    max-width: 360px;
+    width: 100%;
+  }
+  .mockup-frame-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
   }
 }
 .steps-grid {
