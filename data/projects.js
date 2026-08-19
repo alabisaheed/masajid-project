@@ -183,6 +183,7 @@ const initialProjects = [
     isFeatured: true,
     titleEN: "Sound System Upgrade",
     titleAR: "تحديث نظام الصوت",
+    location: "Mushin, Lagos",
     descriptionEN: "Complete overhaul of audio amplification with 6 ceiling column speakers, dual wireless UHF microphones, and acoustic balancing. Over 800 worshippers benefit during Friday Khutbah and daily prayers.",
     descriptionAR: "تحديث شامل لنظام الصوت وتوفير ميكروفونات لاسلكية ومكبرات صوت لخدمة 800 مصلٍ.",
     goalNGN: 435000,
@@ -205,6 +206,7 @@ const initialProjects = [
     isFeatured: true,
     titleEN: "Solar Energy Inverter System",
     titleAR: "نظام محول الطاقة الشمسية",
+    location: "Surulere, Lagos",
     descriptionEN: "Installation of a 5kVA solar inverter system with 8 monocrystalline solar panels to guarantee 24/7 power backup for daily prayers, nighttime lighting, and madrasah classes.",
     descriptionAR: "تركيب نظام طاقة شمسية بقدرة 5 كيلو فوا لتوفير الكهرباء المستمرة للصلوات وحلقات التحفيظ.",
     goalNGN: 1250000,
@@ -221,6 +223,7 @@ const initialProjects = [
     isFeatured: true,
     titleEN: "LED Energy Efficient Lighting Overhaul",
     titleAR: "تحديث الإضاءة بإضاءة ليد موفرة",
+    location: "Ikeja, Lagos",
     descriptionEN: "Replacement of 45 high-wattage fluorescent bulbs with energy-efficient LED panel lighting and safety rewiring of the main electrical distribution panel.",
     descriptionAR: "استبدال المصابيح القديمة بـ 45 لوحة إضاءة ليد موفرة للطاقة وتحديث اللوحة الكهربائية.",
     goalNGN: 380000,
@@ -232,17 +235,18 @@ const initialProjects = [
     ]
   },
   {
-    id: "MP-OGN-2026-004",
+    id: "MP-OG-2026-004",
     mosqueId: "MSQ-004",
-    categoryId: "quran",
+    categoryId: "cleaning",
     status: "FUNDING",
-    isFeatured: false,
-    titleEN: "Qur'an Shelves & Copy Provision",
-    titleAR: "توفير المصاحف ورفوف التخزين",
-    descriptionEN: "Provision of 100 new hardbound Madani-script Qur'an copies with 4 carved wooden storage display shelves for worshippers and students.",
-    descriptionAR: "توفير 100 مصحف بطبعة المدينة و4 رفوف خشبية خشبية فاخرة.",
-    goalNGN: 290000,
-    raisedNGN: 145000,
+    isFeatured: true,
+    titleEN: "Carpet Steam Sanitation",
+    titleAR: "تنظيف وتعقيم السجاد بالبخار",
+    location: "Abeokuta, Ogun",
+    descriptionEN: "Professional industrial steam washing, deep anti-bacterial sanitation, and edging repairs for 350 sq meters of prayer carpet.",
+    descriptionAR: "غسيل بالبخار الصناعي وتعقيم عميق لـ 350 متراً مربعاً من سجاد الصلاة.",
+    goalNGN: 220000,
+    raisedNGN: 154000,
     spentNGN: 0,
     imageBefore: "images/proj-004-before.jpg",
     expenses: []
@@ -250,17 +254,86 @@ const initialProjects = [
   {
     id: "MP-LAG-2026-005",
     mosqueId: "MSQ-005",
-    categoryId: "cleaning",
+    categoryId: "quran",
     status: "VERIFIED",
     isFeatured: false,
-    titleEN: "Ablution Area Cleaning & Plumbing",
-    titleAR: "تنظيف منطقة الوضوء والسباكة",
-    descriptionEN: "Deep chemical sanitation of ablution floor tiles, replacement of 12 leaking brass water taps, and installation of anti-slip rubber floor mats.",
-    descriptionAR: "تنظيف وتعقيم منطقة الوضوء واستبدال 12 صنبور مياه وإضافة حصير لمنع الانزلاق.",
-    goalNGN: 220000,
-    raisedNGN: 0,
+    titleEN: "Qur'an Storage & Bookshelves",
+    titleAR: "توفير المصاحف ورفوف التخزين",
+    location: "Yaba, Lagos",
+    descriptionEN: "Crafting and mounting of 6 solid mahogany wall-mounted wooden bookshelf units and provision of 100 hardbound Madani Qur'an copies.",
+    descriptionAR: "صناعة 6 رفوف خشبية وتوفير 100 مصحف بطبعة المدينة.",
+    goalNGN: 195000,
+    raisedNGN: 195000,
     spentNGN: 0,
     imageBefore: "images/proj-005-before.jpg",
+    expenses: []
+  },
+  {
+    id: "MP-LAG-2026-006",
+    mosqueId: "MSQ-006",
+    categoryId: "repairs",
+    status: "FUNDING",
+    isFeatured: false,
+    titleEN: "Public Wudhu Area Plumbing",
+    titleAR: "سباكة منطقة الوضوء العامة",
+    location: "Agege, Lagos",
+    descriptionEN: "Replacing 16 damaged brass faucets, fixing supply leakage, and laying anti-slip floor tiles in the public wudhu area.",
+    descriptionAR: "استبدال 16 صنبور نحاسي وإصلاح التسريبات وتركيب أرضيات مانعة للانزلاق.",
+    goalNGN: 310000,
+    raisedNGN: 139500,
+    spentNGN: 0,
+    imageBefore: "images/proj-002-before.jpg",
+    expenses: []
+  },
+  {
+    id: "MP-KAD-2026-007",
+    mosqueId: "MSQ-007",
+    categoryId: "repairs",
+    status: "IN_PROGRESS",
+    isFeatured: false,
+    titleEN: "Roof Leak & Waterproofing",
+    titleAR: "إصلاح تسرب السطح والعزل المائي",
+    location: "Tudun Wada, Kaduna",
+    descriptionEN: "Emergency roof sealing with bitumen waterproofing membrane and replacing damaged aluminium roofing sheets over main prayer hall.",
+    descriptionAR: "عزل مائي ومعالجة تسربات مياه الأمطار في السقف لقاعة الصلاة الرئيسية.",
+    goalNGN: 480000,
+    raisedNGN: 480000,
+    spentNGN: 0,
+    imageBefore: "images/proj-003-before.jpg",
+    expenses: []
+  },
+  {
+    id: "MP-OYO-2026-008",
+    mosqueId: "MSQ-008",
+    categoryId: "sound",
+    status: "VERIFIED",
+    isFeatured: false,
+    titleEN: "Acoustic Audio Mixer Upgrade",
+    titleAR: "ترقية جهاز مزج الصوت الصوتي",
+    location: "Bodija, Ibadan",
+    descriptionEN: "Procurement of a 12-channel digital audio mixer console and dual wireless UHF mics for clear audio distribution.",
+    descriptionAR: "توفير وحدة تحكم صوتية رقمية بـ 12 قناة وميكروفونات لاسلكية.",
+    goalNGN: 540000,
+    raisedNGN: 540000,
+    spentNGN: 0,
+    imageBefore: "images/proj-001-before.jpg",
+    expenses: []
+  },
+  {
+    id: "MP-KAN-2026-009",
+    mosqueId: "MSQ-009",
+    categoryId: "security",
+    status: "FUNDING",
+    isFeatured: false,
+    titleEN: "Perimeter Security Lighting & CCTV",
+    titleAR: "إنارة الأمن المحيط وكاميرات المراقبة",
+    location: "Fagge, Kano",
+    descriptionEN: "Installation of 8 high-output solar floodlights around mosque perimeter and a 4-channel security camera monitoring system.",
+    descriptionAR: "تركيب 8 كشافات طاقة شمسية ونظام كاميرات مراقبة لحماية المسجد.",
+    goalNGN: 640000,
+    raisedNGN: 320000,
+    spentNGN: 0,
+    imageBefore: "images/proj-002-before.jpg",
     expenses: []
   }
 ];
@@ -272,8 +345,10 @@ function loadLocal(key, defaultVal) {
     const val = localStorage.getItem('masajid_' + key);
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
-    if (Array.isArray(defaultVal) && Array.isArray(parsed) && parsed.length === 0 && defaultVal.length > 0) {
-      return defaultVal;
+    if (Array.isArray(defaultVal) && Array.isArray(parsed)) {
+      if (parsed.length < defaultVal.length) {
+        return defaultVal;
+      }
     }
     return parsed;
   } catch (e) {
@@ -328,11 +403,15 @@ g.MP = {
   },
 
   mosques: [
-    { id: "MSQ-001", nameEN: "Masjid Baitul Hikmah", nameAR: "مسجد بيت الحكمة", city: "Ikeja", state: "Lagos" },
-    { id: "MSQ-002", nameEN: "Masjid Al-Tawheed", nameAR: "مسجد التوحيد", city: "Surulere", state: "Lagos" },
-    { id: "MSQ-003", nameEN: "Masjid Nurul Islam", nameAR: "مسجد نور الإسلام", city: "Ikeja", state: "Lagos" },
-    { id: "MSQ-004", nameEN: "An-Noor Central Masjid", nameAR: "مسجد النور المركزي", city: "Abeokuta", state: "Ogun" },
-    { id: "MSQ-005", nameEN: "Masjid Rahmah", nameAR: "مسجد الرحمة", city: "Yaba", state: "Lagos" }
+    { id: "MSQ-001", nameEN: "Al-Ihsan Mosque", nameAR: "مسجد الإحسان", city: "Mushin", state: "Lagos" },
+    { id: "MSQ-002", nameEN: "Surulere Central Mosque", nameAR: "مسجد سوروليري المركزي", city: "Surulere", state: "Lagos" },
+    { id: "MSQ-003", nameEN: "An-Nur Mosque", nameAR: "مسجد النور", city: "Ikeja", state: "Lagos" },
+    { id: "MSQ-004", nameEN: "Masjid Taqwa", nameAR: "مسجد التقوى", city: "Abeokuta", state: "Ogun" },
+    { id: "MSQ-005", nameEN: "Masjid Rahmah", nameAR: "مسجد الرحمة", city: "Yaba", state: "Lagos" },
+    { id: "MSQ-006", nameEN: "Agege Central Mosque", nameAR: "مسجد أغيغي المركزي", city: "Agege", state: "Lagos" },
+    { id: "MSQ-007", nameEN: "Tudun Wada Central Mosque", nameAR: "مسجد تودون وادا", city: "Tudun Wada", state: "Kaduna" },
+    { id: "MSQ-008", nameEN: "Baitul Hikmah Mosque", nameAR: "مسجد بيت الحكمة", city: "Bodija", state: "Oyo" },
+    { id: "MSQ-009", nameEN: "Fagge Juma'at Mosque", nameAR: "مسجد فاقي جامع", city: "Fagge", state: "Kano" }
   ],
 
   donations: [
@@ -347,8 +426,19 @@ g.MP = {
   onDataChange: null,
 
   // Projects Methods
+  get projects() {
+    return this.getProjects();
+  },
+  set projects(val) {
+    saveLocal('projects', val);
+  },
+
   getProjects: function() {
     return loadLocal('projects', initialProjects);
+  },
+
+  getProject: function(id) {
+    return this.getProjects().find(p => p.id === id);
   },
 
   saveProject: function(proj) {
