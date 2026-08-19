@@ -247,17 +247,54 @@
         const isImage = file.type.startsWith('image/');
         if (!isImage && !isVideo) return;
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          nominationMediaList.push({
-            name: file.name,
-            type: isVideo ? 'video' : 'image',
-            size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
-            dataUrl: e.target.result
-          });
-          renderMediaPreviews();
-        };
-        reader.readAsDataURL(file);
+        if (isImage) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+              const canvas = document.createElement('canvas');
+              let width = img.width;
+              let height = img.height;
+              const maxDim = 1200;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+              nominationMediaList.push({
+                name: file.name,
+                type: 'image',
+                size: (compressedDataUrl.length * 0.75 / (1024 * 1024)).toFixed(2) + ' MB',
+                dataUrl: compressedDataUrl
+              });
+              renderMediaPreviews();
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else if (isVideo) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            nominationMediaList.push({
+              name: file.name,
+              type: 'video',
+              size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+              dataUrl: e.target.result
+            });
+            renderMediaPreviews();
+          };
+          reader.readAsDataURL(file);
+        }
       });
     }
 

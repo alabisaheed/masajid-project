@@ -342,27 +342,17 @@ const initialProjects = [
   }
 ];
 
-// Local Storage & Cross-Tab Synchronization Engine
+// Bulletproof Local Storage & Cross-Tab State Engine
 function loadLocal(key, defaultVal) {
   if (typeof localStorage === 'undefined') return defaultVal;
   try {
     const val = localStorage.getItem('masajid_' + key);
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
-    if (key === 'projects') {
-      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || p.titleEN !== "Bookshelf, Reading Placeholders and Quran" || (p.descriptionEN && p.descriptionEN.includes('paid')) || (p.id && p.id.startsWith('MP-LAG-'))))) {
-        localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
-        return defaultVal;
-      }
-    }
-    if (key === 'articles') {
-      if (!parsed || !Array.isArray(parsed) || parsed.some(a => a.content && a.content.length < 500)) {
-        localStorage.setItem('masajid_articles', JSON.stringify(defaultVal));
-        return defaultVal;
-      }
-    }
+    if (parsed === null || parsed === undefined) return defaultVal;
     return parsed;
   } catch (e) {
+    console.warn(`[Masajid Sync] Error parsing key "${key}":`, e);
     return defaultVal;
   }
 }
@@ -370,23 +360,49 @@ function loadLocal(key, defaultVal) {
 function saveLocal(key, data) {
   if (typeof localStorage === 'undefined') return;
   try {
-    localStorage.setItem('masajid_' + key, JSON.stringify(data));
-    // Broadcast change across tabs via BroadcastChannel
-    if (typeof BroadcastChannel !== 'undefined' && g.MP && g.MP.channel) {
-      g.MP.channel.postMessage({ type: 'update', key: key, data: data });
+    try {
+      localStorage.setItem('masajid_' + key, JSON.stringify(data));
+    } catch (quotaErr) {
+      console.warn(`[Masajid Sync] Quota limit encountered for ${key}, optimizing storage payload...`, quotaErr);
+      if (key === 'nominations' && Array.isArray(data)) {
+        const sanitized = data.map(item => {
+          if (!item.mediaFiles || !Array.isArray(item.mediaFiles)) return item;
+          return {
+            ...item,
+            mediaFiles: item.mediaFiles.map(m => ({
+              name: m.name,
+              type: m.type,
+              size: m.size,
+              dataUrl: (m.dataUrl && m.dataUrl.length > 500000) ? m.dataUrl.slice(0, 100000) : m.dataUrl
+            }))
+          };
+        });
+        localStorage.setItem('masajid_' + key, JSON.stringify(sanitized));
+      }
     }
-    // Post to cross-origin sync hub iframe if present
+
+    // 1. Broadcast change across all open browser tabs via BroadcastChannel
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        if (!g.MP_BC) g.MP_BC = new BroadcastChannel('masajid_channel');
+        g.MP_BC.postMessage({ type: 'update', key: key, data: data });
+      } catch(e) {}
+    }
+
+    // 2. Post to cross-origin sync hub iframe if present
     const iframe = document.getElementById('masajid-sync-hub-iframe');
     if (iframe && iframe.contentWindow) {
       try {
         iframe.contentWindow.postMessage({ type: 'MASAJID_WRITE_SYNC', key: key, data: data }, '*');
       } catch(e) {}
     }
+
+    // 3. Trigger in-page real-time subscriber if registered
     if (g.MP && typeof g.MP.onDataChange === 'function') {
-      g.MP.onDataChange(key, data);
+      try { g.MP.onDataChange(key, data); } catch(e) {}
     }
   } catch (e) {
-    console.error('Storage error', e);
+    console.error(`[Masajid Sync] Critical storage error for ${key}:`, e);
   }
 }
 
@@ -682,7 +698,12 @@ g.MP = {
   // Comments Methods (Protected by Security Firewall)
   getComments: function(slug) {
     const all = loadLocal('comments', defaultComments);
-    return slug ? all.filter(c => c.articleSlug === slug) : all;
+    if (!slug) return all;
+    const cleanSlug = String(slug).toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+    return all.filter(c => {
+      const cSlug = String(c.articleSlug || '').toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+      return cSlug === cleanSlug || cSlug.includes(cleanSlug) || cleanSlug.includes(cSlug);
+    });
   },
 
   saveComment: function(com) {

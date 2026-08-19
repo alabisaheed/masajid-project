@@ -89,10 +89,8 @@
       } catch(e) {}
     }
 
-    // Immediately push state to parent upon hub load
-    if (window.parent && window.parent !== window) {
-      broadcastState(window.parent, '*');
-    }
+    // Only broadcast state when explicitly requested by parent with valid data
+    // Do not clobber parent state on initial iframe load
   </script>
 </body>
 </html>
