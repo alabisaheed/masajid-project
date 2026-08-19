@@ -2232,22 +2232,35 @@
         if (n.mediaFiles && n.mediaFiles.length > 0) {
           mediaHtml = `
             <div style="margin-top: 1.25rem;">
-              <strong style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.65rem;">
-                <i class="fa-solid fa-photo-film" style="color: var(--primary);"></i> Attached Photos & Videos (${n.mediaFiles.length}):
-              </strong>
-              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem;">
-                ${n.mediaFiles.map(m => `
-                  <div style="background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-card);">
-                    ${m.type === 'video' 
-                      ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 140px; object-fit: contain;"></video>`
-                      : `<a href="${m.dataUrl}" target="_blank" title="Click to view full image"><img src="${m.dataUrl}" style="width: 100%; height: 140px; object-fit: cover;"></a>`
-                    }
-                    <div style="padding: 0.4rem 0.5rem; background: #0F172A; color: #FFF; font-size: 0.725rem; display: flex; justify-content: space-between;">
-                      <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px;">${m.name || 'File'}</span>
-                      <span style="color: var(--text-muted);">${m.size || ''}</span>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <strong style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em;">
+                  <i class="fa-solid fa-photo-film" style="color: var(--primary);"></i> Attached Photos & Videos (${n.mediaFiles.length}):
+                </strong>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Click download on any item to save to your device</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem;">
+                ${n.mediaFiles.map((m, idx) => {
+                  const fileName = m.name || `nomination-${n.id}-file-${idx + 1}.${m.type === 'video' ? 'mp4' : 'jpg'}`;
+                  return `
+                    <div style="background: #0F172A; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border-card); display: flex; flex-direction: column;">
+                      <div style="height: 140px; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        ${m.type === 'video' 
+                          ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 100%; object-fit: contain;"></video>`
+                          : `<a href="${m.dataUrl}" target="_blank" title="Click to view full image"><img src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;"></a>`
+                        }
+                      </div>
+                      <div style="padding: 0.5rem 0.65rem; background: #0B132B; color: #FFF; font-size: 0.725rem; display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+                        <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100px;">
+                          <span style="display: block; font-weight: 700; color: #F1F5F9; overflow: hidden; text-overflow: ellipsis;" title="${fileName}">${fileName}</span>
+                          <span style="color: var(--text-muted); font-size: 0.65rem;">${m.size || (m.type === 'video' ? 'Video clip' : 'Image')}</span>
+                        </div>
+                        <a href="${m.dataUrl}" download="${fileName}" class="btn" style="background: #13547A; color: #FFFFFF; padding: 0.3rem 0.6rem; font-size: 0.725rem; font-weight: 800; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; border: none; white-space: nowrap;" title="Download to device">
+                          <i class="fa-solid fa-download"></i> Download
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                `).join('')}
+                  `;
+                }).join('')}
               </div>
             </div>
           `;
@@ -2267,12 +2280,36 @@
           `;
         }
 
+        const categoryDisplay = (n.needTypes && n.needTypes.length > 0) ? n.needTypes.join(', ') : (n.category || 'General Mosque Need');
+        const submitDate = n.date || n.createdAt || 'Recent Submission';
+
         bodyEl.innerHTML = `
-          <div style="background: var(--bg-surface); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <!-- Meta Header Strip -->
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #F1F5F9; border: 1px solid #E2E8F0; padding: 0.6rem 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <div>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Reference Code:</span>
+              <strong style="font-family: monospace; font-size: 0.95rem; color: var(--primary); margin-left: 0.35rem;">${n.id}</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Submitted On:</span>
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-left: 0.35rem;">${submitDate}</span>
+            </div>
+            <div>
+              <span class="badge ${n.status === 'Approved' ? 'badge--completed' : (n.status === 'Declined' ? 'badge--urgent' : 'badge--category')}">
+                ${n.status || 'Pending Review'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Section 1: Mosque Details -->
+          <div style="background: var(--bg-surface); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;">
+            <h4 style="font-size: 0.875rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.85rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.35rem;">
+              <i class="fa-solid fa-mosque"></i> 1. Mosque Information
+            </h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.85rem;">
               <div>
                 <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Masjid Name (English)</small>
-                <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 2px;">${n.masjidName}</div>
+                <div style="font-size: 1.05rem; font-weight: 800; color: var(--text-primary); margin-top: 2px;">${n.masjidName}</div>
               </div>
               <div>
                 <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Masjid Name (Arabic)</small>
@@ -2280,33 +2317,67 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
               <div>
-                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Location & State</small>
-                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px;">${n.city || ''}, ${n.state || ''} (${n.country || 'Nigeria'})</div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">City / Town</small>
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px;">${n.city || 'N/A'}</div>
               </div>
               <div>
-                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Intervention Category & Urgency</small>
-                <div style="margin-top: 4px; display: flex; gap: 0.4rem; align-items: center;">
-                  <span class="badge badge--category">${(n.needTypes || ['General']).join(', ')}</span>
-                  <span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'}; font-weight: 800;">${n.urgency || 'Medium'} Urgency</span>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">State & Country</small>
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px;">${n.state || ''}, ${n.country || 'Nigeria'}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Need & Category -->
+          <div style="background: var(--bg-surface); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;">
+            <h4 style="font-size: 0.875rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.85rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.35rem;">
+              <i class="fa-solid fa-hand-holding-hand"></i> 2. Category & Specific Need
+            </h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.85rem;">
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Intervention Category</small>
+                <div style="margin-top: 3px;">
+                  <span class="badge badge--category" style="font-size: 0.85rem; font-weight: 800;">${categoryDisplay}</span>
+                </div>
+              </div>
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Urgency Assessment</small>
+                <div style="margin-top: 3px;">
+                  <span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'}; font-weight: 800;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> ${n.urgency || 'Medium'} Urgency
+                  </span>
                 </div>
               </div>
             </div>
 
             <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
-              <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Submitter / Contact Person</small>
-              <div style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-top: 2px;">
-                <i class="fa-solid fa-user"></i> ${n.submittingName || 'Community Member'} &nbsp;•&nbsp; <i class="fa-solid fa-phone"></i> ${n.submittingContact || 'N/A'}
-              </div>
+              <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 0.35rem;">
+                Detailed Description of the Need:
+              </small>
+              <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; padding: 0.85rem; font-size: 0.925rem; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap;">${n.description || 'No additional description provided.'}</div>
             </div>
           </div>
 
-          <div style="background: var(--bg-elevated); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem;">
-            <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 0.35rem;">
-              Full Description of the Need:
-            </small>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; white-space: pre-wrap;">${n.description || 'No additional description provided.'}</p>
+          <!-- Section 3: Submitter Contact -->
+          <div style="background: var(--bg-surface); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;">
+            <h4 style="font-size: 0.875rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.85rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.35rem;">
+              <i class="fa-solid fa-user-tie"></i> 3. Submitter / Contact Person
+            </h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Submitter Full Name</small>
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px;">
+                  <i class="fa-solid fa-user" style="color: var(--primary);"></i> ${n.submittingName || 'Community Member'}
+                </div>
+              </div>
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Phone / Email Address</small>
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-top: 2px;">
+                  <i class="fa-solid fa-address-book"></i> ${n.submittingContact || 'N/A'}
+                </div>
+              </div>
+            </div>
           </div>
 
           ${mediaHtml}
