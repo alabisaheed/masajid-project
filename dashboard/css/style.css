@@ -2208,3 +2208,113 @@ footer a:hover, .footer a:hover {
   color: var(--text-primary);
 }
 
+/* ── MODAL SYSTEM (FIXED SCREEN OVERLAY) ─────────────────── */
+.modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.modal-backdrop.open {
+  display: flex !important;
+}
+
+.modal-window {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border-card) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 600px;
+  animation: modalScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── MOBILE TABLE OVERFLOW & LEDGER ISOLATION (ANDROID / IOS) ── */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+.table-responsive {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  display: block !important;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-card);
+}
+
+.data-table, .admin-table {
+  width: 100% !important;
+  min-width: 680px !important;
+  border-collapse: collapse !important;
+}
+
+.data-table th, .data-table td,
+.admin-table th, .admin-table td {
+  padding: 0.85rem 1rem !important;
+  font-size: 0.875rem !important;
+  text-align: left;
+}
+
+.data-table th, .admin-table th {
+  background: var(--bg-elevated) !important;
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.mobile-table-hint {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .mobile-table-hint {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+  }
+  .data-table, .admin-table {
+    min-width: 640px !important;
+  }
+}
+

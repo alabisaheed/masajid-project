@@ -454,7 +454,6 @@
         modal.classList.remove('open');
         modal.style.display = 'none';
       }
-      window.location.href = 'transparency#ledger';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -464,9 +463,9 @@
     });
   </script>
 
-  <!-- MODAL: DONATION SUBMISSION CONFIRMATION -->
+  <!-- MODAL: DONATION SUBMISSION CONFIRMATION (CENTERED SCREEN OVERLAY) -->
   <div class="modal-backdrop" id="modal-donation-confirmation">
-    <div class="modal-window" style="max-width: 640px; text-align: center; padding: 2.5rem 2rem;">
+    <div class="modal-window" style="max-width: 620px; text-align: center; padding: 2.5rem 2rem;">
       <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--emerald-glow); color: var(--emerald); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; border: 2px solid var(--emerald-border);">
         <i class="fa-solid fa-hand-holding-heart"></i>
       </div>
@@ -493,7 +492,7 @@
           <div id="conf-target-text" style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Medinat Dhikr Central Mosque</div>
         </div>
 
-        <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+        <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
           <div>
             <span style="font-size: 0.75rem; color: var(--text-muted);">First Bank of Nigeria • Account:</span>
             <strong style="font-family: monospace; font-size: 1.05rem; color: var(--primary);">3012345678</strong>
@@ -509,9 +508,14 @@
         Once your bank transfer alert is acknowledged by the finance team, this donation will be credited to the project fund and published on the live Transparency Ledger.
       </p>
 
-      <button type="button" class="btn btn--primary" onclick="closeDonationModal()" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
-        View Transparency Dashboard
-      </button>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="transparency.html#ledger" class="btn btn--primary" style="flex: 1 1 200px; padding: 0.9rem; font-size: 1rem; text-align: center; text-decoration: none;">
+          <i class="fa-solid fa-table-list"></i> View Transparency Dashboard
+        </a>
+        <button type="button" class="btn btn--outline" onclick="closeDonationModal()" style="flex: 1 1 120px; padding: 0.9rem; font-size: 0.95rem;">
+          Close
+        </button>
+      </div>
     </div>
   </div>
 </body>
