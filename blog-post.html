@@ -639,6 +639,16 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderArticle();
+
+      if (window.MP) {
+        const prevOnChange = MP.onDataChange;
+        MP.onDataChange = function(key, data) {
+          if (typeof prevOnChange === 'function') prevOnChange(key, data);
+          if (key === 'comments') {
+            renderComments();
+          }
+        };
+      }
     });
   </script>
 </body>

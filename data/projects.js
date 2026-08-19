@@ -17,24 +17,31 @@ const defaultArticles = [
     authorAvatar: "SB",
     excerpt: "Every Sadaqah Jariyah project undergoes pre-inspection, competitive contractor bidding, and post-completion audits before public sign-off.",
     content: `
-      <p class="article-lead">Transparency in charity isn’t just an ideal—it requires systematic technical field verification. When supporters contribute to mosque improvements, they deserve to know that every naira or pound translates directly into physical, verifiable impact.</p>
+      <p class="article-lead">Transparency in charitable work is not merely a slogan or an aesthetic choice. It is a profound spiritual obligation that requires rigorous, verifiable engineering standards. When donors entrust their hard-earned wealth to improve a house of Allah, they deserve absolute certainty that every single naira or pound translates directly into high-quality, durable materials on the ground.</p>
       
-      <h3>The Three-Stage Technical Audit Process</h3>
-      <p>Before any project is published for funding on Masajid Project, our team executes a rigorous three-stage verification process:</p>
-      <ul>
-        <li><strong>1. Identification & Need Assessment:</strong> Field inspectors evaluate the physical condition, take high-resolution before-photos, and interview mosque committee members to confirm the genuine scope of need.</li>
-        <li><strong>2. Bidding & Contractor Selection:</strong> We obtain competitive quotations from vetted local technical contractors (solar engineers, sound specialists, electricians) to prevent inflated invoicing.</li>
-        <li><strong>3. Post-Execution Inspection:</strong> Once work is complete, our audit team tests the installation (e.g. acoustic balancing for sound systems, solar battery backup discharge rates) before releasing final payment.</li>
-      </ul>
+      <p>Across many grassroots communities, well-intentioned mosque enhancement projects often face challenges. Inexperienced handling can lead to inflated contractor estimates, substandard electrical wiring, or cheap sound amplifiers that fail within months of installation. At Masajid Project, our mandate is to eliminate these inefficiencies by applying professional technical project management principles to every single intervention, no matter how small.</p>
 
-      <blockquote>
-        "O you who believe! Fulfill your obligations and honor your trusts." — Qur'an 5:1
-      </blockquote>
+      <h3>The Three-Stage Technical Audit Standard</h3>
+      
+      <p>Before any mosque need is published for public funding on our platform, our engineering and assessment team executes a strict three-phase verification protocol.</p>
 
-      <h3>100% Financial Reconciliation</h3>
-      <p>All vendor invoices, receipt vouchers, and site photos are uploaded directly to our public Transparency Dashboard. Donors can cross-reference donation receipts with contractor disbursements line-by-line.</p>
+      <p>First is the Preliminary Site Assessment. Our field engineers visit the mosque in person to evaluate the structural and electrical environment. High-resolution before-intervention photographs are captured, local electrical loads are measured, and the Imam and mosque executive committee are interviewed to verify the true scope of the need. We document everything from ambient room acoustics to existing power stability.</p>
+
+      <p>Second is Competitive Procurement and Bill of Quantities verification. Rather than accepting single unverified quotes, our procurement unit solicits competitive quotations from vetted local technical artisans and suppliers. We compare the market cost of materials, verify vendor credibility, and establish fixed-price milestone agreements. This ensures that donor funds are never subjected to arbitrary contractor markups.</p>
+
+      <p>Third is Post-Execution Testing and Commissioning. When a contractor finishes their installation, payment is withheld until our audit inspectors conduct on-site commissioning tests. For sound installations, we measure acoustic distribution across prayer rows to eliminate feedback loops. For solar installations, we test battery discharge rates under full load. Only when the work passes technical criteria do we sign off the final disbursement.</p>
+
+      <div class="article-quote-box">
+        O you who believe! Fulfill your obligations and honor your trusts. — Surah Al-Ma'idah (5:1)
+      </div>
+
+      <h3>Open Ledger Reconciliation and Public Accountability</h3>
+
+      <p>Technical verification is only half the journey. The other vital half is complete financial reconciliation. Every vendor quote, purchase invoice, receipt voucher, and bank confirmation code is published directly to our public Transparency Dashboard. Any supporter, community member, or independent auditor can inspect our ledgers line by line.</p>
+
+      <p>By pairing engineering rigor with open financial reporting, we safeguard the sanctity of Sadaqah Jariyah. When donors give through Masajid Project, they can rest assured that their contributions build enduring value that serves worshippers for years to come.</p>
     `,
-    readTime: "4 min read"
+    readTime: "6 min read"
   },
   {
     id: "2",
@@ -47,15 +54,31 @@ const defaultArticles = [
     authorAvatar: "AD",
     excerpt: "How installing solar inverter systems in rural and semi-urban mosques enables 24/7 power for prayers, nighttime lighting, and madrasah education.",
     content: `
-      <p class="article-lead">Unreliable power grids present a major obstacle for daily worship and evening learning sessions in local communities. Installing solar inverter systems solves this permanently.</p>
-      
-      <h3>Uninterrupted Worship & Learning</h3>
-      <p>When power fails during evening Isha or Fajr prayers, sound amplification and lighting shut down. Solar energy guarantees uninterrupted Adhan broadcast, crisp acoustics for the Imam during prayers, and safe nighttime lighting for children attending evening Qur'an classes.</p>
-      
-      <h3>Long-term Cost Savings</h3>
-      <p>Mosques previously spent significant funds on generator fuel each month. Solar systems eliminate this financial burden, allowing local committees to redirect funds toward community welfare and facility maintenance.</p>
+      <p class="article-lead">In many rural and semi-urban communities, electrical power outages are not an occasional inconvenience; they are a constant daily reality. For local mosques, the absence of reliable electricity deeply affects the entire spiritual and educational rhythm of the community.</p>
+
+      <p>When the grid fails during evening prayers or early dawn Fajr, worshippers are left in pitch darkness. Imams struggle to lead congregational prayers without sound amplification, and the call to prayer cannot reach surrounding homes. Furthermore, the recurring cost of running petrol generators places an immense financial burden on struggling mosque committees, draining funds that could otherwise support local families or facility maintenance.</p>
+
+      <h3>Restoring Light, Dignity, and Regular Worship</h3>
+
+      <p>Installing dedicated solar photovoltaic systems and pure sine wave inverters brings immediate, transformative change to off-grid mosques. A modest, properly engineered solar installation provides twenty-four hour autonomous power for all core needs: energy-efficient LED prayer hall lighting, minaret floodlights, outdoor security illumination, and audio public address systems.</p>
+
+      <p>With clean solar power, the Adhan resounds reliably five times every day across the village, calling believers together regardless of the municipal power status. During nighttime Isha prayers, worshippers gather in comfort and safety. Wudhu ablution areas remain brightly lit and hygienic, preventing dangerous slips or falls in the dark.</p>
+
+      <div class="article-quote-box">
+        The mosques of Allah shall be visited and maintained by those who believe in Allah and the Last Day. — Surah At-Tawbah (9:18)
+      </div>
+
+      <h3>Empowering Evening Madrasah and Qur'anic Learning</h3>
+
+      <p>Perhaps the most inspiring outcome of mosque electrification is the revival of evening education. In many communities, children work with their families during the daytime and can only attend Qur'an memorization classes after sunset. Before solar installation, these young students read by dangerous candlelight or dim battery lanterns.</p>
+
+      <p>With dependable solar lighting, evening classes flourish. Dozens of children sit comfortably in well-lit classrooms, reciting from the Holy Book with ease. The mosque transforms from a building used only during daylight into a vibrant, round-the-clock center of learning, worship, and community cohesion.</p>
+
+      <h3>Long-Term Financial Sustainability</h3>
+
+      <p>Beyond spiritual and educational benefits, solar power delivers immediate financial relief. By eliminating monthly generator fuel and maintenance expenses, mosques save tens of thousands of naira each month. These savings allow local committees to invest in clean water filtration, building repairs, and charity distributions for widows and orphans. Solar energy represents a true Sadaqah Jariyah that continues to give back every single day.</p>
     `,
-    readTime: "5 min read"
+    readTime: "7 min read"
   },
   {
     id: "3",
@@ -66,14 +89,33 @@ const defaultArticles = [
     author: "Ustadh Imran Khalid",
     authorTitle: "Islamic Governance Advisor",
     authorAvatar: "IK",
-    excerpt: "Exploring the Hadith of ongoing charity and why providing essential items—like lighting, clean water, and sound systems—continues benefiting the donor.",
+    excerpt: "Exploring the Hadith of ongoing charity and why providing essential items like lighting, clean water, and sound systems continues benefiting the donor.",
     content: `
-      <p class="article-lead">The Prophet Muhammad (peace be upon him) taught us that when a person passes away, their good deeds come to an end except for three: ongoing charity (Sadaqah Jariyah), beneficial knowledge, or a righteous child who prays for them.</p>
+      <p class="article-lead">Human beings naturally desire to leave behind a meaningful legacy that outlives their earthly existence. In the Islamic tradition, Allah in His infinite mercy has gifted us the concept of Sadaqah Jariyah, an ongoing continuous charity whose spiritual rewards flow to the donor long after their soul has departed this world.</p>
 
-      <h3>Continuous Benefit</h3>
-      <p>Every time a worshipper hears the Adhan clearly through a sound system you funded, reads from a Qur'an placed on a shelf you provided, or prays under LED lighting you installed, the reward continues to reach your scale of good deeds.</p>
+      <p>The Messenger of Allah, peace and blessings be upon him, taught us in an authentic narration recorded by Imam Muslim that when a person passes away, all their deeds come to an end except for three: an ongoing charity, beneficial knowledge that people benefit from, or a righteous child who prays for them. This profound principle teaches us to look beyond temporary giving and invest in enduring acts of goodness.</p>
+
+      <h3>The Multiplication of Small Practical Deeds</h3>
+
+      <p>Many believers mistakenly assume that meaningful Sadaqah Jariyah requires massive wealth, such as building an entire grand mosque from the foundation up. While constructing a mosque carries immense reward, the beauty of Islamic charity is that even the smallest practical contribution holds perpetual weight in the sight of Allah.</p>
+
+      <p>Consider the placement of a sturdy wooden bookshelf or reading placeholders for the Holy Qur'an. For years to come, young students and elderly worshippers will place the Book of Allah on those stands, reciting verses daily. Every letter read, every page memorized, and every heart softened yields continuous spiritual dividends recorded in your ledger of good deeds.</p>
+
+      <div class="article-quote-box">
+        When a human being dies, all their deeds come to an end except for three: ongoing charity, beneficial knowledge, or a righteous child who prays for them. — Sahih Muslim
+      </div>
+
+      <h3>Essential Interventions with Everyday Impact</h3>
+
+      <p>The same enduring reward applies to every essential amenity provided to a house of Allah. When you fund a durable audio amplifier, hundreds of worshippers hear the verses of the Qur'an and the Friday sermon clearly through your contribution. When you replace broken lighting with energy-efficient LED fixtures, believers navigate the prayer hall safely in the dawn hours.</p>
+
+      <p>When you repair a faulty ablution tap, thousands of worshippers purify themselves for prayer with clean, running water. These are not merely physical objects; they are conduits of worship. As long as believers utilize these facilities to remember Allah, the reward continually ascends to the donor, bringing peace to their grave and light to their Day of Judgment.</p>
+
+      <h3>Cultivating Sincerity and Accountability</h3>
+
+      <p>To maximize the blessing of ongoing charity, our actions must be guided by sincere intention (Ikhlas) and careful stewardship (Amanah). Supporting transparent, well-documented initiatives ensures that resources are utilized properly without waste. May Allah accept our humble efforts, purify our intentions, and make our contributions a source of continuous light for us and our loved ones.</p>
     `,
-    readTime: "3 min read"
+    readTime: "6 min read"
   },
   {
     id: "4",
@@ -86,17 +128,36 @@ const defaultArticles = [
     authorAvatar: "FO",
     excerpt: "A case study on replacing faulty speaker columns with balanced acoustic mixers to serve over 800 daily worshippers in Ikeja.",
     content: `
-      <p class="article-lead">High-quality audio acoustics ensure that every worshipper in the prayer hall and overflow balcony hears the Imam and Adhan with crystal-clear fidelity.</p>
-      
-      <h3>Acoustic Balancing & Mixer Calibration</h3>
-      <p>Our technical team installed multi-channel sound mixers and weather-resistant horn speakers calibrated specifically for architectural reverberation reduction.</p>
+      <p class="article-lead">Clear sound transmission inside a mosque is not a luxury; it is a fundamental requirement for congregational worship. When worshippers cannot hear the recitation of the Imam or the guidance of the Friday Khutbah, the communal spirit and spiritual focus of the prayer are compromised.</p>
+
+      <p>Masjid Baitul Hikmah, an active community mosque serving over eight hundred daily worshippers, faced persistent audio degradation for over two years. The existing sound system suffered from harsh feedback squeals, uneven volume distribution between the ground floor and the women's gallery, and frequent amplifier overheating during extended Friday gatherings.</p>
+
+      <h3>Diagnostic Field Inspection and Acoustic Mapping</h3>
+
+      <p>Our technical team conducted a thorough acoustic audit of the prayer sanctuary. We identified three major engineering flaws: poorly angled horn speakers causing severe high-frequency reverberation off marble walls, unshielded microphone cabling picking up electromagnetic interference, and an underpowered mixer unable to handle multi-zone distribution.</p>
+
+      <p>Rather than recommending an excessively expensive full overhaul, our engineers designed a targeted, cost-effective acoustic improvement plan. We specified the installation of balanced column line-array speakers that disperse sound horizontally across the congregation while minimizing vertical ceiling reflections.</p>
+
+      <div class="article-quote-box">
+        And recite the Qur'an with measured, clear recitation. — Surah Al-Muzzammil (73:4)
+      </div>
+
+      <h3>Implementation and Precision Calibration</h3>
+
+      <p>Over a three-day execution window, our certified audio contractors replaced the degraded wiring with heavy-gauge shielded audio lines, installed four calibrated column speakers in the main hall, and added dedicated auxiliary monitor speakers in the overflow courtyard and sisters' wing.</p>
+
+      <p>A multi-channel mixer with integrated feedback suppression was installed in a secure, ventilated enclosure. Each microphone, including the Imam's wireless lapel and the Minbar podium unit, was individually equalized to match the natural vocal frequencies of the mosque leadership.</p>
+
+      <h3>The Community Response</h3>
+
+      <p>The transformation was immediate and profound. During the subsequent Friday congregational prayer, the Khutbah was heard with pristine clarity in every corner of the mosque, from the front row to the exterior courtyard. Elderly worshippers expressed deep gratitude for finally being able to hear every word without straining. This project stands as a testament to how targeted technical expertise can revitalize the daily worship experience of an entire community.</p>
     `,
-    readTime: "4 min read"
+    readTime: "6 min read"
   },
   {
     id: "5",
     slug: "maintaining-wudhu-sanitation-health-and-dignity",
-    title: "Maintaining Wudhu Sanitation: Health & Dignity",
+    title: "Maintaining Wudhu Sanitation: Health and Dignity",
     category: "Sadaqah Jariyah",
     date: "10 Jul 2026",
     author: "Masajid Care Team",
@@ -104,9 +165,31 @@ const defaultArticles = [
     authorAvatar: "MC",
     excerpt: "Proper ablution facilities prevent water wastage and ensure clean, hygienic conditions for community members before prayer.",
     content: `
-      <p class="article-lead">Cleanliness is half of faith. Ensuring that mosque ablution (wudhu) areas have functioning taps, non-slip rubber flooring, and clean water drainage is a high-impact Sadaqah Jariyah intervention.</p>
+      <p class="article-lead">In Islamic practice, physical cleanliness is inextricably linked with spiritual readiness. The ritual ablution (Wudhu) is the essential gateway to prayer, purifying the believer before standing in audience with their Creator. Consequently, the condition of a mosque's ablution area reflects the care and respect accorded to the house of Allah.</p>
+
+      <p>Unfortunately, ablution and sanitation facilities are frequently among the most neglected areas in grassroots mosques. Leaking taps, cracked sitting benches, stagnating greywater, and slippery flooring compromise hygiene, waste precious water resources, and pose serious safety hazards, especially for elderly worshippers and young children.</p>
+
+      <h3>Restoring Cleanliness, Safety, and Dignity</h3>
+
+      <p>At Masajid Project, our sanitation intervention unit focuses on restoring cleanliness, water efficiency, and human dignity to community ablution spaces. We prioritize durable plumbing upgrades, including push-button conservation taps that prevent water wastage and eliminate constant dripping.</p>
+
+      <p>We replace slippery concrete surfaces with non-slip, antimicrobial drainage mats that channel water away quickly, preventing the buildup of algae and standing water. Proper drainage gradient re-engineering ensures that wastewater flows smoothly into municipal drainage channels or soakaway pits, eliminating foul odors and insect breeding grounds.</p>
+
+      <div class="article-quote-box">
+        Cleanliness is half of faith. — Sahih Muslim
+      </div>
+
+      <h3>Preserving Water: A Sacred Responsibility</h3>
+
+      <p>Water conservation is a core Islamic value emphasized repeatedly by the Prophet Muhammad, peace and blessings be upon him, who instructed believers not to waste water even when performing ablution by a flowing river. In communities facing water scarcity, a single leaking tap can waste hundreds of liters of clean water every day.</p>
+
+      <p>By installing pressure-regulated fittings and repairing cracked overhead storage tanks, our interventions save thousands of liters of clean water each week. This not only preserves a precious natural resource but also drastically reduces the electricity required to pump borehole water, lowering operational costs for the mosque committee.</p>
+
+      <h3>A High-Reward Sadaqah Jariyah</h3>
+
+      <p>Every time a worshipper steps into a clean, safe ablution area, turns on a functioning tap, and purifies themselves for prayer, the donor who facilitated that clean environment shares in the spiritual reward of that worship. Ensuring that our brothers and sisters can perform their religious duties in a clean, dignified space is among the most compassionate and enduring forms of charitable giving.</p>
     `,
-    readTime: "3 min read"
+    readTime: "6 min read"
   },
   {
     id: "6",
@@ -119,9 +202,37 @@ const defaultArticles = [
     authorAvatar: "AC",
     excerpt: "Step-by-step walkthrough of the nomination assessment process: from submission to technical field verification.",
     content: `
-      <p class="article-lead">Anyone can nominate a local mosque in need of practical maintenance. Our field assessment team reviews each submission within 24 hours to schedule an on-site audit.</p>
+      <p class="article-lead">The strength of Masajid Project lies in its grassroots community connection. Rather than operating from distant offices, our initiative relies on regular worshippers, community members, and local mosque committees to identify genuine, practical needs in their neighborhoods.</p>
+
+      <p>Whether it is a rural mosque needing a solar inverter, a local madrasah requiring bookshelves and Qur'ans, or a suburban prayer hall struggling with degraded sound equipment, anyone can submit a nomination through our transparent platform. Here is a complete overview of how nominations are processed from initial submission to project completion.</p>
+
+      <h3>Step 1: Community Submission</h3>
+
+      <p>Any individual can visit our Submit a Need portal and fill out our structured nomination form. You provide the name and physical location of the mosque, select the relevant category of need, describe the current challenge in detail, and provide contact information for the local Imam or mosque executive.</p>
+
+      <p>We also strongly encourage nominators to upload photos or short video clips demonstrating the existing condition. Visual evidence allows our assessment desk to immediately understand the urgency and technical nature of the request.</p>
+
+      <h3>Step 2: Rapid Internal Review and Verification</h3>
+
+      <p>Upon submission, the nomination is instantly logged in our central audit database with a unique tracking reference code. Within twenty-four to forty-eight hours, our assessment team conducts preliminary desk verification, confirming the geographic location and reaching out to the mosque leadership to verify community consent and need validity.</p>
+
+      <div class="article-quote-box">
+        The best of people are those who are most beneficial to others. — At-Tabarani
+      </div>
+
+      <h3>Step 3: On-Site Technical Field Audit</h3>
+
+      <p>Once a nomination passes preliminary vetting, our field operations team is dispatched to conduct an on-site technical inspection. We assess the physical infrastructure, measure required dimensions, verify electrical loads, and prepare a standardized Bill of Quantities with local artisan pricing.</p>
+
+      <h3>Step 4: Public Publication and Funding</h3>
+
+      <p>Approved projects are assigned a permanent project identification code and published on our public website and dashboard. Transparent funding targets are established based on verified vendor quotations, allowing donors worldwide to contribute directly toward the specific verified need.</p>
+
+      <h3>Step 5: Execution, Quality Audit, and Public Reporting</h3>
+
+      <p>Once funds are raised, work commences under the supervision of our engineering inspectors. Upon successful completion and quality sign-off, before-and-after photographic evidence, contractor invoices, and payment receipts are published to our public Transparency Ledger. The project then enters an active monitoring phase to ensure long-term functionality and benefit.</p>
     `,
-    readTime: "4 min read"
+    readTime: "7 min read"
   }
 ];
 
@@ -241,6 +352,12 @@ function loadLocal(key, defaultVal) {
     if (key === 'projects') {
       if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || p.titleEN !== "Bookshelf, Reading Placeholders and Quran" || (p.descriptionEN && p.descriptionEN.includes('paid')) || (p.id && p.id.startsWith('MP-LAG-'))))) {
         localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
+        return defaultVal;
+      }
+    }
+    if (key === 'articles') {
+      if (!parsed || !Array.isArray(parsed) || parsed.some(a => a.content && a.content.length < 500)) {
+        localStorage.setItem('masajid_articles', JSON.stringify(defaultVal));
         return defaultVal;
       }
     }
