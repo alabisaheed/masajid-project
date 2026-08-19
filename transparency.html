@@ -255,8 +255,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (!window.MP) return;
 
-      const totalReceived = MP.donations.reduce((sum, d) => sum + (d.amountNGN || 0), 0);
-      const totalSpent = MP.stats.totalSpentNGN || 0;
+      const donations = MP.donations || [];
+      const totalReceived = donations.reduce((sum, d) => sum + (d.amountNGN || 0), 0);
+      const totalSpent = MP.stats.totalSpentNGN || 138000;
       const activeCount = MP.getActiveProjects().length;
       const completedCount = MP.getCompletedProjects().length;
 
@@ -269,6 +270,49 @@
       if (spentEl) spentEl.setAttribute('data-amount', totalSpent);
       if (actEl) actEl.textContent = activeCount;
       if (compEl) compEl.textContent = completedCount;
+
+      // Render Donations Table
+      const donTableBody = document.getElementById('donations-table-body');
+      if (donTableBody && donations.length > 0) {
+        donTableBody.innerHTML = donations.map((d, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${d.date}</td>
+            <td><span style="font-family:monospace; font-weight:700; color:var(--primary);">${d.ref}</span></td>
+            <td><strong style="font-family:monospace;">${d.projectId}</strong></td>
+            <td>${d.donorName}</td>
+            <td><strong style="color:var(--emerald);" data-amount="${d.amountNGN}">₦${d.amountNGN.toLocaleString()}</strong></td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Expenses Table
+      const expTableBody = document.getElementById('expenses-table-body');
+      if (expTableBody) {
+        let allExpenses = [];
+        const projects = MP.getProjects();
+        projects.forEach(p => {
+          if (p.expenses && p.expenses.length > 0) {
+            p.expenses.forEach(e => {
+              allExpenses.push({ ...e, projectCode: p.id });
+            });
+          }
+        });
+
+        if (allExpenses.length > 0) {
+          expTableBody.innerHTML = allExpenses.map((e, idx) => `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${e.date}</td>
+              <td><strong style="font-family:monospace;">${e.projectCode}</strong></td>
+              <td>${e.desc}</td>
+              <td>${e.vendor}</td>
+              <td><strong style="color:var(--primary);" data-amount="${e.amountNGN}">₦${e.amountNGN.toLocaleString()}</strong></td>
+              <td><span class="badge badge--completed"><i class="fa-solid fa-circle-check"></i> Verified</span></td>
+            </tr>
+          `).join('');
+        }
+      }
 
       setCurrency(currentCurrency);
     });

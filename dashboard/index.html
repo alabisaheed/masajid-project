@@ -568,7 +568,7 @@
                 <div class="stat-icon-circle" style="color: var(--emerald); background: var(--emerald-glow);"><i class="fa-solid fa-wallet"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" data-amount="3825500">₦3,825,500</div>
+                <div class="admin-metric-card__value" data-amount="138000">₦138,000</div>
                 <div class="admin-metric-card__label">Logged Donations Received</div>
               </div>
             </div>
@@ -579,8 +579,8 @@
                 <div class="stat-icon-circle" style="color: var(--primary); background: var(--primary-glow);"><i class="fa-solid fa-receipt"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" data-amount="625000">₦625,000</div>
-                <div class="admin-metric-card__label">Direct Contractor Payments</div>
+                <div class="admin-metric-card__value" data-amount="138000">₦138,000</div>
+                <div class="admin-metric-card__label">Direct Contractor Disbursements</div>
               </div>
             </div>
 
@@ -590,19 +590,19 @@
                 <div class="stat-icon-circle" style="color: var(--amber); background: rgba(217, 119, 6, 0.1);"><i class="fa-solid fa-clock-rotate-left"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value">8</div>
-                <div class="admin-metric-card__label">Funding & In Execution</div>
+                <div class="admin-metric-card__value">2</div>
+                <div class="admin-metric-card__label">In Execution & Funding</div>
               </div>
             </div>
 
             <div class="admin-metric-card">
               <div class="admin-metric-card__header">
-                <span style="font-size: 0.8rem; font-weight: 800; color: var(--sky); text-transform: uppercase;">VERIFIED VENDORS</span>
-                <div class="stat-icon-circle" style="color: var(--sky); background: rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-truck-field"></i></div>
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--sky); text-transform: uppercase;">MASAJID SUPPORTED</span>
+                <div class="stat-icon-circle" style="color: var(--sky); background: rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-mosque"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value">14</div>
-                <div class="admin-metric-card__label">Audited Technical Contractors</div>
+                <div class="admin-metric-card__value">2</div>
+                <div class="admin-metric-card__label">Ogun State Masajid</div>
               </div>
             </div>
           </div>
@@ -1314,7 +1314,7 @@
         if (allExpenses.length > 0) {
           expenseBody.innerHTML = allExpenses.map(e => `
             <tr>
-              <td><span style="font-family: monospace; font-size: 0.8rem;">${e.voucher || 'VOUCH-01'}</span></td>
+              <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${e.id || e.voucher || 'EXP-01'}</span></td>
               <td>${e.vendor || 'Vendor Contractor'}</td>
               <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">${e.amountNGN}</strong></td>
             </tr>

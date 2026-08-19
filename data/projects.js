@@ -176,165 +176,61 @@ const defaultComments = [
 
 const initialProjects = [
   {
-    id: "MP-LAG-2026-001",
+    id: "MP-OG-2026-001",
     mosqueId: "MSQ-001",
-    categoryId: "sound",
-    status: "COMPLETED",
-    isFeatured: true,
-    titleEN: "Sound System Upgrade",
-    titleAR: "تحديث نظام الصوت",
-    location: "Mushin, Lagos",
-    descriptionEN: "Complete overhaul of audio amplification with 6 ceiling column speakers, dual wireless UHF microphones, and acoustic balancing. Over 800 worshippers benefit during Friday Khutbah and daily prayers.",
-    descriptionAR: "تحديث شامل لنظام الصوت وتوفير ميكروفونات لاسلكية ومكبرات صوت لخدمة 800 مصلٍ.",
-    goalNGN: 435000,
-    raisedNGN: 435000,
-    spentNGN: 435000,
-    completedDate: "2026-07-28",
-    verifiedBy: "Technical Field Team",
-    imageBefore: "images/proj-001-before.jpg",
-    imageAfter: "images/proj-001-after.jpg",
-    expenses: [
-      { id: "EXP-001", date: "2026-07-15", desc: "Acoustic Speakers & Amplifiers", vendor: "SoundTech Systems Ltd", amountNGN: 320000, receiptVerified: true },
-      { id: "EXP-002", date: "2026-07-20", desc: "UHF Microphones & Cable Wiring", vendor: "ElectraPro Supplies", amountNGN: 115000, receiptVerified: true }
-    ]
-  },
-  {
-    id: "MP-LAG-2026-002",
-    mosqueId: "MSQ-002",
-    categoryId: "solar",
-    status: "FUNDING",
-    isFeatured: true,
-    titleEN: "Solar Energy Inverter System",
-    titleAR: "نظام محول الطاقة الشمسية",
-    location: "Surulere, Lagos",
-    descriptionEN: "Installation of a 5kVA solar inverter system with 8 monocrystalline solar panels to guarantee 24/7 power backup for daily prayers, nighttime lighting, and madrasah classes.",
-    descriptionAR: "تركيب نظام طاقة شمسية بقدرة 5 كيلو فوا لتوفير الكهرباء المستمرة للصلوات وحلقات التحفيظ.",
-    goalNGN: 1250000,
-    raisedNGN: 837500,
-    spentNGN: 0,
-    imageBefore: "images/proj-002-before.jpg",
-    expenses: []
-  },
-  {
-    id: "MP-LAG-2026-003",
-    mosqueId: "MSQ-003",
-    categoryId: "lighting",
-    status: "IN_PROGRESS",
-    isFeatured: true,
-    titleEN: "LED Energy Efficient Lighting Overhaul",
-    titleAR: "تحديث الإضاءة بإضاءة ليد موفرة",
-    location: "Ikeja, Lagos",
-    descriptionEN: "Replacement of 45 high-wattage fluorescent bulbs with energy-efficient LED panel lighting and safety rewiring of the main electrical distribution panel.",
-    descriptionAR: "استبدال المصابيح القديمة بـ 45 لوحة إضاءة ليد موفرة للطاقة وتحديث اللوحة الكهربائية.",
-    goalNGN: 380000,
-    raisedNGN: 380000,
-    spentNGN: 190000,
-    imageBefore: "images/proj-003-before.jpg",
-    expenses: [
-      { id: "EXP-003", date: "2026-08-02", desc: "LED Lighting Panels (45 units)", vendor: "Lumica Electrical Ltd", amountNGN: 190000, receiptVerified: true }
-    ]
-  },
-  {
-    id: "MP-OG-2026-004",
-    mosqueId: "MSQ-004",
-    categoryId: "cleaning",
-    status: "FUNDING",
-    isFeatured: true,
-    titleEN: "Carpet Steam Sanitation",
-    titleAR: "تنظيف وتعقيم السجاد بالبخار",
-    location: "Abeokuta, Ogun",
-    descriptionEN: "Professional industrial steam washing, deep anti-bacterial sanitation, and edging repairs for 350 sq meters of prayer carpet.",
-    descriptionAR: "غسيل بالبخار الصناعي وتعقيم عميق لـ 350 متراً مربعاً من سجاد الصلاة.",
-    goalNGN: 220000,
-    raisedNGN: 154000,
-    spentNGN: 0,
-    imageBefore: "images/proj-004-before.jpg",
-    expenses: []
-  },
-  {
-    id: "MP-LAG-2026-005",
-    mosqueId: "MSQ-005",
     categoryId: "quran",
-    status: "VERIFIED",
-    isFeatured: false,
-    titleEN: "Qur'an Storage & Bookshelves",
-    titleAR: "توفير المصاحف ورفوف التخزين",
-    location: "Yaba, Lagos",
-    descriptionEN: "Crafting and mounting of 6 solid mahogany wall-mounted wooden bookshelf units and provision of 100 hardbound Madani Qur'an copies.",
-    descriptionAR: "صناعة 6 رفوف خشبية وتوفير 100 مصحف بطبعة المدينة.",
-    goalNGN: 195000,
-    raisedNGN: 195000,
-    spentNGN: 0,
-    imageBefore: "images/proj-005-before.jpg",
-    expenses: []
-  },
-  {
-    id: "MP-LAG-2026-006",
-    mosqueId: "MSQ-006",
-    categoryId: "repairs",
-    status: "FUNDING",
-    isFeatured: false,
-    titleEN: "Public Wudhu Area Plumbing",
-    titleAR: "سباكة منطقة الوضوء العامة",
-    location: "Agege, Lagos",
-    descriptionEN: "Replacing 16 damaged brass faucets, fixing supply leakage, and laying anti-slip floor tiles in the public wudhu area.",
-    descriptionAR: "استبدال 16 صنبور نحاسي وإصلاح التسريبات وتركيب أرضيات مانعة للانزلاق.",
-    goalNGN: 310000,
-    raisedNGN: 139500,
-    spentNGN: 0,
-    imageBefore: "images/proj-002-before.jpg",
-    expenses: []
-  },
-  {
-    id: "MP-KAD-2026-007",
-    mosqueId: "MSQ-007",
-    categoryId: "repairs",
     status: "IN_PROGRESS",
-    isFeatured: false,
-    titleEN: "Roof Leak & Waterproofing",
-    titleAR: "إصلاح تسرب السطح والعزل المائي",
-    location: "Tudun Wada, Kaduna",
-    descriptionEN: "Emergency roof sealing with bitumen waterproofing membrane and replacing damaged aluminium roofing sheets over main prayer hall.",
-    descriptionAR: "عزل مائي ومعالجة تسربات مياه الأمطار في السقف لقاعة الصلاة الرئيسية.",
-    goalNGN: 480000,
-    raisedNGN: 480000,
-    spentNGN: 0,
-    imageBefore: "images/proj-003-before.jpg",
-    expenses: []
+    isFeatured: true,
+    titleEN: "Qur'an Bookshelf & Reading Placeholders",
+    titleAR: "توفير رف الكتب وحوامل المصاحف",
+    location: "Adumbu, Itori, Ewekoro, Ogun State",
+    mosqueName: "Medinat Dhikr Central Mosque",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.",
+    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للمصلين وطلاب العلم.",
+    goalNGN: 88000,
+    raisedNGN: 64000,
+    spentNGN: 64000,
+    verifiedBy: "Masajid Field Operations Team",
+    imageBefore: "images/proj-004-before.jpg",
+    imageAfter: "images/mosque-hero.jpg",
+    expenses: [
+      { id: "EXP-001", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Carpentry & Joinery Workshop", amountNGN: 40000, receiptVerified: true },
+      { id: "EXP-002", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true }
+    ],
+    scope: [
+      { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
+      { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
+      { item: "10x Copies of the Holy Qur'an", costNGN: 24000, status: "Pending / Funding in Progress" }
+    ]
   },
   {
-    id: "MP-OYO-2026-008",
-    mosqueId: "MSQ-008",
-    categoryId: "sound",
-    status: "VERIFIED",
-    isFeatured: false,
-    titleEN: "Acoustic Audio Mixer Upgrade",
-    titleAR: "ترقية جهاز مزج الصوت الصوتي",
-    location: "Bodija, Ibadan",
-    descriptionEN: "Procurement of a 12-channel digital audio mixer console and dual wireless UHF mics for clear audio distribution.",
-    descriptionAR: "توفير وحدة تحكم صوتية رقمية بـ 12 قناة وميكروفونات لاسلكية.",
-    goalNGN: 540000,
-    raisedNGN: 540000,
-    spentNGN: 0,
-    imageBefore: "images/proj-001-before.jpg",
-    expenses: []
-  },
-  {
-    id: "MP-KAN-2026-009",
-    mosqueId: "MSQ-009",
-    categoryId: "security",
-    status: "FUNDING",
-    isFeatured: false,
-    titleEN: "Perimeter Security Lighting & CCTV",
-    titleAR: "إنارة الأمن المحيط وكاميرات المراقبة",
-    location: "Fagge, Kano",
-    descriptionEN: "Installation of 8 high-output solar floodlights around mosque perimeter and a 4-channel security camera monitoring system.",
-    descriptionAR: "تركيب 8 كشافات طاقة شمسية ونظام كاميرات مراقبة لحماية المسجد.",
-    goalNGN: 640000,
-    raisedNGN: 320000,
-    spentNGN: 0,
-    imageBefore: "images/proj-002-before.jpg",
-    expenses: []
+    id: "MP-OG-2026-002",
+    mosqueId: "MSQ-002",
+    categoryId: "quran",
+    status: "IN_PROGRESS",
+    isFeatured: true,
+    titleEN: "Bookshelf, Qur'ans & Reading Placeholders",
+    titleAR: "رف كتب ومصاحف وحوامل قراءة",
+    location: "Behind Al-Fathia School, Itori, Ewekoro, Ogun State",
+    mosqueName: "Masjid Markaz Diyar",
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.",
+    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية، و10 مصاحف للتلاوة اليومية وحلقات تحفيظ القرآن.",
+    goalNGN: 88000,
+    raisedNGN: 74000,
+    spentNGN: 74000,
+    verifiedBy: "Masajid Field Operations Team",
+    imageBefore: "images/proj-005-before.jpg",
+    imageAfter: "images/mosque-hero.jpg",
+    expenses: [
+      { id: "EXP-003", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Carpentry & Joinery Workshop", amountNGN: 40000, receiptVerified: true },
+      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true },
+      { id: "EXP-005", date: "2026-08-18", desc: "Qur'an Copies Initial Purchase / Deposit", vendor: "Madani Book Distribution", amountNGN: 10000, receiptVerified: true }
+    ],
+    scope: [
+      { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
+      { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
+      { item: "10x Copies of the Holy Qur'an", costNGN: 24000, status: "Partially Funded (₦10,000 paid)" }
+    ]
   }
 ];
 
@@ -345,8 +241,9 @@ function loadLocal(key, defaultVal) {
     const val = localStorage.getItem('masajid_' + key);
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
-    if (Array.isArray(defaultVal) && Array.isArray(parsed)) {
-      if (parsed.length < defaultVal.length) {
+    if (key === 'projects') {
+      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.id && p.id.startsWith('MP-LAG-')))) {
+        localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
         return defaultVal;
       }
     }
@@ -374,20 +271,20 @@ function saveLocal(key, data) {
 
 g.MP = {
   stats: {
-    projectsCompleted: 1,
-    totalRaisedNGN: 3825500,
-    masajidSupported: 9,
-    activeProjects: 8,
-    totalSpentNGN: 625000,
-    totalDonors: 78
+    projectsCompleted: 0,
+    totalRaisedNGN: 138000,
+    totalSpentNGN: 138000,
+    masajidSupported: 2,
+    activeProjects: 2,
+    totalDonors: 18
   },
 
   categories: [
+    { id: "quran",     labelEN: "Qur'ans & Books",        labelAR: "المصاحف والكتب",       iconClass: "fa-solid fa-book-quran", color: "#0284C7" },
+    { id: "furniture", labelEN: "Furniture & Facilities", labelAR: "الأثاث والمرافق",     iconClass: "fa-solid fa-chair", color: "#7C3AED" },
     { id: "lighting",  labelEN: "Lighting & Electrical", labelAR: "الإضاءة والكهرباء",  iconClass: "fa-solid fa-lightbulb", color: "#13547A" },
     { id: "solar",     labelEN: "Solar & Power",          labelAR: "الطاقة الشمسية",       iconClass: "fa-solid fa-solar-panel", color: "#D4AF37" },
     { id: "cleaning",  labelEN: "Cleaning & Maintenance", labelAR: "النظافة والصيانة",    iconClass: "fa-solid fa-broom", color: "#059669" },
-    { id: "quran",     labelEN: "Qur'ans & Books",        labelAR: "المصاحف والكتب",       iconClass: "fa-solid fa-book-quran", color: "#0284C7" },
-    { id: "furniture", labelEN: "Furniture & Facilities", labelAR: "الأثاث والمرافق",     iconClass: "fa-solid fa-chair", color: "#7C3AED" },
     { id: "sound",     labelEN: "Sound Systems",          labelAR: "أنظمة الصوت",          iconClass: "fa-solid fa-volume-high", color: "#D97706" },
     { id: "security",  labelEN: "Security & Safety",      labelAR: "الأمن والسلامة",        iconClass: "fa-solid fa-shield-halved", color: "#DC2626" },
     { id: "repairs",   labelEN: "Minor Repairs",          labelAR: "إصلاحات بسيطة",       iconClass: "fa-solid fa-wrench", color: "#475569" }
@@ -403,22 +300,16 @@ g.MP = {
   },
 
   mosques: [
-    { id: "MSQ-001", nameEN: "Al-Ihsan Mosque", nameAR: "مسجد الإحسان", city: "Mushin", state: "Lagos" },
-    { id: "MSQ-002", nameEN: "Surulere Central Mosque", nameAR: "مسجد سوروليري المركزي", city: "Surulere", state: "Lagos" },
-    { id: "MSQ-003", nameEN: "An-Nur Mosque", nameAR: "مسجد النور", city: "Ikeja", state: "Lagos" },
-    { id: "MSQ-004", nameEN: "Masjid Taqwa", nameAR: "مسجد التقوى", city: "Abeokuta", state: "Ogun" },
-    { id: "MSQ-005", nameEN: "Masjid Rahmah", nameAR: "مسجد الرحمة", city: "Yaba", state: "Lagos" },
-    { id: "MSQ-006", nameEN: "Agege Central Mosque", nameAR: "مسجد أغيغي المركزي", city: "Agege", state: "Lagos" },
-    { id: "MSQ-007", nameEN: "Tudun Wada Central Mosque", nameAR: "مسجد تودون وادا", city: "Tudun Wada", state: "Kaduna" },
-    { id: "MSQ-008", nameEN: "Baitul Hikmah Mosque", nameAR: "مسجد بيت الحكمة", city: "Bodija", state: "Oyo" },
-    { id: "MSQ-009", nameEN: "Fagge Juma'at Mosque", nameAR: "مسجد فاقي جامع", city: "Fagge", state: "Kano" }
+    { id: "MSQ-001", nameEN: "Medinat Dhikr Central Mosque", nameAR: "مسجد مدينة الذكر المركزي", city: "Adumbu, Itori, Ewekoro", state: "Ogun State" },
+    { id: "MSQ-002", nameEN: "Masjid Markaz Diyar", nameAR: "مسجد مركز الديار", city: "Behind Al-Fathia School, Itori, Ewekoro", state: "Ogun State" }
   ],
 
   donations: [
-    { ref: "MP-DON-901", projectId: "MP-LAG-2026-002", amountNGN: 50000, date: "2026-08-13", donorName: "Anonymous", status: "Received" },
-    { ref: "MP-DON-902", projectId: "MP-LAG-2026-002", amountNGN: 100000, date: "2026-08-12", donorName: "Hajia Fatima B.", status: "Received" },
-    { ref: "MP-DON-903", projectId: "MP-LAG-2026-003", amountNGN: 25000, date: "2026-08-11", donorName: "Brother Yusuf A.", status: "Received" },
-    { ref: "MP-DON-904", projectId: "MP-OG-2026-004", amountNGN: 75000, date: "2026-08-10", donorName: "Community Contributor", status: "Received" }
+    { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
+    { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" },
+    { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
+    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" },
+    { ref: "MP-DON-105", projectId: "MP-OG-2026-002", amountNGN: 10000, date: "2026-08-18", donorName: "Community Well-wisher", status: "Received" }
   ],
 
   // Real-time broadcast channel
