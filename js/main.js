@@ -188,31 +188,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Additional MP helper methods for dashboard UI
-MP.getNominations = () => MP.nominations;
-MP.updateNominationStatus = (id, status) => {
-  const nom = MP.nominations.find(n => n.id == id);
-  if (nom) {
-    nom.status = status;
-    MP.set('nominations', MP.nominations);
-  }
-};
+// Additional MP helper methods for dashboard UI (safely preserve data/projects.js implementations if loaded)
+if (!MP.getNominations) MP.getNominations = () => MP.nominations || [];
+if (!MP.updateNominationStatus) {
+  MP.updateNominationStatus = (id, status) => {
+    const nom = (MP.nominations || []).find(n => n.id == id);
+    if (nom) {
+      nom.status = status;
+      MP.set('nominations', MP.nominations);
+    }
+  };
+}
 
-MP.getArticles = () => MP.articles;
-MP.deleteArticle = (id) => {
-  MP.articles = MP.articles.filter(a => a.id != id);
-  MP.set('articles', MP.articles);
-};
+if (!MP.getArticles) MP.getArticles = () => MP.articles || [];
+if (!MP.deleteArticle) {
+  MP.deleteArticle = (id) => {
+    if (MP.articles) {
+      MP.articles = MP.articles.filter(a => a.id != id);
+      MP.set('articles', MP.articles);
+    }
+  };
+}
 
-MP.getComments = () => MP.comments || [];
-MP.updateCommentStatus = (id, status) => {
-  if (!MP.comments) return;
-  const com = MP.comments.find(c => c.id == id);
-  if (com) {
-    com.status = status;
-    MP.set('comments', MP.comments);
-  }
-};
+if (!MP.getComments) MP.getComments = () => MP.comments || [];
+if (!MP.updateCommentStatus) {
+  MP.updateCommentStatus = (id, status) => {
+    if (!MP.comments) return;
+    const com = MP.comments.find(c => c.id == id);
+    if (com) {
+      com.status = status;
+      MP.set('comments', MP.comments);
+    }
+  };
+}
 
 // FAQ Accordion & Category Filter Controllers
 function toggleFaqTab(tabName, btn) {
