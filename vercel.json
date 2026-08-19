@@ -1,43 +1,25 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/login",
+      "source": "/login",
       "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
-      "dest": "/login/index.html"
+      "destination": "/login.html"
     },
     {
-      "src": "/dashboard(.*)",
+      "source": "/dashboard/:match*",
       "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
-      "dest": "/dashboard/index.html"
+      "destination": "/dashboard.html"
     },
     {
-      "src": "/(.*)",
+      "source": "/:match*",
       "has": [{ "type": "host", "value": "dashboard.masajidproject.org" }],
-      "dest": "/dashboard/index.html"
+      "destination": "/dashboard.html"
     },
-    { "src": "/dashboard", "dest": "/dashboard/index.html" },
-    { "src": "/admin", "dest": "/dashboard/index.html" },
-    { "src": "/login", "dest": "/login/index.html" },
-    { "src": "/projects", "dest": "/projects.html" },
-    { "src": "/project-detail", "dest": "/project-detail.html" },
-    { "src": "/transparency", "dest": "/transparency.html" },
-    { "src": "/about", "dest": "/about.html" },
-    { "src": "/blog", "dest": "/blog.html" },
-    { "src": "/blog-post", "dest": "/blog-post.html" },
-    { "src": "/faq", "dest": "/faq.html" },
-    { "src": "/submit", "dest": "/submit.html" },
-    { "src": "/donate", "dest": "/donate.html" },
-    { "src": "/privacy", "dest": "/privacy.html" },
-    { "src": "/terms", "dest": "/terms.html" },
-    { "src": "/blog/(.*)", "dest": "/blog-post.html" },
-    { "src": "/css/(.*)", "dest": "/css/$1" },
-    { "src": "/js/(.*)", "dest": "/js/$1" },
-    { "src": "/data/(.*)", "dest": "/data/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/favicon.(.*)", "dest": "/favicon.$1" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/blog-post.html" }
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/admin", "destination": "/dashboard.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/blog/:slug", "destination": "/blog-post.html" }
   ]
 }
