@@ -452,22 +452,22 @@
       if (!currentPendingDonation) return;
 
       const d = currentPendingDonation;
-      const amountStr = `₦${Number(d.amountNGN).toLocaleString()}`;
-      const targetStr = d.projectTitle || d.purpose || d.projectId;
-      const donorStr = d.donorName || 'Anonymous';
+      const amountStr = `NGN ${Number(d.amountNGN).toLocaleString()}`;
+      const targetStr = d.projectTitle || d.purpose || d.projectId || 'General Sadaqah Jariyah Fund';
+      const donorStr = (d.donorName && d.donorName.trim()) ? d.donorName.trim() : 'Anonymous';
       const emailStr = d.email || 'N/A';
       const refStr = d.ref || 'MP-DON';
       const dateStr = d.date || new Date().toISOString().split('T')[0];
 
-      // Format clean, professional WhatsApp message
-      const msg = `As-Salaamu Alaykum! I have made a bank transfer payment for Masajid Project:\n\n` +
-                  `📋 *Reference Code:* ${refStr}\n` +
-                  `💰 *Amount Paid:* ${amountStr}\n` +
-                  `🕌 *Cause / Mosque:* ${targetStr}\n` +
-                  `👤 *Donor Name:* ${donorStr}\n` +
-                  `📧 *Email:* ${emailStr}\n` +
-                  `📅 *Date:* ${dateStr}\n\n` +
-                  `Please verify the bank alert and acknowledge on the live dashboard. Jazakumullahu Khairan!`;
+      // Format clean, professional WhatsApp message matching exact brand requirements
+      const msg = `As-Salaamu Alaykum Warahmotullaah Wabarakatuh. I have made a bank transfer payment for Masajid Project:\n\n` +
+                  `*Reference Code:* ${refStr}\n` +
+                  `*Amount Paid:* ${amountStr}\n` +
+                  `*Cause / Mosque:* ${targetStr}\n` +
+                  `*Donor Name:* ${donorStr}\n` +
+                  `*Email:* ${emailStr}\n` +
+                  `*Date:* ${dateStr}\n\n` +
+                  `Please verify the bank alert and acknowledge. Jazaakumullaahu Khairan.`;
 
       // Official Masajid Project WhatsApp contact
       const whatsappNumber = '2348034567890';
@@ -478,7 +478,7 @@
 
       closeDonationModal();
       if (typeof showToast === 'function') {
-        showToast(`JazakAllahu Khairan! Transfer logged (${refStr}). Sent to admin for verification.`, 6000);
+        showToast(`Jazaakallaah Khayran! Transfer logged (${refStr}). Sent to admin for verification.`, 6000);
       }
     }
 
