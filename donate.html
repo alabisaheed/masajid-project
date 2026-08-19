@@ -395,6 +395,8 @@
       });
     }
 
+    let currentPendingDonation = null;
+
     function handleDonationSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('donor-email').value;
@@ -410,6 +412,7 @@
 
       const newDonation = {
         projectId: targetProjId,
+        projectTitle: projName,
         donorName: name.trim() || 'Anonymous',
         email: email.trim(),
         amountNGN: selectedAmountNGN,
@@ -418,24 +421,21 @@
         date: new Date().toISOString().split('T')[0]
       };
 
-      let savedRecord = null;
       if (window.MP && typeof MP.submitDonation === 'function') {
-        savedRecord = MP.submitDonation(newDonation);
+        currentPendingDonation = MP.submitDonation(newDonation);
       } else {
-        savedRecord = newDonation;
-        savedRecord.ref = 'MP-DON-' + Math.floor(1000 + Math.random() * 9000);
+        currentPendingDonation = newDonation;
+        currentPendingDonation.ref = 'MP-DON-' + Math.floor(1000 + Math.random() * 9000);
       }
 
-      // Populate confirmation modal
+      // Populate confirmation modal with high-contrast text
       const modalRef = document.getElementById('conf-ref-text');
       const modalAmount = document.getElementById('conf-amount-text');
       const modalTarget = document.getElementById('conf-target-text');
-      const modalDonor = document.getElementById('conf-donor-text');
 
-      if (modalRef) modalRef.textContent = savedRecord.ref;
-      if (modalAmount) modalAmount.textContent = `₦${Number(savedRecord.amountNGN).toLocaleString()}`;
+      if (modalRef) modalRef.textContent = currentPendingDonation.ref;
+      if (modalAmount) modalAmount.textContent = `₦${Number(currentPendingDonation.amountNGN).toLocaleString()}`;
       if (modalTarget) modalTarget.textContent = projName;
-      if (modalDonor) modalDonor.textContent = savedRecord.donorName;
 
       const modal = document.getElementById('modal-donation-confirmation');
       if (modal) {
@@ -444,7 +444,41 @@
       }
 
       if (typeof showToast === 'function') {
-        showToast('JazakAllahu Khairan! Contribution submitted for verification.');
+        showToast('JazakAllahu Khairan! Transfer instructions generated.');
+      }
+    }
+
+    function sendTransferWhatsAppConfirmation() {
+      if (!currentPendingDonation) return;
+
+      const d = currentPendingDonation;
+      const amountStr = `₦${Number(d.amountNGN).toLocaleString()}`;
+      const targetStr = d.projectTitle || d.purpose || d.projectId;
+      const donorStr = d.donorName || 'Anonymous';
+      const emailStr = d.email || 'N/A';
+      const refStr = d.ref || 'MP-DON';
+      const dateStr = d.date || new Date().toISOString().split('T')[0];
+
+      // Format clean, professional WhatsApp message
+      const msg = `As-Salaamu Alaykum! I have made a bank transfer payment for Masajid Project:\n\n` +
+                  `📋 *Reference Code:* ${refStr}\n` +
+                  `💰 *Amount Paid:* ${amountStr}\n` +
+                  `🕌 *Cause / Mosque:* ${targetStr}\n` +
+                  `👤 *Donor Name:* ${donorStr}\n` +
+                  `📧 *Email:* ${emailStr}\n` +
+                  `📅 *Date:* ${dateStr}\n\n` +
+                  `Please verify the bank alert and acknowledge on the live dashboard. Jazakumullahu Khairan!`;
+
+      // Official Masajid Project WhatsApp contact
+      const whatsappNumber = '2348034567890';
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
+
+      // Open WhatsApp in new tab / app
+      window.open(whatsappUrl, '_blank');
+
+      closeDonationModal();
+      if (typeof showToast === 'function') {
+        showToast(`JazakAllahu Khairan! Transfer logged (${refStr}). Sent to admin for verification.`, 6000);
       }
     }
 
@@ -463,59 +497,66 @@
     });
   </script>
 
-  <!-- MODAL: DONATION SUBMISSION CONFIRMATION (CENTERED SCREEN OVERLAY) -->
+  <!-- MODAL: DONATION SUBMISSION CONFIRMATION (HIGH CONTRAST & WHATSAPP ACTION) -->
   <div class="modal-backdrop" id="modal-donation-confirmation">
-    <div class="modal-window" style="max-width: 620px; text-align: center; padding: 2.5rem 2rem;">
-      <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--emerald-glow); color: var(--emerald); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; border: 2px solid var(--emerald-border);">
+    <div class="modal-window" style="max-width: 580px; text-align: center; padding: 2.25rem 2rem; background: #0B132B !important; color: #FFFFFF !important; border: 1.5px solid rgba(212,175,55,0.4) !important; position: relative;">
+      
+      <!-- Close X Button in Header -->
+      <button type="button" onclick="closeDonationModal()" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); border: none; color: #CBD5E1; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;" title="Close Window">
+        ✕
+      </button>
+
+      <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(16, 185, 129, 0.18); color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 1.85rem; margin: 0 auto 1rem; border: 2px solid rgba(16, 185, 129, 0.4);">
         <i class="fa-solid fa-hand-holding-heart"></i>
       </div>
 
-      <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">JazakAllahu Khairan!</h2>
-      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1.65rem; font-weight: 800; color: #FFFFFF !important; margin: 0 0 0.4rem;">JazakAllahu Khairan!</h2>
+      <p style="color: #CBD5E1 !important; font-size: 0.95rem; margin-bottom: 1.25rem; line-height: 1.5;">
         Your contribution pledge has been logged. Please make your transfer to our dedicated project account below.
       </p>
 
-      <div style="background: var(--bg-surface); border: 1.5px solid var(--primary-border-strong); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1.5rem;">
+      <div style="background: #111D3D; border: 1.5px solid rgba(212,175,55,0.35); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1.25rem;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
           <div>
-            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Reference Code:</span>
-            <div id="conf-ref-text" style="font-family: monospace; font-size: 1.1rem; font-weight: 800; color: var(--primary);">MP-DON-0000</div>
+            <span style="font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Reference Code:</span>
+            <div id="conf-ref-text" style="font-family: monospace; font-size: 1.15rem; font-weight: 800; color: #D4AF37;">MP-DON-0000</div>
           </div>
           <div>
-            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Pledged Amount:</span>
-            <div id="conf-amount-text" style="font-size: 1.15rem; font-weight: 900; color: var(--emerald);">₦0</div>
+            <span style="font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Pledged Amount:</span>
+            <div id="conf-amount-text" style="font-size: 1.25rem; font-weight: 900; color: #10B981;">₦0</div>
           </div>
         </div>
 
         <div style="margin-bottom: 0.75rem;">
-          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Target Project / Mosque:</span>
-          <div id="conf-target-text" style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Medinat Dhikr Central Mosque</div>
+          <span style="font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Target Project / Mosque:</span>
+          <div id="conf-target-text" style="font-size: 0.95rem; font-weight: 700; color: #F1F5F9;">Medinat Dhikr Central Mosque</div>
         </div>
 
-        <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="padding-top: 0.75rem; border-top: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
           <div>
-            <span style="font-size: 0.75rem; color: var(--text-muted);">First Bank of Nigeria • Account:</span>
-            <strong style="font-family: monospace; font-size: 1.05rem; color: var(--primary);">3012345678</strong>
+            <span style="font-size: 0.75rem; color: #94A3B8;">First Bank of Nigeria • Account:</span>
+            <strong style="font-family: monospace; font-size: 1.1rem; color: #D4AF37; display: block;">3012345678</strong>
           </div>
-          <span class="badge" style="background: rgba(217, 119, 6, 0.15); color: #D97706; font-size: 0.75rem; font-weight: 800;">
+          <span class="badge" style="background: rgba(217, 119, 6, 0.2); color: #F59E0B; font-size: 0.75rem; font-weight: 800; border: 1px solid rgba(217,119,6,0.4);">
             <i class="fa-solid fa-clock"></i> Awaiting Bank Alert Verification
           </span>
         </div>
       </div>
 
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6;">
-        <i class="fa-solid fa-shield-check" style="color: var(--emerald);"></i>
+      <p style="font-size: 0.85rem; color: #94A3B8 !important; margin-bottom: 1.25rem; line-height: 1.5;">
+        <i class="fa-solid fa-shield-check" style="color: #10B981;"></i>
         Once your bank transfer alert is acknowledged by the finance team, this donation will be credited to the project fund and published on the live Transparency Ledger.
       </p>
 
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href="transparency.html#ledger" class="btn btn--primary" style="flex: 1 1 200px; padding: 0.9rem; font-size: 1rem; text-align: center; text-decoration: none;">
-          <i class="fa-solid fa-table-list"></i> View Transparency Dashboard
-        </a>
-        <button type="button" class="btn btn--outline" onclick="closeDonationModal()" style="flex: 1 1 120px; padding: 0.9rem; font-size: 0.95rem;">
-          Close
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <button type="button" class="btn" onclick="sendTransferWhatsAppConfirmation()" style="width: 100%; padding: 1rem 1.25rem; font-size: 1.05rem; font-weight: 800; background: #25D366; color: #FFFFFF; border: none; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; gap: 0.6rem; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: transform 0.15s ease;">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem;"></i> I've Made the Transfer
+        </button>
+        <button type="button" onclick="closeDonationModal()" style="background: transparent; border: none; color: #94A3B8; font-size: 0.85rem; cursor: pointer; padding: 0.4rem;">
+          Close and return to page
         </button>
       </div>
+
     </div>
   </div>
 </body>
