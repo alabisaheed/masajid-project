@@ -85,10 +85,10 @@
   <!-- DONATION FORM & SIDEBAR -->
   <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start;" id="donation-layout">
+      <div class="donate-grid-layout" id="donation-layout">
         
         <!-- MAIN FORM -->
-        <div class="card animate-in" style="padding: 2.5rem;">
+        <div class="card donate-form-card animate-in">
           <form id="donation-form" onsubmit="handleDonationSubmit(event)">
 
             <!-- STEP 1: CHOOSE TARGET -->
@@ -199,7 +199,7 @@
         </div>
 
         <!-- SIDEBAR SUMMARY -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;" class="animate-in">
+        <div class="donate-sidebar-wrap animate-in">
           
           <div class="card" style="border-top: 4px solid var(--primary);">
             <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-receipt"></i> Donation Summary</h4>

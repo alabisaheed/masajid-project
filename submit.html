@@ -86,7 +86,7 @@
   <!-- FORM SECTION -->
   <section class="section">
     <div class="container">
-      <div class="card animate-in" style="max-width: 780px; margin: 0 auto; padding: 2.5rem;">
+      <div class="card form-card-responsive animate-in" style="max-width: 780px; margin: 0 auto;">
         
         <form onsubmit="handleFormSubmit(event)">
           
@@ -104,7 +104,7 @@
             <input type="text" id="masjid-name-ar" class="form-input" placeholder="مثال: مسجد النور">
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
             <div class="form-group">
               <label class="form-label">City / Town</label>
               <input type="text" id="city" class="form-input" placeholder="e.g. Surulere" required>
