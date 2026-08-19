@@ -185,9 +185,9 @@ const initialProjects = [
     titleAR: "توفير رف الكتب وحوامل المصاحف",
     location: "Adumbu, Itori, Ewekoro, Ogun State",
     mosqueName: "Medinat Dhikr Central Mosque",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.",
-    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للمصلين وطلاب العلم.",
-    goalNGN: 88000,
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an (@ ₦10,000 each) for worshippers and madrasah students.",
+    descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم (10,000 نيرة للنسخة) للمصلين وطلاب العلم.",
+    goalNGN: 164000,
     raisedNGN: 64000,
     spentNGN: 64000,
     verifiedBy: "Masajid Field Operations Team",
@@ -200,7 +200,7 @@ const initialProjects = [
     scope: [
       { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
       { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
-      { item: "10x Copies of the Holy Qur'an", costNGN: 24000, status: "Pending / Funding in Progress" }
+      { item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", costNGN: 100000, status: "Pending Funding (₦100,000 needed)" }
     ]
   },
   {
@@ -213,23 +213,22 @@ const initialProjects = [
     titleAR: "رف كتب ومصاحف وحوامل قراءة",
     location: "Behind Al-Fathia School, Itori, Ewekoro, Ogun State",
     mosqueName: "Masjid Markaz Diyar",
-    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.",
-    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية، و10 مصاحف للتلاوة اليومية وحلقات تحفيظ القرآن.",
-    goalNGN: 88000,
-    raisedNGN: 74000,
-    spentNGN: 74000,
+    descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an (@ ₦10,000 each) for daily recitation and learning sessions.",
+    descriptionAR: "توفير رف كتب خشبي، و3 حوامل قراءة خشبية، و10 مصاحف (10,000 نيرة للنسخة) للتلاوة اليومية وحلقات تحفيظ القرآن.",
+    goalNGN: 164000,
+    raisedNGN: 64000,
+    spentNGN: 64000,
     verifiedBy: "Masajid Field Operations Team",
     imageBefore: "images/proj-005-before.jpg",
     imageAfter: "images/mosque-hero.jpg",
     expenses: [
       { id: "EXP-003", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Carpentry & Joinery Workshop", amountNGN: 40000, receiptVerified: true },
-      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true },
-      { id: "EXP-005", date: "2026-08-18", desc: "Qur'an Copies Initial Purchase / Deposit", vendor: "Madani Book Distribution", amountNGN: 10000, receiptVerified: true }
+      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Islamic Book & Craft Supplies", amountNGN: 24000, receiptVerified: true }
     ],
     scope: [
       { item: "Solid Wooden Book Shelf", costNGN: 40000, status: "Delivered / Paid" },
       { item: "3x Qur'an Placeholders for Reading (@ ₦8,000/ea)", costNGN: 24000, status: "Delivered / Paid" },
-      { item: "10x Copies of the Holy Qur'an", costNGN: 24000, status: "Partially Funded (₦10,000 paid)" }
+      { item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", costNGN: 100000, status: "Pending Funding (₦100,000 needed)" }
     ]
   }
 ];
@@ -242,7 +241,7 @@ function loadLocal(key, defaultVal) {
     if (!val) return defaultVal;
     const parsed = JSON.parse(val);
     if (key === 'projects') {
-      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.id && p.id.startsWith('MP-LAG-')))) {
+      if (Array.isArray(parsed) && (parsed.length !== defaultVal.length || parsed.some(p => p.goalNGN !== 164000 || (p.id && p.id.startsWith('MP-LAG-'))))) {
         localStorage.setItem('masajid_projects', JSON.stringify(defaultVal));
         return defaultVal;
       }
@@ -272,11 +271,11 @@ function saveLocal(key, data) {
 g.MP = {
   stats: {
     projectsCompleted: 0,
-    totalRaisedNGN: 138000,
-    totalSpentNGN: 138000,
+    totalRaisedNGN: 128000,
+    totalSpentNGN: 128000,
     masajidSupported: 2,
     activeProjects: 2,
-    totalDonors: 18
+    totalDonors: 16
   },
 
   categories: [
@@ -308,8 +307,7 @@ g.MP = {
     { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
     { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" },
     { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous Contributor", status: "Received" },
-    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" },
-    { ref: "MP-DON-105", projectId: "MP-OG-2026-002", amountNGN: 10000, date: "2026-08-18", donorName: "Community Well-wisher", status: "Received" }
+    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Sadaqah Jariyah Supporter", status: "Received" }
   ],
 
   // Real-time broadcast channel
