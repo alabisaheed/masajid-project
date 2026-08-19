@@ -616,18 +616,26 @@
       const email = document.getElementById('comment-email').value;
       const text = document.getElementById('comment-text').value;
 
-      if (!currentArticle) return;
+      const slug = (currentArticle && currentArticle.slug) || 'maintaining-wudhu-sanitation-health-and-dignity';
+      if (!window.MP) return;
 
-      MP.saveComment({
-        articleSlug: currentArticle.slug,
+      const result = MP.saveComment({
+        articleSlug: slug,
         author: name,
         email: email,
         comment: text,
         status: 'pending'
       });
 
-      showToast(`Thank you, ${name}! Your comment has been submitted for moderation.`);
-      e.target.reset();
+      if (result && result.success) {
+        showToast(`JazakAllahu Khairan, ${name}! Your comment has been received and queued for editorial moderation.`, 5000);
+        e.target.reset();
+      } else if (result && result.error) {
+        alert(result.error);
+        if (typeof showToast === 'function') {
+          showToast(result.error, 5000);
+        }
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {

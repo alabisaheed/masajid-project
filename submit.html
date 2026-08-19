@@ -328,8 +328,9 @@
       const contact = document.getElementById('your-contact')?.value.trim() || 'N/A';
       const videoLink = document.getElementById('media-drive-link')?.value.trim() || '';
 
+      let saved = null;
       if (window.MP) {
-        const saved = MP.saveNomination({
+        saved = MP.saveNomination({
           masjidName: name,
           masjidNameAR: nameAR,
           city: city,
@@ -346,11 +347,98 @@
         });
       }
 
-      showToast('Nomination submitted successfully with attached evidence! Transmitted to audit dashboard.', 5000);
+      const nomId = saved ? saved.id : ('NOM-' + Date.now());
+      
+      // Populate and show the confirmation modal
+      const modalId = document.getElementById('success-nom-id');
+      const modalMasjid = document.getElementById('success-nom-masjid');
+      const modalContact = document.getElementById('success-nom-contact');
+      const modalCategory = document.getElementById('success-nom-category');
+
+      if (modalId) modalId.textContent = nomId;
+      if (modalMasjid) modalMasjid.textContent = `${name} (${city}, ${state})`;
+      if (modalContact) modalContact.textContent = `${submitter} • ${contact}`;
+      if (modalCategory) modalCategory.textContent = category;
+
+      const modal = document.getElementById('modal-nomination-success');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+
+      if (typeof showToast === 'function') {
+        showToast('JazakAllahu Khairan! Mosque nomination received.', 5000);
+      }
+
       nominationMediaList = [];
       renderMediaPreviews();
       e.target.reset();
     }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('modal-nomination-success');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+      }
+    }
   </script>
+
+  <!-- MODAL: NOMINATION SUBMISSION CONFIRMATION -->
+  <div class="modal-backdrop" id="modal-nomination-success">
+    <div class="modal-window" style="max-width: 620px; text-align: center; padding: 2.5rem 2rem;">
+      <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--emerald-glow); color: var(--emerald); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; border: 2px solid var(--emerald-border);">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <h2 style="font-size: 1.55rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+        Nomination Successfully Submitted!
+      </h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+        JazakAllahu Khairan! Your submission has been registered and transmitted to our central assessment audit queue.
+      </p>
+
+      <div style="background: var(--bg-surface); border: 1.5px solid var(--primary-border-strong); border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Nomination Reference:</span>
+            <div id="success-nom-id" style="font-family: monospace; font-size: 1.05rem; font-weight: 800; color: var(--primary);">NOM-2026-001</div>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Intervention Area:</span>
+            <div id="success-nom-category" style="font-size: 0.95rem; font-weight: 800; color: var(--emerald);">Lighting & Electrical</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Mosque & Location:</span>
+          <div id="success-nom-masjid" style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">Masjid Community</div>
+        </div>
+
+        <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Submitter / Contact Person:</span>
+          <div id="success-nom-contact" style="font-size: 0.9rem; font-weight: 700; color: var(--primary);">Community Member</div>
+        </div>
+      </div>
+
+      <div style="background: rgba(2, 132, 199, 0.08); border-left: 4px solid var(--primary); padding: 1rem; border-radius: var(--radius-sm); text-align: left; margin-bottom: 1.5rem;">
+        <h4 style="font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 0 0 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+          <i class="fa-solid fa-phone-volume"></i> What Happens Next?
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+          Our assessment and field operations team will review the submitted details and contact the designated mosque representative within <strong>48–72 hours</strong> to verify the need and arrange a site visit.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" class="btn btn--outline" onclick="closeSuccessModal()" style="flex: 1; padding: 0.85rem;">
+          Submit Another Mosque
+        </button>
+        <a href="projects" class="btn btn--primary" style="flex: 1; padding: 0.85rem; text-align: center;">
+          View Current Projects
+        </a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

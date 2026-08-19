@@ -254,9 +254,16 @@ function saveLocal(key, data) {
   if (typeof localStorage === 'undefined') return;
   try {
     localStorage.setItem('masajid_' + key, JSON.stringify(data));
-    // Broadcast change across tabs
+    // Broadcast change across tabs via BroadcastChannel
     if (typeof BroadcastChannel !== 'undefined' && g.MP && g.MP.channel) {
       g.MP.channel.postMessage({ type: 'update', key: key, data: data });
+    }
+    // Post to cross-origin sync hub iframe if present
+    const iframe = document.getElementById('masajid-sync-hub-iframe');
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage({ type: 'MASAJID_WRITE_SYNC', key: key, data: data }, '*');
+      } catch(e) {}
     }
     if (g.MP && typeof g.MP.onDataChange === 'function') {
       g.MP.onDataChange(key, data);
@@ -736,8 +743,9 @@ g.MP = {
   }
 };
 
-// Global cross-tab listener
+// Cross-Domain & Cross-Tab Real-Time Sync Engine
 if (typeof window !== 'undefined') {
+  // 1. BroadcastChannel Listener
   if (g.MP.channel) {
     g.MP.channel.onmessage = function(e) {
       if (e.data && e.data.key && typeof g.MP.onDataChange === 'function') {
@@ -745,6 +753,8 @@ if (typeof window !== 'undefined') {
       }
     };
   }
+
+  // 2. Storage Event Listener
   window.addEventListener('storage', function(e) {
     if (e.key && e.key.startsWith('masajid_') && typeof g.MP.onDataChange === 'function') {
       const keyName = e.key.replace('masajid_', '');
@@ -754,4 +764,62 @@ if (typeof window !== 'undefined') {
       } catch(err){}
     }
   });
+
+  // 3. Cross-Subdomain Sync Hub Tunnel (Between masajidproject.org & dashboard.masajidproject.org)
+  function initCrossDomainSyncHub() {
+    if (document.getElementById('masajid-sync-hub-iframe')) return;
+    try {
+      const isDashboard = window.location.hostname.includes('dashboard') || window.location.pathname.includes('dashboard');
+      const hubUrl = isDashboard ? 'https://masajidproject.org/sync-hub.html' : 'sync-hub.html';
+      
+      const iframe = document.createElement('iframe');
+      iframe.id = 'masajid-sync-hub-iframe';
+      iframe.src = hubUrl;
+      iframe.style.display = 'none';
+      iframe.style.width = '0px';
+      iframe.style.height = '0px';
+      iframe.style.border = 'none';
+      document.body.appendChild(iframe);
+
+      iframe.onload = function() {
+        try {
+          iframe.contentWindow.postMessage({ type: 'MASAJID_REQUEST_SYNC' }, '*');
+        } catch(e) {}
+      };
+    } catch(e) {}
+  }
+
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'MASAJID_SYNC_FULL_STATE' && e.data.state) {
+      const state = e.data.state;
+      Object.keys(state).forEach(k => {
+        if (state[k] !== undefined) {
+          const currentLocal = loadLocal(k, null);
+          if (Array.isArray(state[k])) {
+            if (!currentLocal || state[k].length >= currentLocal.length) {
+              localStorage.setItem('masajid_' + k, JSON.stringify(state[k]));
+              if (g.MP && typeof g.MP.onDataChange === 'function') {
+                g.MP.onDataChange(k, state[k]);
+              }
+            }
+          }
+        }
+      });
+    } else if (e.data && e.data.type === 'MASAJID_SYNC_KEY' && e.data.key) {
+      const k = e.data.key;
+      const val = e.data.data;
+      if (val !== undefined) {
+        localStorage.setItem('masajid_' + k, JSON.stringify(val));
+        if (g.MP && typeof g.MP.onDataChange === 'function') {
+          g.MP.onDataChange(k, val);
+        }
+      }
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCrossDomainSyncHub);
+  } else {
+    initCrossDomainSyncHub();
+  }
 }

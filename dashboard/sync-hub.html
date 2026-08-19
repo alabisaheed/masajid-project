@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Masajid Project Cross-Origin Sync Hub</title>
+</head>
+<body style="display:none;">
+  <script>
+    // Allowed origins for cross-domain communication
+    const ALLOWED_ORIGINS = [
+      'https://dashboard.masajidproject.org',
+      'https://masajidproject.org',
+      'https://www.masajidproject.org',
+      'http://localhost',
+      'http://127.0.0.1'
+    ];
+
+    function isAllowed(origin) {
+      if (!origin || origin === 'null') return true;
+      return ALLOWED_ORIGINS.some(allowed => origin.startsWith(allowed)) || 
+             origin.endsWith('masajidproject.org') || 
+             origin.includes('localhost') || 
+             origin.includes('127.0.0.1');
+    }
+
+    // Read full storage state on current domain
+    function getFullState() {
+      const keys = ['projects', 'donations', 'nominations', 'vendors', 'articles', 'comments'];
+      const state = {};
+      keys.forEach(k => {
+        try {
+          const val = localStorage.getItem('masajid_' + k);
+          if (val) state[k] = JSON.parse(val);
+        } catch(e) {}
+      });
+      return state;
+    }
+
+    // Broadcast full state to parent or opener
+    function broadcastState(targetWindow, targetOrigin) {
+      const state = getFullState();
+      try {
+        targetWindow.postMessage({ type: 'MASAJID_SYNC_FULL_STATE', state: state }, '*');
+      } catch (err) {
+        console.warn('Sync postMessage failed', err);
+      }
+    }
+
+    window.addEventListener('message', function(e) {
+      if (!isAllowed(e.origin)) return;
+
+      if (e.data && e.data.type === 'MASAJID_REQUEST_SYNC') {
+        broadcastState(e.source || window.parent, e.origin);
+      } else if (e.data && e.data.type === 'MASAJID_WRITE_SYNC') {
+        const key = e.data.key;
+        const data = e.data.data;
+        if (key && data !== undefined) {
+          try {
+            localStorage.setItem('masajid_' + key, JSON.stringify(data));
+          } catch(err) {}
+        }
+      }
+    });
+
+    // When storage changes on this domain, notify parent window
+    window.addEventListener('storage', function(e) {
+      if (e.key && e.key.startsWith('masajid_')) {
+        const key = e.key.replace('masajid_', '');
+        try {
+          const val = JSON.parse(e.newValue);
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'MASAJID_SYNC_KEY', key: key, data: val }, '*');
+          }
+        } catch(err) {}
+      }
+    });
+
+    // BroadcastChannel listener
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        const bc = new BroadcastChannel('masajid_channel');
+        bc.onmessage = function(e) {
+          if (e.data && e.data.key) {
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'MASAJID_SYNC_KEY', key: e.data.key, data: e.data.data }, '*');
+            }
+          }
+        };
+      } catch(e) {}
+    }
+
+    // Immediately push state to parent upon hub load
+    if (window.parent && window.parent !== window) {
+      broadcastState(window.parent, '*');
+    }
+  </script>
+</body>
+</html>
