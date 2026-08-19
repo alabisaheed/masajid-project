@@ -1215,6 +1215,13 @@
       if (backdrop && window.innerWidth <= 768) {
         backdrop.classList.remove('open');
       }
+
+      // Trigger instant data re-render for tab
+      if (tabId === 'articles') renderAdminArticles();
+      else if (tabId === 'projects') renderAdminProjects();
+      else if (tabId === 'financials') renderAdminFinancials();
+      else if (tabId === 'nominations') renderAdminNominations();
+      else if (tabId === 'featured') renderAdminFeatured();
     }
 
     function openCreateProjectModal() {
@@ -1646,11 +1653,22 @@
     function renderAdminArticles() {
       const artContainer = document.getElementById('admin-articles-body');
       const comContainer = document.getElementById('admin-comments-body');
-      if (!window.MP) return;
+
+      let articles = [];
+      if (window.MP && typeof MP.getArticles === 'function') {
+        articles = MP.getArticles();
+      }
+      if (!articles || !Array.isArray(articles) || articles.length === 0) {
+        if (typeof defaultArticles !== 'undefined' && Array.isArray(defaultArticles) && defaultArticles.length > 0) {
+          articles = defaultArticles;
+          if (window.MP && typeof MP.saveArticle === 'function') {
+            defaultArticles.forEach(a => MP.saveArticle(a));
+          }
+        }
+      }
 
       if (artContainer) {
-        const articles = MP.getArticles() || [];
-        if (articles.length === 0) {
+        if (!articles || articles.length === 0) {
           artContainer.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">No published articles yet. Click "New Article" to create one.</td></tr>';
         } else {
           artContainer.innerHTML = articles.map(a => `

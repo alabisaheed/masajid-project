@@ -270,7 +270,12 @@ function loadLocal(key, defaultVal) {
   if (typeof localStorage === 'undefined') return defaultVal;
   try {
     const val = localStorage.getItem('masajid_' + key);
-    return val ? JSON.parse(val) : defaultVal;
+    if (!val) return defaultVal;
+    const parsed = JSON.parse(val);
+    if (Array.isArray(defaultVal) && Array.isArray(parsed) && parsed.length === 0 && defaultVal.length > 0) {
+      return defaultVal;
+    }
+    return parsed;
   } catch (e) {
     return defaultVal;
   }
