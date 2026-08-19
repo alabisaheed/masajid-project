@@ -2204,9 +2204,10 @@
             <td>${mediaCell}</td>
             <td><span class="badge ${n.status === 'Approved' ? 'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
             <td>
-              <div style="display:flex; gap:0.4rem;">
-                ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve & Publish</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Published</span>`}
-                ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
+              <div style="display:flex; gap:0.4rem; align-items:center;">
+                ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:700;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Approved</span>`}
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary); font-weight:700;" onclick="openNominationDetailsModal('${n.id}')"><i class="fa-solid fa-eye"></i> View Details</button>
+                ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
               </div>
             </td>
           </tr>
@@ -2214,43 +2215,51 @@
       }).join('');
     }
 
-    function viewNominationMedia(nomId) {
+    function openNominationDetailsModal(nomId) {
       if (!window.MP) return;
       const list = MP.getNominations();
       const n = list.find(item => item.id === nomId);
       if (!n) return;
 
-      const titleEl = document.getElementById('nom-media-title');
-      const container = document.getElementById('nom-media-gallery');
-      if (titleEl) titleEl.textContent = `${n.masjidName} — Uploaded Photos & Videos`;
+      const titleEl = document.getElementById('nom-detail-modal-title');
+      const bodyEl = document.getElementById('nom-detail-modal-body');
+      const footerEl = document.getElementById('nom-detail-modal-footer');
 
-      if (container) {
-        let html = '';
+      if (titleEl) titleEl.textContent = `Nomination Details — ${n.id}`;
+
+      if (bodyEl) {
+        let mediaHtml = '';
         if (n.mediaFiles && n.mediaFiles.length > 0) {
-          html += `
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-              ${n.mediaFiles.map(m => `
-                <div style="background: #000; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-card);">
-                  ${m.type === 'video' 
-                    ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 180px; object-fit: contain;"></video>`
-                    : `<a href="${m.dataUrl}" target="_blank"><img src="${m.dataUrl}" style="width: 100%; height: 180px; object-fit: cover;"></a>`
-                  }
-                  <div style="padding: 0.5rem; background: #0F172A; color: #FFF; font-size: 0.75rem; display: flex; justify-content: space-between;">
-                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 120px;">${m.name || 'File'}</span>
-                    <span style="color: var(--text-muted);">${m.size || ''}</span>
+          mediaHtml = `
+            <div style="margin-top: 1.25rem;">
+              <strong style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.65rem;">
+                <i class="fa-solid fa-photo-film" style="color: var(--primary);"></i> Attached Photos & Videos (${n.mediaFiles.length}):
+              </strong>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem;">
+                ${n.mediaFiles.map(m => `
+                  <div style="background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-card);">
+                    ${m.type === 'video' 
+                      ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 140px; object-fit: contain;"></video>`
+                      : `<a href="${m.dataUrl}" target="_blank" title="Click to view full image"><img src="${m.dataUrl}" style="width: 100%; height: 140px; object-fit: cover;"></a>`
+                    }
+                    <div style="padding: 0.4rem 0.5rem; background: #0F172A; color: #FFF; font-size: 0.725rem; display: flex; justify-content: space-between;">
+                      <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px;">${m.name || 'File'}</span>
+                      <span style="color: var(--text-muted);">${m.size || ''}</span>
+                    </div>
                   </div>
-                </div>
-              `).join('')}
+                `).join('')}
+              </div>
             </div>
           `;
         }
 
+        let linkHtml = '';
         if (n.videoLink) {
-          html += `
-            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); margin-bottom: 1rem;">
-              <strong style="font-size: 0.9rem; color: var(--primary);"><i class="fa-solid fa-link"></i> External Cloud / Drive Video Link:</strong>
-              <div style="margin-top: 0.35rem;">
-                <a href="${n.videoLink}" target="_blank" style="color: var(--primary); word-break: break-all; font-family: monospace; font-size: 0.85rem;">
+          linkHtml = `
+            <div style="margin-top: 1rem; background: var(--bg-surface); padding: 0.85rem 1rem; border-radius: 8px; border: 1.5px dashed var(--primary-border);">
+              <strong style="font-size: 0.825rem; color: var(--primary);"><i class="fa-solid fa-link"></i> External Video / Google Drive Link:</strong>
+              <div style="margin-top: 0.25rem;">
+                <a href="${n.videoLink}" target="_blank" style="color: var(--primary); word-break: break-all; font-family: monospace; font-size: 0.85rem; font-weight: 700;">
                   ${n.videoLink} <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
               </div>
@@ -2258,20 +2267,81 @@
           `;
         }
 
-        container.innerHTML = html || '<p style="text-align: center; color: var(--text-muted);">No media attachments uploaded for this nomination.</p>';
+        bodyEl.innerHTML = `
+          <div style="background: var(--bg-surface); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Masjid Name (English)</small>
+                <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-top: 2px;">${n.masjidName}</div>
+              </div>
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Masjid Name (Arabic)</small>
+                <div style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--primary); margin-top: 2px;">${n.masjidNameAR || '—'}</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Location & State</small>
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-top: 2px;">${n.city || ''}, ${n.state || ''} (${n.country || 'Nigeria'})</div>
+              </div>
+              <div>
+                <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Intervention Category & Urgency</small>
+                <div style="margin-top: 4px; display: flex; gap: 0.4rem; align-items: center;">
+                  <span class="badge badge--category">${(n.needTypes || ['General']).join(', ')}</span>
+                  <span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'}; font-weight: 800;">${n.urgency || 'Medium'} Urgency</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding-top: 0.75rem; border-top: 1px dashed var(--border-light);">
+              <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Submitter / Contact Person</small>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-top: 2px;">
+                <i class="fa-solid fa-user"></i> ${n.submittingName || 'Community Member'} &nbsp;•&nbsp; <i class="fa-solid fa-phone"></i> ${n.submittingContact || 'N/A'}
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-elevated); border: 1.5px solid var(--border-card); border-radius: 10px; padding: 1.25rem;">
+            <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 0.35rem;">
+              Full Description of the Need:
+            </small>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; white-space: pre-wrap;">${n.description || 'No additional description provided.'}</p>
+          </div>
+
+          ${mediaHtml}
+          ${linkHtml}
+        `;
       }
 
-      const modal = document.getElementById('modal-nomination-media-viewer');
+      if (footerEl) {
+        footerEl.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Current Status: <strong>${n.status || 'Pending Review'}</strong></span>
+            <div style="display: flex; gap: 0.5rem;">
+              ${n.status !== 'Approved' ? `<button class="btn btn--primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;" onclick="approveNomination('${n.id}'); closeModal('modal-nomination-details');"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
+              ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; color: #EF4444; border-color: #FCA5A5;" onclick="declineNomination('${n.id}'); closeModal('modal-nomination-details');">Decline</button>` : ''}
+              <button class="btn btn--outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="closeModal('modal-nomination-details')">Close</button>
+            </div>
+          </div>
+        `;
+      }
+
+      const modal = document.getElementById('modal-nomination-details');
       if (modal) {
         modal.classList.add('open');
         modal.style.display = 'flex';
       }
     }
 
+    function viewNominationMedia(nomId) {
+      openNominationDetailsModal(nomId);
+    }
+
     function approveNomination(nomId) {
       if (!window.MP) return;
       MP.updateNominationStatus(nomId, 'Approved');
-      showToast(`Nomination ${nomId} approved and converted to Active Project!`);
+      showToast(`Nomination ${nomId} approved!`);
       renderAdminNominations();
       renderAdminProjects();
       renderAdminFeatured();
@@ -2643,6 +2713,26 @@
       setCurrency(currentCurrency);
     });
   </script>
+
+  <!-- MODAL: COMPREHENSIVE NOMINATION DETAILS VIEWER -->
+  <div class="modal-backdrop" id="modal-nomination-details">
+    <div class="modal-window" style="max-width: 780px; padding: 2rem 1.75rem; background: #FFFFFF !important; color: #0F172A !important; border: 1.5px solid #CBD5E1; border-radius: 14px; font-family: 'Figtree', system-ui, -apple-system, sans-serif;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1.5px solid #13547A; padding-bottom: 0.75rem;">
+        <h3 id="nom-detail-modal-title" style="font-size: 1.25rem; font-weight: 800; margin: 0; color: #13547A; display: flex; align-items: center; gap: 0.5rem; font-family: 'Figtree', sans-serif;">
+          <i class="fa-solid fa-file-lines"></i> Community Nomination Details
+        </h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.25rem 0.65rem; font-size: 0.85rem; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;" onclick="closeModal('modal-nomination-details')">✕</button>
+      </div>
+
+      <div id="nom-detail-modal-body">
+        <!-- Dynamically rendered by openNominationDetailsModal(nomId) -->
+      </div>
+
+      <div id="nom-detail-modal-footer" style="margin-top: 1.5rem; border-top: 1px solid #E2E8F0; padding-top: 1rem;">
+        <!-- Dynamically rendered action buttons -->
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: NOMINATION MEDIA & VIDEO EVIDENCE VIEWER -->
   <div class="modal-backdrop" id="modal-nomination-media-viewer">
