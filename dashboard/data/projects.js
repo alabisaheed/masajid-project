@@ -127,6 +127,31 @@ const defaultArticles = [
 
 const defaultNominations = [];
 
+const defaultVendors = [
+  {
+    id: "VND-001",
+    name: "Ariish Furniture",
+    trade: "Solid Wood Carpentry & Qur'an Placeholders (Rehal)",
+    phone: "+234 803 456 7890",
+    email: "ariish.furniture@gmail.com",
+    city: "Itori, Ogun State",
+    rating: "5.0",
+    invoicesLogged: ["AR-INV-2026-01", "AR-INV-2026-02", "AR-INV-2026-03", "AR-INV-2026-04"],
+    status: "Verified Supplier"
+  },
+  {
+    id: "VND-002",
+    name: "Munar Bookstore",
+    trade: "Holy Qur'an Copies & Islamic Textbooks",
+    phone: "+234 802 345 6789",
+    email: "munarbookstore@gmail.com",
+    city: "Abeokuta, Ogun State",
+    rating: "4.9",
+    invoicesLogged: ["MB-QT-2026-08", "MB-QT-2026-09"],
+    status: "Verified Supplier"
+  }
+];
+
 const defaultComments = [
   {
     id: "COM-001",
@@ -501,6 +526,84 @@ g.MP = {
       saveLocal('comments', list);
     }
     return list;
+  },
+
+  deleteComment: function(id) {
+    const list = loadLocal('comments', defaultComments).filter(c => c.id !== id);
+    saveLocal('comments', list);
+    return list;
+  },
+
+  // Vendors Methods
+  getVendors: function() {
+    return loadLocal('vendors', defaultVendors);
+  },
+
+  saveVendor: function(v) {
+    const list = this.getVendors();
+    v.id = v.id || 'VND-' + String(Date.now()).slice(-4);
+    v.rating = v.rating || '5.0';
+    v.status = v.status || 'Verified Supplier';
+    v.invoicesLogged = v.invoicesLogged || [];
+    const idx = list.findIndex(item => item.id === v.id);
+    if (idx >= 0) {
+      list[idx] = { ...list[idx], ...v };
+    } else {
+      list.unshift(v);
+    }
+    saveLocal('vendors', list);
+    return v;
+  },
+
+  deleteVendor: function(id) {
+    const list = this.getVendors().filter(v => v.id !== id);
+    saveLocal('vendors', list);
+    return list;
+  },
+
+  // Inflows & Donations Methods
+  getDonations: function() {
+    return loadLocal('donations', this.donations);
+  },
+
+  saveDonation: function(d) {
+    const list = this.getDonations();
+    d.ref = d.ref || 'MP-DON-' + String(Date.now()).slice(-4);
+    d.date = d.date || new Date().toISOString().split('T')[0];
+    d.donorName = d.donorName || 'Anonymous';
+    d.amountNGN = Number(d.amountNGN) || 0;
+    d.status = d.status || 'Received';
+    list.unshift(d);
+    saveLocal('donations', list);
+
+    // Update project raisedNGN
+    if (d.projectId) {
+      const projList = this.getProjects();
+      const proj = projList.find(p => p.id === d.projectId);
+      if (proj) {
+        proj.raisedNGN = (Number(proj.raisedNGN) || 0) + d.amountNGN;
+        this.saveProject(proj);
+      }
+    }
+    return d;
+  },
+
+  // Expense Methods
+  saveExpense: function(exp, projectId) {
+    const projList = this.getProjects();
+    const proj = projList.find(p => p.id === projectId);
+    if (proj) {
+      proj.expenses = proj.expenses || [];
+      exp.id = exp.id || 'EXP-' + String(Date.now()).slice(-4);
+      exp.date = exp.date || new Date().toISOString().split('T')[0];
+      exp.amountNGN = Number(exp.amountNGN) || 0;
+      proj.expenses.unshift(exp);
+      if (exp.receiptVerified || exp.status === 'Paid & Receipt Verified') {
+        proj.spentNGN = (Number(proj.spentNGN) || 0) + exp.amountNGN;
+      }
+      this.saveProject(proj);
+    }
+    return exp;
   },
 
   // Currency Formatter

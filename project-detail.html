@@ -116,18 +116,41 @@
 
           <!-- SCOPE & BUDGET TABLE -->
           <div class="card animate-in" style="margin-bottom: 2rem; padding: 2rem;">
-            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color:var(--primary);">Project Scope & Budget Breakdown</h3>
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-list-check"></i> Project Scope & Budget Breakdown</h3>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">Cost estimation derived directly from audited contractor quotes and vendor proforma invoices before fundraising.</p>
             <div class="table-responsive">
               <table class="data-table">
                 <thead>
                   <tr>
-                    <th>Item Description</th>
+                    <th>Item Description & Vendor</th>
                     <th>Estimated Cost</th>
-                    <th>Status</th>
+                    <th>Invoice / Verification Status</th>
                   </tr>
                 </thead>
                 <tbody id="proj-scope-table">
                   <!-- Scope rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- VENDOR QUOTATIONS & AUDIT INVOICES -->
+          <div class="card animate-in" style="margin-bottom: 2rem; padding: 2rem;">
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color:var(--primary);"><i class="fa-solid fa-file-invoice-dollar"></i> Audited Vendor Quotations & Invoices</h3>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">Full visibility into received supplier quotes, invoice references, and verified disbursement receipts.</p>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Supplier / Contractor</th>
+                    <th>Items Quoted</th>
+                    <th>Invoice Reference</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="proj-vendor-quotes-table">
+                  <!-- Dynamic Vendor Quotes -->
                 </tbody>
               </table>
             </div>
@@ -289,13 +312,36 @@
           scopeBody.innerHTML = proj.scope.map(s => `
             <tr>
               <td style="color:var(--text-primary); font-weight:600;">${s.item}</td>
-              <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">${s.costNGN}</td>
-              <td><span class="badge ${s.status === 'Completed' || s.status === 'Purchased' ? 'badge--completed' : 'badge--category'}">${s.status}</span></td>
+              <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">₦${Number(s.costNGN).toLocaleString()}</td>
+              <td><span class="badge ${s.status && (s.status.includes('Paid') || s.status.includes('Verified')) ? 'badge--completed' : 'badge--category'}">${s.status}</span></td>
             </tr>
           `).join('');
         } else {
           scopeBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Scope detail currently being audited.</td></tr>`;
         }
+      }
+
+      // Vendor Quotes table
+      const quotesBody = document.getElementById('proj-vendor-quotes-table');
+      if (quotesBody) {
+        const quotes = proj.vendorQuotes || [
+          { vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Qur'an Placeholders (Rehal)", invoiceNo: "AR-INV-2026-01 / 02", amountNGN: 64000, status: "Paid & Receipt Verified" },
+          { vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", invoiceNo: "MB-QT-2026-08", amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Funding)" }
+        ];
+
+        quotesBody.innerHTML = quotes.map(q => `
+          <tr>
+            <td><strong style="color:var(--text-primary); font-size:0.95rem;">${q.vendor}</strong></td>
+            <td style="color:var(--text-secondary); font-size:0.875rem;">${q.item}</td>
+            <td><span style="font-family:monospace; font-weight:700; color:var(--primary);">${q.invoiceNo}</span></td>
+            <td><strong style="color:var(--primary);" data-amount="${q.amountNGN}">₦${Number(q.amountNGN).toLocaleString()}</strong></td>
+            <td>
+              <span class="badge ${q.status.includes('Paid') ? 'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
+                <i class="fa-solid ${q.status.includes('Paid') ? 'fa-receipt' : 'fa-file-invoice'}"></i> ${q.status}
+              </span>
+            </td>
+          </tr>
+        `).join('');
       }
 
       // Timeline

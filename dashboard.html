@@ -804,6 +804,7 @@
                       <th>Donor</th>
                       <th>Item Funded</th>
                       <th>Amount</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="admin-inflow-body">
@@ -826,6 +827,7 @@
                       <th>Item Description</th>
                       <th>Amount</th>
                       <th>Status</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="admin-expense-body">
@@ -840,58 +842,32 @@
 
         <!-- PANE 4: VENDORS & QUOTES -->
         <div class="dash-tab-pane" id="tab-vendors">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
             <div>
               <h1 style="font-size: 1.6rem; font-weight: 800; margin: 0;">Vendor & Quotation Directory</h1>
               <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Audited technical contractors, competitive quotations, and ratings.</p>
             </div>
-            <button class="btn btn--primary" onclick="showToast('New Vendor Registration form opened')"><i class="fa-solid fa-user-plus"></i> Add Vendor</button>
+            <button class="btn btn--primary" onclick="openCreateVendorModal()"><i class="fa-solid fa-user-plus"></i> Add Vendor</button>
           </div>
 
           <div class="card" style="padding: 1.5rem;">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Vendor / Supplier</th>
-                  <th>Scope & Items Costed</th>
-                  <th>Invoices / Quote Reference</th>
-                  <th>Disbursement & Receipts</th>
-                  <th>Verification Audit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>Ariish Furniture</strong>
-                    <div style="font-size:0.8rem; color:var(--text-muted);">Carpentry & Woodwork Workshop</div>
-                  </td>
-                  <td>Solid Wooden Book Shelves & 3x Qur'an Reading Placeholders (Rehal)</td>
-                  <td>
-                    <span style="font-family:monospace; font-weight:700; color:var(--primary);">AR-INV-2026-01 / 02</span><br>
-                    <span style="font-family:monospace; font-weight:700; color:var(--primary);">AR-INV-2026-03 / 04</span>
-                  </td>
-                  <td>
-                    <span class="badge badge--completed" style="font-weight:700;"><i class="fa-solid fa-receipt"></i> Paid (₦128,000) • Receipts Verified</span>
-                  </td>
-                  <td><span class="badge badge--completed">5.0 <i class="fa-solid fa-star" style="color:var(--emerald); margin-left:0.15rem;"></i> Verified</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Munar Bookstore</strong>
-                    <div style="font-size:0.8rem; color:var(--text-muted);">Madani Islamic Books & Publishing</div>
-                  </td>
-                  <td>20 Copies of Holy Qur'an (@ ₦10,000/ea = ₦200,000 for 2 Masajid)</td>
-                  <td>
-                    <span style="font-family:monospace; font-weight:700; color:var(--text-muted);">MB-QT-2026-08</span><br>
-                    <span style="font-family:monospace; font-weight:700; color:var(--text-muted);">MB-QT-2026-09</span>
-                  </td>
-                  <td>
-                    <span class="badge" style="background:rgba(217,119,6,0.15); color:#D97706; border:1px solid rgba(217,119,6,0.3); font-weight:700;"><i class="fa-solid fa-file-invoice"></i> Invoice Received (Unpaid — No Receipt Yet)</span>
-                  </td>
-                  <td><span class="badge badge--verified">Audited Quote</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Vendor / Supplier</th>
+                    <th>Trade Specialization</th>
+                    <th>Location / Contact</th>
+                    <th>Invoices & Quotes</th>
+                    <th>Disbursement Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-vendors-table-body">
+                  <!-- Dynamically rendered by renderAdminVendors() -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -1210,6 +1186,198 @@
     </div>
   </div>
 
+  <!-- MODAL: ADD VENDOR / SUPPLIER -->
+  <div class="modal-backdrop" id="modal-create-vendor">
+    <div class="modal-window" style="max-width: 600px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--primary);"><i class="fa-solid fa-user-plus"></i> Register Audited Vendor / Supplier</h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-create-vendor')">✕</button>
+      </div>
+
+      <form onsubmit="handleCreateVendorSubmit(event)">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Vendor / Company Name:</label>
+          <input type="text" id="new-vnd-name" class="form-input" placeholder="e.g. Ariish Furniture" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Trade Specialization:</label>
+            <input type="text" id="new-vnd-trade" class="form-input" placeholder="e.g. Carpentry & Qur'an Rehal" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number:</label>
+            <input type="text" id="new-vnd-phone" class="form-input" placeholder="+234 803 000 0000" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Email Address:</label>
+            <input type="email" id="new-vnd-email" class="form-input" placeholder="vendor@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location / City & State:</label>
+            <input type="text" id="new-vnd-city" class="form-input" placeholder="e.g. Itori, Ogun State" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Initial Verification Status:</label>
+          <select id="new-vnd-status" class="form-select">
+            <option value="Verified Supplier">Verified Supplier (5.0 Audited)</option>
+            <option value="Audited Quote Supplier">Audited Quote Supplier (Quotation Stage)</option>
+            <option value="Pending Site Audit">Pending Site Audit</option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-create-vendor')">Cancel</button>
+          <button type="submit" class="btn btn--primary"><i class="fa-solid fa-save"></i> Register Vendor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: LOG INFLOW (DONATION) -->
+  <div class="modal-backdrop" id="modal-log-donation">
+    <div class="modal-window" style="max-width: 600px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--emerald);"><i class="fa-solid fa-wallet"></i> Log Donation Inflow & Generate Receipt</h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-log-donation')">✕</button>
+      </div>
+
+      <form onsubmit="handleLogDonationSubmit(event)">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Allocate to Mosque Project:</label>
+          <select id="inflow-proj-select" class="form-select" required>
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Amount (NGN):</label>
+            <input type="number" id="inflow-amount" class="form-input" placeholder="e.g. 40000" min="100" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Donor Name:</label>
+            <input type="text" id="inflow-donor" class="form-input" value="Anonymous" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Payment Channel:</label>
+            <select id="inflow-channel" class="form-select">
+              <option value="Bank Transfer">Direct Bank Transfer</option>
+              <option value="Online Card / Paystack">Online / Paystack</option>
+              <option value="Cash / Deposit">Direct Bank Deposit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date Received:</label>
+            <input type="date" id="inflow-date" class="form-input" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Purpose / Target Item Funded:</label>
+          <input type="text" id="inflow-purpose" class="form-input" placeholder="e.g. Solid Wooden Book Shelf Funding" required>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-log-donation')">Cancel</button>
+          <button type="submit" class="btn btn--primary" style="background: var(--emerald); border-color: var(--emerald);"><i class="fa-solid fa-receipt"></i> Log Inflow & Issue Receipt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: LOG EXPENDITURE / DISBURSEMENT -->
+  <div class="modal-backdrop" id="modal-log-expense">
+    <div class="modal-window" style="max-width: 620px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--primary);"><i class="fa-solid fa-file-invoice-dollar"></i> Log Contractor Disbursement & Invoice</h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-log-expense')">✕</button>
+      </div>
+
+      <form onsubmit="handleLogExpenseSubmit(event)">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Select Mosque Project:</label>
+            <select id="exp-proj-select" class="form-select" required>
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vendor / Supplier:</label>
+            <select id="exp-vendor-select" class="form-select" required>
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Vendor Invoice / Quote #:</label>
+            <input type="text" id="exp-invoice-no" class="form-input" placeholder="e.g. AR-INV-2026-05" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Disbursement Amount (NGN):</label>
+            <input type="number" id="exp-amount" class="form-input" placeholder="e.g. 40000" min="100" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Scope Description of Work / Items:</label>
+          <input type="text" id="exp-desc" class="form-input" placeholder="e.g. Solid Wooden Book Shelf Fabrication & Mounting" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="form-group">
+            <label class="form-label">Payment & Receipt Status:</label>
+            <select id="exp-status" class="form-select" onchange="toggleReceiptNoInput(this.value)">
+              <option value="Paid & Receipt Verified">Paid & Receipt Verified ✓</option>
+              <option value="Invoice Received (Unpaid — Awaiting Funding)">Invoice Received (Unpaid — No Receipt Yet)</option>
+            </select>
+          </div>
+          <div class="form-group" id="exp-receipt-wrap">
+            <label class="form-label">Receipt Voucher # (if paid):</label>
+            <input type="text" id="exp-receipt-no" class="form-input" placeholder="e.g. AR-REC-2026-05">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-log-expense')">Cancel</button>
+          <button type="submit" class="btn btn--primary"><i class="fa-solid fa-save"></i> Save Disbursement Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: DOCUMENT & RECEIPT / INVOICE VIEWER GENERATOR -->
+  <div class="modal-backdrop" id="modal-document-viewer">
+    <div class="modal-window" style="max-width: 720px; background: #FFFFFF; color: #0F172A; padding: 0;">
+      <!-- Viewer Header Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; background: #0F172A; color: #FFFFFF; padding: 1rem 1.5rem; border-radius: var(--radius-md) var(--radius-md) 0 0;">
+        <div style="font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-certificate" style="color: var(--primary);"></i>
+          <span id="doc-viewer-title">Official Document Certificate</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" onclick="printGeneratedDoc()" class="btn btn--primary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; background: var(--primary); color: #FFFFFF;"><i class="fa-solid fa-print"></i> Print / PDF</button>
+          <button type="button" onclick="closeModal('modal-document-viewer')" class="btn btn--outline" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border-color: rgba(255,255,255,0.3); color: #FFFFFF;">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Document Sheet Body -->
+      <div id="doc-printable-area" style="padding: 2.5rem; background: #FFFFFF; color: #0F172A;">
+        <!-- Dynamically rendered printable receipt or invoice -->
+      </div>
+    </div>
+  </div>
+
   <!-- SCRIPTS -->
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
@@ -1242,6 +1410,7 @@
       if (tabId === 'articles') renderAdminArticles();
       else if (tabId === 'projects') renderAdminProjects();
       else if (tabId === 'financials') renderAdminFinancials();
+      else if (tabId === 'vendors') renderAdminVendors();
       else if (tabId === 'nominations') renderAdminNominations();
       else if (tabId === 'featured') renderAdminFeatured();
     }
@@ -1253,7 +1422,10 @@
 
     function closeModal(modalId) {
       const modal = document.getElementById(modalId);
-      if (modal) modal.classList.remove('open');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+      }
     }
 
     function renderAdminProjects() {
@@ -1299,20 +1471,123 @@
       if (tableBody) tableBody.innerHTML = rowsHtml;
     }
 
+    // ── VENDORS & QUOTATIONS DIRECTORY ──
+    function renderAdminVendors() {
+      const container = document.getElementById('admin-vendors-table-body');
+      if (!container || !window.MP) return;
+      const vendors = MP.getVendors();
+      if (vendors.length === 0) {
+        container.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">No registered vendors found.</td></tr>`;
+        return;
+      }
+
+      container.innerHTML = vendors.map(v => {
+        const invBadges = (v.invoicesLogged && v.invoicesLogged.length > 0)
+          ? v.invoicesLogged.map(inv => `<span style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(212,175,55,0.1); padding:0.15rem 0.4rem; border-radius:4px; margin:0.1rem;">${inv}</span>`).join(' ')
+          : '<span style="color:var(--text-muted); font-size:0.8rem;">No invoices logged</span>';
+
+        return `
+          <tr>
+            <td>
+              <strong style="color:var(--text-primary); font-size:0.95rem;">${v.name}</strong>
+              <div style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-envelope" style="margin-right:0.3rem;"></i>${v.email || 'N/A'}</div>
+            </td>
+            <td><span style="font-size:0.85rem; font-weight:600;">${v.trade}</span></td>
+            <td>
+              <div style="font-size:0.85rem; font-weight:600;"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.25rem;"></i>${v.city || 'Ogun State'}</div>
+              <small style="color:var(--text-muted);">${v.phone || ''}</small>
+            </td>
+            <td>${invBadges}</td>
+            <td>
+              <span class="badge ${v.status === 'Verified Supplier' ? 'badge--completed' : 'badge--verified'}">
+                <i class="fa-solid fa-shield-check"></i> ${v.status || 'Verified Supplier'}
+              </span>
+            </td>
+            <td>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteVendorQuick('${v.id}')"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openCreateVendorModal() {
+      const modal = document.getElementById('modal-create-vendor');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function handleCreateVendorSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('new-vnd-name').value.trim();
+      const trade = document.getElementById('new-vnd-trade').value.trim();
+      const phone = document.getElementById('new-vnd-phone').value.trim();
+      const email = document.getElementById('new-vnd-email').value.trim();
+      const city = document.getElementById('new-vnd-city').value.trim();
+      const status = document.getElementById('new-vnd-status').value;
+
+      if (!name || !trade) return;
+
+      const newVendor = {
+        id: 'VND-' + String(Date.now()).slice(-4),
+        name: name,
+        trade: trade,
+        phone: phone,
+        email: email,
+        city: city,
+        status: status,
+        rating: '5.0',
+        invoicesLogged: []
+      };
+
+      if (window.MP && typeof MP.saveVendor === 'function') {
+        MP.saveVendor(newVendor);
+      }
+      closeModal('modal-create-vendor');
+      showToast(`Vendor ${name} registered successfully!`);
+      renderAdminVendors();
+    }
+
+    function deleteVendorQuick(id) {
+      if (!confirm('Are you sure you want to remove this vendor?')) return;
+      if (window.MP && typeof MP.deleteVendor === 'function') {
+        MP.deleteVendor(id);
+        showToast('Vendor removed successfully.');
+        renderAdminVendors();
+      }
+    }
+
+    // ── FINANCIALS: INFLOWS & EXPENSES ──
     function renderAdminFinancials() {
       if (!window.MP) return;
 
       const inflowBody = document.getElementById('admin-inflow-body');
       const expenseBody = document.getElementById('admin-expense-body');
 
-      if (inflowBody && MP.donations) {
-        inflowBody.innerHTML = MP.donations.map(d => `
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
+
+      if (inflowBody && donations) {
+        inflowBody.innerHTML = donations.map(d => `
           <tr>
             <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700; color:var(--primary);">${d.ref}</span></td>
             <td><strong style="font-family: monospace;">${d.projectId}</strong></td>
             <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
             <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
-            <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${d.amountNGN.toLocaleString()}</strong></td>
+            <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
+            <td>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--emerald); border-color:var(--emerald);" onclick="viewDonationReceipt('${d.ref}')">
+                  <i class="fa-solid fa-receipt"></i> View Receipt
+                </button>
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="deleteDonationQuick('${d.ref}')">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </td>
           </tr>
         `).join('');
       }
@@ -1334,14 +1609,344 @@
               <td><strong style="font-family: monospace;">${e.projectCode}</strong></td>
               <td><strong>${e.vendor || 'Ariish Furniture'}</strong></td>
               <td style="font-size:0.85rem; color:var(--text-secondary);">${e.desc}</td>
-              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">₦${e.amountNGN.toLocaleString()}</strong></td>
-              <td><span class="badge badge--completed" style="font-size:0.75rem;"><i class="fa-solid fa-receipt"></i> Verified</span></td>
+              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">₦${Number(e.amountNGN).toLocaleString()}</strong></td>
+              <td>
+                <span class="badge ${e.status === 'Paid & Receipt Verified' || e.receiptVerified ? 'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
+                  <i class="fa-solid fa-receipt"></i> ${e.status || (e.receiptVerified ? 'Paid & Verified' : 'Invoice Received')}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary);" onclick="viewVendorInvoice('${e.invoiceNo || e.id || 'INV-01'}', '${e.projectCode}', '${e.vendor || 'Contractor'}', '${e.desc.replace(/'/g, "\\'")}', '${e.amountNGN}', '${e.status || 'Paid & Receipt Verified'}', '${e.receiptNo || 'AR-REC-01'}')">
+                  <i class="fa-solid fa-file-invoice"></i> View Invoice
+                </button>
+              </td>
             </tr>
           `).join('');
         } else {
-          expenseBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">No vendor disbursements logged yet.</td></tr>`;
+          expenseBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">No vendor disbursements logged yet.</td></tr>`;
         }
       }
+    }
+
+    function populateProjectSelect(selectId) {
+      const select = document.getElementById(selectId);
+      if (!select || !window.MP) return;
+      const projects = MP.getProjects();
+      select.innerHTML = projects.map(p => `
+        <option value="${p.id}">${p.id} — ${p.titleEN} (${p.location})</option>
+      `).join('');
+    }
+
+    function populateVendorSelect(selectId) {
+      const select = document.getElementById(selectId);
+      if (!select || !window.MP) return;
+      const vendors = MP.getVendors();
+      select.innerHTML = vendors.map(v => `
+        <option value="${v.name}">${v.name} (${v.trade})</option>
+      `).join('');
+    }
+
+    function openLogDonationModal() {
+      populateProjectSelect('inflow-proj-select');
+      document.getElementById('inflow-date').value = new Date().toISOString().split('T')[0];
+      const modal = document.getElementById('modal-log-donation');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function handleLogDonationSubmit(e) {
+      e.preventDefault();
+      const projId = document.getElementById('inflow-proj-select').value;
+      const amount = parseFloat(document.getElementById('inflow-amount').value);
+      const donor = document.getElementById('inflow-donor').value.trim() || 'Anonymous';
+      const channel = document.getElementById('inflow-channel').value;
+      const date = document.getElementById('inflow-date').value;
+      const purpose = document.getElementById('inflow-purpose').value.trim();
+
+      if (!projId || isNaN(amount) || amount <= 0) return;
+
+      const newDonation = {
+        ref: 'MP-DON-' + String(Date.now()).slice(-4),
+        projectId: projId,
+        amountNGN: amount,
+        donorName: donor,
+        channel: channel,
+        date: date,
+        purpose: purpose,
+        status: 'Received'
+      };
+
+      if (window.MP && typeof MP.saveDonation === 'function') {
+        MP.saveDonation(newDonation);
+      }
+
+      closeModal('modal-log-donation');
+      showToast(`Donation of ₦${amount.toLocaleString()} logged! Opening receipt...`);
+      renderAdminFinancials();
+      renderAdminProjects();
+      viewDonationReceipt(newDonation.ref);
+    }
+
+    function deleteDonationQuick(ref) {
+      if (!confirm(`Are you sure you want to remove donation record ${ref}?`)) return;
+      if (window.MP) {
+        let list = MP.getDonations().filter(d => d.ref !== ref);
+        saveLocal('donations', list);
+        showToast('Donation record removed.');
+        renderAdminFinancials();
+      }
+    }
+
+    function openLogExpenseModal() {
+      populateProjectSelect('exp-proj-select');
+      populateVendorSelect('exp-vendor-select');
+      const modal = document.getElementById('modal-log-expense');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function toggleReceiptNoInput(statusVal) {
+      const wrap = document.getElementById('exp-receipt-wrap');
+      if (wrap) {
+        wrap.style.display = (statusVal === 'Paid & Receipt Verified') ? 'block' : 'none';
+      }
+    }
+
+    function handleLogExpenseSubmit(e) {
+      e.preventDefault();
+      const projId = document.getElementById('exp-proj-select').value;
+      const vendor = document.getElementById('exp-vendor-select').value;
+      const invNo = document.getElementById('exp-invoice-no').value.trim();
+      const amount = parseFloat(document.getElementById('exp-amount').value);
+      const desc = document.getElementById('exp-desc').value.trim();
+      const status = document.getElementById('exp-status').value;
+      const receiptNo = document.getElementById('exp-receipt-no').value.trim();
+
+      if (!projId || !vendor || !invNo || isNaN(amount) || amount <= 0) return;
+
+      const isPaid = (status === 'Paid & Receipt Verified');
+      const newExp = {
+        id: 'EXP-' + String(Date.now()).slice(-4),
+        date: new Date().toISOString().split('T')[0],
+        desc: desc,
+        vendor: vendor,
+        invoiceNo: invNo,
+        receiptNo: isPaid ? (receiptNo || 'REC-' + invNo) : null,
+        amountNGN: amount,
+        receiptVerified: isPaid,
+        status: status
+      };
+
+      if (window.MP && typeof MP.saveExpense === 'function') {
+        MP.saveExpense(newExp, projId);
+      }
+
+      // Add invoice to vendor's invoicesLogged if not present
+      if (window.MP && typeof MP.getVendors === 'function') {
+        const vendors = MP.getVendors();
+        const v = vendors.find(item => item.name === vendor);
+        if (v) {
+          v.invoicesLogged = v.invoicesLogged || [];
+          if (!v.invoicesLogged.includes(invNo)) {
+            v.invoicesLogged.push(invNo);
+            MP.saveVendor(v);
+          }
+        }
+      }
+
+      closeModal('modal-log-expense');
+      showToast(`Contractor disbursement of ₦${amount.toLocaleString()} saved!`);
+      renderAdminFinancials();
+      renderAdminProjects();
+      renderAdminVendors();
+    }
+
+    // ── RECEIPT & INVOICE DOCUMENT VIEWER / GENERATOR ──
+    function viewDonationReceipt(ref) {
+      if (!window.MP) return;
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
+      const d = donations.find(item => item.ref === ref) || {
+        ref: ref,
+        date: new Date().toISOString().split('T')[0],
+        donorName: 'Anonymous',
+        projectId: 'MP-OG-2026-001',
+        amountNGN: 40000,
+        purpose: 'Solid Wooden Book Shelf Funding'
+      };
+
+      const titleEl = document.getElementById('doc-viewer-title');
+      if (titleEl) titleEl.textContent = `Official Donation Receipt — ${d.ref}`;
+
+      const printArea = document.getElementById('doc-printable-area');
+      if (printArea) {
+        printArea.innerHTML = `
+          <div style="border: 2px solid #0F172A; border-radius: 8px; padding: 2rem; position: relative; background: #FFF; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #D4AF37; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+              <div>
+                <div style="font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; color: #0F172A; letter-spacing: 1px;">MASJID PROJECT</div>
+                <div style="font-family: 'Amiri', serif; font-size: 1.1rem; color: #D4AF37; margin-top: -2px;">مشروع المسجد • A Sadaqah Jariyah Initiative</div>
+                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem;">Nonprofit Initiative • Transparency-First Masjid Care</div>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: #059669; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Official Receipt</span>
+                <div style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: #0F172A; margin-top: 0.4rem;">${d.ref}</div>
+                <div style="font-size: 0.8rem; color: #64748B;">Date: ${d.date}</div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 1.25rem;">
+                <div>
+                  <small style="color: #64748B; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Received From (Donor)</small>
+                  <div style="font-size: 1.05rem; font-weight: 800; color: #0F172A;">${d.donorName || 'Anonymous'}</div>
+                </div>
+                <div>
+                  <small style="color: #64748B; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Mosque Project Allocation</small>
+                  <div style="font-size: 1.05rem; font-weight: 800; color: #D4AF37; font-family: monospace;">${d.projectId}</div>
+                </div>
+              </div>
+
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.25rem;">
+                <thead>
+                  <tr style="background: #0F172A; color: #FFF; font-size: 0.8rem;">
+                    <th style="padding: 0.6rem 0.8rem; text-align: left;">Item Description / Purpose</th>
+                    <th style="padding: 0.6rem 0.8rem; text-align: right;">Amount (NGN)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #E2E8F0;">
+                    <td style="padding: 0.8rem; font-size: 0.9rem; font-weight: 600;">
+                      ${d.purpose || 'Direct Mosque Intervention Funding'}
+                      <div style="font-size: 0.8rem; color: #64748B; font-weight: 400;">Dedicated Sadaqah Jariyah for mosque infrastructure & learning facilities.</div>
+                    </td>
+                    <td style="padding: 0.8rem; font-size: 1.15rem; font-weight: 800; text-align: right; color: #059669;">
+                      ₦${Number(d.amountNGN).toLocaleString()}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr style="background: #F1F5F9;">
+                    <td style="padding: 0.8rem; font-weight: 800; font-size: 0.95rem;">TOTAL DONATION RECEIVED</td>
+                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #059669;">₦${Number(d.amountNGN).toLocaleString()}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E2E8F0; padding-top: 1rem;">
+              <div style="font-size: 0.75rem; color: #64748B; max-width: 65%;">
+                <strong style="color: #0F172A;">100% Transparency Commitment:</strong> 100% of this contribution is disbursed directly to vetted mosque contractors without administrative deduction.
+              </div>
+              <div style="text-align: right;">
+                <div style="border: 2px solid #059669; color: #059669; padding: 0.35rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; display: inline-block;">
+                  ✓ AUDITED & RECORDED
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const modal = document.getElementById('modal-document-viewer');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function viewVendorInvoice(invNo, projectCode, vendor, desc, amount, status, receiptNo) {
+      const isPaid = (status === 'Paid & Receipt Verified' || (receiptNo && receiptNo !== 'null' && receiptNo !== 'undefined'));
+
+      const titleEl = document.getElementById('doc-viewer-title');
+      if (titleEl) titleEl.textContent = `Vendor Contractor Invoice — ${invNo}`;
+
+      const printArea = document.getElementById('doc-printable-area');
+      if (printArea) {
+        printArea.innerHTML = `
+          <div style="border: 2px solid #0F172A; border-radius: 8px; padding: 2rem; position: relative; background: #FFF; font-family: 'Plus Jakarta Sans', sans-serif;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #D4AF37; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+              <div>
+                <div style="font-size: 1.4rem; font-weight: 800; color: #0F172A;">${vendor}</div>
+                <div style="font-size: 0.85rem; color: #64748B; margin-top: 0.15rem;">Audited Mosque Technical Contractor & Supplier</div>
+                <div style="font-size: 0.8rem; color: #64748B;">Registered for Masajid Project Facilities</div>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: ${isPaid ? '#059669' : '#D97706'}; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase;">${isPaid ? 'Paid Invoice & Receipt' : 'Proforma Quotation'}</span>
+                <div style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: #0F172A; margin-top: 0.4rem;">${invNo}</div>
+                <div style="font-size: 0.8rem; color: #64748B;">Project: <strong>${projectCode}</strong></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+              <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 1.25rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                  <div>
+                    <small style="color: #64748B; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Client / Beneficiary</small>
+                    <div style="font-size: 0.95rem; font-weight: 800; color: #0F172A;">Masajid Project (for ${projectCode})</div>
+                  </div>
+                  <div>
+                    <small style="color: #64748B; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Disbursement Status</small>
+                    <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid ? '#059669' : '#D97706'};">
+                      ${isPaid ? 'PAID & RECEIPT ISSUED (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING MOSQUE PROJECT FUNDING'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.25rem;">
+                <thead>
+                  <tr style="background: #0F172A; color: #FFF; font-size: 0.8rem;">
+                    <th style="padding: 0.6rem 0.8rem; text-align: left;">Scope Item & Technical Description</th>
+                    <th style="padding: 0.6rem 0.8rem; text-align: right;">Amount (NGN)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #E2E8F0;">
+                    <td style="padding: 0.8rem; font-size: 0.9rem; font-weight: 600;">
+                      ${desc}
+                      <div style="font-size: 0.8rem; color: #64748B; font-weight: 400;">Contracted specification per Masajid Project verified standards.</div>
+                    </td>
+                    <td style="padding: 0.8rem; font-size: 1.15rem; font-weight: 800; text-align: right; color: #0F172A;">
+                      ₦${Number(amount).toLocaleString()}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr style="background: #F1F5F9;">
+                    <td style="padding: 0.8rem; font-weight: 800; font-size: 0.95rem;">TOTAL INVOICE AMOUNT</td>
+                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #0F172A;">₦${Number(amount).toLocaleString()}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E2E8F0; padding-top: 1rem;">
+              <div style="font-size: 0.75rem; color: #64748B; max-width: 65%;">
+                Verified Technical Scope by Masajid Project Operations & Audit Team.
+              </div>
+              <div style="text-align: right;">
+                <div style="border: 2px solid ${isPaid ? '#059669' : '#D97706'}; color: ${isPaid ? '#059669' : '#D97706'}; padding: 0.35rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; display: inline-block;">
+                  ${isPaid ? '✓ OFFICIAL CONTRACTOR RECEIPT' : '✓ AUDITED QUOTATION SPECIFICATION'}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const modal = document.getElementById('modal-document-viewer');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function printGeneratedDoc() {
+      window.print();
     }
 
     function handleCreateProjectSubmit(e) {
@@ -1370,14 +1975,15 @@
         scope: [{ item: desc, costNGN: goal, status: "Pending" }]
       };
 
-      if (window.MP && MP.projects) {
-        MP.projects.unshift(newProj);
-        MP.stats.activeProjects++;
+      if (window.MP && typeof MP.saveProject === 'function') {
+        MP.saveProject(newProj);
+        MP.stats.activeProjects = MP.getActiveProjects().length;
       }
 
       closeModal('modal-create-project');
       showToast(`Project ${id} created and published successfully!`);
       renderAdminProjects();
+      renderAdminFeatured();
       setCurrency(currentCurrency);
     }
 
@@ -1828,6 +2434,11 @@
         } else if (key === 'projects') {
           renderAdminProjects();
           renderAdminFeatured();
+          renderAdminFinancials();
+        } else if (key === 'vendors') {
+          renderAdminVendors();
+        } else if (key === 'donations') {
+          renderAdminFinancials();
         }
       };
     }
@@ -1836,6 +2447,7 @@
       checkAdminSession();
       renderAdminProjects();
       renderAdminFinancials();
+      renderAdminVendors();
       renderAdminNominations();
       renderAdminArticles();
       renderAdminFeatured();
