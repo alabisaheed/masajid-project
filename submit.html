@@ -135,7 +135,41 @@
           </div>
 
           <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 2rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
-            3. Contact Information
+            3. Photo & Video Evidence (Recommended)
+          </h3>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" style="font-weight:700;">Upload Photos / Video Clips of the Need:</label>
+            
+            <div id="media-dropzone" style="border: 2px dashed var(--primary-border-strong); border-radius: var(--radius-md); background: var(--bg-surface); padding: 2rem 1.5rem; text-align: center; cursor: pointer; transition: var(--transition);" onclick="document.getElementById('media-file-input').click()">
+              <input type="file" id="media-file-input" multiple accept="image/*,video/*" style="display: none;" onchange="handleNominationFiles(this.files)">
+              <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--primary-glow); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.75rem;">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+              </div>
+              <div style="font-weight: 800; font-size: 1rem; color: var(--text-primary); margin-bottom: 0.25rem;">
+                Click to browse photos or videos (or drag & drop here)
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">
+                Supports JPG, PNG, WEBP, MP4, MOV, WEBM (Multiple files allowed)
+              </div>
+            </div>
+
+            <!-- Media Preview Grid -->
+            <div id="media-preview-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+              <!-- Dynamic image & video preview thumbnails -->
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" style="font-weight:700;">Or Paste Video / Google Drive Link (Optional):</label>
+            <input type="url" id="media-drive-link" class="form-input" placeholder="e.g. https://drive.google.com/file/... or YouTube / Dropbox link">
+            <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+              Helpful for high-resolution walkthrough videos or drone footage.
+            </small>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 2rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+            4. Contact Information
           </h3>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -203,6 +237,85 @@
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
   <script>
+    let nominationMediaList = [];
+
+    function handleNominationFiles(files) {
+      if (!files || files.length === 0) return;
+
+      Array.from(files).forEach(file => {
+        const isVideo = file.type.startsWith('video/');
+        const isImage = file.type.startsWith('image/');
+        if (!isImage && !isVideo) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          nominationMediaList.push({
+            name: file.name,
+            type: isVideo ? 'video' : 'image',
+            size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+            dataUrl: e.target.result
+          });
+          renderMediaPreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function removeMediaItem(index) {
+      nominationMediaList.splice(index, 1);
+      renderMediaPreviews();
+    }
+
+    function renderMediaPreviews() {
+      const container = document.getElementById('media-preview-container');
+      if (!container) return;
+
+      if (nominationMediaList.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+
+      container.innerHTML = nominationMediaList.map((m, idx) => `
+        <div style="position: relative; border-radius: var(--radius-sm); overflow: hidden; background: #000; height: 110px; border: 1px solid var(--border-card);">
+          ${m.type === 'video' 
+            ? `<video src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline></video>
+               <div style="position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.65rem; padding: 2px 4px; border-radius: 3px;">
+                 <i class="fa-solid fa-video"></i> Video
+               </div>`
+            : `<img src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;">`
+          }
+          <button type="button" onclick="removeMediaItem(${idx})" style="position: absolute; top: 4px; right: 4px; background: rgba(239, 68, 68, 0.85); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem;">
+            ✕
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Drag & drop support
+    const dropzone = document.getElementById('media-dropzone');
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = 'var(--primary)';
+          dropzone.style.background = 'var(--primary-glow)';
+        }, false);
+      });
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = 'var(--primary-border-strong)';
+          dropzone.style.background = 'var(--bg-surface)';
+        }, false);
+      });
+      dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        if (dt && dt.files) {
+          handleNominationFiles(dt.files);
+        }
+      }, false);
+    }
+
     function handleFormSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('masjid-name')?.value.trim() || 'Masjid Community';
@@ -213,6 +326,7 @@
       const desc = document.getElementById('need-desc')?.value.trim() || 'Essential mosque improvement need.';
       const submitter = document.getElementById('your-name')?.value.trim() || 'Community Member';
       const contact = document.getElementById('your-contact')?.value.trim() || 'N/A';
+      const videoLink = document.getElementById('media-drive-link')?.value.trim() || '';
 
       if (window.MP) {
         const saved = MP.saveNomination({
@@ -226,11 +340,15 @@
           submittingContact: contact,
           needTypes: [category],
           urgency: 'Medium',
-          status: 'Pending Review'
+          status: 'Pending Review',
+          mediaFiles: nominationMediaList,
+          videoLink: videoLink
         });
       }
 
-      showToast('Nomination submitted successfully! Transmitted to audit dashboard in real-time.', 5000);
+      showToast('Nomination submitted successfully with attached evidence! Transmitted to audit dashboard.', 5000);
+      nominationMediaList = [];
+      renderMediaPreviews();
       e.target.reset();
     }
   </script>

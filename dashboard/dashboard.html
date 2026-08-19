@@ -686,6 +686,7 @@
                     <th>Masjid & Location</th>
                     <th>Need Types</th>
                     <th>Urgency</th>
+                    <th>Media Evidence</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
@@ -2170,24 +2171,101 @@
       if (!container || !window.MP) return;
       const list = MP.getNominations();
       if (list.length === 0) {
-        container.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">No nominations submitted yet.</td></tr>';
+        container.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:2rem;">No nominations submitted yet.</td></tr>';
         return;
       }
-      container.innerHTML = list.map(n => `
-        <tr>
-          <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${n.id}</span></td>
-          <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city || ''}, ${n.state || ''}</small></td>
-          <td>${(n.needTypes || ['General']).join(', ')}</td>
-          <td><span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
-          <td><span class="badge ${n.status === 'Approved' ? 'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
-          <td>
-            <div style="display:flex; gap:0.4rem;">
-              ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve & Publish</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Published</span>`}
-              ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
+      container.innerHTML = list.map(n => {
+        const hasMedia = n.mediaFiles && n.mediaFiles.length > 0;
+        const hasLink = n.videoLink && n.videoLink.trim().length > 0;
+        let mediaCell = '';
+
+        if (hasMedia) {
+          mediaCell = `
+            <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary); font-weight:700;" onclick="viewNominationMedia('${n.id}')">
+              <i class="fa-solid fa-photo-film"></i> ${n.mediaFiles.length} File(s)
+            </button>
+          `;
+        } else if (hasLink) {
+          mediaCell = `
+            <a href="${n.videoLink}" target="_blank" class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--primary);">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Video Link
+            </a>
+          `;
+        } else {
+          mediaCell = '<span style="color:var(--text-muted); font-size:0.8rem;">None attached</span>';
+        }
+
+        return `
+          <tr>
+            <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${n.id}</span></td>
+            <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city || ''}, ${n.state || ''}</small></td>
+            <td>${(n.needTypes || ['General']).join(', ')}</td>
+            <td><span class="badge" style="background:${n.urgency==='High'?'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High'?'#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
+            <td>${mediaCell}</td>
+            <td><span class="badge ${n.status === 'Approved' ? 'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
+            <td>
+              <div style="display:flex; gap:0.4rem;">
+                ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve & Publish</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Published</span>`}
+                ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function viewNominationMedia(nomId) {
+      if (!window.MP) return;
+      const list = MP.getNominations();
+      const n = list.find(item => item.id === nomId);
+      if (!n) return;
+
+      const titleEl = document.getElementById('nom-media-title');
+      const container = document.getElementById('nom-media-gallery');
+      if (titleEl) titleEl.textContent = `${n.masjidName} — Uploaded Photos & Videos`;
+
+      if (container) {
+        let html = '';
+        if (n.mediaFiles && n.mediaFiles.length > 0) {
+          html += `
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+              ${n.mediaFiles.map(m => `
+                <div style="background: #000; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-card);">
+                  ${m.type === 'video' 
+                    ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 180px; object-fit: contain;"></video>`
+                    : `<a href="${m.dataUrl}" target="_blank"><img src="${m.dataUrl}" style="width: 100%; height: 180px; object-fit: cover;"></a>`
+                  }
+                  <div style="padding: 0.5rem; background: #0F172A; color: #FFF; font-size: 0.75rem; display: flex; justify-content: space-between;">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 120px;">${m.name || 'File'}</span>
+                    <span style="color: var(--text-muted);">${m.size || ''}</span>
+                  </div>
+                </div>
+              `).join('')}
             </div>
-          </td>
-        </tr>
-      `).join('');
+          `;
+        }
+
+        if (n.videoLink) {
+          html += `
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); margin-bottom: 1rem;">
+              <strong style="font-size: 0.9rem; color: var(--primary);"><i class="fa-solid fa-link"></i> External Cloud / Drive Video Link:</strong>
+              <div style="margin-top: 0.35rem;">
+                <a href="${n.videoLink}" target="_blank" style="color: var(--primary); word-break: break-all; font-family: monospace; font-size: 0.85rem;">
+                  ${n.videoLink} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          `;
+        }
+
+        container.innerHTML = html || '<p style="text-align: center; color: var(--text-muted);">No media attachments uploaded for this nomination.</p>';
+      }
+
+      const modal = document.getElementById('modal-nomination-media-viewer');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
     }
 
     function approveNomination(nomId) {
@@ -2565,5 +2643,25 @@
       setCurrency(currentCurrency);
     });
   </script>
+
+  <!-- MODAL: NOMINATION MEDIA & VIDEO EVIDENCE VIEWER -->
+  <div class="modal-backdrop" id="modal-nomination-media-viewer">
+    <div class="modal-window" style="max-width: 800px; padding: 1.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <h3 id="nom-media-title" style="font-size: 1.25rem; font-weight: 800; margin: 0; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-photo-film"></i> Uploaded Photo & Video Evidence
+        </h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-nomination-media-viewer')">✕</button>
+      </div>
+
+      <div id="nom-media-gallery">
+        <!-- Dynamically rendered photo grid and video player -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 1rem; border-top: 1px solid var(--dash-border); padding-top: 0.75rem;">
+        <button type="button" class="btn btn--outline" onclick="closeModal('modal-nomination-media-viewer')">Close Viewer</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
