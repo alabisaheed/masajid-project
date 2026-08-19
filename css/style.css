@@ -2057,13 +2057,23 @@ footer a:hover, .footer a:hover {
   text-decoration: underline;
 }
 
+.badge--category {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   .footer__grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem 1.25rem !important;
+  }
+  .footer-col--brand {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem;
   }
   .footer-col {
-    width: 100%;
+    width: 100% !important;
   }
 }
 

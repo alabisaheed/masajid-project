@@ -104,27 +104,18 @@
           </div>
 
         </div>
-
-        <!-- CATEGORY PILLS -->
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light);" id="category-filters">
-          <button class="filter-btn active" data-cat="all" onclick="setCategoryFilter('all', this)">All Categories</button>
-          <!-- Category buttons dynamically added -->
-        </div>
       </div>
 
       <!-- RESULTS COUNT -->
       <div style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
         <span id="results-count-text">Showing all projects</span>
-      </div>
-
-      <!-- PROJECTS GRID -->
+      </d      <!-- PROJECTS GRID -->
       <div class="projects-grid" id="all-projects-grid">
         
         <!-- Project Card 1: Funding -->
         <div class="project-card animate-in visible" data-status="funding" data-category="solar">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Solar & Power</span>
               <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
             </div>
           </div>
@@ -154,7 +145,6 @@
         <div class="project-card animate-in visible" data-status="in-progress" data-category="lighting">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Lighting & Electrical</span>
               <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
             </div>
           </div>
@@ -184,7 +174,6 @@
         <div class="project-card animate-in visible" data-status="funding" data-category="cleaning">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Cleaning & Maintenance</span>
               <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
             </div>
           </div>
@@ -214,7 +203,6 @@
         <div class="project-card animate-in visible" data-status="verified" data-category="quran">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Qur'ans & Books</span>
               <span class="badge" style="background:rgba(37, 99, 235, 0.1); color:#2563EB; border:1px solid rgba(37, 99, 235, 0.3);">Verified</span>
             </div>
           </div>
@@ -244,7 +232,6 @@
         <div class="project-card animate-in visible" data-status="funding" data-category="repairs">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Minor Repairs</span>
               <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
             </div>
           </div>
@@ -274,7 +261,6 @@
         <div class="project-card animate-in visible" data-status="in-progress" data-category="repairs">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Minor Repairs</span>
               <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
             </div>
           </div>
@@ -304,7 +290,6 @@
         <div class="project-card animate-in visible" data-status="verified" data-category="sound">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Sound Systems</span>
               <span class="badge" style="background:rgba(37, 99, 235, 0.1); color:#2563EB; border:1px solid rgba(37, 99, 235, 0.3);">Verified</span>
             </div>
           </div>
@@ -334,7 +319,6 @@
         <div class="project-card animate-in visible" data-status="funding" data-category="security">
           <div class="project-card__header">
             <div class="badges">
-              <span class="badge badge--category">Security & Safety</span>
               <span class="badge" style="background:rgba(217, 119, 6, 0.1); color:#D97706; border:1px solid rgba(217, 119, 6, 0.3);">Funding</span>
             </div>
           </div>
@@ -358,6 +342,9 @@
           <div class="project-card__footer">
             <a href="project-detail?id=MP-KN-2026-009" class="btn btn--primary project-card__btn">Support This Project</a>
           </div>
+        </div>
+
+      </div> </div>
         </div>
 
       </div>
@@ -426,30 +413,9 @@
     let activeStatus = 'all';
     let activeCategory = 'all';
 
-    function initCategoryFilters() {
-      const catContainer = document.getElementById('category-filters');
-      if (!catContainer || !window.MP) return;
-
-      MP.categories.forEach(c => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.setAttribute('data-cat', c.id);
-        btn.textContent = c.labelEN;
-        btn.onclick = () => setCategoryFilter(c.id, btn);
-        catContainer.appendChild(btn);
-      });
-    }
-
     function setStatusFilter(status, btn) {
       activeStatus = status;
       document.querySelectorAll('#status-filters .filter-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      filterProjects();
-    }
-
-    function setCategoryFilter(cat, btn) {
-      activeCategory = cat;
-      document.querySelectorAll('#category-filters .filter-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       filterProjects();
     }
@@ -462,20 +428,17 @@
 
       if (!grid) return;
 
-      // Filter DOM cards directly for instant responsiveness
       const cards = grid.querySelectorAll('.project-card');
       let visibleCount = 0;
 
       cards.forEach(card => {
         const cardStatus = (card.getAttribute('data-status') || '').toLowerCase().replace(/_/g, '-');
-        const cardCat = (card.getAttribute('data-category') || '').toLowerCase();
         const textContent = card.textContent.toLowerCase();
 
         const statusMatch = (activeStatus === 'all') || (cardStatus === activeStatus);
-        const catMatch = (activeCategory === 'all') || (cardCat === activeCategory);
         const searchMatch = !query || textContent.includes(query);
 
-        if (statusMatch && catMatch && searchMatch) {
+        if (statusMatch && searchMatch) {
           card.style.display = 'flex';
           visibleCount++;
         } else {
@@ -489,18 +452,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      initCategoryFilters();
-
-      // Check URL parameters for status or category
+      // Check URL parameters for status
       const params = new URLSearchParams(window.location.search);
-      const catParam = params.get('cat');
       const statusParam = params.get('status');
 
-      if (catParam) {
-        activeCategory = catParam;
-        const catBtn = document.querySelector(`#category-filters [data-cat="${catParam}"]`);
-        if (catBtn) setCategoryFilter(catParam, catBtn);
-      }
       if (statusParam) {
         activeStatus = statusParam;
         const statusBtn = document.querySelector(`#status-filters [data-status="${statusParam}"]`);
