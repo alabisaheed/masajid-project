@@ -463,7 +463,22 @@ g.MP = {
   },
 
   getProjects: function() {
-    return loadLocal('projects', initialProjects);
+    const list = loadLocal('projects', initialProjects);
+    if (Array.isArray(list)) {
+      list.forEach(p => {
+        if (p.scope && Array.isArray(p.scope)) {
+          p.scope.forEach(s => {
+            const itemStr = (s.item || '').toLowerCase();
+            if (itemStr.includes("qur'an") || itemStr.includes('quran')) {
+              if (!itemStr.includes('stand') && !itemStr.includes('rehal') && !itemStr.includes('placeholder')) {
+                s.status = 'Unpaid / Awaiting Donation';
+              }
+            }
+          });
+        }
+      });
+    }
+    return list;
   },
 
   getProject: function(id) {

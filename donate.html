@@ -475,6 +475,31 @@
       updateSelectedProject();
     }
 
+    function isScopeItemDone(s) {
+      if (!s) return false;
+      const statusStr = String(s.status || '').toLowerCase();
+      const itemStr = String(s.item || '').toLowerCase();
+
+      // If status contains unpaid, awaiting, no receipt, pending, or needed -> STRICTLY NOT DONE
+      if (statusStr.includes('unpaid') || statusStr.includes('awaiting') || statusStr.includes('no receipt') || statusStr.includes('pending') || statusStr.includes('needed')) {
+        return false;
+      }
+
+      // If it is the actual Qur'an books (not reading stands/rehal) -> NEVER DONE unless explicitly paid
+      if ((itemStr.includes("qur'an") || itemStr.includes('quran')) && !itemStr.includes('stand') && !itemStr.includes('rehal') && !itemStr.includes('placeholder')) {
+        if (!statusStr.includes('paid & receipt verified')) {
+          return false;
+        }
+      }
+
+      // Explicit completion check
+      if (statusStr.includes('paid & receipt verified') || statusStr.includes('paid') || statusStr.includes('completed')) {
+        return true;
+      }
+
+      return false;
+    }
+
     function renderProjectBreakdown(proj, containerId) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -492,8 +517,7 @@
       let scopeHtml = '';
       if (proj.scope && Array.isArray(proj.scope)) {
         scopeHtml = proj.scope.map(s => {
-          const statusStr = (s.status || '').toLowerCase();
-          const isDone = statusStr.includes('paid') || statusStr.includes('receipt') || statusStr.includes('verified') || statusStr.includes('completed');
+          const isDone = isScopeItemDone(s);
           const costStr = s.costNGN ? `₦${Number(s.costNGN).toLocaleString()}` : '';
           return `
             <div style="display: flex; justify-content: space-between; align-items: center; background: ${isDone ? '#FFFFFF' : 'rgba(217, 119, 6, 0.08)'}; border: 1.5px solid ${isDone ? '#E2E8F0' : '#F59E0B'}; padding: 0.55rem 0.75rem; border-radius: 6px; font-size: 0.8rem; gap: 0.5rem;">
@@ -866,8 +890,7 @@
 
           if (proj.scope && Array.isArray(proj.scope)) {
             proj.scope.forEach(s => {
-              const statusStr = (s.status || '').toLowerCase();
-              const isDone = statusStr.includes('paid') || statusStr.includes('receipt') || statusStr.includes('verified') || statusStr.includes('completed');
+              const isDone = isScopeItemDone(s);
               const itemName = s.item.split('(')[0].trim();
               if (isDone) {
                 completedItems.push(itemName);
