@@ -275,23 +275,7 @@ const defaultComments = [
   }
 ];
 
-const defaultMaterialDonations = [
-  {
-    ref: "MP-MAT-101",
-    date: "2026-08-18",
-    projectId: "MP-OG-2026-001",
-    projectTitle: "Medinat Dhikr Central Mosque",
-    materials: "10x Copies of the Holy Qur'an (Uthmani Script)",
-    quantity: "10 copies",
-    donorName: "Brother Qasim Adeleke",
-    phone: "+234 803 123 4567",
-    email: "qasim.adeleke@gmail.com",
-    donorLocation: "Ikeja, Lagos",
-    deliveryPreference: "Self-Delivery to Mosque Site",
-    status: "Received on Site",
-    notes: "Delivered directly to the mosque leadership."
-  }
-];
+const defaultMaterialDonations = [];
 
 const initialProjects = [
   {
@@ -314,16 +298,16 @@ const initialProjects = [
     imageAfter: "images/mosque-hero.jpg",
     expenses: [
       { id: "EXP-001", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-01", receiptNo: "AR-REC-2026-01", amountNGN: 40000, receiptVerified: true, status: "Paid & Receipt Verified" },
-      { id: "EXP-002", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-02", receiptNo: "AR-REC-2026-02", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
+      { id: "EXP-002", date: "2026-08-17", desc: "3x Wooden Reading Stands (Rehal / Placeholders)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-02", receiptNo: "AR-REC-2026-02", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
     ],
     vendorQuotes: [
-      { id: "VQ-001", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Placeholders", invoiceNo: "AR-INV-2026-01/02", receiptNo: "AR-REC-2026-01/02", amountNGN: 64000, status: "Paid & Receipt Verified" },
-      { id: "VQ-002", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-08", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — No Receipt Yet)" }
+      { id: "VQ-001", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Reading Stands", invoiceNo: "AR-INV-2026-01/02", receiptNo: "AR-REC-2026-01/02", amountNGN: 64000, status: "Paid & Receipt Verified" },
+      { id: "VQ-002", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-08", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
     ],
     scope: [
       { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-01)", invoice: "AR-INV-2026-01" },
-      { item: "3x Qur'an Placeholders for Reading (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-02)", invoice: "AR-INV-2026-02" },
-      { item: "10x Copies of Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Invoice Received / Unpaid (MB-QT-2026-08)", invoice: "MB-QT-2026-08" }
+      { item: "3x Wooden Reading Stands (Rehal / Placeholders) (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-02)", invoice: "AR-INV-2026-02" },
+      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Unpaid / Awaiting Donation (MB-QT-2026-08)", invoice: "MB-QT-2026-08" }
     ]
   },
   {
@@ -346,16 +330,16 @@ const initialProjects = [
     imageAfter: "images/mosque-hero.jpg",
     expenses: [
       { id: "EXP-003", date: "2026-08-16", desc: "Solid Wooden Book Shelf", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-03", receiptNo: "AR-REC-2026-03", amountNGN: 40000, receiptVerified: true, status: "Paid & Receipt Verified" },
-      { id: "EXP-004", date: "2026-08-17", desc: "3x Qur'an Reading Placeholders (@ ₦8,000 each)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-04", receiptNo: "AR-REC-2026-04", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
+      { id: "EXP-004", date: "2026-08-17", desc: "3x Wooden Reading Stands (Rehal / Placeholders)", vendor: "Ariish Furniture", invoiceNo: "AR-INV-2026-04", receiptNo: "AR-REC-2026-04", amountNGN: 24000, receiptVerified: true, status: "Paid & Receipt Verified" }
     ],
     vendorQuotes: [
-      { id: "VQ-003", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Placeholders", invoiceNo: "AR-INV-2026-03/04", receiptNo: "AR-REC-2026-03/04", amountNGN: 64000, status: "Paid & Receipt Verified" },
-      { id: "VQ-004", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-09", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — No Receipt Yet)" }
+      { id: "VQ-003", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Reading Stands", invoiceNo: "AR-INV-2026-03/04", receiptNo: "AR-REC-2026-03/04", amountNGN: 64000, status: "Paid & Receipt Verified" },
+      { id: "VQ-004", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-09", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
     ],
     scope: [
       { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-03)", invoice: "AR-INV-2026-03" },
-      { item: "3x Qur'an Placeholders for Reading (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-04)", invoice: "AR-INV-2026-04" },
-      { item: "10x Copies of Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Invoice Received / Unpaid (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
+      { item: "3x Wooden Reading Stands (Rehal / Placeholders) (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-04)", invoice: "AR-INV-2026-04" },
+      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Unpaid / Awaiting Donation (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
     ]
   }
 ];
@@ -872,7 +856,11 @@ g.MP = {
 
   // Material / Physical Resource In-Kind Donations Methods
   getMaterialDonations: function() {
-    return loadLocal('material_donations', defaultMaterialDonations);
+    let list = loadLocal('material_donations', defaultMaterialDonations);
+    if (Array.isArray(list)) {
+      list = list.filter(m => m.ref !== 'MP-MAT-101');
+    }
+    return list || [];
   },
 
   submitMaterialDonation: function(mat) {
