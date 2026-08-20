@@ -275,6 +275,24 @@ const defaultComments = [
   }
 ];
 
+const defaultMaterialDonations = [
+  {
+    ref: "MP-MAT-101",
+    date: "2026-08-18",
+    projectId: "MP-OG-2026-001",
+    projectTitle: "Medinat Dhikr Central Mosque",
+    materials: "10x Copies of the Holy Qur'an (Uthmani Script)",
+    quantity: "10 copies",
+    donorName: "Brother Qasim Adeleke",
+    phone: "+234 803 123 4567",
+    email: "qasim.adeleke@gmail.com",
+    donorLocation: "Ikeja, Lagos",
+    deliveryPreference: "Self-Delivery to Mosque Site",
+    status: "Received on Site",
+    notes: "Delivered directly to the mosque leadership."
+  }
+];
+
 const initialProjects = [
   {
     id: "MP-OG-2026-001",
@@ -850,6 +868,39 @@ g.MP = {
       }
     }
     return d;
+  },
+
+  // Material / Physical Resource In-Kind Donations Methods
+  getMaterialDonations: function() {
+    return loadLocal('material_donations', defaultMaterialDonations);
+  },
+
+  submitMaterialDonation: function(mat) {
+    const list = this.getMaterialDonations();
+    mat.ref = mat.ref || 'MP-MAT-' + String(Math.floor(1000 + Math.random() * 9000));
+    mat.date = mat.date || new Date().toISOString().split('T')[0];
+    mat.donorName = (mat.donorName && mat.donorName.trim()) ? mat.donorName.trim() : 'Anonymous';
+    mat.status = mat.status || 'Pending Delivery / Pickup';
+    list.unshift(mat);
+    saveLocal('material_donations', list);
+    return mat;
+  },
+
+  updateMaterialDonationStatus: function(ref, status) {
+    const list = this.getMaterialDonations();
+    const item = list.find(m => m.ref === ref);
+    if (item) {
+      item.status = status;
+      saveLocal('material_donations', list);
+    }
+    return list;
+  },
+
+  deleteMaterialDonation: function(ref) {
+    let list = this.getMaterialDonations();
+    list = list.filter(m => m.ref !== ref);
+    saveLocal('material_donations', list);
+    return list;
   },
 
   // Expense Methods

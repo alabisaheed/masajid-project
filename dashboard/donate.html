@@ -80,10 +80,24 @@
   <!-- DONATION FORM & SIDEBAR -->
   <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
+      
+      <!-- MODE SWITCHER: MONEY VS MATERIALS -->
+      <div style="max-width: 600px; margin: 0 auto 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; background: var(--bg-surface); padding: 0.5rem; border-radius: 12px; border: 1.5px solid var(--border-card);">
+        <button type="button" id="tab-btn-money" class="btn" style="padding: 0.85rem 0.5rem; font-weight: 800; font-size: 0.95rem; border-radius: 9px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: var(--primary); color: #FFF; border: none; cursor: pointer; transition: all 0.2s ease;" onclick="switchDonationMode('money')">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+          <span>Financial Donation</span>
+        </button>
+
+        <button type="button" id="tab-btn-material" class="btn" style="padding: 0.85rem 0.5rem; font-weight: 800; font-size: 0.95rem; border-radius: 9px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: transparent; color: var(--text-secondary); border: none; cursor: pointer; transition: all 0.2s ease;" onclick="switchDonationMode('material')">
+          <i class="fa-solid fa-boxes-packing"></i>
+          <span>Donate Materials & Resources</span>
+        </button>
+      </div>
+
       <div class="donate-grid-layout" id="donation-layout">
         
-        <!-- MAIN FORM -->
-        <div class="card donate-form-card animate-in">
+        <!-- FINANCIAL DONATION FORM -->
+        <div class="card donate-form-card animate-in" id="form-container-money">
           <form id="donation-form" onsubmit="handleDonationSubmit(event)">
 
             <!-- STEP 1: CHOOSE TARGET -->
@@ -193,10 +207,133 @@
           </form>
         </div>
 
+        <!-- MATERIAL / IN-KIND RESOURCES DONATION FORM -->
+        <div class="card donate-form-card animate-in" id="form-container-material" style="display: none;">
+          <form id="material-donation-form" onsubmit="handleMaterialDonationSubmit(event)">
+
+            <!-- STEP 1: CHOOSE TARGET MOSQUE / PROJECT -->
+            <div style="margin-bottom: 2rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-1"></i> Target Mosque / Need</h3>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+                <label style="display: flex; align-items: center; gap: 0.75rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); cursor: pointer;">
+                  <input type="radio" name="mat_target_type" value="project" checked onchange="toggleMatProjectSelect(true)">
+                  <div>
+                    <strong style="color: var(--text-primary);">Specific Mosque Project</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Provide physical materials needed for an active mosque project</div>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 0.75rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); cursor: pointer;">
+                  <input type="radio" name="mat_target_type" value="general" onchange="toggleMatProjectSelect(false)">
+                  <div>
+                    <strong style="color: var(--text-primary);">General Masajid Resource Inventory</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Contribute items to be distributed to any deserving mosque in need</div>
+                  </div>
+                </label>
+              </div>
+
+              <div id="mat-project-dropdown-wrap">
+                <label class="form-label" style="font-weight: 700;">Select Mosque Project:</label>
+                <select class="form-select" id="mat-project-select" onchange="updateSelectedMatProject()">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <!-- Quick Needs Tags -->
+              <div id="mat-quick-needs-box" style="margin-top: 1rem; background: var(--bg-surface); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card);">
+                <div style="font-size: 0.775rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
+                  <i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Items Needed for Selected Project (Click to Auto-fill):
+                </div>
+                <div id="mat-quick-tags-container" style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                  <!-- Dynamically injected item pills -->
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: MATERIAL DESCRIPTION & QUANTITY -->
+            <div style="margin-bottom: 2rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-2"></i> Materials / Resources Details</h3>
+
+              <div class="form-group">
+                <label class="form-label" style="font-weight: 700;">Item(s) Description & Quantity to Donate:</label>
+                <textarea id="mat-description" class="form-input" style="height: 100px; padding: 0.85rem;" placeholder="e.g. 10x Copies of the Holy Qur'an (Uthmani Script), 1 Solid Wooden Book Shelf, or 2 Ceiling Fans" required oninput="updateMatSummary()"></textarea>
+                <small style="color: var(--text-muted); font-size: 0.775rem; margin-top: 0.25rem; display: block;">You can donate any practical item: Qur'an copies, Rehal stands, Solar panels, Sound systems, LED bulbs, Wudhu plumbing, etc.</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" style="font-weight: 700;">Condition of Item(s):</label>
+                <select class="form-select" id="mat-condition">
+                  <option value="Brand New (Purchased for Project)">Brand New (Purchased for Project)</option>
+                  <option value="Gently Used / Fully Functional & Clean">Gently Used / Fully Functional & Clean</option>
+                  <option value="Direct Delivery from Manufacturer / Artisan">Direct Delivery from Manufacturer / Artisan</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- STEP 3: DONOR DETAILS & LOCATION -->
+            <div style="margin-bottom: 2rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-3"></i> Your Contact & Location</h3>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" style="font-weight: 700;">Your Full Name:</label>
+                  <input type="text" id="mat-donor-name" class="form-input" placeholder="e.g. Brother Qasim Adeleke" required oninput="updateMatSummary()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight: 700;">Phone / WhatsApp Number:</label>
+                  <input type="tel" id="mat-donor-phone" class="form-input" placeholder="e.g. 0803 123 4567" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" style="font-weight: 700;">Email Address:</label>
+                  <input type="email" id="mat-donor-email" class="form-input" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight: 700;">Your City / Location:</label>
+                  <input type="text" id="mat-donor-city" class="form-input" placeholder="e.g. Ikeja, Lagos State" required oninput="updateMatSummary()">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: DELIVERY PREFERENCE -->
+            <div style="margin-bottom: 2rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-truck-ramp-box"></i> Delivery / Logistics</h3>
+
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <label style="display: flex; align-items: flex-start; gap: 0.75rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); cursor: pointer;">
+                  <input type="radio" name="mat_delivery_pref" value="Self-Delivery to Mosque Site" checked onchange="updateMatSummary()" style="margin-top: 0.25rem;">
+                  <div>
+                    <strong style="color: var(--text-primary);">Self-Delivery to Mosque Site</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">I or my vendor will deliver the materials directly to the verified mosque address.</div>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: flex-start; gap: 0.75rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card); cursor: pointer;">
+                  <input type="radio" name="mat_delivery_pref" value="Request Pickup / Drop-off Address" onchange="updateMatSummary()" style="margin-top: 0.25rem;">
+                  <div>
+                    <strong style="color: var(--text-primary);">Request Pick-up / Drop-off Details</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Please connect with me on WhatsApp with pick-up arrangements or designated hub address.</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.05rem; font-weight: 800; background: #25D366; color: #FFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Pledge Material Donation & Connect on WhatsApp
+            </button>
+          </form>
+        </div>
+
         <!-- SIDEBAR SUMMARY -->
         <div class="donate-sidebar-wrap animate-in">
           
-          <div class="card" style="border-top: 4px solid var(--primary);">
+          <!-- FINANCIAL SUMMARY CARD -->
+          <div class="card" id="sidebar-card-money" style="border-top: 4px solid var(--primary);">
             <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-receipt"></i> Donation Summary</h4>
             
             <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
@@ -216,12 +353,40 @@
             </ul>
           </div>
 
+          <!-- MATERIAL PLEDGE SUMMARY CARD -->
+          <div class="card" id="sidebar-card-material" style="border-top: 4px solid #25D366; display: none;">
+            <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color:#059669;"><i class="fa-solid fa-boxes-packing"></i> Material Pledge Summary</h4>
+            
+            <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+              <span style="color: var(--text-muted); display: block; font-size: 0.8rem;">Target Mosque:</span>
+              <strong id="mat-summary-target-title" style="color: var(--text-primary); font-size: 0.95rem;">Medinat Dhikr Central Mosque</strong>
+            </div>
+
+            <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+              <span style="color: var(--text-muted); display: block; font-size: 0.8rem;">Materials Pledged:</span>
+              <div id="mat-summary-items-display" style="font-size: 0.9rem; font-weight: 700; color: var(--primary); background: var(--bg-surface); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-card); margin-top: 0.25rem;">
+                Specify item above
+              </div>
+            </div>
+
+            <div style="font-size: 0.85rem; margin-bottom: 1rem;">
+              <span style="color: var(--text-muted); display: block; font-size: 0.8rem;">Delivery Mode:</span>
+              <strong id="mat-summary-delivery-display" style="color: var(--text-secondary);">Self-Delivery to Mosque Site</strong>
+            </div>
+
+            <ul style="list-style: none; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border-light);">
+              <li><i class="fa-solid fa-check" style="color: #059669;"></i> Automated WhatsApp logistics message</li>
+              <li><i class="fa-solid fa-check" style="color: #059669;"></i> On-site verification by field team</li>
+              <li><i class="fa-solid fa-check" style="color: #059669;"></i> Logged on the Public Dashboard</li>
+            </ul>
+          </div>
+
           <!-- TRUST CARD -->
           <div class="card text-center" style="background: var(--bg-surface);">
             <div class="stat-icon-circle" style="color:var(--primary); background:var(--primary-glow); margin: 0 auto 0.75rem;"><i class="fa-solid fa-shield-halved"></i></div>
             <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.25rem;">100% Transparency Pledge</h4>
             <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
-              No platform deductions. Every single naira is directed straight into mosque project materials and vendor execution.
+              Whether contributing funds or in-kind physical materials, every donation is logged, tracked, and acknowledged with complete accountability.
             </p>
           </div>
 
@@ -513,6 +678,226 @@
       }
     }
 
+    let currentPendingMaterialDonation = null;
+
+    function switchDonationMode(mode) {
+      const btnMoney = document.getElementById('tab-btn-money');
+      const btnMat = document.getElementById('tab-btn-material');
+      const formMoney = document.getElementById('form-container-money');
+      const formMat = document.getElementById('form-container-material');
+      const sideMoney = document.getElementById('sidebar-card-money');
+      const sideMat = document.getElementById('sidebar-card-material');
+
+      if (mode === 'material') {
+        btnMoney.style.background = 'transparent';
+        btnMoney.style.color = 'var(--text-secondary)';
+        btnMat.style.background = '#25D366';
+        btnMat.style.color = '#FFFFFF';
+        formMoney.style.display = 'none';
+        formMat.style.display = 'block';
+        sideMoney.style.display = 'none';
+        sideMat.style.display = 'block';
+        populateMatProjectsDropdown();
+      } else {
+        btnMoney.style.background = 'var(--primary)';
+        btnMoney.style.color = '#FFFFFF';
+        btnMat.style.background = 'transparent';
+        btnMat.style.color = 'var(--text-secondary)';
+        formMoney.style.display = 'block';
+        formMat.style.display = 'none';
+        sideMoney.style.display = 'block';
+        sideMat.style.display = 'none';
+      }
+    }
+
+    function populateMatProjectsDropdown() {
+      const select = document.getElementById('mat-project-select');
+      if (!select || !window.MP) return;
+
+      const activeProjects = MP.getActiveProjects();
+      select.innerHTML = activeProjects.map(p => `
+        <option value="${p.id}">${p.id} — ${p.titleEN} (${p.mosqueName || p.location})</option>
+      `).join('');
+
+      updateSelectedMatProject();
+    }
+
+    function toggleMatProjectSelect(show) {
+      const wrap = document.getElementById('mat-project-dropdown-wrap');
+      const quickBox = document.getElementById('mat-quick-needs-box');
+      if (wrap) wrap.style.display = show ? 'block' : 'none';
+      if (quickBox) quickBox.style.display = show ? 'block' : 'none';
+      updateSelectedMatProject();
+    }
+
+    function updateSelectedMatProject() {
+      const targetRadio = document.querySelector('input[name="mat_target_type"]:checked');
+      const titleEl = document.getElementById('mat-summary-target-title');
+      const tagsContainer = document.getElementById('mat-quick-tags-container');
+
+      if (!targetRadio || !titleEl) return;
+
+      if (targetRadio.value === 'general') {
+        titleEl.textContent = 'General Masajid Resource Inventory';
+        if (tagsContainer) {
+          tagsContainer.innerHTML = `
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('10x Copies of the Holy Qur\\'an')">+ 10x Copies of Qur'an</button>
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('Solid Wooden Book Shelf')">+ Wooden Book Shelf</button>
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('Qur\\'an Reading Placeholders (Rehal)')">+ Qur'an Reading Placeholders</button>
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('Solar Panels & Inverter System')">+ Solar Inverter System</button>
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('Public Address Sound System & Microphones')">+ Sound System & Mics</button>
+          `;
+        }
+      } else {
+        const select = document.getElementById('mat-project-select');
+        const projId = select ? select.value : 'MP-OG-2026-001';
+        const proj = MP.getProject(projId);
+        titleEl.textContent = proj ? `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
+
+        if (tagsContainer && proj) {
+          let items = [];
+          if (proj.scope && Array.isArray(proj.scope)) {
+            items = proj.scope.map(s => s.item.split('(')[0].trim());
+          }
+          if (items.length === 0) {
+            items = ["10x Copies of the Holy Qur'an", "Solid Wooden Book Shelf", "3x Qur'an Reading Placeholders"];
+          }
+          tagsContainer.innerHTML = items.map(item => `
+            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('${item.replace(/'/g, "\\'")}')">
+              + ${item}
+            </button>
+          `).join('');
+        }
+      }
+      updateMatSummary();
+    }
+
+    function addQuickNeedItem(itemName) {
+      const textarea = document.getElementById('mat-description');
+      if (!textarea) return;
+      if (textarea.value.trim().length > 0) {
+        if (!textarea.value.includes(itemName)) {
+          textarea.value = textarea.value.trim() + ', ' + itemName;
+        }
+      } else {
+        textarea.value = itemName;
+      }
+      updateMatSummary();
+    }
+
+    function updateMatSummary() {
+      const desc = document.getElementById('mat-description')?.value.trim() || 'Specify item above';
+      const itemsDisplay = document.getElementById('mat-summary-items-display');
+      if (itemsDisplay) itemsDisplay.textContent = desc;
+
+      const delPref = document.querySelector('input[name="mat_delivery_pref"]:checked')?.value || 'Self-Delivery to Mosque Site';
+      const delDisplay = document.getElementById('mat-summary-delivery-display');
+      if (delDisplay) delDisplay.textContent = delPref;
+    }
+
+    function handleMaterialDonationSubmit(e) {
+      e.preventDefault();
+      const targetRadio = document.querySelector('input[name="mat_target_type"]:checked');
+      const select = document.getElementById('mat-project-select');
+      const targetProjId = (targetRadio && targetRadio.value === 'general') ? 'MP-GENERAL-RESOURCE' : (select ? select.value : 'MP-OG-2026-001');
+      const projObj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(targetProjId) : null;
+      const projName = projObj ? `${projObj.titleEN} (${projObj.mosqueName})` : (targetProjId === 'MP-GENERAL-RESOURCE' ? 'General Masajid Resource Inventory' : targetProjId);
+
+      const materials = document.getElementById('mat-description').value.trim();
+      const condition = document.getElementById('mat-condition').value;
+      const donorName = document.getElementById('mat-donor-name').value.trim() || 'Anonymous';
+      const phone = document.getElementById('mat-donor-phone').value.trim();
+      const email = document.getElementById('mat-donor-email').value.trim();
+      const city = document.getElementById('mat-donor-city').value.trim();
+      const deliveryPref = document.querySelector('input[name="mat_delivery_pref"]:checked')?.value || 'Self-Delivery to Mosque Site';
+
+      if (!materials || !phone || !email || !city) return;
+
+      const newMaterialPledge = {
+        projectId: targetProjId,
+        projectTitle: projName,
+        materials: materials,
+        condition: condition,
+        donorName: donorName,
+        phone: phone,
+        email: email,
+        donorLocation: city,
+        deliveryPreference: deliveryPref,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Pending Delivery / Pickup'
+      };
+
+      if (window.MP && typeof MP.submitMaterialDonation === 'function') {
+        currentPendingMaterialDonation = MP.submitMaterialDonation(newMaterialPledge);
+      } else {
+        currentPendingMaterialDonation = newMaterialPledge;
+        currentPendingMaterialDonation.ref = 'MP-MAT-' + Math.floor(1000 + Math.random() * 9000);
+      }
+
+      // Populate material confirmation modal
+      document.getElementById('mat-conf-ref').textContent = currentPendingMaterialDonation.ref;
+      document.getElementById('mat-conf-target').textContent = projName;
+      document.getElementById('mat-conf-items').textContent = materials;
+      document.getElementById('mat-conf-donor').textContent = `${donorName} (${phone}, ${city})`;
+      document.getElementById('mat-conf-delivery').textContent = deliveryPref;
+
+      const modal = document.getElementById('modal-material-confirmation');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+
+      if (typeof showToast === 'function') {
+        showToast('Jazaakallaah Khayran! Material donation pledge logged.');
+      }
+    }
+
+    function sendMaterialWhatsAppConfirmation() {
+      if (!currentPendingMaterialDonation) return;
+
+      const d = currentPendingMaterialDonation;
+      const refStr = d.ref || 'MP-MAT';
+      const mosqueStr = d.projectTitle || d.projectId || 'General Masajid Resource Inventory';
+      const materialsStr = d.materials || 'Mosque improvement materials';
+      const donorStr = d.donorName || 'Anonymous';
+      const phoneStr = d.phone || 'N/A';
+      const emailStr = d.email || 'N/A';
+      const cityStr = d.donorLocation || 'N/A';
+      const deliveryStr = d.deliveryPreference || 'Self-Delivery to Mosque Site';
+      const dateStr = d.date || new Date().toISOString().split('T')[0];
+
+      // Format clean, professional WhatsApp message for materials
+      const msg = `As-Salaamu Alaykum Warahmotullaah Wabarakatuh. I would like to donate physical materials / resources for Masajid Project:\n\n` +
+                  `*Pledge Reference:* ${refStr}\n` +
+                  `*Project / Mosque:* ${mosqueStr}\n` +
+                  `*Material(s) to Donate:* ${materialsStr}\n` +
+                  `*Donor Name:* ${donorStr}\n` +
+                  `*Phone Number:* ${phoneStr}\n` +
+                  `*Email:* ${emailStr}\n` +
+                  `*Donor Location / City:* ${cityStr}\n` +
+                  `*Delivery Preference:* ${deliveryStr}\n` +
+                  `*Date:* ${dateStr}\n\n` +
+                  `Please provide us with the delivery address or arrange for pick-up. Jazaakumullaahu Khairan.`;
+
+      const whatsappNumber = '2348034567890';
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
+
+      window.open(whatsappUrl, '_blank');
+      closeMaterialModal();
+
+      if (typeof showToast === 'function') {
+        showToast(`Jazaakallaah Khayran! Material pledge (${refStr}) submitted to logistics team.`, 6000);
+      }
+    }
+
+    function closeMaterialModal() {
+      const modal = document.getElementById('modal-material-confirmation');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       populateProjectsDropdown();
       renderPresetButtons();
@@ -520,7 +905,7 @@
     });
   </script>
 
-  <!-- MODAL: DONATION SUBMISSION CONFIRMATION (CLEAN WHITE BACKGROUND & FIT-TO-SCREEN) -->
+  <!-- MODAL: FINANCIAL DONATION CONFIRMATION (CLEAN WHITE BACKGROUND & FIT-TO-SCREEN) -->
   <div class="modal-backdrop" id="modal-donation-confirmation">
     <div class="modal-window" style="max-width: 520px; text-align: center; padding: 1.75rem 1.5rem; background: #FFFFFF !important; color: #0F172A !important; border: 1.5px solid #CBD5E1 !important; border-radius: 14px; position: relative; box-shadow: 0 20px 45px rgba(0,0,0,0.3); font-family: 'Figtree', system-ui, -apple-system, sans-serif;">
       
@@ -580,6 +965,70 @@
 
       <button type="button" class="btn" onclick="sendTransferWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: #25D366; color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);">
         <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> I've Made the Transfer
+      </button>
+
+    </div>
+  </div>
+
+  <!-- MODAL: MATERIAL / IN-KIND DONATION CONFIRMATION (CLEAN WHITE BACKGROUND & FIT-TO-SCREEN) -->
+  <div class="modal-backdrop" id="modal-material-confirmation">
+    <div class="modal-window" style="max-width: 540px; text-align: center; padding: 1.75rem 1.5rem; background: #FFFFFF !important; color: #0F172A !important; border: 1.5px solid #CBD5E1 !important; border-radius: 14px; position: relative; box-shadow: 0 20px 45px rgba(0,0,0,0.3); font-family: 'Figtree', system-ui, -apple-system, sans-serif;">
+      
+      <!-- Close X Button in Header -->
+      <button type="button" onclick="closeMaterialModal()" style="position: absolute; top: 0.85rem; right: 0.85rem; background: #F1F5F9; border: 1px solid #CBD5E1; color: #475569; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; font-weight: 700;" title="Close">
+        ✕
+      </button>
+
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(37, 211, 102, 0.12); color: #25D366; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 0.75rem; border: 1.5px solid rgba(37, 211, 102, 0.3);">
+        <i class="fa-solid fa-boxes-packing"></i>
+      </div>
+
+      <h2 style="font-size: 1.45rem; font-weight: 800; color: #0F172A !important; margin: 0 0 0.3rem; font-family: 'Figtree', sans-serif;">Jazaakallaah Khayran</h2>
+      <p style="color: #475569 !important; font-size: 0.875rem; margin-bottom: 1rem; line-height: 1.45;">
+        Your material contribution pledge has been logged. Please click below to send the details on WhatsApp to coordinate delivery or pickup.
+      </p>
+
+      <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 1rem; text-align: left; margin-bottom: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.65rem;">
+          <div>
+            <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Pledge Reference:</span>
+            <div id="mat-conf-ref" style="font-family: monospace; font-size: 1.05rem; font-weight: 800; color: #13547A;">MP-MAT-0000</div>
+          </div>
+          <div>
+            <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Status:</span>
+            <div><span class="badge" style="background:rgba(217,119,6,0.12); color:#B45309; font-weight:800; font-size:0.7rem;">Pending Delivery / Pickup</span></div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.65rem;">
+          <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Target Mosque / Project:</span>
+          <div id="mat-conf-target" style="font-size: 0.875rem; font-weight: 700; color: #0F172A;">Medinat Dhikr Central Mosque</div>
+        </div>
+
+        <div style="margin-bottom: 0.65rem;">
+          <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Material(s) Pledged:</span>
+          <div id="mat-conf-items" style="font-size: 0.875rem; font-weight: 800; color: #13547A; background:#FFF; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #CBD5E1;">10x Copies of the Holy Qur'an</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #CBD5E1;">
+          <div>
+            <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Donor & Contact:</span>
+            <div id="mat-conf-donor" style="font-size: 0.8rem; font-weight: 700; color: #0F172A;">Qasim (0803 123 4567)</div>
+          </div>
+          <div>
+            <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Delivery Preference:</span>
+            <div id="mat-conf-delivery" style="font-size: 0.8rem; font-weight: 700; color: #059669;">Self-Delivery to Site</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: 0.775rem; color: #64748B !important; margin-bottom: 1rem; line-height: 1.4;">
+        <i class="fa-solid fa-truck" style="color: #25D366;"></i>
+        Our operations team will verify the items upon arrival, record them on the live dashboard, and oversee installation/commissioning at the mosque.
+      </p>
+
+      <button type="button" class="btn" onclick="sendMaterialWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: #25D366; color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);">
+        <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Send Details on WhatsApp
       </button>
 
     </div>
