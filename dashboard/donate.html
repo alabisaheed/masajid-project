@@ -241,9 +241,9 @@
               </div>
 
               <!-- Quick Needs Tags -->
-              <div id="mat-quick-needs-box" style="margin-top: 1rem; background: var(--bg-surface); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-card);">
-                <div style="font-size: 0.775rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
-                  <i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Items Needed for Selected Project (Click to Auto-fill):
+              <div id="mat-quick-needs-box" style="margin-top: 1rem; background: var(--bg-surface); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1.5px solid var(--border-card);">
+                <div style="font-size: 0.775rem; font-weight: 800; color: #13547A; text-transform: uppercase; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <i class="fa-solid fa-boxes-stacked" style="color: #059669;"></i> Remaining Items Needed for This Project (Click to Auto-fill):
                 </div>
                 <div id="mat-quick-tags-container" style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
                   <!-- Dynamically injected item pills -->
@@ -755,18 +755,45 @@
         titleEl.textContent = proj ? `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
 
         if (tagsContainer && proj) {
-          let items = [];
+          let pendingItems = [];
+          let completedItems = [];
+
           if (proj.scope && Array.isArray(proj.scope)) {
-            items = proj.scope.map(s => s.item.split('(')[0].trim());
+            proj.scope.forEach(s => {
+              const statusStr = (s.status || '').toLowerCase();
+              const isDone = statusStr.includes('paid') || statusStr.includes('receipt') || statusStr.includes('verified') || statusStr.includes('completed');
+              const itemName = s.item.split('(')[0].trim();
+              if (isDone) {
+                completedItems.push(itemName);
+              } else {
+                pendingItems.push(itemName);
+              }
+            });
           }
-          if (items.length === 0) {
-            items = ["10x Copies of the Holy Qur'an", "Solid Wooden Book Shelf", "3x Qur'an Reading Placeholders"];
+
+          if (pendingItems.length === 0 && (!proj.scope || proj.scope.length === 0)) {
+            pendingItems = ["10x Copies of the Holy Qur'an"];
           }
-          tagsContainer.innerHTML = items.map(item => `
-            <button type="button" class="badge" style="background:#F1F5F9; color:#0F172A; border:1px solid #CBD5E1; cursor:pointer; padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="addQuickNeedItem('${item.replace(/'/g, "\\'")}')">
-              + ${item}
-            </button>
-          `).join('');
+
+          let html = '';
+          if (pendingItems.length > 0) {
+            html += pendingItems.map(item => `
+              <button type="button" class="badge" style="background: rgba(5,150,105,0.12); color: #059669; border: 1.5px solid #059669; cursor: pointer; padding: 0.4rem 0.75rem; font-size: 0.8rem; font-weight: 800; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem;" onclick="addQuickNeedItem('${item.replace(/'/g, "\\'")}')" title="Click to auto-fill">
+                <i class="fa-solid fa-plus"></i> ${item} <span style="font-size: 0.65rem; background: #059669; color: #FFF; padding: 1px 5px; border-radius: 3px; margin-left: 0.25rem;">Needed</span>
+              </button>
+            `).join('');
+          } else {
+            html += `<span style="font-size: 0.8rem; color: #059669; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> All primary scope items for this project have been fulfilled!</span>`;
+          }
+
+          if (completedItems.length > 0) {
+            html += `<div style="width: 100%; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #CBD5E1; font-size: 0.75rem; color: #64748B;">
+              <span style="font-weight: 800; text-transform: uppercase; color: #475569;">Already Executed & Done:</span>
+              ${completedItems.map(c => `<span style="text-decoration: line-through; margin-left: 0.4rem; opacity: 0.75; color: #64748B;"><i class="fa-solid fa-check" style="color:#059669;"></i> ${c}</span>`).join(', ')}
+            </div>`;
+          }
+
+          tagsContainer.innerHTML = html;
         }
       }
       updateMatSummary();
