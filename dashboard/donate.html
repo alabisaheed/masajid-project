@@ -325,7 +325,7 @@
               </div>
             </div>
 
-            <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.05rem; font-weight: 800; background: #25D366; color: #FFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);">
+            <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.05rem; font-weight: 800; background: var(--primary); color: #FFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(19, 84, 122, 0.25);">
               <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Pledge Material Donation & Connect on WhatsApp
             </button>
           </form>
@@ -349,15 +349,15 @@
             </div>
 
             <ul style="list-style: none; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border-light);">
-              <li><i class="fa-solid fa-check" style="color: var(--emerald);"></i> Instant receipt issued by email</li>
-              <li><i class="fa-solid fa-check" style="color: var(--emerald);"></i> Documented on public ledger</li>
-              <li><i class="fa-solid fa-check" style="color: var(--emerald);"></i> Verified execution updates sent to you</li>
+              <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> Instant receipt issued by email</li>
+              <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> Documented on public ledger</li>
+              <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> Verified execution updates sent to you</li>
             </ul>
           </div>
 
           <!-- MATERIAL PLEDGE SUMMARY CARD -->
-          <div class="card" id="sidebar-card-material" style="border-top: 4px solid #25D366; display: none;">
-            <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color:#059669;"><i class="fa-solid fa-boxes-packing"></i> Material Pledge Summary</h4>
+          <div class="card" id="sidebar-card-material" style="border-top: 4px solid var(--primary); display: none;">
+            <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color:var(--primary);"><i class="fa-solid fa-boxes-packing"></i> Material Pledge Summary</h4>
             
             <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">
               <span style="color: var(--text-muted); display: block; font-size: 0.8rem;">Target Mosque:</span>
@@ -819,7 +819,7 @@
       if (mode === 'material') {
         btnMoney.style.background = 'transparent';
         btnMoney.style.color = 'var(--text-secondary)';
-        btnMat.style.background = '#25D366';
+        btnMat.style.background = 'var(--primary)';
         btnMat.style.color = '#FFFFFF';
         formMoney.style.display = 'none';
         formMat.style.display = 'block';
@@ -1119,7 +1119,7 @@
         Once your bank transfer alert is acknowledged by the finance team, this donation will be credited to the project fund and published on the live Transparency Ledger.
       </p>
 
-      <button type="button" class="btn" onclick="sendTransferWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: #25D366; color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);">
+      <button type="button" class="btn" onclick="sendTransferWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: var(--primary); color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(19, 84, 122, 0.25);">
         <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> I've Made the Transfer
       </button>
 
@@ -1135,7 +1135,7 @@
         ✕
       </button>
 
-      <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(37, 211, 102, 0.12); color: #25D366; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 0.75rem; border: 1.5px solid rgba(37, 211, 102, 0.3);">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(19, 84, 122, 0.08); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 0.75rem; border: 1.5px solid rgba(19, 84, 122, 0.25);">
         <i class="fa-solid fa-boxes-packing"></i>
       </div>
 
@@ -1173,17 +1173,17 @@
           </div>
           <div>
             <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800;">Delivery Preference:</span>
-            <div id="mat-conf-delivery" style="font-size: 0.8rem; font-weight: 700; color: #059669;">Self-Delivery to Site</div>
+            <div id="mat-conf-delivery" style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">Self-Delivery to Site</div>
           </div>
         </div>
       </div>
 
       <p style="font-size: 0.775rem; color: #64748B !important; margin-bottom: 1rem; line-height: 1.4;">
-        <i class="fa-solid fa-truck" style="color: #25D366;"></i>
+        <i class="fa-solid fa-truck" style="color: var(--primary);"></i>
         Our operations team will verify the items upon arrival, record them on the live dashboard, and oversee installation/commissioning at the mosque.
       </p>
 
-      <button type="button" class="btn" onclick="sendMaterialWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: #25D366; color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);">
+      <button type="button" class="btn" onclick="sendMaterialWhatsAppConfirmation()" style="width: 100%; padding: 0.85rem 1.15rem; font-size: 0.95rem; font-weight: 800; background: var(--primary); color: #FFFFFF; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(19, 84, 122, 0.25);">
         <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Send Details on WhatsApp
       </button>
 
