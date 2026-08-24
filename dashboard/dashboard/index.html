@@ -1020,7 +1020,7 @@
             </div>
           </div>
 
-          <div class="card" style="padding: 1.5rem;">
+          <div class="card" style="padding: 1.5rem; margin-bottom: 2rem;">
             <table class="admin-table">
               <thead>
                 <tr>
@@ -1051,6 +1051,51 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <!-- CLOUD DATABASE & REALTIME SYNC (SUPABASE) -->
+          <div class="card" style="padding: 1.75rem; border-left: 4px solid var(--primary);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                  <i class="fa-solid fa-cloud-bolt"></i> Cloud Database & Realtime Sync (Supabase)
+                </h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">
+                  Connect your free Supabase PostgreSQL project to enable live cross-device sync for mosque nominations, donations, and public ledger.
+                </p>
+              </div>
+              <div id="supabase-status-badge">
+                <span class="badge" style="background: rgba(19, 84, 122, 0.12); color: var(--primary); font-weight: 800; font-size: 0.8rem; padding: 0.4rem 0.85rem;">
+                  <i class="fa-solid fa-hard-drive"></i> LocalStorage Mode (Ready to Connect)
+                </span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" style="font-weight: 700;">Supabase Project URL:</label>
+                <input type="url" id="supabase-url-input" class="form-input" placeholder="https://your-project-id.supabase.co" style="font-family: monospace; font-size: 0.9rem;">
+                <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.25rem; display: block;">Found in Supabase Dashboard > Project Settings > API</small>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" style="font-weight: 700;">Supabase Anon Public API Key:</label>
+                <input type="text" id="supabase-anon-input" class="form-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." style="font-family: monospace; font-size: 0.9rem;">
+                <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.25rem; display: block;">Safe to use in frontend. Grants public INSERT & admin SELECT</small>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+              <button type="button" class="btn btn--primary" onclick="saveAdminSupabaseCredentials()" style="padding: 0.75rem 1.5rem; font-weight: 800; font-size: 0.9rem;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Save & Connect Cloud
+              </button>
+              <button type="button" class="btn btn--outline" onclick="triggerManualCloudSync()" style="padding: 0.75rem 1.25rem; font-weight: 700; font-size: 0.9rem;">
+                <i class="fa-solid fa-arrows-rotate"></i> Sync Cloud Data Now
+              </button>
+              <a href="supabase_schema.sql" download="supabase_schema.sql" class="btn btn--outline" style="padding: 0.75rem 1.25rem; font-weight: 700; font-size: 0.9rem; text-decoration: none;">
+                <i class="fa-solid fa-file-code"></i> Download SQL Schema File
+              </a>
+            </div>
           </div>
         </div>
 
@@ -1473,6 +1518,8 @@
   </div>
 
   <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
   <script>
@@ -2948,6 +2995,55 @@
       };
     }
 
+    // ── Supabase Cloud Dashboard Controls ──
+    function checkSupabaseStatusUI() {
+      const badge = document.getElementById('supabase-status-badge');
+      const urlInput = document.getElementById('supabase-url-input');
+      const anonInput = document.getElementById('supabase-anon-input');
+
+      let saved = null;
+      try {
+        saved = JSON.parse(localStorage.getItem('masajid_supabase_config'));
+      } catch(e) {}
+
+      if (saved && saved.url && saved.anonKey) {
+        if (urlInput) urlInput.value = saved.url;
+        if (anonInput) anonInput.value = saved.anonKey;
+      }
+
+      if (window.MasajidCloud && window.MasajidCloud.isConfigured) {
+        if (badge) {
+          badge.innerHTML = `<span class="badge badge--completed" style="font-size:0.8rem; padding:0.4rem 0.85rem;"><i class="fa-solid fa-circle-check"></i> Connected & Streaming Realtime (Supabase)</span>`;
+        }
+      }
+    }
+
+    function saveAdminSupabaseCredentials() {
+      const url = document.getElementById('supabase-url-input').value;
+      const key = document.getElementById('supabase-anon-input').value;
+      if (!url || !key) {
+        showToast('Please enter both your Supabase Project URL and Anon Key.', 4000);
+        return;
+      }
+      if (window.MasajidCloud && typeof window.MasajidCloud.saveConfig === 'function') {
+        window.MasajidCloud.saveConfig(url, key);
+        showToast('Supabase Cloud connected successfully! Reloading...');
+      }
+    }
+
+    async function triggerManualCloudSync() {
+      if (window.MP && typeof window.MP.syncFromCloud === 'function') {
+        showToast('Syncing all records from Supabase Cloud...');
+        await window.MP.syncFromCloud();
+        renderAdminNominations();
+        renderAdminProjects();
+        renderAdminFinancials();
+        showToast('Cloud sync complete!');
+      } else {
+        showToast('Running in local mode. Enter Supabase credentials to sync.');
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       checkAdminSession();
       renderAdminProjects();
@@ -2957,6 +3053,12 @@
       renderAdminArticles();
       renderAdminFeatured();
       setCurrency(currentCurrency);
+      checkSupabaseStatusUI();
+
+      // Trigger background sync from Supabase if connected
+      if (window.MP && typeof window.MP.syncFromCloud === 'function') {
+        window.MP.syncFromCloud();
+      }
     });
   </script>
 

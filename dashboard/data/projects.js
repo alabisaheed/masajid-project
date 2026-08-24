@@ -557,6 +557,11 @@ g.MP = {
     nom.status = nom.status || 'Pending Review';
     list.unshift(nom);
     saveLocal('nominations', list);
+
+    // Asynchronously push to Supabase Cloud Database if configured
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.submitNomination === 'function') {
+      window.MasajidCloud.submitNomination(nom);
+    }
     return nom;
   },
 
@@ -566,6 +571,11 @@ g.MP = {
     if (item) {
       item.status = status;
       saveLocal('nominations', list);
+
+      // Asynchronously update on Supabase Cloud Database
+      if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.updateNominationStatus === 'function') {
+        window.MasajidCloud.updateNominationStatus(id, status);
+      }
 
       // If approved, automatically convert to an active project
       if (status === 'Approved') {
@@ -813,6 +823,11 @@ g.MP = {
     
     list.unshift(d);
     saveLocal('donations', list);
+
+    // Asynchronously push to Supabase Cloud Database
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.submitDonation === 'function') {
+      window.MasajidCloud.submitDonation(d);
+    }
     return d;
   },
 
@@ -834,6 +849,11 @@ g.MP = {
         }
       }
       this.stats.totalRaisedNGN = (Number(this.stats.totalRaisedNGN) || 0) + Number(d.amountNGN);
+
+      // Asynchronously update on Supabase Cloud Database
+      if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.updateDonationStatus === 'function') {
+        window.MasajidCloud.updateDonationStatus(ref, 'CONFIRMED');
+      }
     }
     return d;
   },
@@ -843,6 +863,9 @@ g.MP = {
     let list = loadLocal('donations', this.donations);
     list = list.filter(item => item.ref !== ref);
     saveLocal('donations', list);
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.updateDonationStatus === 'function') {
+      window.MasajidCloud.updateDonationStatus(ref, 'DECLINED');
+    }
     return list;
   },
 
@@ -856,6 +879,10 @@ g.MP = {
     d.status = 'CONFIRMED';
     list.unshift(d);
     saveLocal('donations', list);
+
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.submitDonation === 'function') {
+      window.MasajidCloud.submitDonation(d);
+    }
 
     // Update project raisedNGN
     if (d.projectId) {
@@ -886,6 +913,11 @@ g.MP = {
     mat.status = mat.status || 'Pending Delivery / Pickup';
     list.unshift(mat);
     saveLocal('material_donations', list);
+
+    // Asynchronously push to Supabase Cloud Database
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.submitMaterialDonation === 'function') {
+      window.MasajidCloud.submitMaterialDonation(mat);
+    }
     return mat;
   },
 
@@ -895,6 +927,11 @@ g.MP = {
     if (item) {
       item.status = status;
       saveLocal('material_donations', list);
+
+      // Asynchronously update on Supabase Cloud Database
+      if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.updateMaterialStatus === 'function') {
+        window.MasajidCloud.updateMaterialStatus(ref, status);
+      }
     }
     return list;
   },
@@ -903,6 +940,10 @@ g.MP = {
     let list = this.getMaterialDonations();
     list = list.filter(m => m.ref !== ref);
     saveLocal('material_donations', list);
+
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.deleteMaterialDonation === 'function') {
+      window.MasajidCloud.deleteMaterialDonation(ref);
+    }
     return list;
   },
 
@@ -932,6 +973,129 @@ g.MP = {
     const symbol = symbols[currency] || '₦';
     const converted = Math.round(amountNGN * rate);
     return `${symbol}${converted.toLocaleString()}`;
+  },
+
+  // ── REALTIME CLOUD HANDLERS & BACKGROUND SYNC ──
+  onCloudNominationSync: function(payload) {
+    if (!payload || !payload.new) return;
+    const r = payload.new;
+    const item = {
+      id: r.id,
+      masjidName: r.masjid_name,
+      masjidNameAR: r.masjid_name_ar,
+      city: r.city,
+      state: r.state,
+      category: r.category,
+      needDesc: r.need_desc,
+      mediaFiles: r.media_files || [],
+      mediaDriveLink: r.media_drive_link,
+      yourName: r.your_name,
+      yourPhone: r.your_phone,
+      yourEmail: r.your_email,
+      status: r.status,
+      submittedAt: r.submitted_at
+    };
+    const list = this.getNominations();
+    const idx = list.findIndex(n => n.id === item.id);
+    if (idx >= 0) {
+      list[idx] = item;
+    } else {
+      list.unshift(item);
+    }
+    saveLocal('nominations', list);
+    if (typeof this.onDataChange === 'function') {
+      this.onDataChange('nominations', list);
+    }
+  },
+
+  onCloudDonationSync: function(payload) {
+    if (!payload || !payload.new) return;
+    const r = payload.new;
+    const item = {
+      ref: r.ref,
+      projectId: r.project_id,
+      amountNGN: Number(r.amount_ngn),
+      date: r.date,
+      donorName: r.donor_name,
+      email: r.email,
+      purpose: r.purpose,
+      channel: r.channel,
+      status: r.status
+    };
+    const list = loadLocal('donations', this.donations);
+    const idx = list.findIndex(d => d.ref === item.ref);
+    if (idx >= 0) {
+      list[idx] = item;
+    } else {
+      list.unshift(item);
+    }
+    saveLocal('donations', list);
+    if (typeof this.onDataChange === 'function') {
+      this.onDataChange('donations', list);
+    }
+  },
+
+  onCloudMaterialSync: function(payload) {
+    if (!payload || !payload.new) return;
+    const r = payload.new;
+    const item = {
+      ref: r.ref,
+      projectId: r.project_id,
+      projectTitle: r.project_title,
+      materials: r.materials,
+      condition: r.condition,
+      donorName: r.donor_name,
+      phone: r.phone,
+      email: r.email,
+      donorLocation: r.donor_location,
+      deliveryPreference: r.delivery_preference,
+      status: r.status,
+      date: r.date
+    };
+    const list = this.getMaterialDonations();
+    const idx = list.findIndex(m => m.ref === item.ref);
+    if (idx >= 0) {
+      list[idx] = item;
+    } else {
+      list.unshift(item);
+    }
+    saveLocal('material_donations', list);
+    if (typeof this.onDataChange === 'function') {
+      this.onDataChange('material_donations', list);
+    }
+  },
+
+  // Pull latest cloud state in background on load
+  syncFromCloud: async function() {
+    if (typeof window === 'undefined' || !window.MasajidCloud || !window.MasajidCloud.isConfigured) return;
+    try {
+      const [cloudNoms, cloudDons, cloudMats, cloudProjs] = await Promise.all([
+        window.MasajidCloud.fetchNominations(),
+        window.MasajidCloud.fetchDonations(),
+        window.MasajidCloud.fetchMaterialDonations(),
+        window.MasajidCloud.fetchProjects()
+      ]);
+
+      if (cloudNoms && cloudNoms.length > 0) {
+        saveLocal('nominations', cloudNoms);
+        if (typeof this.onDataChange === 'function') this.onDataChange('nominations', cloudNoms);
+      }
+      if (cloudDons && cloudDons.length > 0) {
+        saveLocal('donations', cloudDons);
+        if (typeof this.onDataChange === 'function') this.onDataChange('donations', cloudDons);
+      }
+      if (cloudMats && cloudMats.length > 0) {
+        saveLocal('material_donations', cloudMats);
+        if (typeof this.onDataChange === 'function') this.onDataChange('material_donations', cloudMats);
+      }
+      if (cloudProjs && cloudProjs.length > 0) {
+        saveLocal('projects', cloudProjs);
+        if (typeof this.onDataChange === 'function') this.onDataChange('projects', cloudProjs);
+      }
+      console.log('☁️ [Masajid Project] Cloud data synchronization complete.');
+    } catch (err) {
+      console.warn('⚠️ [Masajid Project] Cloud background sync notice:', err);
+    }
   }
 };
 
