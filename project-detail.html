@@ -109,28 +109,13 @@
 
         <!-- MAIN TABS & BODY -->
         <div style="min-width: 0;">
-          <!-- IMAGES GALLERY (COMPACT, ZOOMABLE, NO OVERFLOW) -->
+          <!-- FEATURED PROJECT PHOTO (ZOOMABLE) -->
           <div class="card animate-in" style="padding: 0; overflow: hidden; margin-bottom: 2rem; border-radius: 12px; border: 1.5px solid var(--border-card);">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-light);" id="proj-images-grid">
-              
-              <!-- Before Photo Frame -->
-              <div style="position: relative; height: 210px; overflow: hidden; cursor: zoom-in; background: #0F172A;" onclick="openProjectLightbox('before')" title="Click to zoom Before photo">
-                <img id="proj-img-before" src="images/proj-003-before.jpg" alt="Before" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;">
-                <span class="img-label" style="background: rgba(15,23,42,0.88); color: #94a3b8; border: 1px solid #475569; font-size: 0.725rem; font-weight: 800;">BEFORE</span>
-                <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.65); color: #FFF; font-size: 0.7rem; padding: 3px 7px; border-radius: 4px; pointer-events: none;">
-                  <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom
-                </span>
-              </div>
-
-              <!-- After / In-Progress Photo Frame -->
-              <div style="position: relative; height: 210px; overflow: hidden; cursor: zoom-in; background: #0F172A;" onclick="openProjectLightbox('after')" title="Click to zoom After / In-Progress photo">
-                <img id="proj-img-after" src="images/proj-001-after.jpg" alt="After/During" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;">
-                <span class="img-label" style="background: rgba(16,185,129,0.92); color: #fff; border: 1px solid #059669; font-size: 0.725rem; font-weight: 800;" id="after-img-badge">AFTER / IN-PROGRESS</span>
-                <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.65); color: #FFF; font-size: 0.7rem; padding: 3px 7px; border-radius: 4px; pointer-events: none;">
-                  <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom
-                </span>
-              </div>
-
+            <div style="position: relative; height: 320px; overflow: hidden; cursor: zoom-in; background: #0F172A;" onclick="openProjectMainLightbox()" title="Click to zoom photo">
+              <img id="proj-main-img" src="images/mosque-hero.jpg" alt="Project Photo" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;">
+              <span style="position: absolute; bottom: 10px; right: 10px; background: rgba(15,23,42,0.8); color: #FFF; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; pointer-events: none; border: 1px solid rgba(255,255,255,0.2);">
+                <i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom Photo
+              </span>
             </div>
           </div>
 
@@ -330,14 +315,10 @@
       const dateEl = document.getElementById('proj-date');
       if (dateEl) dateEl.textContent = proj.createdAt;
 
-      // Images
-      const imgBefore = document.getElementById('proj-img-before');
-      if (imgBefore) {
-        imgBefore.src = proj.imageBefore || (proj.images && proj.images.before) || 'images/proj-003-before.jpg';
-      }
-      const imgAfter = document.getElementById('proj-img-after');
-      if (imgAfter) {
-        imgAfter.src = proj.imageAfter || (proj.images && (proj.images.after || proj.images.during)) || 'images/proj-001-after.jpg';
+      // Main Featured Image
+      const mainImg = document.getElementById('proj-main-img');
+      if (mainImg) {
+        mainImg.src = (proj.images && (proj.images.during || proj.images.after || proj.images.before)) || proj.imageAfter || proj.imageBefore || 'images/mosque-hero.jpg';
       }
 
       // Description
@@ -441,11 +422,11 @@
     }
 
     // ── LIGHTBOX ZOOM ENGINE ──
-    function openProjectLightbox(type) {
-      const imgEl = (type === 'before') ? document.getElementById('proj-img-before') : document.getElementById('proj-img-after');
+    function openProjectMainLightbox() {
+      const imgEl = document.getElementById('proj-main-img');
       if (!imgEl) return;
       const titleEl = document.getElementById('proj-title-en');
-      const captionText = `${titleEl ? titleEl.textContent : 'Project Photo'} — ${type === 'before' ? 'Before Audit Photo' : 'After / In-Progress Evidence Photo'}`;
+      const captionText = `${titleEl ? titleEl.textContent : 'Project Photo'} — Field Documentation`;
       openLightbox(imgEl.src, captionText);
     }
 
