@@ -923,8 +923,8 @@
       const cardRect = targetCard.getBoundingClientRect();
 
       // Calculate relative position within left stack
-      const topOffset = cardRect.top • stackRect.top + (cardRect.height / 2) • 10;
-      const leftOffset = cardRect.left • stackRect.left + 35;
+      const topOffset = cardRect.top - stackRect.top + (cardRect.height / 2) - 10;
+      const leftOffset = cardRect.left - stackRect.left + 35;
 
       cursor.style.transform = `translate(${leftOffset}px, ${topOffset}px)`;
     }
