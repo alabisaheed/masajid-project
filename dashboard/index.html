@@ -1373,6 +1373,48 @@
           </div>
         </div>
 
+        <!-- Itemized Scope Breakdown & Individual Item Prices (Interactive) -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin: 0; text-transform: uppercase; letter-spacing: 0.03em;">
+                <i class="fa-solid fa-list-check"></i> Itemized Activities & Item Prices Breakdown
+              </h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.2rem 0 0 0;">
+                List and edit every individual deliverable item with its exact cost and verification status.
+              </p>
+            </div>
+            <button type="button" class="btn btn--outline" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; font-weight: 700; color: var(--primary); border-color: var(--primary);" onclick="addScopeItemRow()">
+              <i class="fa-solid fa-plus"></i> Add Item / Activity
+            </button>
+          </div>
+
+          <div class="table-responsive" style="margin-bottom: 0.5rem;">
+            <table class="admin-table" style="font-size: 0.85rem; margin: 0; width: 100%;">
+              <thead>
+                <tr style="background: rgba(19, 84, 122, 0.08);">
+                  <th style="width: 52%;">Deliverable Item / Activity</th>
+                  <th style="width: 24%;">Cost / Price (₦)</th>
+                  <th style="width: 18%;">Funding Status</th>
+                  <th style="width: 6%; text-align: center;">✕</th>
+                </tr>
+              </thead>
+              <tbody id="edit-proj-scope-tbody">
+                <!-- Dynamically rendered by renderScopeItemRows() -->
+              </tbody>
+            </table>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed var(--dash-border);">
+            <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--primary); border-color: var(--primary);" onclick="syncScopeSumToGoal()">
+              <i class="fa-solid fa-calculator"></i> Set Budget Target = Sum of Items
+            </button>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Total Line Items Sum:</span>
+              <strong style="font-size: 1.05rem; color: var(--primary);" id="edit-proj-scope-sum">₦0</strong>
+            </div>
+          </div>
+        </div>
+
         <!-- Scope & Description -->
         <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
           <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
@@ -2732,6 +2774,98 @@
       setCurrency(currentCurrency);
     }
 
+    // ── Itemized Scope & Individual Price Editor Engine ──
+    function renderScopeItemRows(scopeArray) {
+      const tbody = document.getElementById('edit-proj-scope-tbody');
+      if (!tbody) return;
+
+      if (!Array.isArray(scopeArray) || scopeArray.length === 0) {
+        tbody.innerHTML = '';
+        addScopeItemRow();
+        return;
+      }
+
+      tbody.innerHTML = scopeArray.map((s, idx) => `
+        <tr class="scope-row-item">
+          <td>
+            <input type="text" class="form-input edit-scope-item-name" value="${(s.item || '').replace(/"/g, '&quot;')}" placeholder="e.g. Solid Wooden Book Shelf" required style="font-size:0.85rem; padding:0.35rem 0.5rem; width:100%;">
+          </td>
+          <td>
+            <input type="number" class="form-input edit-scope-item-cost" value="${s.costNGN || 0}" min="0" placeholder="e.g. 40000" oninput="calculateScopeSum()" required style="font-size:0.85rem; padding:0.35rem 0.5rem; font-weight:700; color:var(--primary); width:100%;">
+          </td>
+          <td>
+            <select class="form-select edit-scope-item-status" style="font-size:0.8rem; padding:0.35rem 0.5rem; width:100%;">
+              <option value="Paid & Receipt Verified" ${s.status && (s.status.includes('Paid') || s.status.includes('Verified')) ? 'selected' : ''}>Paid & Verified ✓</option>
+              <option value="Unpaid / Awaiting Donation" ${s.status && (s.status.includes('Unpaid') || s.status.includes('Awaiting')) ? 'selected' : ''}>Awaiting Donation</option>
+              <option value="In Progress" ${s.status && s.status.includes('Progress') ? 'selected' : ''}>In Progress</option>
+            </select>
+          </td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn--outline" style="padding:0.25rem 0.5rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="removeScopeItemRow(this)" title="Remove item">✕</button>
+          </td>
+        </tr>
+      `).join('');
+
+      calculateScopeSum();
+    }
+
+    function addScopeItemRow(itemName = '', cost = 0, status = 'Unpaid / Awaiting Donation') {
+      const tbody = document.getElementById('edit-proj-scope-tbody');
+      if (!tbody) return;
+
+      const tr = document.createElement('tr');
+      tr.className = 'scope-row-item';
+      tr.innerHTML = `
+        <td>
+          <input type="text" class="form-input edit-scope-item-name" value="${(itemName || '').replace(/"/g, '&quot;')}" placeholder="e.g. 10x Copies of the Holy Qur'an" required style="font-size:0.85rem; padding:0.35rem 0.5rem; width:100%;">
+        </td>
+        <td>
+          <input type="number" class="form-input edit-scope-item-cost" value="${cost || 0}" min="0" placeholder="e.g. 100000" oninput="calculateScopeSum()" required style="font-size:0.85rem; padding:0.35rem 0.5rem; font-weight:700; color:var(--primary); width:100%;">
+        </td>
+        <td>
+          <select class="form-select edit-scope-item-status" style="font-size:0.8rem; padding:0.35rem 0.5rem; width:100%;">
+            <option value="Paid & Receipt Verified" ${status && (status.includes('Paid') || status.includes('Verified')) ? 'selected' : ''}>Paid & Verified ✓</option>
+            <option value="Unpaid / Awaiting Donation" ${status && (status.includes('Unpaid') || status.includes('Awaiting')) ? 'selected' : ''}>Awaiting Donation</option>
+            <option value="In Progress" ${status && status.includes('Progress') ? 'selected' : ''}>In Progress</option>
+          </select>
+        </td>
+        <td style="text-align: center;">
+          <button type="button" class="btn btn--outline" style="padding:0.25rem 0.5rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5;" onclick="removeScopeItemRow(this)" title="Remove item">✕</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+      calculateScopeSum();
+    }
+
+    function removeScopeItemRow(btn) {
+      const row = btn.closest('tr');
+      if (row) {
+        row.remove();
+        calculateScopeSum();
+      }
+    }
+
+    function calculateScopeSum() {
+      const costInputs = document.querySelectorAll('.edit-scope-item-cost');
+      let total = 0;
+      costInputs.forEach(inp => {
+        const val = parseFloat(inp.value) || 0;
+        total += val;
+      });
+      const sumEl = document.getElementById('edit-proj-scope-sum');
+      if (sumEl) sumEl.textContent = `₦${total.toLocaleString()}`;
+      return total;
+    }
+
+    function syncScopeSumToGoal() {
+      const total = calculateScopeSum();
+      const goalInput = document.getElementById('edit-proj-goal');
+      if (goalInput) {
+        goalInput.value = total;
+        showToast(`Target Budget updated to ₦${total.toLocaleString()}`);
+      }
+    }
+
     function openEditProjectModal(projId) {
       if (!window.MP) return;
       const proj = (typeof MP.getProject === 'function') ? MP.getProject(projId) : (MP.projects || []).find(p => p.id === projId);
@@ -2759,6 +2893,9 @@
       document.getElementById('edit-proj-desc-ar').value = proj.descriptionAR || '';
       document.getElementById('edit-proj-img-before').value = (proj.images && proj.images.before) || proj.imageBefore || '';
       document.getElementById('edit-proj-img-after').value = (proj.images && proj.images.after) || proj.imageAfter || '';
+
+      // Populate itemized scope and price breakdown rows
+      renderScopeItemRows(proj.scope || []);
 
       modal.classList.add('open');
       modal.style.display = 'flex';
@@ -2805,6 +2942,30 @@
       proj.descriptionEN = descEn;
       proj.descriptionAR = descAr;
 
+      // Collect itemized scope activities and prices
+      const scopeRows = document.querySelectorAll('#edit-proj-scope-tbody tr.scope-row-item');
+      const updatedScope = [];
+      scopeRows.forEach(row => {
+        const nameInput = row.querySelector('.edit-scope-item-name');
+        const costInput = row.querySelector('.edit-scope-item-cost');
+        const statusSelect = row.querySelector('.edit-scope-item-status');
+        if (nameInput && costInput) {
+          const itemTitle = nameInput.value.trim();
+          const itemCost = parseFloat(costInput.value) || 0;
+          const itemStatus = statusSelect ? statusSelect.value : 'Unpaid / Awaiting Donation';
+          if (itemTitle) {
+            updatedScope.push({
+              item: itemTitle,
+              costNGN: itemCost,
+              status: itemStatus
+            });
+          }
+        }
+      });
+      if (updatedScope.length > 0) {
+        proj.scope = updatedScope;
+      }
+
       if (imgBefore || imgAfter) {
         proj.imageBefore = imgBefore || proj.imageBefore;
         proj.imageAfter = imgAfter || proj.imageAfter;
@@ -2822,7 +2983,7 @@
       }
 
       closeModal('modal-edit-project');
-      showToast(`✓ Project ${id} details, budget and media updated & synced!`);
+      showToast(`✓ Project ${id} details, scope breakdown & prices updated & synced!`);
       renderAdminProjects();
       renderAdminFeatured();
       renderOverviewExecutiveMetrics();
