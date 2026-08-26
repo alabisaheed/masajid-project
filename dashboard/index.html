@@ -1263,6 +1263,158 @@
     </div>
   </div>
 
+  <!-- MODAL: EDIT PROJECT DETAILS & FINANCIAL BUDGET -->
+  <div class="modal-backdrop" id="modal-edit-project">
+    <div class="modal-window" style="max-width: 780px; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1.5px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <div>
+          <h3 style="font-size: 1.35rem; font-weight: 800; margin: 0; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-pen-to-square"></i> Edit Project Details & Budget
+          </h3>
+          <span style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted); font-weight: 700;" id="edit-proj-id-badge">MP-OG-2026-001</span>
+        </div>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-edit-project')">✕</button>
+      </div>
+
+      <form onsubmit="handleEditProjectSubmit(event)">
+        <input type="hidden" id="edit-proj-id">
+
+        <!-- Basic Info Section -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+            <i class="fa-solid fa-info-circle"></i> General Information
+          </h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Project Title (English):</label>
+              <input type="text" id="edit-proj-title-en" class="form-input" placeholder="e.g. Bookshelf, Reading Placeholders and Quran" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Project Title (Arabic):</label>
+              <input type="text" id="edit-proj-title-ar" class="form-input" placeholder="e.g. رف الكتب وحوامل المصاحف">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Mosque Name:</label>
+              <input type="text" id="edit-proj-mosque" class="form-input" placeholder="e.g. Medinat Dhikr Central Mosque" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location (Area, City, State):</label>
+              <input type="text" id="edit-proj-location" class="form-input" placeholder="e.g. Adumbu, Itori, Ewekoro, Ogun State" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Category:</label>
+              <select id="edit-proj-cat" class="form-select">
+                <option value="quran">Qur'ans & Books</option>
+                <option value="furniture">Furniture & Facilities</option>
+                <option value="cleaning">Cleaning & Maintenance</option>
+                <option value="lighting">Lighting & Electrical</option>
+                <option value="solar">Solar & Power</option>
+                <option value="sound">Sound Systems</option>
+                <option value="security">Security & Safety</option>
+                <option value="repairs">Minor Repairs</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Current Status:</label>
+              <select id="edit-proj-status" class="form-select">
+                <option value="IDENTIFIED">Identified</option>
+                <option value="VERIFIED">Verified</option>
+                <option value="FUNDING">Funding</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="MONITORING">Monitoring</option>
+              </select>
+            </div>
+            <div class="form-group" style="display: flex; flex-direction: column; justify-content: center;">
+              <label class="form-label">Homepage Display:</label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; margin-top: 0.4rem;">
+                <input type="checkbox" id="edit-proj-featured" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                <span>★ Featured Project</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Targets & Numbers -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+            <i class="fa-solid fa-coins"></i> Budget, Inflows & Beneficiaries
+          </h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Goal Target Budget (₦):</label>
+              <input type="number" id="edit-proj-goal" class="form-input" min="0" placeholder="e.g. 164000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Raised Amount (₦):</label>
+              <input type="number" id="edit-proj-raised" class="form-input" min="0" placeholder="e.g. 64000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Spent Amount (₦):</label>
+              <input type="number" id="edit-proj-spent" class="form-input" min="0" placeholder="e.g. 64000" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Beneficiaries (Worshippers):</label>
+              <input type="text" id="edit-proj-beneficiaries" class="form-input" placeholder="e.g. 100+ Worshippers">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Supporters / Donors Count:</label>
+              <input type="number" id="edit-proj-supporters" class="form-input" min="0" placeholder="e.g. 3">
+            </div>
+          </div>
+        </div>
+
+        <!-- Scope & Description -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+            <i class="fa-solid fa-align-left"></i> Scope & Narrative Description
+          </h4>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">Detailed Description (English):</label>
+            <textarea id="edit-proj-desc-en" class="form-input" style="height: 80px;" placeholder="Detailed technical scope and narrative..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Detailed Description (Arabic):</label>
+            <textarea id="edit-proj-desc-ar" class="form-input" style="height: 60px;" placeholder="وصف تفصيلي للمشروع باللغة العربية..."></textarea>
+          </div>
+        </div>
+
+        <!-- Photos & Evidence -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--dash-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;">
+            <i class="fa-solid fa-camera"></i> Photographic Evidence Images
+          </h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Before Photo Path / URL:</label>
+              <input type="text" id="edit-proj-img-before" class="form-input" placeholder="e.g. images/proj-003-adumbu-before.jpg">
+            </div>
+            <div class="form-group">
+              <label class="form-label">After / In-Progress Photo Path / URL:</label>
+              <input type="text" id="edit-proj-img-after" class="form-input" placeholder="e.g. images/proj-003-adumbu-spraying-1.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-edit-project')">Cancel</button>
+          <button type="submit" class="btn btn--primary" style="background: var(--emerald); border-color: var(--emerald);">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync Project
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: CREATE ARTICLE -->
   <div class="modal-backdrop" id="modal-create-article">
     <div class="modal-window" style="max-width: 680px;">
@@ -1858,7 +2010,8 @@
             </td>
             <td>
               <div style="display: flex; gap: 0.4rem;">
-                <button class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="updateStatusQuick('${p.id}')">Update</button>
+                <button class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--primary); border-color: var(--primary); font-weight: 700;" onclick="openEditProjectModal('${p.id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <button class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="updateStatusQuick('${p.id}')">Status</button>
                 <button class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; color: #EF4444; border-color: #FCA5A5;" onclick="deleteProjectQuick('${p.id}')"><i class="fa-solid fa-trash"></i></button>
               </div>
             </td>
@@ -2577,6 +2730,103 @@
       renderAdminProjects();
       renderAdminFeatured();
       setCurrency(currentCurrency);
+    }
+
+    function openEditProjectModal(projId) {
+      if (!window.MP) return;
+      const proj = (typeof MP.getProject === 'function') ? MP.getProject(projId) : (MP.projects || []).find(p => p.id === projId);
+      if (!proj) return;
+
+      const modal = document.getElementById('modal-edit-project');
+      if (!modal) return;
+
+      // Populate form fields
+      document.getElementById('edit-proj-id').value = proj.id;
+      document.getElementById('edit-proj-id-badge').textContent = proj.id;
+      document.getElementById('edit-proj-title-en').value = proj.titleEN || '';
+      document.getElementById('edit-proj-title-ar').value = proj.titleAR || '';
+      document.getElementById('edit-proj-mosque').value = proj.mosqueName || '';
+      document.getElementById('edit-proj-location').value = proj.location || '';
+      document.getElementById('edit-proj-cat').value = proj.categoryId || 'general';
+      document.getElementById('edit-proj-status').value = proj.status ? proj.status.toUpperCase() : 'IN_PROGRESS';
+      document.getElementById('edit-proj-featured').checked = !!proj.isFeatured;
+      document.getElementById('edit-proj-goal').value = proj.goalNGN || 0;
+      document.getElementById('edit-proj-raised').value = proj.raisedNGN || 0;
+      document.getElementById('edit-proj-spent').value = proj.spentNGN || 0;
+      document.getElementById('edit-proj-beneficiaries').value = proj.beneficiaries || '';
+      document.getElementById('edit-proj-supporters').value = proj.supporters || 0;
+      document.getElementById('edit-proj-desc-en').value = proj.descriptionEN || '';
+      document.getElementById('edit-proj-desc-ar').value = proj.descriptionAR || '';
+      document.getElementById('edit-proj-img-before').value = (proj.images && proj.images.before) || proj.imageBefore || '';
+      document.getElementById('edit-proj-img-after').value = (proj.images && proj.images.after) || proj.imageAfter || '';
+
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+    }
+
+    function handleEditProjectSubmit(e) {
+      e.preventDefault();
+      if (!window.MP) return;
+
+      const id = document.getElementById('edit-proj-id').value;
+      const proj = (typeof MP.getProject === 'function') ? MP.getProject(id) : (MP.projects || []).find(p => p.id === id);
+      if (!proj) return;
+
+      const titleEn = document.getElementById('edit-proj-title-en').value.trim();
+      const titleAr = document.getElementById('edit-proj-title-ar').value.trim();
+      const mosque = document.getElementById('edit-proj-mosque').value.trim();
+      const location = document.getElementById('edit-proj-location').value.trim();
+      const cat = document.getElementById('edit-proj-cat').value;
+      const status = document.getElementById('edit-proj-status').value;
+      const isFeatured = document.getElementById('edit-proj-featured').checked;
+      const goal = parseFloat(document.getElementById('edit-proj-goal').value) || 0;
+      const raised = parseFloat(document.getElementById('edit-proj-raised').value) || 0;
+      const spent = parseFloat(document.getElementById('edit-proj-spent').value) || 0;
+      const beneficiaries = document.getElementById('edit-proj-beneficiaries').value.trim();
+      const supporters = parseInt(document.getElementById('edit-proj-supporters').value) || 0;
+      const descEn = document.getElementById('edit-proj-desc-en').value.trim();
+      const descAr = document.getElementById('edit-proj-desc-ar').value.trim();
+      const imgBefore = document.getElementById('edit-proj-img-before').value.trim();
+      const imgAfter = document.getElementById('edit-proj-img-after').value.trim();
+
+      // Update project object
+      proj.titleEN = titleEn;
+      proj.titleAR = titleAr;
+      proj.mosqueName = mosque;
+      proj.location = location;
+      proj.categoryId = cat;
+      proj.status = status;
+      proj.isFeatured = isFeatured;
+      proj.goalNGN = goal;
+      proj.raisedNGN = raised;
+      proj.spentNGN = spent;
+      proj.beneficiaries = beneficiaries;
+      proj.supporters = supporters;
+      proj.descriptionEN = descEn;
+      proj.descriptionAR = descAr;
+
+      if (imgBefore || imgAfter) {
+        proj.imageBefore = imgBefore || proj.imageBefore;
+        proj.imageAfter = imgAfter || proj.imageAfter;
+        proj.images = proj.images || {};
+        if (imgBefore) proj.images.before = imgBefore;
+        if (imgAfter) {
+          proj.images.after = imgAfter;
+          proj.images.during = imgAfter;
+        }
+      }
+
+      // Save via MP data layer (syncs to localStorage, broadcast channel, and Supabase)
+      if (typeof MP.saveProject === 'function') {
+        MP.saveProject(proj);
+      }
+
+      closeModal('modal-edit-project');
+      showToast(`✓ Project ${id} details, budget and media updated & synced!`);
+      renderAdminProjects();
+      renderAdminFeatured();
+      renderOverviewExecutiveMetrics();
+      if (typeof setCurrency === 'function') setCurrency(currentCurrency || 'NGN');
     }
 
     function updateStatusQuick(projId) {

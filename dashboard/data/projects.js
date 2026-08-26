@@ -586,17 +586,33 @@ g.MP = {
     const list = this.getProjects();
     const idx = list.findIndex(p => p.id === proj.id);
     if (idx >= 0) {
-      list[idx] = proj;
+      list[idx] = { ...list[idx], ...proj };
     } else {
       list.unshift(proj);
     }
     saveLocal('projects', list);
+    if (this.channel) {
+      try { this.channel.postMessage({ type: 'DATA_CHANGE', key: 'projects', data: list }); } catch(e) {}
+    }
+    if (typeof this.onDataChange === 'function') {
+      this.onDataChange('projects');
+    }
+    // Supabase Cloud sync hook if connected
+    if (typeof window !== 'undefined' && window.MasajidCloud && typeof window.MasajidCloud.upsertProject === 'function') {
+      window.MasajidCloud.upsertProject(proj).catch(err => console.warn('[Masajid Cloud] Project sync notice:', err));
+    }
     return list;
   },
 
   deleteProject: function(id) {
     const list = this.getProjects().filter(p => p.id !== id);
     saveLocal('projects', list);
+    if (this.channel) {
+      try { this.channel.postMessage({ type: 'DATA_CHANGE', key: 'projects', data: list }); } catch(e) {}
+    }
+    if (typeof this.onDataChange === 'function') {
+      this.onDataChange('projects');
+    }
     return list;
   },
 
