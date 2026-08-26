@@ -260,6 +260,28 @@ const defaultVendors = [
     rating: "4.9",
     invoicesLogged: ["MB-QT-2026-08", "MB-QT-2026-09"],
     status: "Verified Supplier"
+  },
+  {
+    id: "VND-003",
+    name: "Agro-Chemical Stores, Itori",
+    trade: "Agricultural Chemical Herbicide & Farm Supplies",
+    phone: "+234 805 123 9876",
+    email: "agrochemical.itori@gmail.com",
+    city: "Itori, Ogun State",
+    rating: "5.0",
+    invoicesLogged: ["AGR-INV-2026-01"],
+    status: "Verified Supplier"
+  },
+  {
+    id: "VND-004",
+    name: "Adumbu Local Agricultural Laborers",
+    trade: "Perimeter Weed Clearing & Knapsack Chemical Spraying",
+    phone: "+234 814 567 8901",
+    email: "ops@masajidproject.org",
+    city: "Adumbu, Ewekoro, Ogun State",
+    rating: "5.0",
+    invoicesLogged: ["WRK-VOUCH-2026-01"],
+    status: "Verified Service Team"
   }
 ];
 
@@ -341,6 +363,55 @@ const initialProjects = [
       { item: "3x Wooden Reading Stands (Rehal / Placeholders) (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-04)", invoice: "AR-INV-2026-04" },
       { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Unpaid / Awaiting Donation (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
     ]
+  },
+  {
+    id: "MP-OG-2026-003",
+    mosqueId: "MSQ-003",
+    categoryId: "cleaning",
+    status: "COMPLETED",
+    isFeatured: true,
+    titleEN: "Weed Eradication & Perimeter Chemical Clearing",
+    titleAR: "إبادة الأعشاب الضارة والرش الكيميائي لمحيط المسجد",
+    location: "Opposite Al-Fathia School, Itori, Ewekoro, Ogun State",
+    mosqueName: "Adumbu Community Mosque",
+    descriptionEN: "Procurement and knapsack application of 5 bottles of Force Up chemical herbicide to eliminate dense weed overgrowth around the uncompleted community mosque and open prayer space, protecting worshippers from dangerous reptiles and pests while restoring a clean environment.",
+    descriptionAR: "شراء ورش 5 عبوات من مبيد الأعشاب الكيميائي (Force Up) لإزالة الحشائش الكثيفة المحيطة بمبنى المسجد غير المكتمل ومصلى القرية، لحماية المصلين من الزواحف وتوفير بيئة نظيفة وآمنة.",
+    goalNGN: 27500,
+    raisedNGN: 27500,
+    spentNGN: 27500,
+    completedDate: "2026-08-26",
+    verifiedBy: "Masajid Field Operations Team",
+    imageBefore: "images/proj-003-adumbu-before.jpg",
+    imageAfter: "images/proj-003-adumbu-spraying-1.jpg",
+    images: {
+      before: "images/proj-003-adumbu-before.jpg",
+      during: "images/proj-003-adumbu-spraying-1.jpg",
+      after: "images/proj-003-adumbu-spraying-2.jpg",
+      gallery: [
+        "images/proj-003-adumbu-before.jpg",
+        "images/proj-003-adumbu-spraying-1.jpg",
+        "images/proj-003-adumbu-spraying-2.jpg",
+        "images/proj-003-adumbu-field.jpg"
+      ]
+    },
+    expenses: [
+      { id: "EXP-005", date: "2026-08-25", desc: "Force Up Chemical Herbicide (5 Bottles @ ₦3,500 each)", vendor: "Agro-Chemical Stores, Itori", invoiceNo: "AGR-INV-2026-01", receiptNo: "AGR-REC-2026-01", amountNGN: 17500, receiptVerified: true, status: "Paid & Receipt Verified" },
+      { id: "EXP-006", date: "2026-08-26", desc: "Workmanship & Knapsack Spraying Labor", vendor: "Adumbu Local Agricultural Laborers", invoiceNo: "WRK-VOUCH-2026-01", receiptNo: "WRK-REC-2026-01", amountNGN: 10000, receiptVerified: true, status: "Paid & Receipt Verified" }
+    ],
+    vendorQuotes: [
+      { id: "VQ-005", vendor: "Agro-Chemical Stores, Itori", item: "5x Bottles of Force Up Chemical Herbicide", invoiceNo: "AGR-INV-2026-01", receiptNo: "AGR-REC-2026-01", amountNGN: 17500, status: "Paid & Receipt Verified" },
+      { id: "VQ-006", vendor: "Adumbu Local Agricultural Laborers", item: "Workmanship & Knapsack Spraying Service", invoiceNo: "WRK-VOUCH-2026-01", receiptNo: "WRK-REC-2026-01", amountNGN: 10000, status: "Paid & Receipt Verified" }
+    ],
+    scope: [
+      { item: "Force Up Chemical Herbicide (5 Bottles @ ₦3,500/ea)", costNGN: 17500, status: "Paid & Receipt Verified (AGR-REC-2026-01)", invoice: "AGR-INV-2026-01" },
+      { item: "Workmanship & Spraying Labor", costNGN: 10000, status: "Paid & Receipt Verified (WRK-REC-2026-01)", invoice: "WRK-VOUCH-2026-01" }
+    ],
+    timeline: [
+      { event: "Community Assessment & Weed Overgrowth Audit", date: "2026-08-24", done: true },
+      { event: "Procurement of 5x Force Up Chemical Herbicide Bottles", date: "2026-08-25", done: true },
+      { event: "Knapsack Chemical Spraying around Mosque Completed", date: "2026-08-26", done: true },
+      { event: "Site Quality Audit & Project Completion Sign-Off", date: "2026-08-26", done: true }
+    ]
   }
 ];
 
@@ -410,10 +481,10 @@ function saveLocal(key, data) {
 
 g.MP = {
   stats: {
-    projectsCompleted: 0,
-    totalRaisedNGN: 128000,
-    totalSpentNGN: 128000,
-    masajidSupported: 2,
+    projectsCompleted: 1,
+    totalRaisedNGN: 155500,
+    totalSpentNGN: 155500,
+    masajidSupported: 3,
     activeProjects: 2,
     totalDonors: 1
   },
@@ -440,14 +511,18 @@ g.MP = {
 
   mosques: [
     { id: "MSQ-001", nameEN: "Medinat Dhikr Central Mosque", nameAR: "مسجد مدينة الذكر المركزي", city: "Adumbu, Itori, Ewekoro", state: "Ogun State" },
-    { id: "MSQ-002", nameEN: "Masjid Markaz Diyar", nameAR: "مسجد مركز الديار", city: "Behind Al-Fathia School, Itori, Ewekoro", state: "Ogun State" }
+    { id: "MSQ-002", nameEN: "Masjid Markaz Diyar", nameAR: "مسجد مركز الديار", city: "Behind Al-Fathia School, Itori, Ewekoro", state: "Ogun State" },
+    { id: "MSQ-003", nameEN: "Adumbu Community Mosque", nameAR: "مسجد مجتمع أدومبو", city: "Opposite Al-Fathia School, Itori, Ewekoro", state: "Ogun State" }
   ],
 
   donations: [
-    { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", status: "Received" },
-    { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", status: "Received" },
-    { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", status: "Received" },
-    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", status: "Received" }
+    { ref: "MP-DON-101", projectId: "MP-OG-2026-001", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-102", projectId: "MP-OG-2026-001", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-103", projectId: "MP-OG-2026-002", amountNGN: 40000, date: "2026-08-16", donorName: "Anonymous", purpose: "Solid Wooden Book Shelf Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-104", projectId: "MP-OG-2026-002", amountNGN: 24000, date: "2026-08-17", donorName: "Anonymous", purpose: "3x Qur'an Reading Placeholders Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-105", projectId: "MP-OG-2026-003", amountNGN: 5000, date: "2026-08-24", donorName: "Anonymous", purpose: "Force Up Chemical Herbicide Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-106", projectId: "MP-OG-2026-003", amountNGN: 10000, date: "2026-08-25", donorName: "Anonymous", purpose: "Force Up Chemical Herbicide Funding", channel: "Direct Bank Transfer", status: "Received" },
+    { ref: "MP-DON-107", projectId: "MP-OG-2026-003", amountNGN: 12500, date: "2026-08-25", donorName: "Anonymous", purpose: "Workmanship & Chemical Spraying Labor Funding", channel: "Direct Bank Transfer", status: "Received" }
   ],
 
   // Real-time broadcast channel
@@ -463,21 +538,31 @@ g.MP = {
   },
 
   getProjects: function() {
-    const list = loadLocal('projects', initialProjects);
-    if (Array.isArray(list)) {
-      list.forEach(p => {
-        if (p.scope && Array.isArray(p.scope)) {
-          p.scope.forEach(s => {
-            const itemStr = (s.item || '').toLowerCase();
-            if (itemStr.includes("qur'an") || itemStr.includes('quran')) {
-              if (!itemStr.includes('stand') && !itemStr.includes('rehal') && !itemStr.includes('placeholder')) {
-                s.status = 'Unpaid / Awaiting Donation';
-              }
-            }
-          });
-        }
-      });
+    let list = loadLocal('projects', initialProjects);
+    if (!Array.isArray(list) || list.length === 0) {
+      list = initialProjects;
     }
+    // Automatically merge any projects in initialProjects that are not yet in local storage
+    initialProjects.forEach(initP => {
+      const idx = list.findIndex(p => p.id === initP.id);
+      if (idx === -1) {
+        list.push(initP);
+        saveLocal('projects', list);
+      }
+    });
+
+    list.forEach(p => {
+      if (p.scope && Array.isArray(p.scope)) {
+        p.scope.forEach(s => {
+          const itemStr = (s.item || '').toLowerCase();
+          if (itemStr.includes("qur'an") || itemStr.includes('quran')) {
+            if (!itemStr.includes('stand') && !itemStr.includes('rehal') && !itemStr.includes('placeholder')) {
+              s.status = 'Unpaid / Awaiting Donation';
+            }
+          }
+        });
+      }
+    });
     return list;
   },
 
@@ -773,7 +858,18 @@ g.MP = {
 
   // Vendors Methods
   getVendors: function() {
-    return loadLocal('vendors', defaultVendors);
+    let list = loadLocal('vendors', defaultVendors);
+    if (!Array.isArray(list) || list.length === 0) {
+      list = defaultVendors;
+    }
+    defaultVendors.forEach(initV => {
+      const idx = list.findIndex(v => v.id === initV.id);
+      if (idx === -1) {
+        list.push(initV);
+        saveLocal('vendors', list);
+      }
+    });
+    return list;
   },
 
   saveVendor: function(v) {
@@ -800,13 +896,23 @@ g.MP = {
 
   // Inflows & Donations Methods (Automated Submission & Admin Verification Workflow)
   getDonations: function(includePending = false) {
-    const list = loadLocal('donations', this.donations);
+    let list = loadLocal('donations', this.donations);
+    if (!Array.isArray(list) || list.length === 0) {
+      list = this.donations;
+    }
+    this.donations.forEach(initD => {
+      const idx = list.findIndex(d => d.ref === initD.ref);
+      if (idx === -1) {
+        list.push(initD);
+        saveLocal('donations', list);
+      }
+    });
     if (includePending) return list;
     return list.filter(d => d.status === 'CONFIRMED' || d.status === 'Received' || !d.status);
   },
 
   getPendingDonations: function() {
-    const list = loadLocal('donations', this.donations);
+    const list = this.getDonations(true);
     return list.filter(d => d.status === 'PENDING');
   },
 

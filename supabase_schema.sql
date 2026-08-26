@@ -262,6 +262,43 @@ INSERT INTO public.projects (
     {"event":"Bookshelf & Reading Stands Delivered","date":"2026-08-17","done":true},
     {"event":"Final Qur''an Delivery & Project Sign-Off","date":"Pending Remaining Funding","done":false}
   ]'::jsonb
+),
+(
+  'MP-OG-2026-003',
+  'MSQ-003',
+  'cleaning',
+  'COMPLETED',
+  true,
+  'Weed Eradication & Perimeter Chemical Clearing',
+  'إبادة الأعشاب الضارة والرش الكيميائي لمحيط المسجد',
+  'Opposite Al-Fathia School, Itori, Ewekoro, Ogun State',
+  'Adumbu Community Mosque',
+  'Procurement and knapsack application of 5 bottles of Force Up chemical herbicide to eliminate dense weed overgrowth around the uncompleted community mosque and open prayer space, protecting worshippers from dangerous reptiles and pests while restoring a clean environment.',
+  'شراء ورش 5 عبوات من مبيد الأعشاب الكيميائي (Force Up) لإزالة الحشائش الكثيفة المحيطة بمبنى المسجد غير المكتمل ومصلى القرية، لحماية المصلين من الزواحف وتوفير بيئة نظيفة وآمنة.',
+  27500,
+  27500,
+  27500,
+  'Masajid Field Operations Team',
+  'images/proj-003-adumbu-before.jpg',
+  'images/proj-003-adumbu-spraying-1.jpg',
+  '[
+    {"id":"EXP-005","date":"2026-08-25","desc":"Force Up Chemical Herbicide (5 Bottles @ ₦3,500 each)","vendor":"Agro-Chemical Stores, Itori","invoiceNo":"AGR-INV-2026-01","receiptNo":"AGR-REC-2026-01","amountNGN":17500,"receiptVerified":true,"status":"Paid & Receipt Verified"},
+    {"id":"EXP-006","date":"2026-08-26","desc":"Workmanship & Knapsack Spraying Labor","vendor":"Adumbu Local Agricultural Laborers","invoiceNo":"WRK-VOUCH-2026-01","receiptNo":"WRK-REC-2026-01","amountNGN":10000,"receiptVerified":true,"status":"Paid & Receipt Verified"}
+  ]'::jsonb,
+  '[
+    {"id":"VQ-005","vendor":"Agro-Chemical Stores, Itori","item":"5x Bottles of Force Up Chemical Herbicide","invoiceNo":"AGR-INV-2026-01","receiptNo":"AGR-REC-2026-01","amountNGN":17500,"status":"Paid & Receipt Verified"},
+    {"id":"VQ-006","vendor":"Adumbu Local Agricultural Laborers","item":"Workmanship & Knapsack Spraying Service","invoiceNo":"WRK-VOUCH-2026-01","receiptNo":"WRK-REC-2026-01","amountNGN":10000,"status":"Paid & Receipt Verified"}
+  ]'::jsonb,
+  '[
+    {"item":"Force Up Chemical Herbicide (5 Bottles @ ₦3,500/ea)","costNGN":17500,"status":"Paid & Receipt Verified (AGR-REC-2026-01)","invoice":"AGR-INV-2026-01"},
+    {"item":"Workmanship & Spraying Labor","costNGN":10000,"status":"Paid & Receipt Verified (WRK-REC-2026-01)","invoice":"WRK-VOUCH-2026-01"}
+  ]'::jsonb,
+  '[
+    {"event":"Community Assessment & Weed Overgrowth Audit","date":"2026-08-24","done":true},
+    {"event":"Procurement of 5x Force Up Chemical Herbicide Bottles","date":"2026-08-25","done":true},
+    {"event":"Knapsack Chemical Spraying around Mosque Completed","date":"2026-08-26","done":true},
+    {"event":"Site Quality Audit & Project Completion Sign-Off","date":"2026-08-26","done":true}
+  ]'::jsonb
 )
 ON CONFLICT (id) DO NOTHING;
 
@@ -270,5 +307,8 @@ INSERT INTO public.donations (ref, project_id, amount_ngn, date, donor_name, pur
 ('MP-DON-101', 'MP-OG-2026-001', 40000, '2026-08-16', 'Anonymous', 'Solid Wooden Book Shelf Funding', 'Direct Bank Transfer', 'CONFIRMED'),
 ('MP-DON-102', 'MP-OG-2026-001', 24000, '2026-08-17', 'Anonymous', '3x Qur''an Reading Placeholders Funding', 'Direct Bank Transfer', 'CONFIRMED'),
 ('MP-DON-103', 'MP-OG-2026-002', 40000, '2026-08-16', 'Anonymous', 'Solid Wooden Book Shelf Funding', 'Direct Bank Transfer', 'CONFIRMED'),
-('MP-DON-104', 'MP-OG-2026-002', 24000, '2026-08-17', 'Anonymous', '3x Qur''an Reading Placeholders Funding', 'Direct Bank Transfer', 'CONFIRMED')
+('MP-DON-104', 'MP-OG-2026-002', 24000, '2026-08-17', 'Anonymous', '3x Qur''an Reading Placeholders Funding', 'Direct Bank Transfer', 'CONFIRMED'),
+('MP-DON-105', 'MP-OG-2026-003', 5000, '2026-08-24', 'Anonymous', 'Force Up Chemical Herbicide Funding', 'Direct Bank Transfer', 'CONFIRMED'),
+('MP-DON-106', 'MP-OG-2026-003', 10000, '2026-08-25', 'Anonymous', 'Force Up Chemical Herbicide Funding', 'Direct Bank Transfer', 'CONFIRMED'),
+('MP-DON-107', 'MP-OG-2026-003', 12500, '2026-08-25', 'Anonymous', 'Workmanship & Chemical Spraying Labor Funding', 'Direct Bank Transfer', 'CONFIRMED')
 ON CONFLICT (ref) DO NOTHING;
