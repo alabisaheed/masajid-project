@@ -167,7 +167,7 @@ function initCounters() {
     });
   }, { threshold: 0.2 });
 
-  document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
+  document.querySelectorAll('[data-count], [data-count-to]').forEach(el => observer.observe(el));
 }
 
 document.addEventListener('DOMContentLoaded', () => {

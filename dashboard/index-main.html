@@ -98,7 +98,7 @@
           <span class="stat-tag-badge">Completed</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-count-to="0">0</div>
+          <div class="stat-number-animated" id="home-stat-completed" data-count="1" data-count-to="1">1</div>
           <div class="stat-label-en">Projects Completed</div>
           <div class="stat-label-ar arabic">المشاريع المكتملة</div>
         </div>
@@ -111,7 +111,7 @@
           <span class="stat-tag-badge" style="color:var(--emerald); background:var(--emerald-glow);">TOTAL RAISED</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-amount="128000">₦128,000</div>
+          <div class="stat-number-animated" id="home-stat-raised" data-amount="155500">₦155,500</div>
           <div class="stat-label-en">Total Funds Raised</div>
           <div class="stat-label-ar arabic">إجمالي التبرعات المستلمة</div>
         </div>
@@ -124,7 +124,7 @@
           <span class="stat-tag-badge">BENEFICIARIES</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-count-to="2">2</div>
+          <div class="stat-number-animated" id="home-stat-masajid" data-count="3" data-count-to="3">3</div>
           <div class="stat-label-en">Masajid Supported</div>
           <div class="stat-label-ar arabic">المساجد المدعومة</div>
         </div>
@@ -137,7 +137,7 @@
           <span class="stat-tag-badge" style="color:var(--amber); background:rgba(217, 119, 6, 0.1);">ACTIVE</span>
         </div>
         <div>
-          <div class="stat-number-animated" data-count-to="2">2</div>
+          <div class="stat-number-animated" id="home-stat-active" data-count="2" data-count-to="2">2</div>
           <div class="stat-label-en">Active Projects</div>
           <div class="stat-label-ar arabic">المشاريع النشطة</div>
         </div>
@@ -318,6 +318,7 @@
         <button class="filter-btn" data-filter="funding" onclick="filterProjects('funding', this)">Funding</button>
         <button class="filter-btn" data-filter="in-progress" onclick="filterProjects('in-progress', this)">In Progress</button>
         <button class="filter-btn" data-filter="verified" onclick="filterProjects('verified', this)">Verified</button>
+        <button class="filter-btn" data-filter="completed" onclick="filterProjects('completed', this)">Completed</button>
       </div>
 
       <div class="projects-grid" id="homepage-projects">
@@ -379,6 +380,36 @@
           </div>
           <div class="project-card__footer">
             <a href="project-detail?id=MP-OG-2026-002" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 3: Adumbu Community Mosque (Completed) -->
+        <div class="project-card animate-in visible" data-status="completed">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge" style="background:rgba(16, 185, 129, 0.15); color:#059669; border:1px solid rgba(16, 185, 129, 0.3); font-weight:800;"><i class="fa-solid fa-circle-check"></i> Completed</span>
+              <span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Weed Eradication & Perimeter Chemical Clearing</h3>
+            <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>Adumbu Community Mosque, Itori, Ewekoro, Ogun State</div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
+              Procurement and knapsack application of 5 bottles of Force Up herbicide to eliminate dense weed overgrowth around the uncompleted community mosque and open prayer shelter.
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%; background: var(--emerald);"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="27500">₦27,500</strong></span>
+                <span style="color:var(--emerald); font-weight:800;">100%</span>
+                <span>Target: <strong data-amount="27500">₦27,500</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-OG-2026-003" class="btn btn--outline project-card__btn"><i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record</a>
           </div>
         </div>
 
@@ -832,7 +863,9 @@
               </div>
             </div>
             <div class="project-card__footer">
-              <a href="project-detail?id=${p.id}" class="btn btn--primary project-card__btn">Support This Project</a>
+              <a href="project-detail?id=${p.id}" class="btn ${p.status === 'COMPLETED' ? 'btn--outline' : 'btn--primary'} project-card__btn">
+                ${p.status === 'COMPLETED' ? '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
+              </a>
             </div>
           </div>
         `;
@@ -1022,28 +1055,44 @@
 
     function syncHomepageStats() {
       if (!window.MP) return;
-      const completedCount = (typeof MP.getCompletedProjects === 'function') ? MP.getCompletedProjects().length : 0;
-      const activeCount = (typeof MP.getActiveProjects === 'function') ? MP.getActiveProjects().length : 2;
-      const totalRaised = (typeof MP.getDonations === 'function') ? MP.getDonations().reduce((sum, d) => sum + (d.amountNGN || 0), 0) : 128000;
-      const masajidCount = (MP.projects && MP.projects.length) ? MP.projects.length : 2;
+      const stats = (typeof MP.stats !== 'undefined') ? MP.stats : {};
+      const completedCount = stats.projectsCompleted || (typeof MP.getCompletedProjects === 'function' ? MP.getCompletedProjects().length : 1);
+      const activeCount = stats.activeProjects || (typeof MP.getActiveProjects === 'function' ? MP.getActiveProjects().length : 2);
+      const totalRaised = stats.totalRaisedNGN || 155500;
+      const masajidCount = stats.masajidSupported || 3;
 
       const statCards = document.querySelectorAll('.stats-strip .stat-card-bento');
       if (statCards.length >= 4) {
         // Card 1: Completed
         const c1 = statCards[0].querySelector('.stat-number-animated');
-        if (c1) { c1.setAttribute('data-count-to', completedCount); c1.textContent = completedCount; }
+        if (c1) { 
+          c1.setAttribute('data-count-to', completedCount); 
+          c1.setAttribute('data-count', completedCount); 
+          c1.textContent = completedCount; 
+        }
 
         // Card 2: Total Raised
         const c2 = statCards[1].querySelector('.stat-number-animated');
-        if (c2) { c2.setAttribute('data-amount', totalRaised); c2.textContent = `₦${Number(totalRaised).toLocaleString()}`; }
+        if (c2) { 
+          c2.setAttribute('data-amount', totalRaised); 
+          c2.textContent = (typeof MP.formatCurrency === 'function') ? MP.formatCurrency(totalRaised, currentCurrency || 'NGN') : `₦${Number(totalRaised).toLocaleString()}`; 
+        }
 
         // Card 3: Masajid Supported
         const c3 = statCards[2].querySelector('.stat-number-animated');
-        if (c3) { c3.setAttribute('data-count-to', masajidCount); c3.textContent = masajidCount; }
+        if (c3) { 
+          c3.setAttribute('data-count-to', masajidCount); 
+          c3.setAttribute('data-count', masajidCount); 
+          c3.textContent = masajidCount; 
+        }
 
         // Card 4: Active Projects
         const c4 = statCards[3].querySelector('.stat-number-animated');
-        if (c4) { c4.setAttribute('data-count-to', activeCount); c4.textContent = activeCount; }
+        if (c4) { 
+          c4.setAttribute('data-count-to', activeCount); 
+          c4.setAttribute('data-count', activeCount); 
+          c4.textContent = activeCount; 
+        }
       }
     }
 
