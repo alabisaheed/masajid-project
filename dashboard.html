@@ -462,6 +462,11 @@
           </a>
         </li>
         <li>
+          <a class="dash-sidebar__link" onclick="switchDashTab('mosques', this)">
+            <i class="fa-solid fa-mosque"></i> Masajid Directory
+          </a>
+        </li>
+        <li>
           <a class="dash-sidebar__link" onclick="switchDashTab('nominations', this)">
             <i class="fa-solid fa-inbox"></i> Nominations
           </a>
@@ -666,6 +671,85 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- PANE: MASAJID DIRECTORY & MOSQUE REGISTRY -->
+        <div class="dash-tab-pane" id="tab-mosques">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+            <div>
+              <h1 style="font-size: 1.6rem; font-weight: 800; margin: 0;">Masajid Profiles & Registry</h1>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Comprehensive registry of verified partner masajid, locations, capacities, and intervention histories.</p>
+            </div>
+            <button class="btn btn--primary" onclick="openCreateMosqueModal()"><i class="fa-solid fa-plus"></i> Register New Mosque</button>
+          </div>
+
+          <!-- MOSQUES SUMMARY CARDS -->
+          <div class="admin-metrics-grid" style="margin-bottom: 1.5rem;">
+            <div class="admin-metric-card">
+              <div class="admin-metric-card__header">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase;">TOTAL MASAJID</span>
+                <div class="stat-icon-circle" style="color: var(--primary); background: var(--primary-glow);"><i class="fa-solid fa-mosque"></i></div>
+              </div>
+              <div>
+                <div class="admin-metric-card__value" id="mosques-metric-total">3</div>
+                <div class="admin-metric-card__label">Verified Partner Mosques</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="admin-metric-card__header">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--emerald); text-transform: uppercase;">TOTAL BENEFICIARIES</span>
+                <div class="stat-icon-circle" style="color: var(--emerald); background: var(--emerald-glow);"><i class="fa-solid fa-users"></i></div>
+              </div>
+              <div>
+                <div class="admin-metric-card__value">1,000+</div>
+                <div class="admin-metric-card__label">Active Weekly Worshippers</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="admin-metric-card__header">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--amber); text-transform: uppercase;">TOTAL INTERVENTIONS</span>
+                <div class="stat-icon-circle" style="color: var(--amber); background: rgba(217, 119, 6, 0.1);"><i class="fa-solid fa-layer-group"></i></div>
+              </div>
+              <div>
+                <div class="admin-metric-card__value" id="mosques-metric-interventions">3 Projects</div>
+                <div class="admin-metric-card__label">Completed & In-Progress</div>
+              </div>
+            </div>
+
+            <div class="admin-metric-card">
+              <div class="admin-metric-card__header">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--sky); text-transform: uppercase;">STATE COVERAGE</span>
+                <div class="stat-icon-circle" style="color: var(--sky); background: rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-location-dot"></i></div>
+              </div>
+              <div>
+                <div class="admin-metric-card__value" style="font-size: 1.3rem;">Ogun State</div>
+                <div class="admin-metric-card__label">Ewekoro LGA Focus</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MOSQUES DIRECTORY TABLE -->
+          <div class="card" style="padding: 1.5rem;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Mosque Code</th>
+                    <th>Mosque Name & Location</th>
+                    <th>Congregation Capacity</th>
+                    <th>Linked Interventions</th>
+                    <th>Partnership Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-mosques-table-body">
+                  <!-- Dynamically rendered by renderAdminMosques() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <!-- PANE: NOMINATIONS -->
@@ -1514,6 +1598,58 @@
       <div id="doc-printable-area" style="padding: 2.5rem; background: #FFFFFF; color: #0F172A;">
         <!-- Dynamically rendered printable receipt or invoice -->
       </div>
+  <!-- MODAL: REGISTER NEW MOSQUE PROFILE -->
+  <div class="modal-backdrop" id="modal-create-mosque">
+    <div class="modal-window" style="max-width: 620px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dash-border); padding-bottom: 0.75rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0; color: var(--primary);"><i class="fa-solid fa-mosque"></i> Register Partner Mosque Profile</h3>
+        <button type="button" class="btn btn--outline" style="padding: 0.3rem 0.6rem;" onclick="closeModal('modal-create-mosque')">✕</button>
+      </div>
+
+      <form onsubmit="handleCreateMosqueSubmit(event)">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Mosque Name (English):</label>
+            <input type="text" id="msq-name-en" class="form-input" placeholder="e.g. Adumbu Community Mosque" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mosque Name (Arabic):</label>
+            <input type="text" id="msq-name-ar" class="form-input" placeholder="e.g. مسجد مجتمع أدومبو">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">City / Village / Landmark:</label>
+            <input type="text" id="msq-city" class="form-input" placeholder="e.g. Opposite Al-Fathia School, Itori" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">LGA & State:</label>
+            <input type="text" id="msq-state" class="form-input" placeholder="e.g. Ewekoro, Ogun State" value="Ewekoro, Ogun State" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Congregation Capacity:</label>
+            <input type="text" id="msq-congregation" class="form-input" placeholder="e.g. 100+ Worshippers" value="100+">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Imam / Contact Person:</label>
+            <input type="text" id="msq-contact" class="form-input" placeholder="e.g. Imam / Community Elders">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label">Mosque Status & Community Notes:</label>
+          <input type="text" id="msq-notes" class="form-input" placeholder="e.g. Uncompleted mosque structure with active open praying space.">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn--outline" onclick="closeModal('modal-create-mosque')">Cancel</button>
+          <button type="submit" class="btn btn--primary"><i class="fa-solid fa-save"></i> Save Mosque Record</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1550,15 +1686,108 @@
       // Trigger instant data re-render for tab
       if (tabId === 'articles') renderAdminArticles();
       else if (tabId === 'projects') renderAdminProjects();
+      else if (tabId === 'mosques') renderAdminMosques();
       else if (tabId === 'financials') renderAdminFinancials();
       else if (tabId === 'vendors') renderAdminVendors();
       else if (tabId === 'nominations') renderAdminNominations();
       else if (tabId === 'featured') renderAdminFeatured();
     }
 
+    function openCreateMosqueModal() {
+      const modal = document.getElementById('modal-create-mosque');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function renderAdminMosques() {
+      const container = document.getElementById('admin-mosques-table-body');
+      if (!container || !window.MP) return;
+
+      const mosques = (typeof MP.getMosques === 'function') ? MP.getMosques() : (MP.mosques || []);
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []);
+
+      const metricTotal = document.getElementById('mosques-metric-total');
+      const metricInterventions = document.getElementById('mosques-metric-interventions');
+      if (metricTotal) metricTotal.textContent = mosques.length;
+      if (metricInterventions) metricInterventions.textContent = `${projects.length} Projects`;
+
+      container.innerHTML = mosques.map(m => {
+        const linkedProjects = projects.filter(p => p.mosqueId === m.id || p.mosqueName === m.nameEN);
+        const projectsHtml = (linkedProjects.length > 0)
+          ? linkedProjects.map(p => `<a href="project-detail?id=${p.id}" target="_blank" style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(19,84,122,0.1); padding:0.2rem 0.5rem; border-radius:4px; margin:0.15rem;">${p.id} (${p.status})</a>`).join(' ')
+          : '<span style="color:var(--text-muted); font-size:0.8rem;">No active projects</span>';
+
+        return `
+          <tr>
+            <td><strong style="font-family: monospace; font-size: 0.85rem; color:var(--primary);">${m.id}</strong></td>
+            <td>
+              <div style="font-weight: 700; color: var(--text-primary); font-size: 0.95rem;">${m.nameEN}</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.25rem;"></i>${m.city || m.address || ''}, ${m.state || 'Ogun State'}</div>
+            </td>
+            <td>
+              <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; font-weight:700;">
+                <i class="fa-solid fa-users"></i> ${m.congregation || '100+'}
+              </span>
+            </td>
+            <td>${projectsHtml}</td>
+            <td><span class="badge badge--completed"><i class="fa-solid fa-circle-check"></i> ${m.status || 'Verified Partner'}</span></td>
+            <td>
+              <button class="btn btn--outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="openCreateProjectForMosque('${m.id}')">
+                <i class="fa-solid fa-plus"></i> New Need
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function handleCreateMosqueSubmit(e) {
+      e.preventDefault();
+      const nameEn = document.getElementById('msq-name-en').value.trim();
+      const nameAr = document.getElementById('msq-name-ar').value.trim();
+      const city = document.getElementById('msq-city').value.trim();
+      const state = document.getElementById('msq-state').value.trim();
+      const congregation = document.getElementById('msq-congregation').value.trim() || '100+';
+      const contact = document.getElementById('msq-contact').value.trim();
+      const notes = document.getElementById('msq-notes').value.trim();
+
+      if (!nameEn) return;
+
+      const newMosque = {
+        id: 'MSQ-' + String(Date.now()).slice(-3),
+        nameEN: nameEn,
+        nameAR: nameAr || nameEn,
+        city: city,
+        state: state,
+        congregation: congregation,
+        contactPerson: contact,
+        status: 'Verified & Active Partner',
+        notes: notes,
+        projects: []
+      };
+
+      if (window.MP && typeof MP.saveMosque === 'function') {
+        MP.saveMosque(newMosque);
+      }
+      closeModal('modal-create-mosque');
+      showToast(`Mosque ${nameEn} registered successfully!`);
+      renderAdminMosques();
+    }
+
+    function openCreateProjectForMosque(msqId) {
+      openCreateProjectModal();
+      const mosqueSelect = document.getElementById('new-proj-mosque');
+      if (mosqueSelect) mosqueSelect.value = msqId;
+    }
+
     function openCreateProjectModal() {
       const modal = document.getElementById('modal-create-project');
-      if (modal) modal.classList.add('open');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+      }
     }
 
     function closeModal(modalId) {

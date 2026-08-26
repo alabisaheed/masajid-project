@@ -379,6 +379,9 @@ const initialProjects = [
     goalNGN: 27500,
     raisedNGN: 27500,
     spentNGN: 27500,
+    beneficiaries: "100+",
+    supporters: 3,
+    createdAt: "2026-08-24",
     completedDate: "2026-08-26",
     verifiedBy: "Masajid Field Operations Team",
     imageBefore: "images/proj-003-adumbu-before.jpg",
@@ -862,6 +865,88 @@ g.MP = {
   deleteComment: function(id) {
     const list = loadLocal('comments', defaultComments).filter(c => c.id !== id);
     saveLocal('comments', list);
+    return list;
+  },
+
+  // Masajid Directory Methods
+  getMosques: function() {
+    const defaultMosques = [
+      {
+        id: "MSQ-001",
+        nameEN: "Medinat Dhikr Central Mosque",
+        nameAR: "مسجد مدينة الذكر المركزي",
+        address: "Central Area, Adumbu Village",
+        city: "Adumbu, Itori",
+        state: "Ogun State",
+        country: "Nigeria",
+        congregation: "450+",
+        contactPerson: "Imam & Mosque Committee",
+        status: "Verified & Active Partner",
+        projects: ["MP-OG-2026-001"],
+        notes: "Active weekly madrasah and 5 daily prayers."
+      },
+      {
+        id: "MSQ-002",
+        nameEN: "Masjid Markaz Diyar",
+        nameAR: "مسجد مركز الديار",
+        address: "Behind Al-Fathia School, Off Itori Express",
+        city: "Itori",
+        state: "Ogun State",
+        country: "Nigeria",
+        congregation: "450+",
+        contactPerson: "Imam & Youth Learning Head",
+        status: "Verified & Active Partner",
+        projects: ["MP-OG-2026-002"],
+        notes: "Educational hub with evening Quran recitation circles."
+      },
+      {
+        id: "MSQ-003",
+        nameEN: "Adumbu Community Mosque",
+        nameAR: "مسجد مجتمع أدومبو",
+        address: "Opposite Al-Fathia School",
+        city: "Itori",
+        state: "Ogun State",
+        country: "Nigeria",
+        congregation: "100+",
+        contactPerson: "Adumbu Community Elders",
+        status: "Verified & Active Partner",
+        projects: ["MP-OG-2026-003"],
+        notes: "Uncompleted community mosque shelter with open praying area."
+      }
+    ];
+
+    let list = loadLocal('mosques', defaultMosques);
+    if (!Array.isArray(list) || list.length === 0) {
+      list = defaultMosques;
+    }
+    defaultMosques.forEach(initM => {
+      const idx = list.findIndex(m => m.id === initM.id);
+      if (idx === -1) {
+        list.push(initM);
+        saveLocal('mosques', list);
+      }
+    });
+    return list;
+  },
+
+  saveMosque: function(m) {
+    const list = this.getMosques();
+    m.id = m.id || 'MSQ-' + String(Date.now()).slice(-3);
+    m.status = m.status || 'Verified & Active Partner';
+    m.congregation = m.congregation || '100+';
+    const idx = list.findIndex(item => item.id === m.id);
+    if (idx >= 0) {
+      list[idx] = { ...list[idx], ...m };
+    } else {
+      list.push(m);
+    }
+    saveLocal('mosques', list);
+    return m;
+  },
+
+  deleteMosque: function(id) {
+    const list = this.getMosques().filter(m => m.id !== id);
+    saveLocal('mosques', list);
     return list;
   },
 

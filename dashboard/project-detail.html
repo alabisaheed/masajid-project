@@ -402,8 +402,14 @@
       const pctLarge = document.getElementById('proj-pct-large');
       if (pctLarge) pctLarge.textContent = `${percent}%`;
 
+      // Dynamic supporters calculation
+      const projectDonations = (typeof MP.getDonations === 'function') 
+        ? MP.getDonations().filter(d => d.projectId === proj.id)
+        : [];
+      const calculatedSupporters = (projectDonations.length > 0) ? projectDonations.length : (proj.supporters || 0);
+
       const supportersCount = document.getElementById('proj-supporters-count');
-      if (supportersCount) supportersCount.textContent = proj.supporters || 0;
+      if (supportersCount) supportersCount.textContent = calculatedSupporters;
 
       const sidebarBar = document.getElementById('proj-sidebar-bar');
       if (sidebarBar) sidebarBar.style.width = `${percent}%`;
@@ -414,7 +420,17 @@
       if (goalEl) goalEl.setAttribute('data-amount', proj.goalNGN);
 
       const donateBtn = document.getElementById('donate-btn-sidebar');
-      if (donateBtn) donateBtn.href = `donate.html?project=${proj.id}`;
+      if (donateBtn) {
+        if (proj.status === 'COMPLETED') {
+          donateBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Project Fully Funded & Completed';
+          donateBtn.href = 'transparency.html#ledger';
+          donateBtn.style.background = 'var(--emerald)';
+          donateBtn.style.borderColor = 'var(--emerald)';
+        } else {
+          donateBtn.textContent = 'Support This Project';
+          donateBtn.href = `donate.html?project=${proj.id}`;
+        }
+      }
 
       if (typeof setCurrency === 'function') {
         setCurrency(currentCurrency || 'NGN');
