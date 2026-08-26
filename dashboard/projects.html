@@ -231,6 +231,64 @@
     let activeStatus = 'all';
     let activeCategory = 'all';
 
+    function renderAllProjectsGrid() {
+      const grid = document.getElementById('all-projects-grid');
+      if (!grid || !window.MP) return;
+
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : [];
+      if (projects.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:3rem; color:var(--text-muted);">No projects found.</div>';
+        return;
+      }
+
+      grid.innerHTML = projects.map(p => {
+        const catObj = MP.getCategory(p.categoryId);
+        const catLabel = catObj ? catObj.labelEN : 'General';
+        const percent = MP.getProgressPercent(p);
+        const statusObj = MP.statuses[p.status.toUpperCase()] || { label: p.status, color: '#94a3b8' };
+        const statusSlug = p.status.toLowerCase().replace(/_/g, '-');
+        const isCompleted = p.status === 'COMPLETED';
+
+        return `
+        <div class="project-card animate-in visible" data-status="${statusSlug}" data-category="${p.categoryId}">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge badge--category">${catLabel}</span>
+              <span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span>
+              ${p.isFeatured ? '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">${p.titleEN}</h3>
+            <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>${p.mosqueName || ''}, ${MP.getLocation(p)}</div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
+              ${p.descriptionEN ? p.descriptionEN.substring(0, 140) + '...' : ''}
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: ${percent}%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="${p.raisedNGN}">₦${Number(p.raisedNGN).toLocaleString()}</strong></span>
+                <span style="color:var(--primary); font-weight:800;">${percent}%</span>
+                <span>Target: <strong data-amount="${p.goalNGN}">₦${Number(p.goalNGN).toLocaleString()}</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=${p.id}" class="btn ${isCompleted ? 'btn--outline' : 'btn--primary'} project-card__btn">
+              ${isCompleted ? '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
+            </a>
+          </div>
+        </div>
+        `;
+      }).join('');
+
+      if (typeof setCurrency === 'function' && typeof currentCurrency !== 'undefined') {
+        setCurrency(currentCurrency);
+      }
+    }
+
     function setStatusFilter(status, btn) {
       activeStatus = status;
       document.querySelectorAll('#status-filters .filter-btn').forEach(b => b.classList.remove('active'));
@@ -269,7 +327,19 @@
       }
     }
 
+    // Real-time listener hook
+    if (window.MP) {
+      MP.onDataChange = function(key) {
+        if (key === 'projects') {
+          renderAllProjectsGrid();
+          filterProjects();
+        }
+      };
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      renderAllProjectsGrid();
+
       // Check URL parameters for status
       const params = new URLSearchParams(window.location.search);
       const statusParam = params.get('status');

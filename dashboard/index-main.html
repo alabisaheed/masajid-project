@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masajid Project | A Sadaqah Jariyah Initiative</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="description" content="A structured initiative to identify, fund, and document practical improvements in masajid. Every project transparent. Every naira accounted for.">
+  
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Masajid Project">
+  <meta property="og:title" content="Masajid Project | Small Acts. Lasting Benefit.">
+  <meta property="og:description" content="A structured initiative to identify, fund, and document practical improvements in masajid. Every project transparent. Every naira accounted for.">
+  <meta property="og:image" content="images/proj-001-after.jpg">
+  
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Masajid Project | Small Acts. Lasting Benefit.">
+  <meta name="twitter:description" content="A structured initiative to identify, fund, and document practical improvements in masajid. Every project transparent. Every naira accounted for.">
+  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <link rel="canonical" href="http://masajidproject.org/">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="./" class="nav__logo">
+        <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+        
+      </a>
+      <ul class="nav__links">
+        <li><a href="./" class="nav__link active">Home</a></li>
+        <li><a href="about" class="nav__link">About</a></li>
+        <li><a href="projects" class="nav__link">Our Projects</a></li>
+        <li><a href="submit" class="nav__link">Support a Masjid</a></li>
+        <li><a href="blog" class="nav__link">Blog & Insights</a></li>
+        <li><a href="faq" class="nav__link">FAQ</a></li>
+      </ul>
+      <div class="nav__right">
+        <a href="donate" class="btn-donate-nav">Donate Now</a>
+      </div>
+      <button class="nav__hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="./" class="nav__link active">Home</a>
+    <a href="about" class="nav__link">About</a>
+    <a href="projects" class="nav__link">Our Projects</a>
+    <a href="submit" class="nav__link">Support a Masjid</a>
+    <a href="blog" class="nav__link">Blog & Insights</a>
+    <a href="faq" class="nav__link">FAQ</a>
+    <a href="donate" class="btn btn--primary" style="text-align:center;">Donate Now</a>
+  </div>
+
+  <!-- HERO SECTION (KOBBLE STRUCTURE) -->
+  <section class="hero" style="padding-top: calc(var(--nav-height) + 1.5rem); padding-bottom: 0.5rem; min-height: auto;">
+    <div class="hero__content animate-in" style="padding: 0.5rem 1.25rem;">
+      <h1 class="hero__title">Masajid <span>Project</span></h1>
+      <div class="hero__subtitle-ar arabic">مشروع المساجد</div>
+
+      <div class="hero__tagline">Small Acts. Lasting Benefit.</div>
+      <div class="hero__tagline-ar arabic">أعمال صغيرة. فائدة دائمة.</div>
+
+      <p class="hero__desc" style="margin-bottom: 1.5rem;">
+        Connect with a purpose-driven network to identify, fund, and document practical improvements in masajid. Every project transparent. Every dirham accounted for.
+      </p>
+
+      <div class="hero__ctas" style="margin-bottom: 0.5rem;">
+        <a href="projects" class="btn btn--primary">View Current Projects</a>
+        <a href="about" class="btn btn--outline">About the Initiative</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP (KOBBLE BENTO CARDS & ZEROED LAUNCH STATE) -->
+  <section class="stats-strip" style="padding: 1rem 0 2.5rem;">
+    <div class="container stats-grid animate-in">
+      
+      <!-- Card 1: Projects Completed -->
+      <div class="stat-card-bento">
+        <div class="stat-header-flex">
+          <div class="stat-icon-circle"><i class="fa-solid fa-circle-check"></i></div>
+          <span class="stat-tag-badge">Completed</span>
+        </div>
+        <div>
+          <div class="stat-number-animated" data-count-to="0">0</div>
+          <div class="stat-label-en">Projects Completed</div>
+          <div class="stat-label-ar arabic">المشاريع المكتملة</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Total Funds Raised -->
+      <div class="stat-card-bento">
+        <div class="stat-header-flex">
+          <div class="stat-icon-circle" style="color:var(--emerald); background:var(--emerald-glow); border-color:var(--emerald-border);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          <span class="stat-tag-badge" style="color:var(--emerald); background:var(--emerald-glow);">TOTAL RAISED</span>
+        </div>
+        <div>
+          <div class="stat-number-animated" data-amount="128000">₦128,000</div>
+          <div class="stat-label-en">Total Funds Raised</div>
+          <div class="stat-label-ar arabic">إجمالي التبرعات المستلمة</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Masajid Supported -->
+      <div class="stat-card-bento">
+        <div class="stat-header-flex">
+          <div class="stat-icon-circle"><i class="fa-solid fa-mosque"></i></div>
+          <span class="stat-tag-badge">BENEFICIARIES</span>
+        </div>
+        <div>
+          <div class="stat-number-animated" data-count-to="2">2</div>
+          <div class="stat-label-en">Masajid Supported</div>
+          <div class="stat-label-ar arabic">المساجد المدعومة</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Active Projects -->
+      <div class="stat-card-bento">
+        <div class="stat-header-flex">
+          <div class="stat-icon-circle" style="color:var(--amber); background:rgba(217, 119, 6, 0.1); border-color:rgba(217, 119, 6, 0.3);"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <span class="stat-tag-badge" style="color:var(--amber); background:rgba(217, 119, 6, 0.1);">ACTIVE</span>
+        </div>
+        <div>
+          <div class="stat-number-animated" data-count-to="2">2</div>
+          <div class="stat-label-en">Active Projects</div>
+          <div class="stat-label-ar arabic">المشاريع النشطة</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">How It <span>Works</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">A simple 4-step framework from community nomination to verified completion.</p>
+
+      <div class="kobble-steps-wrapper">
+        
+        <!-- STEP 1 ROW (Left Mockup, Right Text) -->
+        <div class="kobble-step-row animate-in">
+          <div class="mockup-frame-container">
+            <div class="mockup-backdrop tilted-left">
+              <div class="mockup-card">
+                <div class="mockup-header">
+                  <span class="mockup-dot" style="background:#ef4444;"></span>
+                  <span class="mockup-dot" style="background:#f59e0b;"></span>
+                  <span class="mockup-dot" style="background:#10b981;"></span>
+                  <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-left:auto;">Nomination Portal</span>
+                </div>
+                <div style="text-align:center; padding: 1rem 0;">
+                  <div style="width:54px; height:54px; border-radius:50%; background:var(--primary-glow); border:2px solid var(--primary); color:var(--primary); display:flex; align-items:center; justify-content:center; margin: 0 auto 0.75rem; font-size:1.5rem;">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                  </div>
+                  <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin-bottom:0.25rem;">Submit a Masjid Need</h4>
+                  <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Tap to record or describe what the mosque needs.</p>
+                  <div style="background:var(--primary); color:#FFFFFF; border-radius:var(--radius-sm); padding:0.6rem; font-size:0.85rem; font-weight:700;">
+                    Submit Request
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-content-block">
+            <h3 class="step-title-bold">Post a masjid need in minutes.</h3>
+            <p class="step-body-desc">
+              Imams, worshippers, or community members submit practical requirements • whether it's faulty lighting, sound amplification, deep cleaning, Qur'ans, or solar backup power.
+            </p>
+            <ul class="step-checklist-kobble">
+              <li><i class="fa-solid fa-check"></i> 8+ practical intervention categories</li>
+              <li><i class="fa-solid fa-check"></i> Open to any worshipper or community member</li>
+              <li><i class="fa-solid fa-check"></i> Instant notification to field assessment team</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 2 ROW (Left Text, Right Mockup) -->
+        <div class="kobble-step-row reverse animate-in">
+          <div class="step-content-block">
+            <h3 class="step-title-bold">Audit work. Verify before listing.</h3>
+            <p class="step-body-desc">
+              Every submission undergoes a technical on-site audit. We collect 3 independent vendor quotes, confirm mosque committee consent, and publish itemized budget targets.
+            </p>
+            <ul class="step-checklist-kobble">
+              <li><i class="fa-solid fa-check"></i> On-site technical inspection & photo audit</li>
+              <li><i class="fa-solid fa-check"></i> Competitive vendor quotation check</li>
+              <li><i class="fa-solid fa-check"></i> Direct mosque committee sign-off</li>
+            </ul>
+          </div>
+
+          <div class="mockup-frame-container">
+            <div class="mockup-backdrop tilted-right">
+              <div class="mockup-card">
+                <div class="mockup-header">
+                  <span style="font-size:0.75rem; font-weight:800; color:var(--emerald); text-transform:uppercase;"><i class="fa-solid fa-shield-check"></i> VERIFICATION STATUS</span>
+                </div>
+                <div style="padding:0.5rem 0;">
+                  <h4 style="font-size:1.1rem; font-weight:800; margin-bottom:0.75rem;">Technical Field Audit</h4>
+                  <div style="background:var(--bg-tint); border-left:3px solid var(--emerald); padding:0.6rem 0.8rem; border-radius:4px; font-size:0.85rem; font-weight:700; margin-bottom:0.5rem;">
+                    <i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> Site Visit Confirmed
+                  </div>
+                  <div style="background:var(--bg-tint); border-left:3px solid var(--emerald); padding:0.6rem 0.8rem; border-radius:4px; font-size:0.85rem; font-weight:700; margin-bottom:0.5rem;">
+                    <i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> 3 Vendor Quotes Costed
+                  </div>
+                  <div style="background:var(--primary-glow); border-radius:var(--radius-sm); padding:0.6rem; text-align:center; color:var(--primary); font-size:0.85rem; font-weight:800; margin-top:0.75rem;">
+                    Approved for Listing ✓
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 ROW (Left Mockup, Right Text) -->
+        <div class="kobble-step-row animate-in">
+          <div class="mockup-frame-container">
+            <div class="mockup-backdrop tilted-left">
+              <div class="mockup-card">
+                <div class="mockup-header">
+                  <span style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase;"><i class="fa-solid fa-wallet"></i> LIVE PROJECT ESCROW</span>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:0.35rem;">
+                    <span>Funding Progress</span>
+                    <span style="color:var(--primary); font-weight:800;">67% Funded</span>
+                  </div>
+                  <div class="progress-bar-container" style="height:10px; margin-bottom:0.75rem;">
+                    <div class="progress-bar" style="width: 67%;"></div>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">
+                    <span>Raised: <strong data-amount="335000">₦335,000</strong></span>
+                    <span>Goal: <strong data-amount="500000">₦500,000</strong></span>
+                  </div>
+                  <div style="background:var(--emerald-glow); border:1px solid var(--emerald-border); border-radius:var(--radius-sm); padding:0.5rem; text-align:center; color:var(--emerald); font-size:0.8rem; font-weight:800;">
+                    100% Restricted to Materials
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-content-block">
+            <h3 class="step-title-bold">Fund transparently. Every Naira tracked.</h3>
+            <p class="step-body-desc">
+              Projects are published with itemized cost breakdowns. Supporters contribute transparently, receiving immediate email receipts and instant public ledger tracking.
+            </p>
+            <ul class="step-checklist-kobble">
+              <li><i class="fa-solid fa-check"></i> 100% of donations dedicated to project expenses</li>
+              <li><i class="fa-solid fa-check"></i> Multi-currency giving (NGN, GBP, USD)</li>
+              <li><i class="fa-solid fa-check"></i> Real-time public donation dashboard</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 4 ROW (Left Text, Right Mockup) -->
+        <div class="kobble-step-row reverse animate-in">
+          <div class="step-content-block">
+            <h3 class="step-title-bold">Execute work. Publish receipts & proof.</h3>
+            <p class="step-body-desc">
+              Vetted suppliers execute the work. We disburse payments directly to vendors, upload bank transfer receipts, and publish before/after high-resolution photographic proof.
+            </p>
+            <ul class="step-checklist-kobble">
+              <li><i class="fa-solid fa-check"></i> Direct vendor payment (zero cash handling)</li>
+              <li><i class="fa-solid fa-check"></i> High-resolution before/after photo documentation</li>
+              <li><i class="fa-solid fa-check"></i> Ongoing 12-month maintenance check-ins</li>
+            </ul>
+          </div>
+
+          <div class="mockup-frame-container">
+            <div class="mockup-backdrop tilted-right">
+              <div class="mockup-card">
+                <div class="mockup-header">
+                  <span style="font-size:0.75rem; font-weight:800; color:var(--emerald); text-transform:uppercase;"><i class="fa-solid fa-circle-check"></i> PROJECT COMPLETED</span>
+                </div>
+                <div style="text-align:center; padding:0.5rem 0;">
+                  <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+                    <div style="flex:1; background:#0F172A; color:#FFFFFF; border-radius:4px; padding:0.25rem; font-size:0.7rem; font-weight:800;">BEFORE</div>
+                    <div style="flex:1; background:var(--emerald); color:#FFFFFF; border-radius:4px; padding:0.25rem; font-size:0.7rem; font-weight:800;">AFTER</div>
+                  </div>
+                  <div style="font-size:0.85rem; font-weight:800; color:var(--text-primary); margin-bottom:0.25rem;">Supplier Invoice #INV-8821</div>
+                  <div style="font-size:0.8rem; color:var(--emerald); font-weight:700;"><i class="fa-solid fa-receipt"></i> Bank Receipt Verified</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT PROJECTS -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <h2 class="section__title">Current <span>Projects</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2rem; text-align: center; font-size: 1.025rem;">Audited mosque improvement projects actively seeking community support.</p>
+      
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="filterProjects('all', this)">All Projects</button>
+        <button class="filter-btn" data-filter="funding" onclick="filterProjects('funding', this)">Funding</button>
+        <button class="filter-btn" data-filter="in-progress" onclick="filterProjects('in-progress', this)">In Progress</button>
+        <button class="filter-btn" data-filter="verified" onclick="filterProjects('verified', this)">Verified</button>
+      </div>
+
+      <div class="projects-grid" id="homepage-projects">
+        
+        <!-- Project Card 1: Medinat Dhikr Central Mosque -->
+        <div class="project-card animate-in visible" data-status="in-progress">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
+              <span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Bookshelf, Reading Placeholders and Quran</h3>
+            <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>Medinat Dhikr Central Mosque, Adumbu, Itori, Ewekoro, Ogun State</div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
+              Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 39%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="64000">₦64,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">39%</span>
+                <span>Target: <strong data-amount="164000">₦164,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-OG-2026-001" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+        <!-- Project Card 2: Masjid Markaz Diyar -->
+        <div class="project-card animate-in visible" data-status="in-progress">
+          <div class="project-card__header">
+            <div class="badges">
+              <span class="badge" style="background:rgba(2, 132, 199, 0.1); color:#0284C7; border:1px solid rgba(2, 132, 199, 0.3);">In Progress</span>
+              <span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>
+            </div>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Bookshelf, Reading Placeholders and Quran</h3>
+            <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>Masjid Markaz Diyar, behind Al-Fathia School, Itori, Ewekoro, Ogun State</div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
+              Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.
+            </p>
+            <div class="project-card__progress">
+              <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 39%"></div>
+              </div>
+              <div class="progress-stats">
+                <span>Raised: <strong data-amount="64000">₦64,000</strong></span>
+                <span style="color:var(--primary); font-weight:800;">39%</span>
+                <span>Target: <strong data-amount="164000">₦164,000</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card__footer">
+            <a href="project-detail?id=MP-OG-2026-002" class="btn btn--primary project-card__btn">Support This Project</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center" style="margin-top: 3rem;">
+        <a href="projects" class="btn btn--outline">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS OF INTERVENTION -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">Areas of <span>Intervention</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">Practical facility focus areas designed for long-term Sadaqah Jariyah benefit.</p>
+
+      <div class="categories-grid animate-in" id="homepage-categories">
+        
+        <div class="category-card" onclick="window.location.href='projects?cat=lighting'">
+          <div class="category-icon-box"><i class="fa-solid fa-lightbulb"></i></div>
+          <div class="category-en">Lighting & Electrical</div>
+          <div class="category-ar arabic">الإضاءة والكهرباء</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=solar'">
+          <div class="category-icon-box"><i class="fa-solid fa-solar-panel"></i></div>
+          <div class="category-en">Solar & Power</div>
+          <div class="category-ar arabic">الطاقة الشمسية</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=cleaning'">
+          <div class="category-icon-box"><i class="fa-solid fa-broom"></i></div>
+          <div class="category-en">Cleaning & Maintenance</div>
+          <div class="category-ar arabic">النظافة والصيانة</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=quran'">
+          <div class="category-icon-box"><i class="fa-solid fa-book-quran"></i></div>
+          <div class="category-en">Qur'ans & Books</div>
+          <div class="category-ar arabic">المصاحف والكتب</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=furniture'">
+          <div class="category-icon-box"><i class="fa-solid fa-chair"></i></div>
+          <div class="category-en">Furniture & Facilities</div>
+          <div class="category-ar arabic">الأثاث والمرافق</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=sound'">
+          <div class="category-icon-box"><i class="fa-solid fa-volume-high"></i></div>
+          <div class="category-en">Sound Systems</div>
+          <div class="category-ar arabic">أنظمة الصوت</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=security'">
+          <div class="category-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="category-en">Security & Safety</div>
+          <div class="category-ar arabic">الأمن والسلامة</div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='projects?cat=repairs'">
+          <div class="category-icon-box"><i class="fa-solid fa-wrench"></i></div>
+          <div class="category-en">Minor Repairs</div>
+          <div class="category-ar arabic">إصلاحات بسيطة</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED COMPLETED PROJECT (Dynamic — Only shown when projects are marked Completed) -->
+  <section class="section" id="recent-completion-section" style="background: var(--bg-surface); display: none;">
+    <div class="container">
+      <h2 class="section__title">Recent <span>Completion</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">Direct proof of impact from our completed mosque projects.</p>
+
+      <div class="featured-project animate-in" id="featured-project-box">
+        <!-- Dynamically rendered when a project is completed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- KOBBLE BANNER CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="bottom-cta animate-in">
+        <h2 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem;">Know a Masjid That Needs Support?</h2>
+        
+        <p style="font-size: 1.05rem; max-width: 640px; margin: 0 auto 2rem; opacity: 0.95;">
+          If a mosque in your community needs repairs, lighting, solar power, Qur'ans, or sound equipment, submit a nomination. Our field team will review it.
+        </p>
+        <a href="submit" class="btn btn--outline" style="background: #FFFFFF; color: var(--primary); font-weight: 800; border: none;">
+          Submit a Masjid Need
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <h2 class="section__title">Our Core <span>Values</span></h2>
+      <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 2.5rem; text-align: center; font-size: 1.025rem;">The Islamic principles of trust, sincerity, transparency, and accountability that guide our work.</p>
+
+      <div class="values-grid animate-in">
+        <div class="value-card">
+          <div class="value-ar arabic">أمانة</div>
+          <div class="value-en">AMANAH</div>
+          <p class="value-desc">Every donation and responsibility is a sacred trust managed with rigorous stewardship.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-ar arabic">إخلاص</div>
+          <div class="value-en">IKHLAS</div>
+          <p class="value-desc">All work is undertaken purely for the sake of Allah and the service of His houses.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-ar arabic">شفافية</div>
+          <div class="value-en">TRANSPARENCY</div>
+          <p class="value-desc">Complete financial records, vendor invoices, and project progress visible to all.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-ar arabic">مساءلة</div>
+          <div class="value-en">ACCOUNTABILITY</div>
+          <p class="value-desc">Answerability for every resource received, allocated, spent, and delivered.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOBBLE-STYLE FAQ SECTION (EXPANDED WITH MORE QUESTIONS) -->
+  <section class="kobble-faq-section">
+    <div class="container animate-in">
+      
+      <!-- FAQ Header -->
+      <h2 class="faq-header-title">
+        Got questions?
+        <span class="teal-text">We've got answers.</span>
+      </h2>
+      <p class="faq-header-desc">
+        Everything you need to know about contributing, project governance, Islamic compliance, and financial transparency.
+      </p>
+
+      <!-- Category Toggle Pills (3 Clean Text Pills) -->
+      <div class="faq-toggle-container">
+        <div class="faq-pill-wrapper">
+          <button class="faq-pill-btn active" onclick="toggleFaqTab('donors', this)">For Donors</button>
+          <button class="faq-pill-btn" onclick="toggleFaqTab('masajid', this)">For Masajid</button>
+          <button class="faq-pill-btn" onclick="toggleFaqTab('transparency', this)">Transparency & Governance</button>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion Stack (Category 1: Donors) -->
+      <div class="faq-accordion-stack" id="faq-stack-donors">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Where does my donation go?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            100% of your donation is directed toward materials and vendor labor for the specific project you select. Masajid Project operates on a 100% restricted fund policy. Zero platform fees are deducted from project contributions. All administrative costs are managed separately.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Can I give anonymously?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. You may contribute without your name appearing anywhere on the public donation ledger. We only require your email address internally so we can send your payment receipt and project completion progress reports.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Can I dedicate a contribution in memory of someone?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. During the donation flow, you may enter a dedication or Niyyah in memory of or on behalf of a parent, family member, or loved one. This intention is recorded privately with your contribution.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What currencies are accepted for giving?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            We accept contributions in NGN (Nigerian Naira), GBP (£ British Pounds), and USD ($ US Dollars). All foreign currency gifts are converted transparently at prevailing exchange rates and logged on the project escrow record.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Will I receive a receipt for my payment?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Yes. An automated digital receipt containing your unique transaction reference code, project details, currency amount, and date is sent immediately to your email address upon payment confirmation.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Why does mosque maintenance qualify as Sadaqah Jariyah?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            The Prophet Muhammad (peace be upon him) taught that when a person passes away, their deeds cease except for three, including Sadaqah Jariyah (ongoing charity). Providing lighting, sound amplification, carpets, or Qur'ans for a mosque yields continuous reward every time worshippers pray, read, or listen.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ Accordion Stack (Category 2: Masajid) -->
+      <div class="faq-accordion-stack" id="faq-stack-masajid" style="display:none;">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How do I submit or nominate a mosque for support?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Visit our "Support a Masjid" page and fill out the simple nomination form. Tell us about the mosque, location, and the specific practical need (lighting, sound, solar power, deep clean, Qur'ans). Our field team will review it within 24 hours.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Is there any cost or fee charged to the mosque?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. Masajid Project does not charge masajid for technical assessments, vendor management, or project execution. All supported interventions are funded entirely through crowdsourced Sadaqah Jariyah.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What types of needs are eligible for support?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            We focus on practical, moderate mosque needs: energy efficient LED lighting, solar power backup, sound system upgrades, carpet deep cleaning & sanitation, Qur'ans & book storage, security equipment, and minor facility repairs.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Who approves project execution at the mosque?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No work commences without formal written consent from the Imam and executive committee of the mosque. Our field team meets directly with mosque leadership before listing any project.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How long does a project take from nomination to completion?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Smaller interventions (lighting or carpet deep cleaning) are typically executed within 7 to 14 days after funding completion. Solar power or sound system upgrades take between 2 to 4 weeks.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What happens after the project is completed?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            After execution, high-resolution before/after photographs and supplier invoices are published publicly. The project then enters a 12-month monitoring cycle where our field team conducts check-ins at 3, 6, and 12 months.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ Accordion Stack (Category 3: Transparency & Governance) -->
+      <div class="faq-accordion-stack" id="faq-stack-transparency" style="display:none;">
+        
+        <div class="kobble-faq-card open" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How can I verify how money was spent on a project?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Visit our Transparency Dashboard at any time. Every naira received and every naira disbursed to contractors is published with supplier business name, invoice date, bank transfer reference, and receipt proof.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Are cash payments given directly to mosque leadership?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. To maintain complete financial integrity, Masajid Project never disburses unverified cash. Payments are transferred directly to verified material suppliers, electricians, and contractors upon presentation of audited invoices.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Who oversees the financial management of Masajid Project?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Financial management is overseen by our Finance & Audit Committee under the governance of the Board of Trustees. Quarterly financial audits are published publicly on our Transparency Dashboard.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">Does Masajid Project accept Zakat funds?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            No. Masajid Project accepts voluntary Sadaqah only and does not accept Zakat. Zakat has specific jurisprudence guidelines for eligible human recipients. Mosque physical infrastructure falls under Sadaqah Jariyah.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">What happens if a project raises more than its required goal?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Any surplus funds are handled transparently: they are either retained for a follow-up maintenance reserve at the same mosque or transferred to the General Sadaqah Jariyah Fund to support the next urgent masjid need.
+          </div>
+        </div>
+
+        <div class="kobble-faq-card" onclick="toggleFaqCard(this)">
+          <div class="faq-card-header">
+            <div class="faq-card-question">How are vendors and contractors selected?</div>
+            <div class="plus-circle-icon"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div class="faq-card-answer">
+            Our procurement policy requires at least 3 competitive quotations for any technical procurement over ₦100,000. Vendors are evaluated on material quality, pricing, delivery speed, and local warranty commitments.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+    <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer-col footer-col--brand">
+          <div class="footer__logo">
+            <span class="nav__logo-en"><i class="fa-solid fa-mosque"></i> Masajid Project</span>
+          </div>
+          <p class="footer__tagline">Small Acts. Lasting Benefit.</p>
+          <p class="footer__desc">A structured initiative to identify, fund and document practical improvements in masajid. Every project transparent.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer__col-title">Navigation</h4>
+          <ul class="footer__links">
+            <li><a href="./">Home</a></li>
+            <li><a href="projects">Our Projects</a></li>
+            <li><a href="transparency">Transparency Dashboard</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="blog">Blog & Insights</a></li>
+            <li><a href="donate">Support a Masjid</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer__col-title">Legal & Governance</h4>
+          <ul class="footer__links">
+            <li><a href="faq">FAQ</a></li>
+            <li><a href="submit">Submit a Need</a></li>
+            <li><a href="privacy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Initiative</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p>Built with Sincerity for Sadaqah Jariyah</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="data/projects.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function renderHomepageProjects(filter = 'all') {
+      const container = document.getElementById('homepage-projects');
+      if (!container || !window.MP) return;
+
+      const activeCurr = (typeof window.currentCurrency !== 'undefined') ? window.currentCurrency : 'NGN';
+      const allProjects = MP.projects || []; 
+      const normFilter = String(filter).toLowerCase().replace('_', '-');
+
+      let matching = allProjects;
+      if (normFilter !== 'all') {
+        matching = allProjects.filter(p => p.status && p.status.toLowerCase().replace('_', '-') === normFilter);
+      }
+
+      if (matching.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align:center; padding: 3rem; background:#FFFFFF; border:1.5px solid var(--border-card); border-radius:18px; color: var(--text-muted);">
+            <i class="fa-solid fa-folder-open" style="font-size:2rem; color:var(--primary); margin-bottom:0.75rem; display:block;"></i>
+            No active projects currently listed in this stage.
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = matching.map(p => {
+        const catObj = MP.getCategory(p.categoryId);
+        const catLabel = catObj ? catObj.labelEN : 'General';
+        const percent = MP.getProgressPercent(p);
+        const statusObj = MP.statuses[p.status.toUpperCase()] || { label: p.status, color: '#94a3b8' };
+        const statusSlug = p.status.toLowerCase().replace('_', '-');
+        const formattedRaised = MP.formatCurrency ? MP.formatCurrency(p.raisedNGN, activeCurr) : ('₦' + p.raisedNGN.toLocaleString());
+        const formattedGoal = MP.formatCurrency ? MP.formatCurrency(p.goalNGN, activeCurr) : ('₦' + p.goalNGN.toLocaleString());
+
+        return `
+          <div class="project-card animate-in visible" data-status="${statusSlug}">
+            <div class="project-card__header">
+              <div class="badges">
+                <span class="badge badge--category">${catLabel}</span>
+                <span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span>
+                ${p.isFeatured ? '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+              </div>
+            </div>
+            <div class="project-card__body">
+              <h3 class="project-card__title">${p.titleEN}</h3>
+              <div class="project-card__location">${MP.getLocation(p)}</div>
+              <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom: 1rem; line-height:1.6;">
+                ${p.descriptionEN.substring(0, 110)}...
+              </p>
+              <div class="project-card__progress">
+                <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: ${percent}%"></div>
+                </div>
+                <div class="progress-stats">
+                  <span>Raised: <strong data-amount="${p.raisedNGN}">${formattedRaised}</strong></span>
+                  <span style="color:var(--primary); font-weight:800;">${percent}%</span>
+                  <span>Target: <strong data-amount="${p.goalNGN}">${formattedGoal}</strong></span>
+                </div>
+              </div>
+            </div>
+            <div class="project-card__footer">
+              <a href="project-detail?id=${p.id}" class="btn btn--primary project-card__btn">Support This Project</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (typeof setCurrency === 'function') {
+        setCurrency(activeCurr);
+      }
+    }
+
+    function filterProjects(filter, btn) {
+      const allBtns = document.querySelectorAll('.filter-btn');
+      allBtns.forEach(b => b.classList.remove('active'));
+
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const targetBtn = Array.from(allBtns).find(b => b.getAttribute('data-filter') === filter);
+        if (targetBtn) targetBtn.classList.add('active');
+      }
+
+      const normFilter = String(filter).toLowerCase().replace('_', '-');
+      const cards = document.querySelectorAll('#homepage-projects .project-card');
+
+      cards.forEach(card => {
+        const cardStatus = card.getAttribute('data-status');
+        if (normFilter === 'all' || cardStatus === normFilter) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    window.filterProjects = filterProjects;
+
+    function renderHomepageCategories() {
+      const container = document.getElementById('homepage-categories');
+      if (!container || !window.MP) return;
+
+      container.innerHTML = MP.categories.map(c => `
+        <div class="category-card" onclick="window.location.href='projects?cat=${c.id}'">
+          <div class="category-icon-box">
+            <i class="${c.iconClass}"></i>
+          </div>
+          <div class="category-en">${c.labelEN}</div>
+          <div class="category-ar arabic">${c.labelAR}</div>
+        </div>
+      `).join('');
+    }
+
+    // Interactive How It Works Showcase Controller
+    let currentStep = 1;
+    let showcaseTimer = null;
+
+    function moveVirtualCursor(stepNum) {
+      const cursor = document.getElementById('virtual-cursor');
+      const targetCard = document.querySelector(`.step-item-card[data-step="${stepNum}"]`);
+      const stack = document.getElementById('steps-stack');
+      
+      if (!cursor || !targetCard || !stack) return;
+
+      const stackRect = stack.getBoundingClientRect();
+      const cardRect = targetCard.getBoundingClientRect();
+
+      // Calculate relative position within left stack
+      const topOffset = cardRect.top • stackRect.top + (cardRect.height / 2) • 10;
+      const leftOffset = cardRect.left • stackRect.left + 35;
+
+      cursor.style.transform = `translate(${leftOffset}px, ${topOffset}px)`;
+    }
+
+    function setActiveStep(stepNum, userClicked = true) {
+      currentStep = stepNum;
+
+      // Update step cards active state
+      document.querySelectorAll('.step-item-card').forEach(card => {
+        if (parseInt(card.dataset.step) === stepNum) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      // Update detail panes active state
+      document.querySelectorAll('.detail-pane').forEach(pane => {
+        if (parseInt(pane.dataset.step) === stepNum) {
+          pane.classList.add('active');
+        } else {
+          pane.classList.remove('active');
+        }
+      });
+
+      // Update progress dots
+      document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
+        if (idx + 1 === stepNum) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      // Move virtual cursor
+      moveVirtualCursor(stepNum);
+
+      // Reset auto timer if manually clicked
+      if (userClicked) {
+        clearInterval(showcaseTimer);
+        startShowcaseAutoLoop();
+      }
+    }
+
+    function startShowcaseAutoLoop() {
+      showcaseTimer = setInterval(() => {
+        let next = currentStep + 1;
+        if (next > 4) next = 1;
+        setActiveStep(next, false);
+      }, 3500);
+    }
+
+    // Kobble FAQ Accordion & Tab Controller
+    function toggleFaqTab(tabName, btn) {
+      document.querySelectorAll('.faq-pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const donorStack = document.getElementById('faq-stack-donors');
+      const masajidStack = document.getElementById('faq-stack-masajid');
+      const transparencyStack = document.getElementById('faq-stack-transparency');
+
+      if (donorStack) donorStack.style.display = (tabName === 'donors') ? 'flex' : 'none';
+      if (masajidStack) masajidStack.style.display = (tabName === 'masajid') ? 'flex' : 'none';
+      if (transparencyStack) transparencyStack.style.display = (tabName === 'transparency') ? 'flex' : 'none';
+    }
+
+    function toggleFaqCard(cardEl) {
+      if (!cardEl) return;
+      const isOpen = cardEl.classList.contains('open');
+      
+      // Close sibling cards
+      const parentStack = cardEl.parentElement;
+      if (parentStack) {
+        parentStack.querySelectorAll('.kobble-faq-card').forEach(c => c.classList.remove('open'));
+      }
+
+      if (!isOpen) {
+        cardEl.classList.add('open');
+      }
+    }
+
+    function renderRecentCompletion() {
+      const section = document.getElementById('recent-completion-section');
+      const box = document.getElementById('featured-project-box');
+      if (!section || !box || !window.MP) return;
+
+      const completed = (typeof MP.getCompletedProjects === 'function') ? MP.getCompletedProjects() : [];
+      if (!completed || completed.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+
+      section.style.display = 'block';
+      const p = completed[0];
+
+      box.innerHTML = `
+        <div class="featured-images">
+          <div class="featured-img-box featured-img-before">
+            <img src="${p.imageBefore || 'images/mosque-hero.jpg'}" alt="Before Intervention">
+            <span class="img-label">BEFORE</span>
+          </div>
+          <div class="featured-img-box featured-img-after">
+            <img src="${p.imageAfter || 'images/mosque-hero.jpg'}" alt="After Intervention">
+            <span class="img-label">AFTER</span>
+          </div>
+        </div>
+        <div class="featured-content">
+          <div class="featured-meta"><i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> ${p.id} • COMPLETED</div>
+          <h3 class="featured-title">${p.titleEN} • ${p.mosqueName}</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            ${p.descriptionEN}
+          </p>
+          <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+            <div><strong style="color:var(--primary);">Amount Raised & Spent:</strong> <span data-amount="${p.spentNGN || p.raisedNGN}">₦${Number(p.spentNGN || p.raisedNGN).toLocaleString()}</span></div>
+            <div><strong style="color:var(--primary);">Location:</strong> ${p.location}</div>
+          </div>
+          <a href="project-detail?id=${p.id}" class="btn btn--outline">View Full Impact Report</a>
+        </div>
+      `;
+    }
+
+    function syncHomepageStats() {
+      if (!window.MP) return;
+      const completedCount = (typeof MP.getCompletedProjects === 'function') ? MP.getCompletedProjects().length : 0;
+      const activeCount = (typeof MP.getActiveProjects === 'function') ? MP.getActiveProjects().length : 2;
+      const totalRaised = (typeof MP.getDonations === 'function') ? MP.getDonations().reduce((sum, d) => sum + (d.amountNGN || 0), 0) : 128000;
+      const masajidCount = (MP.projects && MP.projects.length) ? MP.projects.length : 2;
+
+      const statCards = document.querySelectorAll('.stats-strip .stat-card-bento');
+      if (statCards.length >= 4) {
+        // Card 1: Completed
+        const c1 = statCards[0].querySelector('.stat-number-animated');
+        if (c1) { c1.setAttribute('data-count-to', completedCount); c1.textContent = completedCount; }
+
+        // Card 2: Total Raised
+        const c2 = statCards[1].querySelector('.stat-number-animated');
+        if (c2) { c2.setAttribute('data-amount', totalRaised); c2.textContent = `₦${Number(totalRaised).toLocaleString()}`; }
+
+        // Card 3: Masajid Supported
+        const c3 = statCards[2].querySelector('.stat-number-animated');
+        if (c3) { c3.setAttribute('data-count-to', masajidCount); c3.textContent = masajidCount; }
+
+        // Card 4: Active Projects
+        const c4 = statCards[3].querySelector('.stat-number-animated');
+        if (c4) { c4.setAttribute('data-count-to', activeCount); c4.textContent = activeCount; }
+      }
+    }
+
+    // Real-time project synchronization hook
+    if (window.MP) {
+      MP.onDataChange = function(key) {
+        if (key === 'projects' || key === 'donations') {
+          const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+          renderHomepageProjects(activeFilter);
+          renderRecentCompletion();
+          syncHomepageStats();
+          if (typeof setCurrency === 'function') setCurrency(currentCurrency);
+        }
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHomepageProjects('all');
+      renderHomepageCategories();
+      renderRecentCompletion();
+      syncHomepageStats();
+
+      // Bind filter button click events explicitly
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const filterVal = this.getAttribute('data-filter') || 'all';
+          filterProjects(filterVal, this);
+        });
+      });
+
+      setTimeout(() => {
+        setActiveStep(1, false);
+        startShowcaseAutoLoop();
+      }, 400);
+    });
+  </script>
+</body>
+</html>

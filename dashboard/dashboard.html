@@ -568,7 +568,7 @@
                 <div class="stat-icon-circle" style="color: var(--emerald); background: var(--emerald-glow);"><i class="fa-solid fa-wallet"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" data-amount="128000">₦128,000</div>
+                <div class="admin-metric-card__value" id="overview-total-inflows" data-amount="155500">₦155,500</div>
                 <div class="admin-metric-card__label">Logged Donations Received</div>
               </div>
             </div>
@@ -579,7 +579,7 @@
                 <div class="stat-icon-circle" style="color: var(--primary); background: var(--primary-glow);"><i class="fa-solid fa-receipt"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" data-amount="128000">₦128,000</div>
+                <div class="admin-metric-card__value" id="overview-total-spent" data-amount="155500">₦155,500</div>
                 <div class="admin-metric-card__label">Direct Contractor Disbursements</div>
               </div>
             </div>
@@ -590,7 +590,7 @@
                 <div class="stat-icon-circle" style="color: var(--amber); background: rgba(217, 119, 6, 0.1);"><i class="fa-solid fa-clock-rotate-left"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value">2</div>
+                <div class="admin-metric-card__value" id="overview-active-projects">2</div>
                 <div class="admin-metric-card__label">In Execution & Funding</div>
               </div>
             </div>
@@ -601,7 +601,7 @@
                 <div class="stat-icon-circle" style="color: var(--sky); background: rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-mosque"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value">2</div>
+                <div class="admin-metric-card__value" id="overview-masajid-count">3</div>
                 <div class="admin-metric-card__label">Ogun State Masajid</div>
               </div>
             </div>
@@ -1569,8 +1569,37 @@
       }
     }
 
+    function renderOverviewExecutiveMetrics() {
+      if (!window.MP) return;
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []);
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : (MP.donations || []);
+
+      const totalInflows = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
+      const totalSpent = projects.reduce((sum, p) => sum + (Number(p.spentNGN) || 0), 0);
+      const activeProjects = projects.filter(p => p.status !== 'COMPLETED').length;
+      const uniqueMosques = new Set(projects.map(p => p.mosqueId || p.mosqueName)).size;
+
+      const inflowsEl = document.getElementById('overview-total-inflows');
+      const spentEl = document.getElementById('overview-total-spent');
+      const activeEl = document.getElementById('overview-active-projects');
+      const mosqueEl = document.getElementById('overview-masajid-count');
+
+      if (inflowsEl) {
+        inflowsEl.setAttribute('data-amount', totalInflows);
+        inflowsEl.textContent = `₦${totalInflows.toLocaleString()}`;
+      }
+      if (spentEl) {
+        spentEl.setAttribute('data-amount', totalSpent);
+        spentEl.textContent = `₦${totalSpent.toLocaleString()}`;
+      }
+      if (activeEl) activeEl.textContent = activeProjects;
+      if (mosqueEl) mosqueEl.textContent = uniqueMosques || 3;
+    }
+
     function renderAdminProjects() {
       if (!window.MP) return;
+
+      renderOverviewExecutiveMetrics();
 
       const overviewBody = document.getElementById('overview-projects-body');
       const tableBody = document.getElementById('admin-projects-table-body');

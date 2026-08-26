@@ -480,13 +480,22 @@ function saveLocal(key, data) {
 }
 
 g.MP = {
-  stats: {
-    projectsCompleted: 1,
-    totalRaisedNGN: 155500,
-    totalSpentNGN: 155500,
-    masajidSupported: 3,
-    activeProjects: 2,
-    totalDonors: 1
+  get stats() {
+    const projects = (typeof this.getProjects === 'function') ? this.getProjects() : initialProjects;
+    const donations = (typeof this.getDonations === 'function') ? this.getDonations() : this.donations;
+    const completed = projects.filter(p => p.status === 'COMPLETED').length;
+    const active = projects.filter(p => p.status !== 'COMPLETED').length;
+    const raised = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
+    const spent = projects.reduce((sum, p) => sum + (Number(p.spentNGN) || 0), 0);
+    const uniqueMosques = new Set(projects.map(p => p.mosqueId || p.mosqueName)).size;
+    return {
+      projectsCompleted: completed,
+      totalRaisedNGN: raised,
+      totalSpentNGN: spent,
+      masajidSupported: uniqueMosques || 3,
+      activeProjects: active,
+      totalDonors: donations.length
+    };
   },
 
   categories: [
