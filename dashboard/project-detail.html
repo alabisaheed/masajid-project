@@ -479,6 +479,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadProjectDetail();
     });
+
+    if (window.MP) {
+      MP.onDataChange = function(key) {
+        if (key === 'projects' || key === 'donations') {
+          loadProjectDetail();
+        }
+      };
+    }
   </script>
 
   <!-- LIGHTBOX MODAL (HIGH RESOLUTION ZOOM VIEWER) -->

@@ -2043,10 +2043,10 @@
             <td><span class="badge badge--category">${catObj ? catObj.labelEN : 'General'}</span></td>
             <td><span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span></td>
             <td>
-              <div style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.2rem;">
-                <span data-amount="${p.raisedNGN}">${p.raisedNGN}</span> / <span data-amount="${p.goalNGN}">${p.goalNGN}</span> (${percent}%)
+              <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem;">
+                <span data-amount="${p.raisedNGN}">₦${Number(p.raisedNGN).toLocaleString()}</span> / <span data-amount="${p.goalNGN}">₦${Number(p.goalNGN).toLocaleString()}</span> <span style="color:var(--primary); font-weight:800;">(${percent}%)</span>
               </div>
-              <div class="progress-bar-container" style="height: 5px; margin: 0;">
+              <div class="progress-bar-container" style="height: 6px; margin: 0;">
                 <div class="progress-bar" style="width: ${percent}%"></div>
               </div>
             </td>
@@ -2854,6 +2854,11 @@
       });
       const sumEl = document.getElementById('edit-proj-scope-sum');
       if (sumEl) sumEl.textContent = `₦${total.toLocaleString()}`;
+
+      const goalInput = document.getElementById('edit-proj-goal');
+      if (goalInput && total > 0) {
+        goalInput.value = total;
+      }
       return total;
     }
 
@@ -2926,22 +2931,6 @@
       const imgBefore = document.getElementById('edit-proj-img-before').value.trim();
       const imgAfter = document.getElementById('edit-proj-img-after').value.trim();
 
-      // Update project object
-      proj.titleEN = titleEn;
-      proj.titleAR = titleAr;
-      proj.mosqueName = mosque;
-      proj.location = location;
-      proj.categoryId = cat;
-      proj.status = status;
-      proj.isFeatured = isFeatured;
-      proj.goalNGN = goal;
-      proj.raisedNGN = raised;
-      proj.spentNGN = spent;
-      proj.beneficiaries = beneficiaries;
-      proj.supporters = supporters;
-      proj.descriptionEN = descEn;
-      proj.descriptionAR = descAr;
-
       // Collect itemized scope activities and prices
       const scopeRows = document.querySelectorAll('#edit-proj-scope-tbody tr.scope-row-item');
       const updatedScope = [];
@@ -2962,8 +2951,28 @@
           }
         }
       });
+
+      // Update project object
+      proj.titleEN = titleEn;
+      proj.titleAR = titleAr;
+      proj.mosqueName = mosque;
+      proj.location = location;
+      proj.categoryId = cat;
+      proj.status = status;
+      proj.isFeatured = isFeatured;
+      proj.raisedNGN = raised;
+      proj.spentNGN = spent;
+      proj.beneficiaries = beneficiaries;
+      proj.supporters = supporters;
+      proj.descriptionEN = descEn;
+      proj.descriptionAR = descAr;
+
       if (updatedScope.length > 0) {
         proj.scope = updatedScope;
+        const scopeSum = updatedScope.reduce((sum, s) => sum + (Number(s.costNGN) || 0), 0);
+        proj.goalNGN = goal > 0 ? goal : scopeSum;
+      } else {
+        proj.goalNGN = goal;
       }
 
       if (imgBefore || imgAfter) {
@@ -2987,6 +2996,7 @@
       renderAdminProjects();
       renderAdminFeatured();
       renderOverviewExecutiveMetrics();
+      if (typeof renderAdminFinancials === 'function') renderAdminFinancials();
       if (typeof setCurrency === 'function') setCurrency(currentCurrency || 'NGN');
     }
 
