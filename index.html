@@ -1056,10 +1056,10 @@
     function syncHomepageStats() {
       if (!window.MP) return;
       const stats = (typeof MP.stats !== 'undefined') ? MP.stats : {};
-      const completedCount = stats.projectsCompleted || (typeof MP.getCompletedProjects === 'function' ? MP.getCompletedProjects().length : 1);
-      const activeCount = stats.activeProjects || (typeof MP.getActiveProjects === 'function' ? MP.getActiveProjects().length : 2);
-      const totalRaised = stats.totalRaisedNGN || 155500;
-      const masajidCount = stats.masajidSupported || 3;
+      const completedCount = (typeof stats.projectsCompleted !== 'undefined') ? stats.projectsCompleted : (typeof MP.getCompletedProjects === 'function' ? MP.getCompletedProjects().length : 1);
+      const activeCount = (typeof stats.activeProjects !== 'undefined') ? stats.activeProjects : (typeof MP.getActiveProjects === 'function' ? MP.getActiveProjects().length : 2);
+      const totalRaised = (typeof stats.totalRaisedNGN !== 'undefined') ? stats.totalRaisedNGN : 155500;
+      const masajidCount = (typeof stats.masajidSupported !== 'undefined') ? stats.masajidSupported : 3;
 
       const statCards = document.querySelectorAll('.stats-strip .stat-card-bento');
       if (statCards.length >= 4) {

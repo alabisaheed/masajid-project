@@ -264,9 +264,8 @@
   <script src="data/projects.js"></script>
   <script src="js/main.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    function renderTransparencyDashboard() {
       if (!window.MP) return;
-
       const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : (MP.donations || []);
       const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : [];
       const totalReceived = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
@@ -331,7 +330,7 @@
               <td><strong style="color:var(--primary);" data-amount="${e.amountNGN}">₦${Number(e.amountNGN).toLocaleString()}</strong></td>
               <td><span class="badge badge--completed"><i class="fa-solid fa-receipt"></i> Receipt Verified (${e.receiptNo || 'Verified'})</span></td>
               <td>
-                <button class="btn btn--outline" style="padding:0.3rem 0.65rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary);" onclick="viewVendorInvoice('${e.invoiceNo || 'INV-01'}', '${e.projectCode}', '${e.vendor || 'Contractor'}', '${e.desc.replace(/'/g, "\\'")}', '${e.amountNGN}', '${e.status || 'Paid & Receipt Verified'}', '${e.receiptNo || 'AR-REC-01'}')">
+                <button class="btn btn--outline" style="padding:0.3rem 0.65rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary);" onclick="viewVendorInvoice('${e.invoiceNo || 'INV-01'}', '${e.projectCode}', '${e.vendor || 'Contractor'}', '${(e.desc || '').replace(/'/g, "\\'")}', '${e.amountNGN}', '${e.status || 'Paid & Receipt Verified'}', '${e.receiptNo || 'AR-REC-01'}')">
                   <i class="fa-solid fa-file-invoice"></i> View Invoice
                 </button>
               </td>
@@ -340,7 +339,19 @@
         }
       }
 
-      setCurrency(currentCurrency);
+      if (typeof setCurrency === 'function') setCurrency(currentCurrency);
+    }
+
+    if (window.MP) {
+      MP.onDataChange = function(key) {
+        if (key === 'projects' || key === 'donations') {
+          renderTransparencyDashboard();
+        }
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTransparencyDashboard();
     });
 
     function closeModal(modalId) {

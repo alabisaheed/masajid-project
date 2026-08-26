@@ -488,7 +488,9 @@ g.MP = {
     const donations = (typeof this.getDonations === 'function') ? this.getDonations() : this.donations;
     const completed = projects.filter(p => p.status === 'COMPLETED').length;
     const active = projects.filter(p => p.status !== 'COMPLETED').length;
-    const raised = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
+    const raisedFromProjects = projects.reduce((sum, p) => sum + (Number(p.raisedNGN) || 0), 0);
+    const raisedFromDonations = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
+    const raised = Math.max(raisedFromProjects, raisedFromDonations);
     const spent = projects.reduce((sum, p) => sum + (Number(p.spentNGN) || 0), 0);
     const uniqueMosques = new Set(projects.map(p => p.mosqueId || p.mosqueName)).size;
     return {
