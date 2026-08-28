@@ -481,8 +481,8 @@
               </div>
               <div>
                 <small style="color: #64748B; font-size: 0.725rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; font-family: 'Figtree', sans-serif;">Disbursement Status</small>
-                <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid  &bull;  '#059669' : '#D97706'}; font-family: 'Figtree', sans-serif; margin-top: 0.2rem;">
-                  ${isPaid  &bull;  'PAID (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING FUNDING'}
+                <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid ? '#059669' : '#D97706'}; font-family: 'Figtree', sans-serif; margin-top: 0.2rem;">
+                  ${isPaid ? 'PAID (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING FUNDING'}
                 </div>
               </div>
             </div>

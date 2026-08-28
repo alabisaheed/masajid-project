@@ -473,7 +473,7 @@
 
     function toggleProjectSelect(show) {
       const wrap = document.getElementById('project-dropdown-wrap');
-      if (wrap) wrap.style.display = show  &bull;  'block' : 'none';
+      if (wrap) wrap.style.display = show ? 'block' : 'none';
       updateSelectedProject();
     }
 
@@ -520,16 +520,15 @@
       if (proj.scope && Array.isArray(proj.scope)) {
         scopeHtml = proj.scope.map(s => {
           const isDone = isScopeItemDone(s);
-          const costStr = s.costNGN  &bull;  `₦${Number(s.costNGN).toLocaleString()}` : '';
+          const costStr = s.costNGN ? `₦${Number(s.costNGN).toLocaleString()}` : '';
           return `
-            <div style="display: flex; justify-content: space-between; align-items: center; background: ${isDone  &bull;  '#FFFFFF' : 'rgba(217, 119, 6, 0.08)'}; border: 1.5px solid ${isDone  &bull;  '#E2E8F0' : '#F59E0B'}; padding: 0.55rem 0.75rem; border-radius: 6px; font-size: 0.8rem; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; background: ${isDone ? '#FFFFFF' : 'rgba(217, 119, 6, 0.08)'}; border: 1.5px solid ${isDone ? '#E2E8F0' : '#F59E0B'}; padding: 0.55rem 0.75rem; border-radius: 6px; font-size: 0.8rem; gap: 0.5rem;">
               <div>
-                <span style="font-weight: 700; color: ${isDone  &bull;  '#64748B' : '#0F172A'}; ${isDone  &bull;  'text-decoration: line-through;' : ''}">${s.item}</span>
-                ${costStr  &bull;  `<span style="font-weight: 800; color: ${isDone  &bull;  '#64748B' : '#D97706'}; margin-left: 0.35rem;">(${costStr})</span>` : ''}
+                <span style="font-weight: 700; color: ${isDone ? '#64748B' : '#0F172A'}; ${isDone ? 'text-decoration: line-through;' : ''}">${s.item}</span>
+                ${costStr ? `<span style="font-weight: 800; color: ${isDone ? '#64748B' : '#D97706'}; margin-left: 0.35rem;">(${costStr})</span>` : ''}
               </div>
               <div style="flex-shrink: 0;">
-                ${isDone 
-                   &bull;  `<span class="badge" style="background: rgba(5,150,105,0.12); color: #059669; font-size: 0.65rem; font-weight: 800; padding: 2px 6px;"><i class="fa-solid fa-circle-check"></i> Done & Paid</span>`
+                ${isDone ? `<span class="badge" style="background: rgba(5,150,105,0.12); color: #059669; font-size: 0.65rem; font-weight: 800; padding: 2px 6px;"><i class="fa-solid fa-circle-check"></i> Done & Paid</span>`
                   : `<span class="badge" style="background: rgba(217,119,6,0.18); color: #B45309; font-size: 0.675rem; font-weight: 900; padding: 3px 8px; border: 1px solid #F59E0B;"><i class="fa-solid fa-hand-holding-heart"></i> UNPAID / NEEDED</span>`
                 }
               </div>
@@ -612,9 +611,9 @@
         renderProjectBreakdown(null, 'money-project-breakdown-wrap');
       } else {
         const select = document.getElementById('project-select');
-        const projId = select  &bull;  select.value : 'MP-OG-2026-001';
-        const proj = (window.MP && typeof MP.getProject === 'function')  &bull;  MP.getProject(projId) : null;
-        titleEl.textContent = proj  &bull;  `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
+        const projId = select ? select.value : 'MP-OG-2026-001';
+        const proj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(projId) : null;
+        titleEl.textContent = proj ? `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
         renderProjectBreakdown(proj, 'money-project-breakdown-wrap');
       }
     }
@@ -627,7 +626,7 @@
       const symbol = (window.MP && MP.currencySymbols && MP.currencySymbols[currentFormCurrency]) || '₦';
 
       grid.innerHTML = amounts.map((amt, idx) => `
-        <button type="button" class="filter-btn ${idx === 2  &bull;  'active' : ''}" onclick="selectPresetAmount(${amt}, this)" style="padding:0.75rem;">
+        <button type="button" class="filter-btn ${idx === 2 ? 'active' : ''}" onclick="selectPresetAmount(${amt}, this)" style="padding:0.75rem;">
           ${symbol}${amt.toLocaleString()}
         </button>
       `).join('');
@@ -676,7 +675,7 @@
       }
       navigator.clipboard.writeText(accountNo).then(() => {
         const textSpan = btn.querySelector('.copy-btn-text');
-        const origText = textSpan  &bull;  textSpan.textContent : 'Copy Account Number';
+        const origText = textSpan ? textSpan.textContent : 'Copy Account Number';
         if (textSpan) textSpan.textContent = 'Copied!';
         btn.style.borderColor = 'var(--emerald)';
         btn.style.color = 'var(--emerald)';
@@ -701,9 +700,9 @@
       const niyyah = document.getElementById('donor-niyyah').value;
       const targetRadio = document.querySelector('input[name="support_target"]:checked');
       const select = document.getElementById('project-select');
-      const targetProjId = (targetRadio && targetRadio.value === 'general')  &bull;  'MP-GENERAL' : (select  &bull;  select.value : 'MP-OG-2026-001');
-      const projObj = (window.MP && typeof MP.getProject === 'function')  &bull;  MP.getProject(targetProjId) : null;
-      const projName = projObj  &bull;  projObj.titleEN + ' (' + projObj.mosqueName + ')' : (targetProjId === 'MP-GENERAL'  &bull;  'General Sadaqah Jariyah Fund' : targetProjId);
+      const targetProjId = (targetRadio && targetRadio.value === 'general') ? 'MP-GENERAL' : (select ? select.value : 'MP-OG-2026-001');
+      const projObj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(targetProjId) : null;
+      const projName = projObj ? projObj.titleEN + ' (' + projObj.mosqueName + ')' : (targetProjId === 'MP-GENERAL' ? 'General Sadaqah Jariyah Fund' : targetProjId);
 
       const newDonation = {
         projectId: targetProjId,
@@ -711,7 +710,7 @@
         donorName: name.trim() || 'Anonymous',
         email: email.trim(),
         amountNGN: selectedAmountNGN,
-        purpose: niyyah  &bull;  niyyah.trim() : (projObj  &bull;  `Support for ${projObj.titleEN}` : 'General Mosque Support'),
+        purpose: niyyah ? niyyah.trim() : (projObj ? `Support for ${projObj.titleEN}` : 'General Mosque Support'),
         channel: 'Direct Bank Transfer',
         date: new Date().toISOString().split('T')[0]
       };
@@ -766,7 +765,7 @@
 
       // Official Masajid Project WhatsApp contact
       const whatsappNumber = '2348034567890';
-      const whatsappUrl = `https://api.whatsapp.com/send &bull; phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
+      const whatsappUrl = `https://api.whatsapp.com/send ? phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
 
       // Open WhatsApp in new tab / app
       window.open(whatsappUrl, '_blank');
@@ -855,8 +854,8 @@
     function toggleMatProjectSelect(show) {
       const wrap = document.getElementById('mat-project-dropdown-wrap');
       const quickBox = document.getElementById('mat-quick-needs-box');
-      if (wrap) wrap.style.display = show  &bull;  'block' : 'none';
-      if (quickBox) quickBox.style.display = show  &bull;  'block' : 'none';
+      if (wrap) wrap.style.display = show ? 'block' : 'none';
+      if (quickBox) quickBox.style.display = show ? 'block' : 'none';
       updateSelectedMatProject();
     }
 
@@ -881,9 +880,9 @@
         }
       } else {
         const select = document.getElementById('mat-project-select');
-        const projId = select  &bull;  select.value : 'MP-OG-2026-001';
-        const proj = (window.MP && typeof MP.getProject === 'function')  &bull;  MP.getProject(projId) : null;
-        titleEl.textContent = proj  &bull;  `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
+        const projId = select ? select.value : 'MP-OG-2026-001';
+        const proj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(projId) : null;
+        titleEl.textContent = proj ? `${proj.titleEN} (${proj.mosqueName})` : 'Selected Project';
         renderProjectBreakdown(proj, 'mat-project-breakdown-card-wrap');
 
         if (tagsContainer && proj) {
@@ -944,11 +943,11 @@
     }
 
     function updateMatSummary() {
-      const desc = document.getElementById('mat-description') &bull; .value.trim() || 'Specify item above';
+      const desc = document.getElementById('mat-description') ?.value.trim() || 'Specify item above';
       const itemsDisplay = document.getElementById('mat-summary-items-display');
       if (itemsDisplay) itemsDisplay.textContent = desc;
 
-      const delPref = document.querySelector('input[name="mat_delivery_pref"]:checked') &bull; .value || 'Self-Delivery to Mosque Site';
+      const delPref = document.querySelector('input[name="mat_delivery_pref"]:checked') ?.value || 'Self-Delivery to Mosque Site';
       const delDisplay = document.getElementById('mat-summary-delivery-display');
       if (delDisplay) delDisplay.textContent = delPref;
     }
@@ -957,9 +956,9 @@
       e.preventDefault();
       const targetRadio = document.querySelector('input[name="mat_target_type"]:checked');
       const select = document.getElementById('mat-project-select');
-      const targetProjId = (targetRadio && targetRadio.value === 'general')  &bull;  'MP-GENERAL-RESOURCE' : (select  &bull;  select.value : 'MP-OG-2026-001');
-      const projObj = (window.MP && typeof MP.getProject === 'function')  &bull;  MP.getProject(targetProjId) : null;
-      const projName = projObj  &bull;  `${projObj.titleEN} (${projObj.mosqueName})` : (targetProjId === 'MP-GENERAL-RESOURCE'  &bull;  'General Masajid Resource Inventory' : targetProjId);
+      const targetProjId = (targetRadio && targetRadio.value === 'general') ? 'MP-GENERAL-RESOURCE' : (select ? select.value : 'MP-OG-2026-001');
+      const projObj = (window.MP && typeof MP.getProject === 'function') ? MP.getProject(targetProjId) : null;
+      const projName = projObj ? `${projObj.titleEN} (${projObj.mosqueName})` : (targetProjId === 'MP-GENERAL-RESOURCE' ? 'General Masajid Resource Inventory' : targetProjId);
 
       const materials = document.getElementById('mat-description').value.trim();
       const condition = document.getElementById('mat-condition').value;
@@ -967,7 +966,7 @@
       const phone = document.getElementById('mat-donor-phone').value.trim();
       const email = document.getElementById('mat-donor-email').value.trim();
       const city = document.getElementById('mat-donor-city').value.trim();
-      const deliveryPref = document.querySelector('input[name="mat_delivery_pref"]:checked') &bull; .value || 'Self-Delivery to Mosque Site';
+      const deliveryPref = document.querySelector('input[name="mat_delivery_pref"]:checked') ?.value || 'Self-Delivery to Mosque Site';
 
       if (!materials || !phone || !email || !city) return;
 
@@ -1038,7 +1037,7 @@
                   `Please provide us with the delivery address or arrange for pick-up. Jazaakumullaahu Khairan.`;
 
       const whatsappNumber = '2348034567890';
-      const whatsappUrl = `https://api.whatsapp.com/send &bull; phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
+      const whatsappUrl = `https://api.whatsapp.com/send ? phone=${whatsappNumber}&text=${encodeURIComponent(msg)}`;
 
       window.open(whatsappUrl, '_blank');
       closeMaterialModal();

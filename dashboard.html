@@ -1899,7 +1899,7 @@
       const container = document.getElementById('admin-mosques-table-body');
       if (!container || !window.MP) return;
 
-      const mosques = (typeof MP.getMosques === 'function')  &bull;  MP.getMosques() : (MP.mosques || []);
+      const mosques = (typeof MP.getMosques === 'function') ? MP.getMosques() : (MP.mosques || []);
       const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []);
 
       const metricTotal = document.getElementById('mosques-metric-total');
@@ -1909,8 +1909,7 @@
 
       container.innerHTML = mosques.map(m => {
         const linkedProjects = projects.filter(p => p.mosqueId === m.id || p.mosqueName === m.nameEN);
-        const projectsHtml = (linkedProjects.length > 0)
-           &bull;  linkedProjects.map(p => `<a href="project-detail &bull; id=${p.id}" target="_blank" style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(19,84,122,0.1); padding:0.2rem 0.5rem; border-radius:4px; margin:0.15rem;">${p.id} (${p.status})</a>`).join(' ')
+        const projectsHtml = (linkedProjects.length > 0) ? linkedProjects.map(p => `<a href="project-detail?id=${p.id}" target="_blank" style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(19,84,122,0.1); padding:0.2rem 0.5rem; border-radius:4px; margin:0.15rem;">${p.id} (${p.status})</a>`).join(' ')
           : '<span style="color:var(--text-muted); font-size:0.8rem;">No active projects</span>';
 
         return `
@@ -2040,7 +2039,7 @@
               <div style="font-weight: 700; color: var(--text-primary);">${p.titleEN}</div>
               <div style="font-size: 0.8rem; color: var(--text-muted);">${locationStr}</div>
             </td>
-            <td><span class="badge badge--category">${catObj  &bull;  catObj.labelEN : 'General'}</span></td>
+            <td><span class="badge badge--category">${catObj ? catObj.labelEN : 'General'}</span></td>
             <td><span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span></td>
             <td>
               <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem;">
@@ -2076,8 +2075,7 @@
       }
 
       container.innerHTML = vendors.map(v => {
-        const invBadges = (v.invoicesLogged && v.invoicesLogged.length > 0)
-           &bull;  v.invoicesLogged.map(inv => `<span style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(212,175,55,0.1); padding:0.15rem 0.4rem; border-radius:4px; margin:0.1rem;">${inv}</span>`).join(' ')
+        const invBadges = (v.invoicesLogged && v.invoicesLogged.length > 0) ? v.invoicesLogged.map(inv => `<span style="display:inline-block; font-family:monospace; font-weight:700; font-size:0.75rem; color:var(--primary); background:rgba(212,175,55,0.1); padding:0.15rem 0.4rem; border-radius:4px; margin:0.1rem;">${inv}</span>`).join(' ')
           : '<span style="color:var(--text-muted); font-size:0.8rem;">No invoices logged</span>';
 
         return `
@@ -2093,7 +2091,7 @@
             </td>
             <td>${invBadges}</td>
             <td>
-              <span class="badge ${v.status === 'Verified Supplier'  &bull;  'badge--completed' : 'badge--verified'}">
+              <span class="badge ${v.status === 'Verified Supplier' ? 'badge--completed' : 'badge--verified'}">
                 <i class="fa-solid fa-shield-check"></i> ${v.status || 'Verified Supplier'}
               </span>
             </td>
@@ -2147,7 +2145,7 @@
     }
 
     function deleteVendorQuick(id) {
-      if (!confirm('Are you sure you want to remove this vendor &bull; ')) return;
+      if (!confirm('Are you sure you want to remove this vendor ? ')) return;
       if (window.MP && typeof MP.deleteVendor === 'function') {
         MP.deleteVendor(id);
         showToast('Vendor removed successfully.');
@@ -2166,7 +2164,7 @@
       const expenseBody = document.getElementById('admin-expense-body');
 
       // 1. Pending Donations (From Website Form Submissions)
-      const pendingDonations = (typeof MP.getPendingDonations === 'function')  &bull;  MP.getPendingDonations() : [];
+      const pendingDonations = (typeof MP.getPendingDonations === 'function') ? MP.getPendingDonations() : [];
       if (pendingCard) {
         if (pendingDonations.length > 0) {
           pendingCard.style.display = 'block';
@@ -2178,7 +2176,7 @@
                 <td><span style="font-size:0.8rem; color:var(--text-muted);">${d.date}</span></td>
                 <td>
                   <strong style="color:var(--text-primary);">${d.donorName || 'Anonymous'}</strong>
-                  ${d.email  &bull;  `<br><small style="color:var(--text-muted); font-size:0.75rem;">${d.email}</small>` : ''}
+                  ${d.email ? `<br><small style="color:var(--text-muted); font-size:0.75rem;">${d.email}</small>` : ''}
                 </td>
                 <td><strong style="font-family: monospace; color:var(--primary);">${d.projectId}</strong></td>
                 <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Direct Mosque Project Funding'}</td>
@@ -2240,8 +2238,8 @@
               <td style="font-size:0.85rem; color:var(--text-secondary);">${e.desc}</td>
               <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">₦${Number(e.amountNGN).toLocaleString()}</strong></td>
               <td>
-                <span class="badge ${e.status === 'Paid & Receipt Verified' || e.receiptVerified  &bull;  'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
-                  <i class="fa-solid fa-receipt"></i> ${e.status || (e.receiptVerified  &bull;  'Paid & Verified' : 'Invoice Received')}
+                <span class="badge ${e.status === 'Paid & Receipt Verified' || e.receiptVerified ? 'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
+                  <i class="fa-solid fa-receipt"></i> ${e.status || (e.receiptVerified ? 'Paid & Verified' : 'Invoice Received')}
                 </span>
               </td>
               <td>
@@ -2264,7 +2262,7 @@
       if (!window.MP) return;
       const matBody = document.getElementById('admin-material-donations-body');
       const matBadge = document.getElementById('admin-mat-badge');
-      const matList = (typeof MP.getMaterialDonations === 'function')  &bull;  MP.getMaterialDonations() : [];
+      const matList = (typeof MP.getMaterialDonations === 'function') ? MP.getMaterialDonations() : [];
 
       if (matBadge) matBadge.textContent = `${matList.length} Pledges Logged`;
 
@@ -2296,13 +2294,13 @@
                 </span>
               </td>
               <td>
-                <span class="badge" style="background:${isReceived  &bull;  'rgba(5,150,105,0.15)' : 'rgba(217,119,6,0.15)'}; color:${isReceived  &bull;  '#059669' : '#D97706'}; font-size:0.75rem; font-weight:800;">
-                  <i class="fa-solid ${isReceived  &bull;  'fa-circle-check' : 'fa-clock'}"></i> ${m.status || 'Pending Delivery'}
+                <span class="badge" style="background:${isReceived ? 'rgba(5,150,105,0.15)' : 'rgba(217,119,6,0.15)'}; color:${isReceived ? '#059669' : '#D97706'}; font-size:0.75rem; font-weight:800;">
+                  <i class="fa-solid ${isReceived ? 'fa-circle-check' : 'fa-clock'}"></i> ${m.status || 'Pending Delivery'}
                 </span>
               </td>
               <td>
                 <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-                  ${!isReceived  &bull;  `
+                  ${!isReceived ? `
                     <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:800;" onclick="markMaterialReceivedQuick('${m.ref}')" title="Acknowledge physical materials received on site">
                       <i class="fa-solid fa-circle-check"></i> Mark Received
                     </button>
@@ -2381,7 +2379,7 @@
               <small style="color: #64748B; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Delivery Logistics</small>
               <div style="font-size: 0.95rem; font-weight: 800; color: #13547A;">${m.deliveryPreference || 'Self-Delivery to Site'}</div>
               <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.5rem;">
-                Status: <strong style="color: ${m.status === 'Received on Site'  &bull;  '#059669' : '#D97706'};">${m.status || 'Pending Delivery / Pickup'}</strong>
+                Status: <strong style="color: ${m.status === 'Received on Site' ? '#059669' : '#D97706'};">${m.status || 'Pending Delivery / Pickup'}</strong>
               </div>
             </div>
           </div>
@@ -2499,7 +2497,7 @@
     function toggleReceiptNoInput(statusVal) {
       const wrap = document.getElementById('exp-receipt-wrap');
       if (wrap) {
-        wrap.style.display = (statusVal === 'Paid & Receipt Verified')  &bull;  'block' : 'none';
+        wrap.style.display = (statusVal === 'Paid & Receipt Verified') ? 'block' : 'none';
       }
     }
 
@@ -2522,7 +2520,7 @@
         desc: desc,
         vendor: vendor,
         invoiceNo: invNo,
-        receiptNo: isPaid  &bull;  (receiptNo || 'REC-' + invNo) : null,
+        receiptNo: isPaid ? (receiptNo || 'REC-' + invNo) : null,
         amountNGN: amount,
         receiptVerified: isPaid,
         status: status
@@ -2576,7 +2574,7 @@
               <div>
                 <div style="font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; color: #0F172A; letter-spacing: 1px;">MASJID PROJECT</div>
                 <div style="font-family: 'Amiri', serif; font-size: 1.1rem; color: #D4AF37; margin-top: -2px;">Ù…Ø´Ø±ÙˆØ¹ Ø§Ù„Ù…Ø³Ø¬Ø¯ &bull; A Sadaqah Jariyah Initiative</div>
-                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem;">Nonprofit Initiative &bull; Transparency-First Masjid Care</div>
+                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem;">Nonprofit Initiative ? Transparency-First Masjid Care</div>
               </div>
               <div style="text-align: right;">
                 <span style="background: #059669; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Official Receipt</span>
@@ -2662,7 +2660,7 @@
                 <div style="font-size: 0.8rem; color: #64748B;">Registered for Masajid Project Facilities</div>
               </div>
               <div style="text-align: right;">
-                <span style="background: ${isPaid  &bull;  '#059669' : '#D97706'}; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase;">${isPaid  &bull;  'Paid Invoice & Receipt' : 'Proforma Quotation'}</span>
+                <span style="background: ${isPaid ? '#059669' : '#D97706'}; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase;">${isPaid ? 'Paid Invoice & Receipt' : 'Proforma Quotation'}</span>
                 <div style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: #0F172A; margin-top: 0.4rem;">${invNo}</div>
                 <div style="font-size: 0.8rem; color: #64748B;">Project: <strong>${projectCode}</strong></div>
               </div>
@@ -2677,8 +2675,8 @@
                   </div>
                   <div>
                     <small style="color: #64748B; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Disbursement Status</small>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid  &bull;  '#059669' : '#D97706'};">
-                      ${isPaid  &bull;  'PAID & RECEIPT ISSUED (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING MOSQUE PROJECT FUNDING'}
+                    <div style="font-size: 0.95rem; font-weight: 800; color: ${isPaid ? '#059669' : '#D97706'};">
+                      ${isPaid ? 'PAID & RECEIPT ISSUED (' + (receiptNo || 'VERIFIED') + ')' : 'AWAITING MOSQUE PROJECT FUNDING'}
                     </div>
                   </div>
                 </div>
@@ -2716,8 +2714,8 @@
                 Verified Technical Scope by Masajid Project Operations & Audit Team.
               </div>
               <div style="text-align: right;">
-                <div style="border: 2px solid ${isPaid  &bull;  '#059669' : '#D97706'}; color: ${isPaid  &bull;  '#059669' : '#D97706'}; padding: 0.35rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; display: inline-block;">
-                  ${isPaid  &bull;  'âœ“ OFFICIAL CONTRACTOR RECEIPT' : 'âœ“ AUDITED QUOTATION SPECIFICATION'}
+                <div style="border: 2px solid ${isPaid ? '#059669' : '#D97706'}; color: ${isPaid ? '#059669' : '#D97706'}; padding: 0.35rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; display: inline-block;">
+                  ${isPaid ? 'âœ“ OFFICIAL CONTRACTOR RECEIPT' : 'âœ“ AUDITED QUOTATION SPECIFICATION'}
                 </div>
               </div>
             </div>
@@ -2795,9 +2793,9 @@
           </td>
           <td>
             <select class="form-select edit-scope-item-status" style="font-size:0.8rem; padding:0.35rem 0.5rem; width:100%;">
-              <option value="Paid & Receipt Verified" ${s.status && (s.status.includes('Paid') || s.status.includes('Verified'))  &bull;  'selected' : ''}>Paid & Verified âœ“</option>
-              <option value="Unpaid / Awaiting Donation" ${s.status && (s.status.includes('Unpaid') || s.status.includes('Awaiting'))  &bull;  'selected' : ''}>Awaiting Donation</option>
-              <option value="In Progress" ${s.status && s.status.includes('Progress')  &bull;  'selected' : ''}>In Progress</option>
+              <option value="Paid & Receipt Verified" ${s.status && (s.status.includes('Paid') || s.status.includes('Verified')) ? 'selected' : ''}>Paid & Verified âœ“</option>
+              <option value="Unpaid / Awaiting Donation" ${s.status && (s.status.includes('Unpaid') || s.status.includes('Awaiting')) ? 'selected' : ''}>Awaiting Donation</option>
+              <option value="In Progress" ${s.status && s.status.includes('Progress') ? 'selected' : ''}>In Progress</option>
             </select>
           </td>
           <td style="text-align: center;">
@@ -2824,9 +2822,9 @@
         </td>
         <td>
           <select class="form-select edit-scope-item-status" style="font-size:0.8rem; padding:0.35rem 0.5rem; width:100%;">
-            <option value="Paid & Receipt Verified" ${status && (status.includes('Paid') || status.includes('Verified'))  &bull;  'selected' : ''}>Paid & Verified âœ“</option>
-            <option value="Unpaid / Awaiting Donation" ${status && (status.includes('Unpaid') || status.includes('Awaiting'))  &bull;  'selected' : ''}>Awaiting Donation</option>
-            <option value="In Progress" ${status && status.includes('Progress')  &bull;  'selected' : ''}>In Progress</option>
+            <option value="Paid & Receipt Verified" ${status && (status.includes('Paid') || status.includes('Verified')) ? 'selected' : ''}>Paid & Verified âœ“</option>
+            <option value="Unpaid / Awaiting Donation" ${status && (status.includes('Unpaid') || status.includes('Awaiting')) ? 'selected' : ''}>Awaiting Donation</option>
+            <option value="In Progress" ${status && status.includes('Progress') ? 'selected' : ''}>In Progress</option>
           </select>
         </td>
         <td style="text-align: center;">
@@ -2873,7 +2871,7 @@
 
     function openEditProjectModal(projId) {
       if (!window.MP) return;
-      const proj = (typeof MP.getProject === 'function')  &bull;  MP.getProject(projId) : (MP.projects || []).find(p => p.id === projId);
+      const proj = (typeof MP.getProject === 'function') ? MP.getProject(projId) : (MP.projects || []).find(p => p.id === projId);
       if (!proj) return;
 
       const modal = document.getElementById('modal-edit-project');
@@ -2887,7 +2885,7 @@
       document.getElementById('edit-proj-mosque').value = proj.mosqueName || '';
       document.getElementById('edit-proj-location').value = proj.location || '';
       document.getElementById('edit-proj-cat').value = proj.categoryId || 'general';
-      document.getElementById('edit-proj-status').value = proj.status  &bull;  proj.status.toUpperCase() : 'IN_PROGRESS';
+      document.getElementById('edit-proj-status').value = proj.status ? proj.status.toUpperCase() : 'IN_PROGRESS';
       document.getElementById('edit-proj-featured').checked = !!proj.isFeatured;
       document.getElementById('edit-proj-goal').value = proj.goalNGN || 0;
       document.getElementById('edit-proj-raised').value = proj.raisedNGN || 0;
@@ -2911,7 +2909,7 @@
       if (!window.MP) return;
 
       const id = document.getElementById('edit-proj-id').value;
-      const proj = (typeof MP.getProject === 'function')  &bull;  MP.getProject(id) : (MP.projects || []).find(p => p.id === id);
+      const proj = (typeof MP.getProject === 'function') ? MP.getProject(id) : (MP.projects || []).find(p => p.id === id);
       if (!proj) return;
 
       const titleEn = document.getElementById('edit-proj-title-en').value.trim();
@@ -2941,7 +2939,7 @@
         if (nameInput && costInput) {
           const itemTitle = nameInput.value.trim();
           const itemCost = parseFloat(costInput.value) || 0;
-          const itemStatus = statusSelect  &bull;  statusSelect.value : 'Unpaid / Awaiting Donation';
+          const itemStatus = statusSelect ? statusSelect.value : 'Unpaid / Awaiting Donation';
           if (itemTitle) {
             updatedScope.push({
               item: itemTitle,
@@ -2970,7 +2968,7 @@
       if (updatedScope.length > 0) {
         proj.scope = updatedScope;
         const scopeSum = updatedScope.reduce((sum, s) => sum + (Number(s.costNGN) || 0), 0);
-        proj.goalNGN = goal > 0  &bull;  goal : scopeSum;
+        proj.goalNGN = goal > 0 ? goal : scopeSum;
       } else {
         proj.goalNGN = goal;
       }
@@ -3101,14 +3099,14 @@
             <td><span style="font-family: monospace; font-size: 0.8rem; font-weight:700;">${n.id}</span></td>
             <td><strong>${n.masjidName}</strong><br><small style="color:var(--text-muted);">${n.city || ''}, ${n.state || ''}</small></td>
             <td>${(n.needTypes || ['General']).join(', ')}</td>
-            <td><span class="badge" style="background:${n.urgency==='High' &bull; 'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High' &bull; '#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
+            <td><span class="badge" style="background:${n.urgency==='High' ? 'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High' ? '#EF4444':'#D97706'};">${n.urgency || 'Medium'}</span></td>
             <td>${mediaCell}</td>
-            <td><span class="badge ${n.status === 'Approved'  &bull;  'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
+            <td><span class="badge ${n.status === 'Approved' ? 'badge--completed' : 'badge--category'}">${n.status || 'Pending Review'}</span></td>
             <td>
               <div style="display:flex; gap:0.4rem; align-items:center;">
-                ${n.status !== 'Approved'  &bull;  `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:700;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Approved</span>`}
+                ${n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:700;" onclick="approveNomination('${n.id}')"><i class="fa-solid fa-check"></i> Approve</button>` : `<span style="font-size:0.75rem; color:#059669; font-weight:700;"><i class="fa-solid fa-circle-check"></i> Approved</span>`}
                 <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:var(--primary); border-color:var(--primary); font-weight:700;" onclick="openNominationDetailsModal('${n.id}')"><i class="fa-solid fa-eye"></i> View Details</button>
-                ${n.status !== 'Declined' && n.status !== 'Approved'  &bull;  `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
+                ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineNomination('${n.id}')">Decline</button>` : ''}
               </div>
             </td>
           </tr>
@@ -3141,19 +3139,18 @@
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem;">
                 ${n.mediaFiles.map((m, idx) => {
-                  const fileName = m.name || `nomination-${n.id}-file-${idx + 1}.${m.type === 'video'  &bull;  'mp4' : 'jpg'}`;
+                  const fileName = m.name || `nomination-${n.id}-file-${idx + 1}.${m.type === 'video' ? 'mp4' : 'jpg'}`;
                   return `
                     <div style="background: #0F172A; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border-card); display: flex; flex-direction: column;">
                       <div style="height: 140px; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                        ${m.type === 'video' 
-                           &bull;  `<video src="${m.dataUrl}" controls style="width: 100%; height: 100%; object-fit: contain;"></video>`
+                        ${m.type === 'video' ? `<video src="${m.dataUrl}" controls style="width: 100%; height: 100%; object-fit: contain;"></video>`
                           : `<a href="${m.dataUrl}" target="_blank" title="Click to view full image"><img src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;"></a>`
                         }
                       </div>
                       <div style="padding: 0.5rem 0.65rem; background: #0B132B; color: #FFF; font-size: 0.725rem; display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
                         <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100px;">
                           <span style="display: block; font-weight: 700; color: #F1F5F9; overflow: hidden; text-overflow: ellipsis;" title="${fileName}">${fileName}</span>
-                          <span style="color: var(--text-muted); font-size: 0.65rem;">${m.size || (m.type === 'video'  &bull;  'Video clip' : 'Image')}</span>
+                          <span style="color: var(--text-muted); font-size: 0.65rem;">${m.size || (m.type === 'video' ? 'Video clip' : 'Image')}</span>
                         </div>
                         <a href="${m.dataUrl}" download="${fileName}" class="btn" style="background: #13547A; color: #FFFFFF; padding: 0.3rem 0.6rem; font-size: 0.725rem; font-weight: 800; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; border: none; white-space: nowrap;" title="Download to device">
                           <i class="fa-solid fa-download"></i> Download
@@ -3181,7 +3178,7 @@
           `;
         }
 
-        const categoryDisplay = (n.needTypes && n.needTypes.length > 0)  &bull;  n.needTypes.join(', ') : (n.category || 'General Mosque Need');
+        const categoryDisplay = (n.needTypes && n.needTypes.length > 0) ? n.needTypes.join(', ') : (n.category || 'General Mosque Need');
         const submitDate = n.date || n.createdAt || 'Recent Submission';
 
         bodyEl.innerHTML = `
@@ -3196,7 +3193,7 @@
               <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-left: 0.35rem;">${submitDate}</span>
             </div>
             <div>
-              <span class="badge ${n.status === 'Approved'  &bull;  'badge--completed' : (n.status === 'Declined'  &bull;  'badge--urgent' : 'badge--category')}">
+              <span class="badge ${n.status === 'Approved' ? 'badge--completed' : (n.status === 'Declined' ? 'badge--urgent' : 'badge--category')}">
                 ${n.status || 'Pending Review'}
               </span>
             </div>
@@ -3245,7 +3242,7 @@
               <div>
                 <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Urgency Assessment</small>
                 <div style="margin-top: 3px;">
-                  <span class="badge" style="background:${n.urgency==='High' &bull; 'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High' &bull; '#EF4444':'#D97706'}; font-weight: 800;">
+                  <span class="badge" style="background:${n.urgency==='High' ? 'rgba(239,68,68,0.15)':'rgba(217,119,6,0.15)'}; color:${n.urgency==='High' ? '#EF4444':'#D97706'}; font-weight: 800;">
                     <i class="fa-solid fa-triangle-exclamation"></i> ${n.urgency || 'Medium'} Urgency
                   </span>
                 </div>
@@ -3291,8 +3288,8 @@
           <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <span style="font-size: 0.85rem; color: var(--text-muted);">Current Status: <strong>${n.status || 'Pending Review'}</strong></span>
             <div style="display: flex; gap: 0.5rem;">
-              ${n.status !== 'Approved'  &bull;  `<button class="btn btn--primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;" onclick="approveNomination('${n.id}'); closeModal('modal-nomination-details');"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
-              ${n.status !== 'Declined' && n.status !== 'Approved'  &bull;  `<button class="btn btn--outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; color: #EF4444; border-color: #FCA5A5;" onclick="declineNomination('${n.id}'); closeModal('modal-nomination-details');">Decline</button>` : ''}
+              ${n.status !== 'Approved' ? `<button class="btn btn--primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;" onclick="approveNomination('${n.id}'); closeModal('modal-nomination-details');"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
+              ${n.status !== 'Declined' && n.status !== 'Approved' ? `<button class="btn btn--outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; color: #EF4444; border-color: #FCA5A5;" onclick="declineNomination('${n.id}'); closeModal('modal-nomination-details');">Decline</button>` : ''}
               <button class="btn btn--outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="closeModal('modal-nomination-details')">Close</button>
             </div>
           </div>
@@ -3403,7 +3400,7 @@
         imageUrl: finalImage,
         videoUrl: finalVideo,
         excerpt: excerpt || body.slice(0, 140) + '...',
-        content: body.includes('<p>')  &bull;  body : `<p>${body.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`,
+        content: body.includes('<p>') ? body : `<p>${body.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`,
         readTime: `${Math.max(1, Math.round(body.split(' ').length / 180))} min read`,
         date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
       };
@@ -3511,7 +3508,7 @@
 
       if (!title || !body) return;
 
-      const articles = (window.MP && typeof MP.getArticles === 'function')  &bull;  MP.getArticles() : (defaultArticles || []);
+      const articles = (window.MP && typeof MP.getArticles === 'function') ? MP.getArticles() : (defaultArticles || []);
       const cleanId = String(id).toLowerCase().trim();
       const existing = articles.find(a => String(a.id).toLowerCase() === cleanId || (a.slug && a.slug.toLowerCase() === cleanId)) || {};
 
@@ -3526,7 +3523,7 @@
         author: author,
         imageUrl: finalImage,
         excerpt: excerpt || body.slice(0, 140) + '...',
-        content: body.includes('<p>')  &bull;  body : `<p>${body.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`,
+        content: body.includes('<p>') ? body : `<p>${body.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`,
         readTime: `${Math.max(1, Math.round(body.split(' ').length / 180))} min read`
       };
 
@@ -3597,7 +3594,7 @@
             <td><strong>${c.author}</strong><br><small style="color:var(--text-muted);">${c.email}</small></td>
             <td><span style="font-size:0.8rem; font-family:monospace;">${c.articleSlug}</span></td>
             <td>${c.comment}</td>
-            <td><span class="badge" style="background:${c.status==='approved' &bull; 'rgba(5,150,105,0.15)':'rgba(217,119,6,0.15)'}; color:${c.status==='approved' &bull; '#059669':'#D97706'};">${c.status}</span></td>
+            <td><span class="badge" style="background:${c.status==='approved' ? 'rgba(5,150,105,0.15)':'rgba(217,119,6,0.15)'}; color:${c.status==='approved' ? '#059669':'#D97706'};">${c.status}</span></td>
             <td>
               <div style="display:flex; gap:0.4rem;">
                 <button class="btn btn--outline" style="padding:0.3rem 0.6rem; font-size:0.75rem; color:#059669; border-color:#059669;" onclick="updateCommentStatusQuick('${c.id}', 'approved')">Approve</button>
@@ -3610,7 +3607,7 @@
     }
 
     function deleteArticleQuick(artId) {
-      if (!confirm('Are you sure you want to delete this article &bull; ')) return;
+      if (!confirm('Are you sure you want to delete this article ? ')) return;
       if (window.MP) {
         MP.deleteArticle(artId);
         showToast('Article deleted successfully.');
@@ -3637,8 +3634,8 @@
           <td><strong>${p.titleEN}</strong></td>
           <td><span class="badge badge--category">${p.status}</span></td>
           <td>
-            <button class="btn ${p.isFeatured  &bull;  'btn--primary' : 'btn--outline'}" style="padding:0.35rem 0.85rem; font-size:0.8rem; cursor:pointer;" onclick="toggleFeaturedQuick('${p.id}')">
-              <i class="fa-${p.isFeatured  &bull;  'solid' : 'regular'} fa-star" style="margin-right:0.35rem; color:${p.isFeatured  &bull;  '#F59E0B' : 'inherit'};"></i> ${p.isFeatured  &bull;  'Featured on Homepage' : 'Click to Star as Featured'}
+            <button class="btn ${p.isFeatured ? 'btn--primary' : 'btn--outline'}" style="padding:0.35rem 0.85rem; font-size:0.8rem; cursor:pointer;" onclick="toggleFeaturedQuick('${p.id}')">
+              <i class="fa-${p.isFeatured ? 'solid' : 'regular'} fa-star" style="margin-right:0.35rem; color:${p.isFeatured ? '#F59E0B' : 'inherit'};"></i> ${p.isFeatured ? 'Featured on Homepage' : 'Click to Star as Featured'}
             </button>
           </td>
         </tr>

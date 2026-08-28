@@ -293,7 +293,7 @@
       if (breadId) breadId.textContent = proj.id;
 
       const catBadge = document.getElementById('proj-badge-cat');
-      if (catBadge) catBadge.textContent = catObj  &bull;  catObj.labelEN : 'General';
+      if (catBadge) catBadge.textContent = catObj ? catObj.labelEN : 'General';
 
       const statusBadge = document.getElementById('proj-badge-status');
       if (statusBadge) {
@@ -353,7 +353,7 @@
             <tr>
               <td style="color:var(--text-primary); font-weight:600;">${s.item}</td>
               <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">₦${Number(s.costNGN).toLocaleString()}</td>
-              <td><span class="badge ${s.status && (s.status.includes('Paid') || s.status.includes('Verified'))  &bull;  'badge--completed' : 'badge--category'}">${s.status}</span></td>
+              <td><span class="badge ${s.status && (s.status.includes('Paid') || s.status.includes('Verified')) ? 'badge--completed' : 'badge--category'}">${s.status}</span></td>
             </tr>
           `).join('');
         } else {
@@ -376,8 +376,8 @@
             <td><span style="font-family:monospace; font-weight:700; color:var(--primary);">${q.invoiceNo}</span></td>
             <td><strong style="color:var(--primary);" data-amount="${q.amountNGN}">₦${Number(q.amountNGN).toLocaleString()}</strong></td>
             <td>
-              <span class="badge ${q.status.includes('Paid')  &bull;  'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
-                <i class="fa-solid ${q.status.includes('Paid')  &bull;  'fa-receipt' : 'fa-file-invoice'}"></i> ${q.status}
+              <span class="badge ${q.status.includes('Paid') ? 'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
+                <i class="fa-solid ${q.status.includes('Paid') ? 'fa-receipt' : 'fa-file-invoice'}"></i> ${q.status}
               </span>
             </td>
           </tr>
@@ -388,10 +388,10 @@
       const timelineBox = document.getElementById('proj-timeline-list');
       if (timelineBox && proj.timeline && proj.timeline.length > 0) {
         timelineBox.innerHTML = proj.timeline.map(t => `
-          <div style="display:flex; gap:1rem; align-items:flex-start; background:var(--bg-surface); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid ${t.done  &bull;  'var(--emerald)' : 'var(--border-light)'};">
-            <i class="fa-solid ${t.done  &bull;  'fa-circle-check' : 'fa-circle-notch'}" style="color:${t.done  &bull;  'var(--emerald)' : 'var(--text-muted)'}; margin-top:0.25rem;"></i>
+          <div style="display:flex; gap:1rem; align-items:flex-start; background:var(--bg-surface); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid ${t.done ? 'var(--emerald)' : 'var(--border-light)'};">
+            <i class="fa-solid ${t.done ? 'fa-circle-check' : 'fa-circle-notch'}" style="color:${t.done ? 'var(--emerald)' : 'var(--text-muted)'}; margin-top:0.25rem;"></i>
             <div>
-              <div style="font-weight:600; color:${t.done  &bull;  'var(--text-primary)' : 'var(--text-muted)'};">${t.event}</div>
+              <div style="font-weight:600; color:${t.done ? 'var(--text-primary)' : 'var(--text-muted)'};">${t.event}</div>
               <div style="font-size:0.8rem; color:var(--text-muted);">${t.date}</div>
             </div>
           </div>
@@ -405,7 +405,7 @@
       // Dynamic supporters calculation
       const projectDonations = (typeof MP.getDonations === 'function') ? MP.getDonations().filter(d => d.projectId === proj.id)
         : [];
-      const calculatedSupporters = (projectDonations.length > 0)  &bull;  projectDonations.length : (proj.supporters || 0);
+      const calculatedSupporters = (projectDonations.length > 0) ? projectDonations.length : (proj.supporters || 0);
 
       const supportersCount = document.getElementById('proj-supporters-count');
       if (supportersCount) supportersCount.textContent = calculatedSupporters;
@@ -427,7 +427,7 @@
           donateBtn.style.borderColor = 'var(--emerald)';
         } else {
           donateBtn.textContent = 'Support This Project';
-          donateBtn.href = `donate.html &bull; project=${proj.id}`;
+          donateBtn.href = `donate.html ? project=${proj.id}`;
         }
       }
 
@@ -441,7 +441,7 @@
       const imgEl = document.getElementById('proj-main-img');
       if (!imgEl) return;
       const titleEl = document.getElementById('proj-title-en');
-      const captionText = `${titleEl  &bull;  titleEl.textContent : 'Project Photo'} — Field Documentation`;
+      const captionText = `${titleEl ? titleEl.textContent : 'Project Photo'} — Field Documentation`;
       openLightbox(imgEl.src, captionText);
     }
 

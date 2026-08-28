@@ -505,7 +505,7 @@
 
     function renderArticle() {
       const slug = getArticleSlugFromUrl();
-      currentArticle = window.MP  &bull;  MP.getArticleBySlug(slug) : null;
+      currentArticle = window.MP ? MP.getArticleBySlug(slug) : null;
       if (!currentArticle) return;
 
       document.title = `${currentArticle.title} — Masajid Project`;

@@ -812,7 +812,7 @@
       const container = document.getElementById('homepage-projects');
       if (!container || !window.MP) return;
 
-      const activeCurr = (typeof window.currentCurrency !== 'undefined')  &bull;  window.currentCurrency : 'NGN';
+      const activeCurr = (typeof window.currentCurrency !== 'undefined') ? window.currentCurrency : 'NGN';
       const allProjects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []); 
       const normFilter = String(filter).toLowerCase().replace('_', '-');
 
@@ -832,7 +832,7 @@
 
       container.innerHTML = matching.map(p => {
         const catObj = MP.getCategory(p.categoryId);
-        const catLabel = catObj  &bull;  catObj.labelEN : 'General';
+        const catLabel = catObj ? catObj.labelEN : 'General';
         const percent = MP.getProgressPercent(p);
         const statusObj = MP.statuses[p.status.toUpperCase()] || { label: p.status, color: '#94a3b8' };
         const statusSlug = p.status.toLowerCase().replace('_', '-');
@@ -844,14 +844,14 @@
               <div class="badges">
                 <span class="badge badge--category">${catLabel}</span>
                 <span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span>
-                ${p.isFeatured  &bull;  '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+                ${p.isFeatured ? '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
               </div>
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">${p.titleEN}</h3>
-              <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>${p.mosqueName  &bull;  p.mosqueName + ', ' : ''}${MP.getLocation(p)}</div>
+              <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>${p.mosqueName ? p.mosqueName + ', ' : ''}${MP.getLocation(p)}</div>
               <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom: 1rem; line-height:1.6;">
-                ${p.descriptionEN  &bull;  (p.descriptionEN.length > 130  &bull;  p.descriptionEN.substring(0, 130) + '...' : p.descriptionEN) : ''}
+                ${p.descriptionEN ? (p.descriptionEN.length > 130 ? p.descriptionEN.substring(0, 130) + '...' : p.descriptionEN) : ''}
               </p>
               <div class="project-card__progress">
                 <div class="progress-bar-container">
@@ -865,8 +865,8 @@
               </div>
             </div>
             <div class="project-card__footer">
-              <a href="project-detail &bull; id=${p.id}" class="btn ${isCompleted  &bull;  'btn--outline' : 'btn--primary'} project-card__btn">
-                ${isCompleted  &bull;  '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
+              <a href="project-detail?id=${p.id}" class="btn ${isCompleted ? 'btn--outline' : 'btn--primary'} project-card__btn">
+                ${isCompleted ? '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
               </a>
             </div>
           </div>
@@ -898,7 +898,7 @@
       if (!container || !window.MP) return;
 
       container.innerHTML = MP.categories.map(c => `
-        <div class="category-card" onclick="window.location.href='projects &bull; cat=${c.id}'">
+        <div class="category-card" onclick="window.location.href='projects?cat=${c.id}'">
           <div class="category-icon-box">
             <i class="${c.iconClass}"></i>
           </div>
@@ -1042,18 +1042,18 @@
             <div><strong style="color:var(--primary);">Amount Raised & Spent:</strong> <span data-amount="${p.spentNGN || p.raisedNGN}">₦${Number(p.spentNGN || p.raisedNGN).toLocaleString()}</span></div>
             <div><strong style="color:var(--primary);">Location:</strong> ${p.location}</div>
           </div>
-          <a href="project-detail &bull; id=${p.id}" class="btn btn--outline">View Full Impact Report</a>
+          <a href="project-detail?id=${p.id}" class="btn btn--outline">View Full Impact Report</a>
         </div>
       `;
     }
 
     function syncHomepageStats() {
       if (!window.MP) return;
-      const stats = (typeof MP.stats !== 'undefined')  &bull;  MP.stats : {};
-      const completedCount = (typeof stats.projectsCompleted !== 'undefined')  &bull;  stats.projectsCompleted : (typeof MP.getCompletedProjects === 'function'  &bull;  MP.getCompletedProjects().length : 1);
-      const activeCount = (typeof stats.activeProjects !== 'undefined')  &bull;  stats.activeProjects : (typeof MP.getActiveProjects === 'function'  &bull;  MP.getActiveProjects().length : 2);
-      const totalRaised = (typeof stats.totalRaisedNGN !== 'undefined')  &bull;  stats.totalRaisedNGN : 155500;
-      const masajidCount = (typeof stats.masajidSupported !== 'undefined')  &bull;  stats.masajidSupported : 3;
+      const stats = (typeof MP.stats !== 'undefined') ? MP.stats : {};
+      const completedCount = (typeof stats.projectsCompleted !== 'undefined') ? stats.projectsCompleted : (typeof MP.getCompletedProjects === 'function' ? MP.getCompletedProjects().length : 1);
+      const activeCount = (typeof stats.activeProjects !== 'undefined') ? stats.activeProjects : (typeof MP.getActiveProjects === 'function' ? MP.getActiveProjects().length : 2);
+      const totalRaised = (typeof stats.totalRaisedNGN !== 'undefined') ? stats.totalRaisedNGN : 155500;
+      const masajidCount = (typeof stats.masajidSupported !== 'undefined') ? stats.masajidSupported : 3;
 
       const statCards = document.querySelectorAll('.stats-strip .stat-card-bento');
       if (statCards.length >= 4) {
@@ -1069,7 +1069,7 @@
         const c2 = statCards[1].querySelector('.stat-number-animated');
         if (c2) { 
           c2.setAttribute('data-amount', totalRaised); 
-          c2.textContent = (typeof MP.formatCurrency === 'function')  &bull;  MP.formatCurrency(totalRaised, currentCurrency || 'NGN') : `₦${Number(totalRaised).toLocaleString()}`; 
+          c2.textContent = (typeof MP.formatCurrency === 'function') ? MP.formatCurrency(totalRaised, currentCurrency || 'NGN') : `₦${Number(totalRaised).toLocaleString()}`; 
         }
 
         // Card 3: Masajid Supported
@@ -1094,7 +1094,7 @@
     if (window.MP) {
       MP.onDataChange = function(key) {
         if (key === 'projects' || key === 'donations') {
-          const activeFilter = document.querySelector('.filter-btn.active') &bull; .getAttribute('data-filter') || 'all';
+          const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
           renderHomepageProjects(activeFilter);
           renderRecentCompletion();
           syncHomepageStats();

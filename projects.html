@@ -243,7 +243,7 @@
 
       grid.innerHTML = projects.map(p => {
         const catObj = MP.getCategory(p.categoryId);
-        const catLabel = catObj  &bull;  catObj.labelEN : 'General';
+        const catLabel = catObj ? catObj.labelEN : 'General';
         const percent = MP.getProgressPercent(p);
         const statusObj = MP.statuses[p.status.toUpperCase()] || { label: p.status, color: '#94a3b8' };
         const statusSlug = p.status.toLowerCase().replace(/_/g, '-');
@@ -255,14 +255,14 @@
             <div class="badges">
               <span class="badge badge--category">${catLabel}</span>
               <span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span>
-              ${p.isFeatured  &bull;  '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
+              ${p.isFeatured ? '<span class="badge" style="background:rgba(245,158,11,0.15); color:#D97706; border:1px solid rgba(245,158,11,0.3); font-weight:800;"><i class="fa-solid fa-star"></i> Featured</span>' : ''}
             </div>
           </div>
           <div class="project-card__body">
             <h3 class="project-card__title">${p.titleEN}</h3>
             <div class="project-card__location"><i class="fa-solid fa-location-dot" style="color:var(--primary); margin-right:0.3rem;"></i>${p.mosqueName || ''}, ${MP.getLocation(p)}</div>
             <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.85rem; line-height:1.5;">
-              ${p.descriptionEN  &bull;  p.descriptionEN.substring(0, 140) + '...' : ''}
+              ${p.descriptionEN ? p.descriptionEN.substring(0, 140) + '...' : ''}
             </p>
             <div class="project-card__progress">
               <div class="progress-bar-container">
@@ -276,8 +276,8 @@
             </div>
           </div>
           <div class="project-card__footer">
-            <a href="project-detail &bull; id=${p.id}" class="btn ${isCompleted  &bull;  'btn--outline' : 'btn--primary'} project-card__btn">
-              ${isCompleted  &bull;  '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
+            <a href="project-detail?id=${p.id}" class="btn ${isCompleted ? 'btn--outline' : 'btn--primary'} project-card__btn">
+              ${isCompleted ? '<i class="fa-solid fa-circle-check" style="color:var(--emerald);"></i> View Impact Record' : 'Support This Project'}
             </a>
           </div>
         </div>
@@ -298,7 +298,7 @@
 
     function filterProjects() {
       const searchInput = document.getElementById('project-search');
-      const query = (searchInput  &bull;  searchInput.value : '').toLowerCase().trim();
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
       const grid = document.getElementById('all-projects-grid');
       const countText = document.getElementById('results-count-text');
 
