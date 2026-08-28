@@ -13,13 +13,13 @@
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Our Projects â€” Masajid Project">
+  <meta property="og:title" content="Our Projects — Masajid Project">
   <meta property="og:description" content="Browse verified mosque improvement projects from lighting and solar power to deep sanitation and Qur'ans.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Our Projects â€” Masajid Project">
+  <meta name="twitter:title" content="Our Projects — Masajid Project">
   <meta name="twitter:description" content="Browse verified mosque improvement projects from lighting and solar power to deep sanitation and Qur'ans.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -123,9 +123,9 @@
                 <div class="progress-bar" style="width: 100%; background: var(--emerald);"></div>
               </div>
               <div class="progress-stats">
-                <span>Raised: <strong data-amount="104000">â‚¦104,000</strong></span>
+                <span>Raised: <strong data-amount="104000">₦104,000</strong></span>
                 <span style="color:var(--emerald); font-weight:800;">100%</span>
-                <span>Target: <strong data-amount="104000">â‚¦104,000</strong></span>
+                <span>Target: <strong data-amount="104000">₦104,000</strong></span>
               </div>
             </div>
           </div>
@@ -153,9 +153,9 @@
                 <div class="progress-bar" style="width: 100%; background: var(--emerald);"></div>
               </div>
               <div class="progress-stats">
-                <span>Raised: <strong data-amount="104000">â‚¦104,000</strong></span>
+                <span>Raised: <strong data-amount="104000">₦104,000</strong></span>
                 <span style="color:var(--emerald); font-weight:800;">100%</span>
-                <span>Target: <strong data-amount="104000">â‚¦104,000</strong></span>
+                <span>Target: <strong data-amount="104000">₦104,000</strong></span>
               </div>
             </div>
           </div>
@@ -235,7 +235,7 @@
       const grid = document.getElementById('all-projects-grid');
       if (!grid || !window.MP) return;
 
-      const projects = (typeof MP.getProjects === 'function')  &bull;  MP.getProjects() : [];
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : [];
       if (projects.length === 0) {
         grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:3rem; color:var(--text-muted);">No projects found.</div>';
         return;
@@ -269,9 +269,9 @@
                 <div class="progress-bar" style="width: ${percent}%"></div>
               </div>
               <div class="progress-stats">
-                <span>Raised: <strong data-amount="${p.raisedNGN}">â‚¦${Number(p.raisedNGN).toLocaleString()}</strong></span>
+                <span>Raised: <strong data-amount="${p.raisedNGN}">₦${Number(p.raisedNGN).toLocaleString()}</strong></span>
                 <span style="color:var(--primary); font-weight:800;">${percent}%</span>
-                <span>Target: <strong data-amount="${p.goalNGN}">â‚¦${Number(p.goalNGN).toLocaleString()}</strong></span>
+                <span>Target: <strong data-amount="${p.goalNGN}">₦${Number(p.goalNGN).toLocaleString()}</strong></span>
               </div>
             </div>
           </div>

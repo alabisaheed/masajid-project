@@ -14,13 +14,13 @@
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Submit a Masjid Need â€” Masajid Project">
+  <meta property="og:title" content="Submit a Masjid Need — Masajid Project">
   <meta property="og:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Submit a Masjid Need â€” Masajid Project">
+  <meta name="twitter:title" content="Submit a Masjid Need — Masajid Project">
   <meta name="twitter:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -365,7 +365,7 @@
       const desc = document.getElementById('need-desc') &bull; .value.trim() || 'Essential mosque improvement need.';
       const submitter = document.getElementById('your-name') &bull; .value.trim() || 'Community Member';
       const contact = document.getElementById('your-contact') &bull; .value.trim() || 'N/A';
-      const videoLink = document.getElementById('media-drive-link') &bull; .value.trim() || '';
+      const videoLink = document.getElementById('media-drive-link')?.value.trim() || '';
 
       let saved = null;
       if (window.MP) {
@@ -386,7 +386,7 @@
         });
       }
 
-      const nomId = saved  &bull;  saved.id : ('NOM-' + Date.now());
+      const nomId = saved ? saved.id : ('NOM-' + Date.now());
       
       // Populate and show the confirmation modal
       const modalId = document.getElementById('success-nom-id');
@@ -398,7 +398,7 @@
       if (modalId) modalId.textContent = nomId;
       if (modalMasjid) modalMasjid.textContent = name;
       if (modalLocation) modalLocation.textContent = `${city}, ${state}`;
-      if (modalContact) modalContact.textContent = `${submitter} â€¢ ${contact}`;
+      if (modalContact) modalContact.textContent = `${submitter} &bull; ${contact}`;
       if (modalCategory) modalCategory.textContent = category;
 
       const modal = document.getElementById('modal-nomination-success');
@@ -469,7 +469,7 @@
 
         <div style="padding-top: 0.65rem; border-top: 1px dashed #CBD5E1;">
           <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Submitter / Contact Person:</span>
-          <div id="success-nom-contact" style="font-size: 0.875rem; font-weight: 700; color: #0F172A;">Saheed Alani â€¢ contact@email.com</div>
+          <div id="success-nom-contact" style="font-size: 0.875rem; font-weight: 700; color: #0F172A;">Saheed Alani &bull; contact@email.com</div>
         </div>
       </div>
 
@@ -478,7 +478,7 @@
           <i class="fa-solid fa-phone-volume" style="color: #13547A !important;"></i> What Happens Next &bull; 
         </h4>
         <p style="font-size: 0.8rem !important; color: #1E293B !important; margin: 0 !important; line-height: 1.45 !important; font-family: 'Figtree', sans-serif !important;">
-          Our assessment team will review the submitted details and contact the mosque representative within <strong style="color: #0F172A !important; font-weight: 800 !important;">48â€“72 hours</strong> to verify the need and schedule an on-site audit.
+          Our assessment team will review the submitted details and contact the mosque representative within <strong style="color: #0F172A !important; font-weight: 800 !important;">48–72 hours</strong> to verify the need and schedule an on-site audit.
         </p>
       </div>
 

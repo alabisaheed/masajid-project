@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog & Insights â€” Masajid Project</title>
+  <title>Blog & Insights — Masajid Project</title>
   <meta name="description" content="Field reports, governance updates, and Sadaqah Jariyah insights from the Masajid Project team.">
   
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Blog & Insights â€” Masajid Project">
+  <meta property="og:title" content="Blog & Insights — Masajid Project">
   <meta property="og:description" content="Field reports, governance updates, and Sadaqah Jariyah insights from the Masajid Project team.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blog & Insights â€” Masajid Project">
+  <meta name="twitter:title" content="Blog & Insights — Masajid Project">
   <meta name="twitter:description" content="Field reports, governance updates, and Sadaqah Jariyah insights from the Masajid Project team.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
 
@@ -258,7 +258,7 @@
   <section class="blog-hero">
     <div class="container">
       <h1 class="blog-hero-title">
-        Insights on Masajid Care & <span>Transparency.</span>
+        Insights on Alabi Saheed & <span>Transparency.</span>
       </h1>
       <p class="blog-hero-desc">
         Field reports, technical audit documentation, governance guides, and Sadaqah Jariyah impact stories from the Masajid Project team.
@@ -300,9 +300,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">MP</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Masajid Operations</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Aug 12, 2026</div>
             </div>
           </div>
@@ -320,9 +320,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">MP</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Masajid Editorial</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Aug 05, 2026</div>
             </div>
           </div>
@@ -340,9 +340,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">GT</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Governance Team</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Jul 28, 2026</div>
             </div>
           </div>
@@ -360,9 +360,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">MP</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Field Ops Team</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Jul 19, 2026</div>
             </div>
           </div>
@@ -380,9 +380,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">MP</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Masajid Care</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Jul 10, 2026</div>
             </div>
           </div>
@@ -400,9 +400,9 @@
             </p>
           </div>
           <div class="blog-card-author">
-            <div class="author-avatar">GT</div>
+            <div class="author-avatar">AS</div>
             <div class="author-info">
-              <div class="author-name">Audit Committee</div>
+              <div class="author-name">Alabi Saheed</div>
               <div class="author-date">Jun 25, 2026</div>
             </div>
           </div>
@@ -507,20 +507,20 @@
 
       container.innerHTML = filtered.map(a => {
         const catSlug = (a.category || 'Field Report').toLowerCase().replace(/\s+/g, '-');
-        const articleSlug = a.slug || (a.title  &bull;  a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : a.id);
+        const articleSlug = a.slug || (a.title ? a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : a.id);
         return `
           <a href="${articleSlug}" class="blog-card animate-in visible" data-category="${catSlug}" style="display:flex;">
-            ${a.imageUrl  &bull;  `
+            ${a.imageUrl ? `
               <div style="height:170px; overflow:hidden; border-radius: calc(var(--radius-md) - 2px) calc(var(--radius-md) - 2px) 0 0; margin:-1.5rem -1.5rem 1rem -1.5rem;">
                 <img src="${a.imageUrl}" alt="${a.title}" style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease;">
               </div>
             ` : ''}
             <div style="flex:1;">
               <div class="blog-card-top" style="justify-content: flex-end;">
-                ${a.videoUrl  &bull;  '<i class="fa-solid fa-play-circle" style="color:var(--primary); font-size:1.1rem;"></i>' : '<i class="fa-solid fa-thumbtack blog-card-pin"></i>'}
+                ${a.videoUrl ? '<i class="fa-solid fa-play-circle" style="color:var(--primary); font-size:1.1rem;"></i>' : '<i class="fa-solid fa-thumbtack blog-card-pin"></i>'}
               </div>
               <h3 class="blog-card-title">${a.title}</h3>
-              <p class="blog-card-excerpt">${a.excerpt || (a.content  &bull;  a.content.replace(/<[^>]*>/g, '').slice(0, 130) + '...' : '')}</p>
+              <p class="blog-card-excerpt">${a.excerpt || (a.content ? a.content.replace(/<[^>]*>/g, '').slice(0, 130) + '...' : '')}</p>
             </div>
             <div class="blog-card-author">
               <div class="author-avatar">${a.authorAvatar || 'AS'}</div>

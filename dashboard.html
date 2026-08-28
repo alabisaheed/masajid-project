@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard â€” Masajid Project</title>
+  <title>Admin Dashboard — Masajid Project</title>
   <meta name="description" content="Administrative Control Panel for Masajid Project Initiative. Manage projects, track inflows/expenditures, audit vendors, and generate reports.">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2 &bull; family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
@@ -573,7 +573,7 @@
                 <div class="stat-icon-circle" style="color: var(--emerald); background: var(--emerald-glow);"><i class="fa-solid fa-wallet"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" id="overview-total-inflows" data-amount="155500">â‚¦155,500</div>
+                <div class="admin-metric-card__value" id="overview-total-inflows" data-amount="155500">₦155,500</div>
                 <div class="admin-metric-card__label">Logged Donations Received</div>
               </div>
             </div>
@@ -584,7 +584,7 @@
                 <div class="stat-icon-circle" style="color: var(--primary); background: var(--primary-glow);"><i class="fa-solid fa-receipt"></i></div>
               </div>
               <div>
-                <div class="admin-metric-card__value" id="overview-total-spent" data-amount="155500">â‚¦155,500</div>
+                <div class="admin-metric-card__value" id="overview-total-spent" data-amount="155500">₦155,500</div>
                 <div class="admin-metric-card__label">Direct Contractor Disbursements</div>
               </div>
             </div>
@@ -1348,15 +1348,15 @@
           </h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
             <div class="form-group">
-              <label class="form-label">Goal Target Budget (â‚¦):</label>
+              <label class="form-label">Goal Target Budget (₦):</label>
               <input type="number" id="edit-proj-goal" class="form-input" min="0" placeholder="e.g. 164000" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Total Raised Amount (â‚¦):</label>
+              <label class="form-label">Total Raised Amount (₦):</label>
               <input type="number" id="edit-proj-raised" class="form-input" min="0" placeholder="e.g. 64000" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Total Spent Amount (â‚¦):</label>
+              <label class="form-label">Total Spent Amount (₦):</label>
               <input type="number" id="edit-proj-spent" class="form-input" min="0" placeholder="e.g. 64000" required>
             </div>
           </div>
@@ -1394,7 +1394,7 @@
               <thead>
                 <tr style="background: rgba(19, 84, 122, 0.08);">
                   <th style="width: 52%;">Deliverable Item / Activity</th>
-                  <th style="width: 24%;">Cost / Price (â‚¦)</th>
+                  <th style="width: 24%;">Cost / Price (₦)</th>
                   <th style="width: 18%;">Funding Status</th>
                   <th style="width: 6%; text-align: center;">âœ•</th>
                 </tr>
@@ -1410,7 +1410,7 @@
             </button>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
               <span style="font-size: 0.85rem; color: var(--text-muted);">Total Line Items Sum:</span>
-              <strong style="font-size: 1.05rem; color: var(--primary);" id="edit-proj-scope-sum">â‚¦0</strong>
+              <strong style="font-size: 1.05rem; color: var(--primary);" id="edit-proj-scope-sum">₦0</strong>
             </div>
           </div>
         </div>
@@ -1756,7 +1756,7 @@
             <label class="form-label">Payment & Receipt Status:</label>
             <select id="exp-status" class="form-select" onchange="toggleReceiptNoInput(this.value)">
               <option value="Paid & Receipt Verified">Paid & Receipt Verified âœ“</option>
-              <option value="Invoice Received (Unpaid â€” Awaiting Funding)">Invoice Received (Unpaid â€” No Receipt Yet)</option>
+              <option value="Invoice Received (Unpaid — Awaiting Funding)">Invoice Received (Unpaid — No Receipt Yet)</option>
             </select>
           </div>
           <div class="form-group" id="exp-receipt-wrap">
@@ -1900,7 +1900,7 @@
       if (!container || !window.MP) return;
 
       const mosques = (typeof MP.getMosques === 'function')  &bull;  MP.getMosques() : (MP.mosques || []);
-      const projects = (typeof MP.getProjects === 'function')  &bull;  MP.getProjects() : (MP.projects || []);
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []);
 
       const metricTotal = document.getElementById('mosques-metric-total');
       const metricInterventions = document.getElementById('mosques-metric-interventions');
@@ -1994,8 +1994,8 @@
 
     function renderOverviewExecutiveMetrics() {
       if (!window.MP) return;
-      const projects = (typeof MP.getProjects === 'function')  &bull;  MP.getProjects() : (MP.projects || []);
-      const donations = (typeof MP.getDonations === 'function')  &bull;  MP.getDonations() : (MP.donations || []);
+      const projects = (typeof MP.getProjects === 'function') ? MP.getProjects() : (MP.projects || []);
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : (MP.donations || []);
 
       const totalInflows = donations.reduce((sum, d) => sum + (Number(d.amountNGN) || 0), 0);
       const totalSpent = projects.reduce((sum, p) => sum + (Number(p.spentNGN) || 0), 0);
@@ -2009,11 +2009,11 @@
 
       if (inflowsEl) {
         inflowsEl.setAttribute('data-amount', totalInflows);
-        inflowsEl.textContent = `â‚¦${totalInflows.toLocaleString()}`;
+        inflowsEl.textContent = `₦${totalInflows.toLocaleString()}`;
       }
       if (spentEl) {
         spentEl.setAttribute('data-amount', totalSpent);
-        spentEl.textContent = `â‚¦${totalSpent.toLocaleString()}`;
+        spentEl.textContent = `₦${totalSpent.toLocaleString()}`;
       }
       if (activeEl) activeEl.textContent = activeProjects;
       if (mosqueEl) mosqueEl.textContent = uniqueMosques || 3;
@@ -2044,7 +2044,7 @@
             <td><span class="badge" style="background:${statusObj.color}20; color:${statusObj.color}; border:1px solid ${statusObj.color}50;">${statusObj.label}</span></td>
             <td>
               <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem;">
-                <span data-amount="${p.raisedNGN}">â‚¦${Number(p.raisedNGN).toLocaleString()}</span> / <span data-amount="${p.goalNGN}">â‚¦${Number(p.goalNGN).toLocaleString()}</span> <span style="color:var(--primary); font-weight:800;">(${percent}%)</span>
+                <span data-amount="${p.raisedNGN}">₦${Number(p.raisedNGN).toLocaleString()}</span> / <span data-amount="${p.goalNGN}">₦${Number(p.goalNGN).toLocaleString()}</span> <span style="color:var(--primary); font-weight:800;">(${percent}%)</span>
               </div>
               <div class="progress-bar-container" style="height: 6px; margin: 0;">
                 <div class="progress-bar" style="width: ${percent}%"></div>
@@ -2182,13 +2182,13 @@
                 </td>
                 <td><strong style="font-family: monospace; color:var(--primary);">${d.projectId}</strong></td>
                 <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Direct Mosque Project Funding'}</td>
-                <td><strong style="color: var(--amber); font-size:0.95rem;" data-amount="${d.amountNGN}">â‚¦${Number(d.amountNGN).toLocaleString()}</strong></td>
+                <td><strong style="color: var(--amber); font-size:0.95rem;" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
                 <td>
                   <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
                     <button class="btn btn--outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#059669; border-color:#059669; font-weight:800;" onclick="confirmDonationQuick('${d.ref}')" title="Acknowledge bank alert received & credit project">
                       <i class="fa-solid fa-circle-check"></i> Received & Acknowledged
                     </button>
-                    <button class="btn btn--outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineDonationQuick('${d.ref}')" title="Alert not received â€” do not credit">
+                    <button class="btn btn--outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#EF4444; border-color:#FCA5A5; font-weight:700;" onclick="declineDonationQuick('${d.ref}')" title="Alert not received — do not credit">
                       <i class="fa-solid fa-circle-xmark"></i> Not Received
                     </button>
                   </div>
@@ -2202,7 +2202,7 @@
       }
 
       // 2. Confirmed & Credited Inflows
-      const donations = (typeof MP.getDonations === 'function')  &bull;  MP.getDonations() : MP.donations;
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
       if (inflowBody && donations) {
         if (donations.length === 0) {
           inflowBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No verified inflows logged yet.</td></tr>`;
@@ -2213,7 +2213,7 @@
               <td><strong style="font-family: monospace;">${d.projectId}</strong></td>
               <td><span class="badge" style="background:rgba(2,132,199,0.1); color:#0284C7; font-weight:700;">${d.donorName || 'Anonymous'}</span></td>
               <td style="font-size:0.85rem; color:var(--text-secondary);">${d.purpose || 'Project Item Funding'}</td>
-              <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">â‚¦${Number(d.amountNGN).toLocaleString()}</strong></td>
+              <td><strong style="color: var(--emerald);" data-amount="${d.amountNGN}">₦${Number(d.amountNGN).toLocaleString()}</strong></td>
               <td><span class="badge badge--completed" style="font-size:0.7rem;"><i class="fa-solid fa-circle-check"></i> Credited to Project</span></td>
             </tr>
           `).join('');
@@ -2238,7 +2238,7 @@
               <td><strong style="font-family: monospace;">${e.projectCode}</strong></td>
               <td><strong>${e.vendor || 'Ariish Furniture'}</strong></td>
               <td style="font-size:0.85rem; color:var(--text-secondary);">${e.desc}</td>
-              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">â‚¦${Number(e.amountNGN).toLocaleString()}</strong></td>
+              <td><strong style="color: var(--primary);" data-amount="${e.amountNGN}">₦${Number(e.amountNGN).toLocaleString()}</strong></td>
               <td>
                 <span class="badge ${e.status === 'Paid & Receipt Verified' || e.receiptVerified  &bull;  'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
                   <i class="fa-solid fa-receipt"></i> ${e.status || (e.receiptVerified  &bull;  'Paid & Verified' : 'Invoice Received')}
@@ -2344,7 +2344,7 @@
       const m = list.find(item => item.ref === ref);
       if (!m) return;
 
-      document.getElementById('mat-admin-modal-title').textContent = `Material Donation Pledge â€” ${m.ref}`;
+      document.getElementById('mat-admin-modal-title').textContent = `Material Donation Pledge — ${m.ref}`;
       document.getElementById('mat-admin-modal-body').innerHTML = `
         <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 8px; padding: 1.25rem; margin-bottom: 1.25rem;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
@@ -2398,7 +2398,7 @@
     function confirmDonationQuick(ref) {
       if (window.MP && typeof MP.confirmDonation === 'function') {
         const confirmed = MP.confirmDonation(ref);
-        showToast(`Donation ${ref} confirmed! â‚¦${Number(confirmed.amountNGN).toLocaleString()} credited to ${confirmed.projectId}.`, 4500);
+        showToast(`Donation ${ref} confirmed! ₦${Number(confirmed.amountNGN).toLocaleString()} credited to ${confirmed.projectId}.`, 4500);
         renderAdminFinancials();
         renderAdminProjects();
         renderAdminFeatured();
@@ -2420,7 +2420,7 @@
       if (!select || !window.MP) return;
       const projects = MP.getProjects();
       select.innerHTML = projects.map(p => `
-        <option value="${p.id}">${p.id} â€” ${p.titleEN} (${p.location})</option>
+        <option value="${p.id}">${p.id} — ${p.titleEN} (${p.location})</option>
       `).join('');
     }
 
@@ -2470,7 +2470,7 @@
       }
 
       closeModal('modal-log-donation');
-      showToast(`Donation of â‚¦${amount.toLocaleString()} logged! Opening receipt...`);
+      showToast(`Donation of ₦${amount.toLocaleString()} logged! Opening receipt...`);
       renderAdminFinancials();
       renderAdminProjects();
       viewDonationReceipt(newDonation.ref);
@@ -2546,7 +2546,7 @@
       }
 
       closeModal('modal-log-expense');
-      showToast(`Contractor disbursement of â‚¦${amount.toLocaleString()} saved!`);
+      showToast(`Contractor disbursement of ₦${amount.toLocaleString()} saved!`);
       renderAdminFinancials();
       renderAdminProjects();
       renderAdminVendors();
@@ -2555,7 +2555,7 @@
     // â”€â”€ RECEIPT & INVOICE DOCUMENT VIEWER / GENERATOR â”€â”€
     function viewDonationReceipt(ref) {
       if (!window.MP) return;
-      const donations = (typeof MP.getDonations === 'function')  &bull;  MP.getDonations() : MP.donations;
+      const donations = (typeof MP.getDonations === 'function') ? MP.getDonations() : MP.donations;
       const d = donations.find(item => item.ref === ref) || {
         ref: ref,
         date: new Date().toISOString().split('T')[0],
@@ -2566,7 +2566,7 @@
       };
 
       const titleEl = document.getElementById('doc-viewer-title');
-      if (titleEl) titleEl.textContent = `Official Donation Receipt â€” ${d.ref}`;
+      if (titleEl) titleEl.textContent = `Official Donation Receipt — ${d.ref}`;
 
       const printArea = document.getElementById('doc-printable-area');
       if (printArea) {
@@ -2575,8 +2575,8 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #D4AF37; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
               <div>
                 <div style="font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; color: #0F172A; letter-spacing: 1px;">MASJID PROJECT</div>
-                <div style="font-family: 'Amiri', serif; font-size: 1.1rem; color: #D4AF37; margin-top: -2px;">Ù…Ø´Ø±ÙˆØ¹ Ø§Ù„Ù…Ø³Ø¬Ø¯ â€¢ A Sadaqah Jariyah Initiative</div>
-                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem;">Nonprofit Initiative â€¢ Transparency-First Masjid Care</div>
+                <div style="font-family: 'Amiri', serif; font-size: 1.1rem; color: #D4AF37; margin-top: -2px;">Ù…Ø´Ø±ÙˆØ¹ Ø§Ù„Ù…Ø³Ø¬Ø¯ &bull; A Sadaqah Jariyah Initiative</div>
+                <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.25rem;">Nonprofit Initiative &bull; Transparency-First Masjid Care</div>
               </div>
               <div style="text-align: right;">
                 <span style="background: #059669; color: #FFF; font-size: 0.75rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Official Receipt</span>
@@ -2611,14 +2611,14 @@
                       <div style="font-size: 0.8rem; color: #64748B; font-weight: 400;">Dedicated Sadaqah Jariyah for mosque infrastructure & learning facilities.</div>
                     </td>
                     <td style="padding: 0.8rem; font-size: 1.15rem; font-weight: 800; text-align: right; color: #059669;">
-                      â‚¦${Number(d.amountNGN).toLocaleString()}
+                      ₦${Number(d.amountNGN).toLocaleString()}
                     </td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr style="background: #F1F5F9;">
                     <td style="padding: 0.8rem; font-weight: 800; font-size: 0.95rem;">TOTAL DONATION RECEIVED</td>
-                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #059669;">â‚¦${Number(d.amountNGN).toLocaleString()}</td>
+                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #059669;">₦${Number(d.amountNGN).toLocaleString()}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -2649,7 +2649,7 @@
       const isPaid = (status === 'Paid & Receipt Verified' || (receiptNo && receiptNo !== 'null' && receiptNo !== 'undefined'));
 
       const titleEl = document.getElementById('doc-viewer-title');
-      if (titleEl) titleEl.textContent = `Vendor Contractor Invoice â€” ${invNo}`;
+      if (titleEl) titleEl.textContent = `Vendor Contractor Invoice — ${invNo}`;
 
       const printArea = document.getElementById('doc-printable-area');
       if (printArea) {
@@ -2698,14 +2698,14 @@
                       <div style="font-size: 0.8rem; color: #64748B; font-weight: 400;">Contracted specification per Masajid Project verified standards.</div>
                     </td>
                     <td style="padding: 0.8rem; font-size: 1.15rem; font-weight: 800; text-align: right; color: #0F172A;">
-                      â‚¦${Number(amount).toLocaleString()}
+                      ₦${Number(amount).toLocaleString()}
                     </td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr style="background: #F1F5F9;">
                     <td style="padding: 0.8rem; font-weight: 800; font-size: 0.95rem;">TOTAL INVOICE AMOUNT</td>
-                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #0F172A;">â‚¦${Number(amount).toLocaleString()}</td>
+                    <td style="padding: 0.8rem; font-weight: 900; font-size: 1.25rem; text-align: right; color: #0F172A;">₦${Number(amount).toLocaleString()}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -2853,7 +2853,7 @@
         total += val;
       });
       const sumEl = document.getElementById('edit-proj-scope-sum');
-      if (sumEl) sumEl.textContent = `â‚¦${total.toLocaleString()}`;
+      if (sumEl) sumEl.textContent = `₦${total.toLocaleString()}`;
 
       const goalInput = document.getElementById('edit-proj-goal');
       if (goalInput && total > 0) {
@@ -2867,7 +2867,7 @@
       const goalInput = document.getElementById('edit-proj-goal');
       if (goalInput) {
         goalInput.value = total;
-        showToast(`Target Budget updated to â‚¦${total.toLocaleString()}`);
+        showToast(`Target Budget updated to ₦${total.toLocaleString()}`);
       }
     }
 
@@ -3126,7 +3126,7 @@
       const bodyEl = document.getElementById('nom-detail-modal-body');
       const footerEl = document.getElementById('nom-detail-modal-footer');
 
-      if (titleEl) titleEl.textContent = `Nomination Details â€” ${n.id}`;
+      if (titleEl) titleEl.textContent = `Nomination Details — ${n.id}`;
 
       if (bodyEl) {
         let mediaHtml = '';
@@ -3214,7 +3214,7 @@
               </div>
               <div>
                 <small style="color: var(--text-muted); font-size: 0.725rem; text-transform: uppercase; font-weight: 800;">Masjid Name (Arabic)</small>
-                <div style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--primary); margin-top: 2px;">${n.masjidNameAR || 'â€”'}</div>
+                <div style="font-family: 'Amiri', serif; font-size: 1.15rem; color: var(--primary); margin-top: 2px;">${n.masjidNameAR || '—'}</div>
               </div>
             </div>
 
@@ -3564,7 +3564,7 @@
             <tr>
               <td>
                 <div style="display:flex; align-items:center; gap:0.75rem;">
-                  ${a.imageUrl  &bull;  `<img src="${a.imageUrl}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--dash-border);">` : ''}
+                  ${a.imageUrl ? `<img src="${a.imageUrl}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--dash-border);">` : ''}
                   <div>
                     <strong style="font-size:0.95rem; color:var(--text-primary);">${a.title}</strong>
                     <div style="color:var(--text-muted); font-family:monospace; font-size:0.75rem; margin-top:2px;">${a.slug || a.id}</div>
