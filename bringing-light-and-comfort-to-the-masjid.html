@@ -4,24 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bringing Light and Comfort to the Masjid: An Everlasting Blessing — Masajid Project</title>
-  <meta name="description" content="Discover how our field teams perform on-site technical inspections, verify 3 vendor quotations, and protect every naira contributed.">
+  <meta name="description" content="Illuminating the house of Allah during early dawn and night prayers removes hardship for worshippers and brightens the donor's own life in this world and the next.">
   
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Why Technical Audits Guarantee Trust in Mosque Projects — Masajid Project">
-  <meta property="og:description" content="Discover how our field teams perform on-site technical inspections, verify 3 vendor quotations, and protect every naira contributed.">
+  <meta property="og:title" content="Bringing Light and Comfort to the Masjid: An Everlasting Blessing — Masajid Project">
+  <meta property="og:description" content="Illuminating the house of Allah during early dawn and night prayers removes hardship for worshippers and brightens the donor's own life in this world and the next.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Why Technical Audits Guarantee Trust in Mosque Projects — Masajid Project">
-  <meta name="twitter:description" content="Discover how our field teams perform on-site technical inspections, verify 3 vendor quotations, and protect every naira contributed.">
+  <meta name="twitter:title" content="Bringing Light and Comfort to the Masjid: An Everlasting Blessing — Masajid Project">
+  <meta name="twitter:description" content="Illuminating the house of Allah during early dawn and night prayers removes hardship for worshippers and brightens the donor's own life in this world and the next.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2 &bull; family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -490,6 +490,19 @@
       if (!currentArticle) return;
 
       document.title = `${currentArticle.title} — Masajid Project`;
+
+      // Update Dynamic Meta Tags for Social Sharing
+      const descMeta = document.querySelector('meta[name="description"]');
+      if (descMeta && currentArticle.excerpt) descMeta.setAttribute('content', currentArticle.excerpt);
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', currentArticle.title + ' — Masajid Project');
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc && currentArticle.excerpt) ogDesc.setAttribute('content', currentArticle.excerpt);
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twTitle) twTitle.setAttribute('content', currentArticle.title + ' — Masajid Project');
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twDesc && currentArticle.excerpt) twDesc.setAttribute('content', currentArticle.excerpt);
+
       
       const categoryEl = document.getElementById('article-category');
       if (categoryEl) categoryEl.textContent = (currentArticle.category || 'INSIGHTS').toUpperCase();
