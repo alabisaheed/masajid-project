@@ -16,13 +16,13 @@
   <meta property="og:site_name" content="Masajid Project">
   <meta property="og:title" content="Masajid Project | Small Acts. Lasting Benefit.">
   <meta property="og:description" content="A structured initiative to identify, fund, and document practical improvements in masajid. Every project transparent. Every naira accounted for.">
-  <meta property="og:image" content="images/proj-001-after.jpg">
+  <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Masajid Project | Small Acts. Lasting Benefit.">
   <meta name="twitter:description" content="A structured initiative to identify, fund, and document practical improvements in masajid. Every project transparent. Every naira accounted for.">
-  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <link rel="canonical" href="http://masajidproject.org/">
@@ -1020,13 +1020,16 @@
       section.style.display = 'block';
       const p = completed[0];
 
+      const img1 = (p.images && p.images.during) || p.imageBefore || p.imageAfter;
+      const img2 = p.imageAfter || (p.images && p.images.after) || (p.images && p.images.during);
+
       box.innerHTML = `
         <div class="featured-images">
           <div class="featured-img-box featured-img-before">
-            <img src="${p.imageBefore || 'images/mosque-hero.jpg'}" alt="Mosque Project Photo">
+            <img src="${img1}" alt="${p.titleEN}">
           </div>
           <div class="featured-img-box featured-img-after">
-            <img src="${p.imageAfter || 'images/mosque-hero.jpg'}" alt="Mosque Project Photo">
+            <img src="${img2}" alt="${p.titleEN}">
           </div>
         </div>
         <div class="featured-content">

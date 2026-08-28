@@ -15,13 +15,13 @@
   <meta property="og:site_name" content="Masajid Project">
   <meta property="og:title" content="Project Impact Record — Masajid Project">
   <meta property="og:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
-  <meta property="og:image" content="images/proj-001-after.jpg">
+  <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Project Impact Record — Masajid Project">
   <meta name="twitter:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
-  <meta name="twitter:image" content="images/proj-001-after.jpg">
+  <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <link rel="canonical" href="http://masajidproject.org/">
@@ -112,7 +112,7 @@
           <!-- FEATURED PROJECT PHOTO (ZOOMABLE) -->
           <div class="card animate-in" style="padding: 0; overflow: hidden; margin-bottom: 2rem; border-radius: 12px; border: 1.5px solid var(--border-card);">
             <div style="position: relative; height: 320px; overflow: hidden; cursor: zoom-in; background: #0F172A;" onclick="openProjectMainLightbox()" title="Click to zoom photo">
-              <img id="proj-main-img" src="images/mosque-hero.jpg" alt="Project Photo" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;">
+              <img id="proj-main-img" src="images/proj-001-medinat-interior.jpg" alt="Project Photo" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease;">
               <span style="position: absolute; bottom: 10px; right: 10px; background: rgba(15,23,42,0.8); color: #FFF; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; pointer-events: none; border: 1px solid rgba(255,255,255,0.2);">
                 <i class="fa-solid fa-magnifying-glass-plus"></i> Click to Zoom Photo
               </span>
@@ -318,7 +318,7 @@
       // Main Featured Image
       const mainImg = document.getElementById('proj-main-img');
       if (mainImg) {
-        mainImg.src = (proj.images && (proj.images.during || proj.images.after || proj.images.before)) || proj.imageAfter || proj.imageBefore || 'images/mosque-hero.jpg';
+        mainImg.src = (proj.images && (proj.images.after || proj.images.during || proj.images.before)) || proj.imageAfter || proj.imageBefore || 'images/proj-001-medinat-interior.jpg';
       }
 
       // Description

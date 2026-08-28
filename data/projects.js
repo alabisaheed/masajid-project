@@ -320,16 +320,14 @@ const initialProjects = [
     createdAt: "2026-08-14",
     completedDate: "2026-08-28",
     verifiedBy: "Masajid Field Operations Team",
-    imageBefore: "images/proj-004-before.jpg",
+    imageBefore: null,
     imageAfter: "images/proj-001-medinat-interior.jpg",
     images: {
-      before: "images/proj-004-before.jpg",
       during: "images/proj-001-medinat-shelf.jpg",
       after: "images/proj-001-medinat-interior.jpg",
       gallery: [
-        "images/proj-004-before.jpg",
-        "images/proj-001-medinat-shelf.jpg",
-        "images/proj-001-medinat-interior.jpg"
+        "images/proj-001-medinat-interior.jpg",
+        "images/proj-001-medinat-shelf.jpg"
       ]
     },
     expenses: [
@@ -373,16 +371,14 @@ const initialProjects = [
     createdAt: "2026-08-14",
     completedDate: "2026-08-28",
     verifiedBy: "Masajid Field Operations Team",
-    imageBefore: "images/proj-005-before.jpg",
+    imageBefore: null,
     imageAfter: "images/proj-002-diyar-handover.jpg",
     images: {
-      before: "images/proj-005-before.jpg",
       during: "images/proj-002-diyar-shelf.jpg",
       after: "images/proj-002-diyar-handover.jpg",
       gallery: [
-        "images/proj-005-before.jpg",
-        "images/proj-002-diyar-shelf.jpg",
-        "images/proj-002-diyar-handover.jpg"
+        "images/proj-002-diyar-handover.jpg",
+        "images/proj-002-diyar-shelf.jpg"
       ]
     },
     expenses: [
@@ -608,7 +604,14 @@ g.MP = {
         list.push(initP);
         hasChanges = true;
       } else {
-        // Sync completed status, updated photos, and budget if newly completed
+        // Always sync authentic user photos and clean dummy images
+        if (initP.imageBefore === null && list[idx].imageBefore !== null) {
+          list[idx].imageBefore = null;
+          list[idx].imageAfter = initP.imageAfter;
+          list[idx].images = initP.images;
+          hasChanges = true;
+        }
+        // Sync completed status and budget if newly completed
         if (initP.status === 'COMPLETED' && list[idx].status !== 'COMPLETED') {
           list[idx].status = 'COMPLETED';
           list[idx].goalNGN = initP.goalNGN;
