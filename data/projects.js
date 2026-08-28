@@ -312,7 +312,7 @@ const initialProjects = [
     mosqueName: "Medinat Dhikr Central Mosque",
     descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for worshippers and madrasah students.",
     descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للمصلين وطلاب العلم.",
-    goalNGN: 164000,
+    goalNGN: 104000,
     raisedNGN: 64000,
     spentNGN: 64000,
     verifiedBy: "Masajid Field Operations Team",
@@ -324,12 +324,12 @@ const initialProjects = [
     ],
     vendorQuotes: [
       { id: "VQ-001", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Reading Stands", invoiceNo: "AR-INV-2026-01/02", receiptNo: "AR-REC-2026-01/02", amountNGN: 64000, status: "Paid & Receipt Verified" },
-      { id: "VQ-002", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-08", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
+      { id: "VQ-002", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦4,000 each)", invoiceNo: "MB-QT-2026-08", receiptNo: null, amountNGN: 40000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
     ],
     scope: [
       { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-01)", invoice: "AR-INV-2026-01" },
       { item: "3x Wooden Reading Stands (Rehal / Placeholders) (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-02)", invoice: "AR-INV-2026-02" },
-      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Unpaid / Awaiting Donation (MB-QT-2026-08)", invoice: "MB-QT-2026-08" }
+      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 40000, status: "Unpaid / Awaiting Donation (MB-QT-2026-08)", invoice: "MB-QT-2026-08" }
     ]
   },
   {
@@ -344,7 +344,7 @@ const initialProjects = [
     mosqueName: "Masjid Markaz Diyar",
     descriptionEN: "Provision of a solid wooden book shelf, 3 pieces of reading placeholders (Rehal), and 10 copies of the Holy Qur'an for daily recitation and learning sessions.",
     descriptionAR: "توفير رف كتب خشبي متين، و3 حوامل خشبية لقراءة المصاحف، و10 نسخ من القرآن الكريم للتلاوة اليومية وحلقات تحفيظ القرآن.",
-    goalNGN: 164000,
+    goalNGN: 104000,
     raisedNGN: 64000,
     spentNGN: 64000,
     verifiedBy: "Masajid Field Operations Team",
@@ -356,12 +356,12 @@ const initialProjects = [
     ],
     vendorQuotes: [
       { id: "VQ-003", vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Reading Stands", invoiceNo: "AR-INV-2026-03/04", receiptNo: "AR-REC-2026-03/04", amountNGN: 64000, status: "Paid & Receipt Verified" },
-      { id: "VQ-004", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000 each)", invoiceNo: "MB-QT-2026-09", receiptNo: null, amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
+      { id: "VQ-004", vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦4,000 each)", invoiceNo: "MB-QT-2026-09", receiptNo: null, amountNGN: 40000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
     ],
     scope: [
       { item: "Solid Wooden Book Shelf (Ariish Furniture)", costNGN: 40000, status: "Paid & Receipt Verified (AR-REC-2026-03)", invoice: "AR-INV-2026-03" },
       { item: "3x Wooden Reading Stands (Rehal / Placeholders) (Ariish Furniture)", costNGN: 24000, status: "Paid & Receipt Verified (AR-REC-2026-04)", invoice: "AR-INV-2026-04" },
-      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 100000, status: "Unpaid / Awaiting Donation (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
+      { item: "10x Copies of the Holy Qur'an (Munar Bookstore)", costNGN: 40000, status: "Unpaid / Awaiting Donation (MB-QT-2026-09)", invoice: "MB-QT-2026-09" }
     ]
   },
   {
@@ -556,14 +556,37 @@ g.MP = {
     if (!Array.isArray(list) || list.length === 0) {
       list = initialProjects;
     }
-    // Automatically merge any projects in initialProjects that are not yet in local storage
+    // Automatically merge new projects or migrate legacy 164000 target budget
+    let hasChanges = false;
     initialProjects.forEach(initP => {
       const idx = list.findIndex(p => p.id === initP.id);
       if (idx === -1) {
         list.push(initP);
-        saveLocal('projects', list);
+        hasChanges = true;
+      } else if (list[idx].goalNGN === 164000 && initP.goalNGN === 104000) {
+        list[idx].goalNGN = 104000;
+        if (Array.isArray(list[idx].scope)) {
+          list[idx].scope.forEach(sc => {
+            if (sc.item && sc.item.includes("Qur'an") && sc.costNGN === 100000) {
+              sc.costNGN = 40000;
+            }
+          });
+        }
+        if (Array.isArray(list[idx].vendorQuotes)) {
+          list[idx].vendorQuotes.forEach(vq => {
+            if (vq.item && vq.item.includes("Qur'an") && vq.amountNGN === 100000) {
+              vq.amountNGN = 40000;
+              vq.item = "10x Copies of the Holy Qur'an (@ ₦4,000 each)";
+            }
+          });
+        }
+        hasChanges = true;
       }
     });
+
+    if (hasChanges) {
+      saveLocal('projects', list);
+    }
 
     return list;
   },
