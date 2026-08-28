@@ -8,231 +8,213 @@ const g = typeof window !== 'undefined' ? window : global;
 const defaultArticles = [
   {
     id: "1",
-    slug: "why-technical-audits-guarantee-trust-in-mosque-projects",
-    title: "Why Technical Audits Guarantee Trust in Mosque Projects",
-    category: "Governance",
-    date: "12 Aug 2026",
-    author: "Engr. Sulaiman Bello",
-    authorTitle: "Lead Technical Inspector",
-    authorAvatar: "SB",
-    excerpt: "Every Sadaqah Jariyah project undergoes pre-inspection, competitive contractor bidding, and post-completion audits before public sign-off.",
-    content: `
-      <p class="article-lead">Transparency in charitable work is not merely a slogan or an aesthetic choice. It is a profound spiritual obligation that requires rigorous, verifiable engineering standards. When donors entrust their hard-earned wealth to improve a house of Allah, they deserve absolute certainty that every single naira or pound translates directly into high-quality, durable materials on the ground.</p>
-      
-      <p>Across many grassroots communities, well-intentioned mosque enhancement projects often face challenges. Inexperienced handling can lead to inflated contractor estimates, substandard electrical wiring, or cheap sound amplifiers that fail within months of installation. At Masajid Project, our mandate is to eliminate these inefficiencies by applying professional technical project management principles to every single intervention, no matter how small.</p>
-
-      <h3>The Three-Stage Technical Audit Standard</h3>
-      
-      <p>Before any mosque need is published for public funding on our platform, our engineering and assessment team executes a strict three-phase verification protocol.</p>
-
-      <p>First is the Preliminary Site Assessment. Our field engineers visit the mosque in person to evaluate the structural and electrical environment. High-resolution before-intervention photographs are captured, local electrical loads are measured, and the Imam and mosque executive committee are interviewed to verify the true scope of the need. We document everything from ambient room acoustics to existing power stability.</p>
-
-      <p>Second is Competitive Procurement and Bill of Quantities verification. Rather than accepting single unverified quotes, our procurement unit solicits competitive quotations from vetted local technical artisans and suppliers. We compare the market cost of materials, verify vendor credibility, and establish fixed-price milestone agreements. This ensures that donor funds are never subjected to arbitrary contractor markups.</p>
-
-      <p>Third is Post-Execution Testing and Commissioning. When a contractor finishes their installation, payment is withheld until our audit inspectors conduct on-site commissioning tests. For sound installations, we measure acoustic distribution across prayer rows to eliminate feedback loops. For solar installations, we test battery discharge rates under full load. Only when the work passes technical criteria do we sign off the final disbursement.</p>
-
-      <div class="article-quote-box">
-        O you who believe! Fulfill your obligations and honor your trusts. — Surah Al-Ma'idah (5:1)
-      </div>
-
-      <h3>Open Ledger Reconciliation and Public Accountability</h3>
-
-      <p>Technical verification is only half the journey. The other vital half is complete financial reconciliation. Every vendor quote, purchase invoice, receipt voucher, and bank confirmation code is published directly to our public Transparency Dashboard. Any supporter, community member, or independent auditor can inspect our ledgers line by line.</p>
-
-      <p>By pairing engineering rigor with open financial reporting, we safeguard the sanctity of Sadaqah Jariyah. When donors give through Masajid Project, they can rest assured that their contributions build enduring value that serves worshippers for years to come.</p>
-    `,
-    readTime: "6 min read"
-  },
-  {
-    id: "2",
-    slug: "the-impact-of-solar-energy-in-off-grid-masajid",
-    title: "The Impact of Solar Energy in Off-Grid Masajid",
-    category: "Field Reports",
-    date: "08 Aug 2026",
-    author: "Hajiya Aisha Danjuma",
-    authorTitle: "Community Projects Director",
-    authorAvatar: "AD",
-    excerpt: "How installing solar inverter systems in rural and semi-urban mosques enables 24/7 power for prayers, nighttime lighting, and madrasah education.",
-    content: `
-      <p class="article-lead">In many rural and semi-urban communities, electrical power outages are not an occasional inconvenience; they are a constant daily reality. For local mosques, the absence of reliable electricity deeply affects the entire spiritual and educational rhythm of the community.</p>
-
-      <p>When the grid fails during evening prayers or early dawn Fajr, worshippers are left in pitch darkness. Imams struggle to lead congregational prayers without sound amplification, and the call to prayer cannot reach surrounding homes. Furthermore, the recurring cost of running petrol generators places an immense financial burden on struggling mosque committees, draining funds that could otherwise support local families or facility maintenance.</p>
-
-      <h3>Restoring Light, Dignity, and Regular Worship</h3>
-
-      <p>Installing dedicated solar photovoltaic systems and pure sine wave inverters brings immediate, transformative change to off-grid mosques. A modest, properly engineered solar installation provides twenty-four hour autonomous power for all core needs: energy-efficient LED prayer hall lighting, minaret floodlights, outdoor security illumination, and audio public address systems.</p>
-
-      <p>With clean solar power, the Adhan resounds reliably five times every day across the village, calling believers together regardless of the municipal power status. During nighttime Isha prayers, worshippers gather in comfort and safety. Wudhu ablution areas remain brightly lit and hygienic, preventing dangerous slips or falls in the dark.</p>
-
-      <div class="article-quote-box">
-        The mosques of Allah shall be visited and maintained by those who believe in Allah and the Last Day. — Surah At-Tawbah (9:18)
-      </div>
-
-      <h3>Empowering Evening Madrasah and Qur'anic Learning</h3>
-
-      <p>Perhaps the most inspiring outcome of mosque electrification is the revival of evening education. In many communities, children work with their families during the daytime and can only attend Qur'an memorization classes after sunset. Before solar installation, these young students read by dangerous candlelight or dim battery lanterns.</p>
-
-      <p>With dependable solar lighting, evening classes flourish. Dozens of children sit comfortably in well-lit classrooms, reciting from the Holy Book with ease. The mosque transforms from a building used only during daylight into a vibrant, round-the-clock center of learning, worship, and community cohesion.</p>
-
-      <h3>Long-Term Financial Sustainability</h3>
-
-      <p>Beyond spiritual and educational benefits, solar power delivers immediate financial relief. By eliminating monthly generator fuel and maintenance expenses, mosques save tens of thousands of naira each month. These savings allow local committees to invest in clean water filtration, building repairs, and charity distributions for widows and orphans. Solar energy represents a true Sadaqah Jariyah that continues to give back every single day.</p>
-    `,
-    readTime: "7 min read"
-  },
-  {
-    id: "3",
     slug: "sadaqah-jariyah-small-acts-with-lasting-spiritual-reward",
     title: "Sadaqah Jariyah: Small Acts with Lasting Spiritual Reward",
     category: "Sadaqah Jariyah",
-    date: "02 Aug 2026",
-    author: "Ustadh Imran Khalid",
-    authorTitle: "Islamic Governance Advisor",
-    authorAvatar: "IK",
-    excerpt: "Exploring the Hadith of ongoing charity and why providing essential items like lighting, clean water, and sound systems continues benefiting the donor.",
+    date: "28 Aug 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "Exploring the profound Sunnah of ongoing charity: how simple, practical enhancements to local masajid yield perpetual spiritual dividends long after our lifetime.",
     content: `
-      <p class="article-lead">Human beings naturally desire to leave behind a meaningful legacy that outlives their earthly existence. In the Islamic tradition, Allah in His infinite mercy has gifted us the concept of Sadaqah Jariyah, an ongoing continuous charity whose spiritual rewards flow to the donor long after their soul has departed this world.</p>
-
-      <p>The Messenger of Allah, peace and blessings be upon him, taught us in an authentic narration recorded by Imam Muslim that when a person passes away, all their deeds come to an end except for three: an ongoing charity, beneficial knowledge that people benefit from, or a righteous child who prays for them. This profound principle teaches us to look beyond temporary giving and invest in enduring acts of goodness.</p>
-
-      <h3>The Multiplication of Small Practical Deeds</h3>
-
-      <p>Many believers mistakenly assume that meaningful Sadaqah Jariyah requires massive wealth, such as building an entire grand mosque from the foundation up. While constructing a mosque carries immense reward, the beauty of Islamic charity is that even the smallest practical contribution holds perpetual weight in the sight of Allah.</p>
-
-      <p>Consider the placement of a sturdy wooden bookshelf or reading placeholders for the Holy Qur'an. For years to come, young students and elderly worshippers will place the Book of Allah on those stands, reciting verses daily. Every letter read, every page memorized, and every heart softened yields continuous spiritual dividends recorded in your ledger of good deeds.</p>
+      <p class="article-lead">Human beings naturally yearn to leave behind an enduring legacy that outlives their earthly existence. In the Islamic tradition, Allah in His boundless mercy has granted us the sublime institution of <em>Sadaqah Jariyah</em> (continuous charity)—a spiritual mechanism through which deeds continue accumulating in our record long after our soul has returned to its Creator.</p>
+      
+      <p>The Messenger of Allah, peace and blessings be upon him, established this eternal reality in the renowned narration recorded by Imam Muslim:</p>
 
       <div class="article-quote-box">
-        When a human being dies, all their deeds come to an end except for three: ongoing charity, beneficial knowledge, or a righteous child who prays for them. — Sahih Muslim
+        إِذَا مَاتَ الإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلاَّ مِنْ ثَلاَثَةٍ: إِلاَّ مِنْ صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ<br><br>
+        "When a human being dies, all their deeds come to an end except for three: ongoing charity (Sadaqah Jariyah), beneficial knowledge that people benefit from, or a righteous child who prays for them." — Sahih Muslim (1631)
       </div>
 
-      <h3>Essential Interventions with Everyday Impact</h3>
+      <h3>Demystifying Ongoing Charity: The Power of Small Acts</h3>
+      
+      <p>A widespread misconception among many believers is that Sadaqah Jariyah is exclusively reserved for the ultra-wealthy who can finance the complete construction of a multi-million-naira grand central mosque. While building a whole mosque carries immense reward, prophetic guidance emphasizes that <strong>consistency and genuine benefit</strong> outweigh sheer monetary scale.</p>
 
-      <p>The same enduring reward applies to every essential amenity provided to a house of Allah. When you fund a durable audio amplifier, hundreds of worshippers hear the verses of the Qur'an and the Friday sermon clearly through your contribution. When you replace broken lighting with energy-efficient LED fixtures, believers navigate the prayer hall safely in the dawn hours.</p>
+      <p>The Prophet Muhammad, peace and blessings be upon him, said: <em>"The most beloved of deeds to Allah are those that are most consistent, even if they are small."</em> (Sahih al-Bukhari). In the context of a neighborhood mosque, an intervention as humble as procuring a solid wooden bookshelf, replacing a faulty ablution tap, or clearing venomous weed overgrowth acts as an uninterrupted conduit of worship.</p>
 
-      <p>When you repair a faulty ablution tap, thousands of worshippers purify themselves for prayer with clean, running water. These are not merely physical objects; they are conduits of worship. As long as believers utilize these facilities to remember Allah, the reward continually ascends to the donor, bringing peace to their grave and light to their Day of Judgment.</p>
+      <h3>Micro-Interventions with Exponential Spiritual Multipliers</h3>
 
-      <h3>Cultivating Sincerity and Accountability</h3>
+      <p>Consider the spiritual mathematics behind practical mosque enhancements:</p>
 
-      <p>To maximize the blessing of ongoing charity, our actions must be guided by sincere intention (Ikhlas) and careful stewardship (Amanah). Supporting transparent, well-documented initiatives ensures that resources are utilized properly without waste. May Allah accept our humble efforts, purify our intentions, and make our contributions a source of continuous light for us and our loved ones.</p>
+      <p><strong>1. Placing a Qur'an Bookshelf or Reading Stand (Rehal):</strong> For years, dozens of worshippers and children in the madrasah will retrieve the Mushaf from that shelf and place it upon the stand. Every single letter articulated, every ayah memorized, and every heart softened directly reflects reward back to the donor without diminishing the reward of the reciter.</p>
+
+      <p><strong>2. Restoring Sound Clarity:</strong> When a functioning microphone and calibrated audio system are installed, the Imam's recitation and the Friday Khutbah resonate clearly throughout the prayer rows and sisters' gallery. The donor shares in the spiritual focus (Khushu) and guidance received by every worshipper.</p>
+
+      <p><strong>3. Providing Clean Ablution Facilities:</strong> Every believer who turns on a clean tap to purify themselves before Salah performs their worship upon the foundation of your contribution.</p>
+
+      <h3>Cultivating Sincerity (Ikhlas) and Trust (Amanah)</h3>
+
+      <p>To ensure our charitable efforts flourish in the sight of Allah, two foundational pillars must be preserved: utter sincerity of intention solely for Allah's pleasure, and meticulous stewardship over how charitable funds are expended. When we treat every house of Allah with honor and every donor contribution with transparent accountability, small acts truly unlock everlasting spiritual rewards.</p>
+    `,
+    readTime: "5 min read"
+  },
+  {
+    id: "2",
+    slug: "the-everlasting-reward-of-quran-bookshelves-and-reading-stands",
+    title: "The Everlasting Reward of Qur'an Bookshelves & Reading Stands",
+    category: "Sadaqah Jariyah",
+    date: "22 Aug 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "When a copy of the Holy Qur'an is stored with dignity and read upon a dedicated wooden stand, every letter recited becomes an unending river of reward for the donor.",
+    content: `
+      <p class="article-lead">The Holy Qur'an is the timeless, uncreated Speech of Allah revealed to guide humanity from darkness into light. In Islamic ethics, sacred scripture commands the highest degree of respect, veneration, and care. Elevating the physical preservation of the Mushaf inside community masajid is one of the most direct avenues of perpetual reward.</p>
+
+      <p>The Prophet Muhammad, peace and blessings be upon him, underscored the unmatched virtues of reciting the Holy Book in a famous narration:</p>
+
+      <div class="article-quote-box">
+        مَنْ قَرَأَ حَرْفًا مِنْ كِتَابِ اللَّهِ فَلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا<br><br>
+        "Whoever recites a single letter from the Book of Allah will receive one good deed, and that good deed is multiplied tenfold. I do not say that 'Alif-Lam-Mim' is a letter, rather Alif is a letter, Lam is a letter, and Mim is a letter." — Sunan al-Tirmidhi (2910)
+      </div>
+
+      <h3>The Common Reality in Grassroots Masajid</h3>
+
+      <p>During our field assessments across semi-urban and rural communities, our team frequently observes passionate madrasah students and elderly worshippers reciting the Qur'an in challenging conditions. Copies of the Mushaf are often stacked precariously on window sills, stored on dusty floors, or placed directly on carpets where they are vulnerable to accidental damage and wear.</p>
+
+      <p>Furthermore, reading without ergonomic wooden stands (Rehal) causes strain on the necks and backs of elderly worshippers during lengthy recitation sessions, hindering their comfort and consistency in the house of Allah.</p>
+
+      <h3>Restoring Honor: Solid Wooden Shelves & Handcrafted Rehal</h3>
+
+      <p>By commissioning local carpentry artisans to construct solid hardwood bookshelves and ergonomic folding reading stands, a mosque's learning environment is instantly transformed. The Holy Qur'an is elevated off the floor, organized neatly, and protected from dust and degradation.</p>
+
+      <p>When young students sit in evening circles with copies placed upon sturdy reading placeholders, they memorize with comfort and reverence. For every child who learns Surah Al-Fatihah using these facilities—and goes on to recite it in every prayer for the next sixty years—the donor who provided the shelf, the Qur'an, and the stand shares continuously in that immense spiritual stream.</p>
     `,
     readTime: "6 min read"
   },
   {
-    id: "4",
-    slug: "upgrading-audio-acoustics-at-masjid-baitul-hikmah",
-    title: "Upgrading Audio Acoustics at Masjid Baitul Hikmah",
-    category: "Field Reports",
-    date: "19 Jul 2026",
-    author: "Field Ops Team",
-    authorTitle: "Acoustic Engineering Unit",
-    authorAvatar: "FO",
-    excerpt: "A case study on replacing faulty speaker columns with balanced acoustic mixers to serve over 800 daily worshippers in Ikeja.",
+    id: "3",
+    slug: "purifying-the-sanctuary-cleanliness-and-perimeter-care-as-continuous-worship",
+    title: "Purifying the Sanctuary: Cleanliness & Ground Clearing as Continuous Charity",
+    category: "Sadaqah Jariyah",
+    date: "18 Aug 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "From clearing hazardous weed overgrowth to sanitizing prayer halls, caring for the surroundings of a masjid honors the prophetic tradition of preserving sacred spaces.",
     content: `
-      <p class="article-lead">Clear sound transmission inside a mosque is not a luxury; it is a fundamental requirement for congregational worship. When worshippers cannot hear the recitation of the Imam or the guidance of the Friday Khutbah, the communal spirit and spiritual focus of the prayer are compromised.</p>
+      <p class="article-lead">Cleanliness in Islam is not a superficial matter of personal hygiene; it is an intrinsic dimension of faith itself. The physical purity and safety of a mosque directly influence the serenity, health, and dignity of everyone who enters to worship.</p>
 
-      <p>Masjid Baitul Hikmah, an active community mosque serving over eight hundred daily worshippers, faced persistent audio degradation for over two years. The existing sound system suffered from harsh feedback squeals, uneven volume distribution between the ground floor and the women's gallery, and frequent amplifier overheating during extended Friday gatherings.</p>
-
-      <h3>Diagnostic Field Inspection and Acoustic Mapping</h3>
-
-      <p>Our technical team conducted a thorough acoustic audit of the prayer sanctuary. We identified three major engineering flaws: poorly angled horn speakers causing severe high-frequency reverberation off marble walls, unshielded microphone cabling picking up electromagnetic interference, and an underpowered mixer unable to handle multi-zone distribution.</p>
-
-      <p>Rather than recommending an excessively expensive full overhaul, our engineers designed a targeted, cost-effective acoustic improvement plan. We specified the installation of balanced column line-array speakers that disperse sound horizontally across the congregation while minimizing vertical ceiling reflections.</p>
+      <p>The Messenger of Allah, peace and blessings be upon him, said:</p>
 
       <div class="article-quote-box">
-        And recite the Qur'an with measured, clear recitation. — Surah Al-Muzzammil (73:4)
+        الطُّهُورُ شَطْرُ الإِيمَانِ<br><br>
+        "Cleanliness and ritual purity are half of faith." — Sahih Muslim (223)
       </div>
 
-      <h3>Implementation and Precision Calibration</h3>
+      <h3>The Prophetic Status of Caring for Mosque Grounds</h3>
 
-      <p>Over a three-day execution window, our certified audio contractors replaced the degraded wiring with heavy-gauge shielded audio lines, installed four calibrated column speakers in the main hall, and added dedicated auxiliary monitor speakers in the overflow courtyard and sisters' wing.</p>
+      <p>The classical Islamic tradition records the remarkable story of a humble woman named Umm Mihjan, who dedicated her life to sweeping and cleaning the Prophet's Mosque in Madinah. When she passed away at night, the Companions buried her without troubling the Prophet ﷺ. When he noticed her absence and learned of her death, he was deeply moved and asked to be taken to her grave, where he performed the funeral prayer over her, stating that her service to the house of Allah had illuminated her resting place.</p>
 
-      <p>A multi-channel mixer with integrated feedback suppression was installed in a secure, ventilated enclosure. Each microphone, including the Imam's wireless lapel and the Minbar podium unit, was individually equalized to match the natural vocal frequencies of the mosque leadership.</p>
+      <p>This profound Sunnah teaches us that no act of physical maintenance in a masjid is insignificant. Whether it is sweeping prayer carpets, wiping fans, or removing dangerous weed overgrowth, the service is beloved to Allah.</p>
 
-      <h3>The Community Response</h3>
+      <h3>Addressing Environmental Hazards in Rural Prayer Grounds</h3>
 
-      <p>The transformation was immediate and profound. During the subsequent Friday congregational prayer, the Khutbah was heard with pristine clarity in every corner of the mosque, from the front row to the exterior courtyard. Elderly worshippers expressed deep gratitude for finally being able to hear every word without straining. This project stands as a testament to how targeted technical expertise can revitalize the daily worship experience of an entire community.</p>
+      <p>In developing areas, uncompleted community mosques and open prayer shelters are frequently overtaken by dense bush and aggressive weed overgrowth during the rainy season. This overgrowth harbors venomous reptiles, snakes, scorpions, and pest swarms that endanger worshippers arriving for dawn (Fajr) and night (Isha) prayers.</p>
+
+      <p>Executing professional knapsack chemical spraying and perimeter weed eradication eliminates these hazards in their entirety. It restores a clean, safe, and dignified perimeter where children play safely and elders walk with tranquility. Removing harm from the pathway of believers is a recognized form of continuous Sadaqah that brings perpetual reward.</p>
+    `,
+    readTime: "5 min read"
+  },
+  {
+    id: "4",
+    slug: "amplifying-the-word-of-allah-sound-clarity-as-a-conduit-of-guidance",
+    title: "Amplifying the Word of Allah: Sound Clarity as a Conduit of Guidance",
+    category: "Sadaqah Jariyah",
+    date: "12 Aug 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "When the Adhan resounds without distortion and the Imam's recitation penetrates hearts clearly, those who enabled the audio infrastructure share in every prayer performed.",
+    content: `
+      <p class="article-lead">The soundscape of a mosque is the very vessel through which divine revelation touches the human heart. From the resonant proclamation of the Adhan calling the heedless to success, to the soulful recitation of the Imam during congregational prayer, acoustic clarity is central to communal Islamic life.</p>
+
+      <div class="article-quote-box">
+        وَرَتِّلِ الْقُرْآنَ تَرْتِيلاً<br><br>
+        "And recite the Qur'an with measured, beautiful, and clear recitation." — Surah Al-Muzzammil (73:4)
+      </div>
+
+      <h3>The Disconnect Caused by Degraded Audio</h3>
+
+      <p>In countless neighborhood masajid, audio systems suffer from neglect: screeching feedback loops, crackling microphone cables, underpowered amplifiers, and silent speakers in the women's gallery or overflow courtyards. When worshippers cannot hear the Friday Khutbah or the recitation of the Imam, their mental focus (Khushu) fractures, and vital spiritual reminders are lost.</p>
+
+      <p>Elderly congregants with diminished hearing are particularly affected, often feeling isolated from the communal recitation they hold dear.</p>
+
+      <h3>Restoring the Conduit of Guidance</h3>
+
+      <p>Targeted acoustic interventions—such as installing balanced column line-array speakers, replacing faulty XLR cabling, and calibrating feedback-suppressing mixers—bring immediate transformation. The Adhan carries crisply across the surrounding neighborhood, inviting hearts to prayer.</p>
+
+      <p>Every worshipper whose heart is moved by an ayah heard through that sound system, every youth guided by a Friday sermon, and every believer who bows in unison upon hearing the Takbir contributes to the continuous ledger of reward for the donor who made that sound system possible.</p>
     `,
     readTime: "6 min read"
   },
   {
     id: "5",
     slug: "maintaining-wudhu-sanitation-health-and-dignity",
-    title: "Maintaining Wudhu Sanitation: Health and Dignity",
+    title: "Preserving Wudhu Facilities: Water, Hygiene, and Continuous Blessings",
     category: "Sadaqah Jariyah",
-    date: "10 Jul 2026",
-    author: "Masajid Care Team",
-    authorTitle: "Sanitation & Hygiene Function",
-    authorAvatar: "MC",
-    excerpt: "Proper ablution facilities prevent water wastage and ensure clean, hygienic conditions for community members before prayer.",
+    date: "05 Aug 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "Ablution is the essential key to Salah. Providing clean running water and slip-resistant wudhu areas ensures worshippers purify themselves with dignity and ease.",
     content: `
-      <p class="article-lead">In Islamic practice, physical cleanliness is inextricably linked with spiritual readiness. The ritual ablution (Wudhu) is the essential gateway to prayer, purifying the believer before standing in audience with their Creator. Consequently, the condition of a mosque's ablution area reflects the care and respect accorded to the house of Allah.</p>
+      <p class="article-lead">In Islamic theology, ritual purification (Wudhu) is the prerequisite gateway to prayer. Before standing in solemn audience before the Lord of the worlds, the believer washes away physical impurities and spiritual heedlessness with pure, flowing water.</p>
 
-      <p>Unfortunately, ablution and sanitation facilities are frequently among the most neglected areas in grassroots mosques. Leaking taps, cracked sitting benches, stagnating greywater, and slippery flooring compromise hygiene, waste precious water resources, and pose serious safety hazards, especially for elderly worshippers and young children.</p>
-
-      <h3>Restoring Cleanliness, Safety, and Dignity</h3>
-
-      <p>At Masajid Project, our sanitation intervention unit focuses on restoring cleanliness, water efficiency, and human dignity to community ablution spaces. We prioritize durable plumbing upgrades, including push-button conservation taps that prevent water wastage and eliminate constant dripping.</p>
-
-      <p>We replace slippery concrete surfaces with non-slip, antimicrobial drainage mats that channel water away quickly, preventing the buildup of algae and standing water. Proper drainage gradient re-engineering ensures that wastewater flows smoothly into municipal drainage channels or soakaway pits, eliminating foul odors and insect breeding grounds.</p>
+      <p>The Prophet Muhammad, peace and blessings be upon him, affirmed this essential connection:</p>
 
       <div class="article-quote-box">
-        Cleanliness is half of faith. — Sahih Muslim
+        مِفْتَاحُ الْجَنَّةِ الصَّلاَةُ وَمِفْتَاحُ الصَّلاَةِ الْوُضُوءُ<br><br>
+        "The key to Paradise is prayer, and the key to prayer is ritual purification (Wudhu)." — Sunan al-Tirmidhi (4)
       </div>
 
-      <h3>Preserving Water: A Sacred Responsibility</h3>
+      <h3>The Sacred Value of Water Stewardship</h3>
 
-      <p>Water conservation is a core Islamic value emphasized repeatedly by the Prophet Muhammad, peace and blessings be upon him, who instructed believers not to waste water even when performing ablution by a flowing river. In communities facing water scarcity, a single leaking tap can waste hundreds of liters of clean water every day.</p>
+      <p>Despite the vital importance of Wudhu, ablution areas in grassroots masajid are frequently plagued by leaking faucets, broken sit-benches, standing wastewater, and slippery concrete. Leaking taps not only waste thousands of liters of clean borehole water each week, but they also inflate electricity bills for pumping and create unhygienic environments prone to algae and foul odors.</p>
 
-      <p>By installing pressure-regulated fittings and repairing cracked overhead storage tanks, our interventions save thousands of liters of clean water each week. This not only preserves a precious natural resource but also drastically reduces the electricity required to pump borehole water, lowering operational costs for the mosque committee.</p>
+      <p>Prophetic tradition strictly forbids the wastage of water, even when performing ablution by a flowing river. Addressing these plumbing failures is both an environmental and religious duty.</p>
 
-      <h3>A High-Reward Sadaqah Jariyah</h3>
+      <h3>Providing Dignified, Safe, and Efficient Ablution</h3>
 
-      <p>Every time a worshipper steps into a clean, safe ablution area, turns on a functioning tap, and purifies themselves for prayer, the donor who facilitated that clean environment shares in the spiritual reward of that worship. Ensuring that our brothers and sisters can perform their religious duties in a clean, dignified space is among the most compassionate and enduring forms of charitable giving.</p>
+      <p>Through practical interventions—installing push-button conservation faucets, antimicrobial drainage flooring, and repaired overhead storage tanks—water waste is eliminated and hygiene is restored. Worshippers purify themselves in safety without fear of slipping or enduring stagnant water.</p>
+
+      <p>Every single time a worshipper washes their face, arms, and feet to prepare for standing before Allah, the donor who facilitated that running water and clean environment shares in the blessings of their Wudhu and subsequent prayer. It is a continuous charity of the highest order.</p>
     `,
-    readTime: "6 min read"
+    readTime: "5 min read"
   },
   {
     id: "6",
-    slug: "how-communities-nominate-masajid-in-need",
-    title: "How Communities Nominate Masajid in Need",
-    category: "Governance",
-    date: "25 Jun 2026",
-    author: "Audit Committee",
-    authorTitle: "Governance & Vetting Desk",
-    authorAvatar: "AC",
-    excerpt: "Step-by-step walkthrough of the nomination assessment process: from submission to technical field verification.",
+    slug: "the-impact-of-solar-energy-in-off-grid-masajid",
+    title: "Illuminating the Houses of Allah: Solar Lighting for Dawn & Night Prayers",
+    category: "Sadaqah Jariyah",
+    date: "28 Jul 2026",
+    author: "Alabi Saheed",
+    authorTitle: "Initiative Lead",
+    authorAvatar: "AS",
+    excerpt: "Bringing dependable solar power to off-grid mosques eliminates darkness during Fajr and Isha, enlivens evening madrasah classes, and relieves poor communities of heavy fuel bills.",
     content: `
-      <p class="article-lead">The strength of Masajid Project lies in its grassroots community connection. Rather than operating from distant offices, our initiative relies on regular worshippers, community members, and local mosque committees to identify genuine, practical needs in their neighborhoods.</p>
+      <p class="article-lead">Light inside a mosque is both a physical necessity and a rich spiritual metaphor. Throughout Islamic history, illuminating the house of Allah for worshippers walking through the darkness of night has been recognized as an act of profound devotion and unending reward.</p>
 
-      <p>Whether it is a rural mosque needing a solar inverter, a local madrasah requiring bookshelves and Qur'ans, or a suburban prayer hall struggling with degraded sound equipment, anyone can submit a nomination through our transparent platform. Here is a complete overview of how nominations are processed from initial submission to project completion.</p>
-
-      <h3>Step 1: Community Submission</h3>
-
-      <p>Any individual can visit our Submit a Need portal and fill out our structured nomination form. You provide the name and physical location of the mosque, select the relevant category of need, describe the current challenge in detail, and provide contact information for the local Imam or mosque executive.</p>
-
-      <p>We also strongly encourage nominators to upload photos or short video clips demonstrating the existing condition. Visual evidence allows our assessment desk to immediately understand the urgency and technical nature of the request.</p>
-
-      <h3>Step 2: Rapid Internal Review and Verification</h3>
-
-      <p>Upon submission, the nomination is instantly logged in our central audit database with a unique tracking reference code. Within twenty-four to forty-eight hours, our assessment team conducts preliminary desk verification, confirming the geographic location and reaching out to the mosque leadership to verify community consent and need validity.</p>
+      <p>The Prophet Muhammad, peace and blessings be upon him, gave glad tidings to those who frequent the mosques in the dark:</p>
 
       <div class="article-quote-box">
-        The best of people are those who are most beneficial to others. — At-Tabarani
+        بَشِّرِ الْمَشَّائِينَ فِي الظُّلَمِ إِلَى الْمَسَاجِدِ بِالنُّورِ التَّامِّ يَوْمَ الْقِيَامَةِ<br><br>
+        "Give glad tidings to those who walk to the mosques in the darkness of complete light on the Day of Resurrection." — Sunan Abi Dawud (561)
       </div>
 
-      <h3>Step 3: On-Site Technical Field Audit</h3>
+      <h3>The Hardship of Power Outages in Grassroots Masajid</h3>
 
-      <p>Once a nomination passes preliminary vetting, our field operations team is dispatched to conduct an on-site technical inspection. We assess the physical infrastructure, measure required dimensions, verify electrical loads, and prepare a standardized Bill of Quantities with local artisan pricing.</p>
+      <p>In many rural and semi-urban communities, electrical power outages are a persistent challenge. When the power fails during the early dawn hours of Fajr or the late night prayers of Maghrib and Isha, the entire prayer hall plunges into darkness. The Adhan cannot be broadcast, elderly worshippers navigate dark steps with difficulty, and evening Qur'an memorization classes for young children are suspended or forced to rely on hazardous candlelight.</p>
 
-      <h3>Step 4: Public Publication and Funding</h3>
+      <p>Furthermore, running noisy petrol generators consumes scarce community funds that could otherwise support local orphans, widows, or medical emergencies.</p>
 
-      <p>Approved projects are assigned a permanent project identification code and published on our public website and dashboard. Transparent funding targets are established based on verified vendor quotations, allowing donors worldwide to contribute directly toward the specific verified need.</p>
+      <h3>Clean Solar Power: A Continuous Source of Light and Blessing</h3>
 
-      <h3>Step 5: Execution, Quality Audit, and Public Reporting</h3>
+      <p>Installing dedicated solar photovoltaic panels, pure sine wave inverters, and long-life batteries brings reliable 24/7 power to the house of Allah. The prayer hall, wudhu areas, and security perimeters remain brightly illuminated every night. Children read the Holy Qur'an with ease, and the Adhan sounds unfailingly across the village.</p>
 
-      <p>Once funds are raised, work commences under the supervision of our engineering inspectors. Upon successful completion and quality sign-off, before-and-after photographic evidence, contractor invoices, and payment receipts are published to our public Transparency Ledger. The project then enters an active monitoring phase to ensure long-term functionality and benefit.</p>
+      <p>By removing monthly generator fuel costs, the mosque committee achieves lasting financial independence. Providing clean light that guides worshippers to prayer and children to knowledge is a true Sadaqah Jariyah that continues illuminating the donor's scale of deeds indefinitely.</p>
     `,
-    readTime: "7 min read"
+    readTime: "6 min read"
   }
 ];
 
@@ -777,7 +759,7 @@ g.MP = {
           categoryId: catId,
           status: "FUNDING",
           isFeatured: false,
-          titleEN: item.masjidName + " — " + (item.needTypes ? item.needTypes.join(', ') : 'Improvement Need'),
+          titleEN: item.masjidName + " - " + (item.needTypes ? item.needTypes.join(', ') : 'Improvement Need'),
           titleAR: item.masjidNameAR || "",
           location: `${item.city || 'Lagos'}, ${item.state || 'State'}`,
           descriptionEN: item.description || "Essential mosque improvement project nominated by community.",
@@ -785,7 +767,7 @@ g.MP = {
           goalNGN: 500000,
           raisedNGN: 0,
           spentNGN: 0,
-          imageBefore: "images/proj-002-before.jpg",
+          imageBefore: null,
           expenses: []
         };
         this.saveProject(newProj);
@@ -796,7 +778,36 @@ g.MP = {
 
   // Articles Methods
   getArticles: function() {
-    return loadLocal('articles', defaultArticles);
+    let list = loadLocal('articles', defaultArticles);
+    if (!Array.isArray(list) || list.length === 0) {
+      list = defaultArticles;
+    }
+    // Always update author to Alabi Saheed and sync default articles
+    let hasChanges = false;
+    defaultArticles.forEach(defA => {
+      const idx = list.findIndex(a => a.id === defA.id || a.slug === defA.slug);
+      if (idx === -1) {
+        list.push(defA);
+        hasChanges = true;
+      } else {
+        if (list[idx].author !== 'Alabi Saheed' || list[idx].title !== defA.title || list[idx].content !== defA.content) {
+          list[idx] = { ...list[idx], ...defA, author: 'Alabi Saheed', authorAvatar: 'AS', authorTitle: 'Initiative Lead' };
+          hasChanges = true;
+        }
+      }
+    });
+    list.forEach(a => {
+      if (a.author !== 'Alabi Saheed') {
+        a.author = 'Alabi Saheed';
+        a.authorAvatar = 'AS';
+        a.authorTitle = 'Initiative Lead';
+        hasChanges = true;
+      }
+    });
+    if (hasChanges) {
+      saveLocal('articles', list);
+    }
+    return list;
   },
 
   getArticleBySlug: function(slug) {

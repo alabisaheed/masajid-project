@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2 &bull; family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta name="description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
@@ -13,13 +13,13 @@
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Project Impact Record — Masajid Project">
+  <meta property="og:title" content="Project Impact Record â€” Masajid Project">
   <meta property="og:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Project Impact Record — Masajid Project">
+  <meta name="twitter:title" content="Project Impact Record â€” Masajid Project">
   <meta name="twitter:description" content="Detailed verification timeline, before/after visual audit, and itemized scope budget for mosque interventions.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -206,15 +206,15 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
               <div>
                 <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Raised:</span>
-                <strong id="proj-raised-display" style="font-size: 1.15rem; color:var(--primary);" data-amount="335000">?335,000</strong>
+                <strong id="proj-raised-display" style="font-size: 1.15rem; color:var(--primary);" data-amount="335000"> &bull; 335,000</strong>
               </div>
               <div>
                 <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Goal:</span>
-                <strong id="proj-goal-display" style="font-size: 1.15rem; color: var(--text-primary);" data-amount="500000">?500,000</strong>
+                <strong id="proj-goal-display" style="font-size: 1.15rem; color: var(--text-primary);" data-amount="500000"> &bull; 500,000</strong>
               </div>
             </div>
 
-            <a id="donate-btn-sidebar" href="donate?project=MP-LAG-2026-003" class="btn btn--primary" style="width: 100%; padding: 0.9rem; font-size: 1.05rem; margin-bottom: 0.75rem;">
+            <a id="donate-btn-sidebar" href="donate &bull; project=MP-LAG-2026-003" class="btn btn--primary" style="width: 100%; padding: 0.9rem; font-size: 1.05rem; margin-bottom: 0.75rem;">
               Support This Project
             </a>
             <a href="transparency#ledger" class="btn btn--outline" style="width: 100%; padding: 0.75rem; font-size: 0.875rem;">
@@ -261,7 +261,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p>Â© 2026 Masajid Project Initiative. All rights reserved.</p>
         <p>Built with Sincerity for Sadaqah Jariyah</p>
       </div>
     </div>
@@ -293,7 +293,7 @@
       if (breadId) breadId.textContent = proj.id;
 
       const catBadge = document.getElementById('proj-badge-cat');
-      if (catBadge) catBadge.textContent = catObj ? catObj.labelEN : 'General';
+      if (catBadge) catBadge.textContent = catObj  &bull;  catObj.labelEN : 'General';
 
       const statusBadge = document.getElementById('proj-badge-status');
       if (statusBadge) {
@@ -333,7 +333,7 @@
         if (gal.length > 0) {
           galleryCard.style.display = 'block';
           galleryGrid.innerHTML = gal.map((src, i) => `
-            <div style="height: 110px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border-card); cursor: zoom-in; position: relative; background:#0F172A;" onclick="openLightbox('${src}', '${proj.titleEN} — Photographic Evidence #${i+1}')" title="Click to zoom">
+            <div style="height: 110px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border-card); cursor: zoom-in; position: relative; background:#0F172A;" onclick="openLightbox('${src}', '${proj.titleEN} â€” Photographic Evidence #${i+1}')" title="Click to zoom">
               <img src="${src}" alt="Field Evidence ${i+1}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
               <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 3px;">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -352,8 +352,8 @@
           scopeBody.innerHTML = proj.scope.map(s => `
             <tr>
               <td style="color:var(--text-primary); font-weight:600;">${s.item}</td>
-              <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">₦${Number(s.costNGN).toLocaleString()}</td>
-              <td><span class="badge ${s.status && (s.status.includes('Paid') || s.status.includes('Verified')) ? 'badge--completed' : 'badge--category'}">${s.status}</span></td>
+              <td style="font-weight:700; color:var(--primary);" data-amount="${s.costNGN}">â‚¦${Number(s.costNGN).toLocaleString()}</td>
+              <td><span class="badge ${s.status && (s.status.includes('Paid') || s.status.includes('Verified'))  &bull;  'badge--completed' : 'badge--category'}">${s.status}</span></td>
             </tr>
           `).join('');
         } else {
@@ -366,7 +366,7 @@
       if (quotesBody) {
         const quotes = proj.vendorQuotes || [
           { vendor: "Ariish Furniture", item: "Solid Wooden Book Shelf & 3x Reading Stands", invoiceNo: "AR-INV-2026-01 / 02", amountNGN: 64000, status: "Paid & Receipt Verified" },
-          { vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ ₦10,000/ea)", invoiceNo: "MB-QT-2026-08", amountNGN: 100000, status: "Invoice Received (Unpaid — Awaiting Donation)" }
+          { vendor: "Munar Bookstore", item: "10x Copies of the Holy Qur'an (@ â‚¦10,000/ea)", invoiceNo: "MB-QT-2026-08", amountNGN: 100000, status: "Invoice Received (Unpaid â€” Awaiting Donation)" }
         ];
 
         quotesBody.innerHTML = quotes.map(q => `
@@ -374,10 +374,10 @@
             <td><strong style="color:var(--text-primary); font-size:0.95rem;">${q.vendor}</strong></td>
             <td style="color:var(--text-secondary); font-size:0.875rem;">${q.item}</td>
             <td><span style="font-family:monospace; font-weight:700; color:var(--primary);">${q.invoiceNo}</span></td>
-            <td><strong style="color:var(--primary);" data-amount="${q.amountNGN}">₦${Number(q.amountNGN).toLocaleString()}</strong></td>
+            <td><strong style="color:var(--primary);" data-amount="${q.amountNGN}">â‚¦${Number(q.amountNGN).toLocaleString()}</strong></td>
             <td>
-              <span class="badge ${q.status.includes('Paid') ? 'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
-                <i class="fa-solid ${q.status.includes('Paid') ? 'fa-receipt' : 'fa-file-invoice'}"></i> ${q.status}
+              <span class="badge ${q.status.includes('Paid')  &bull;  'badge--completed' : 'badge--verified'}" style="font-size:0.75rem;">
+                <i class="fa-solid ${q.status.includes('Paid')  &bull;  'fa-receipt' : 'fa-file-invoice'}"></i> ${q.status}
               </span>
             </td>
           </tr>
@@ -388,10 +388,10 @@
       const timelineBox = document.getElementById('proj-timeline-list');
       if (timelineBox && proj.timeline && proj.timeline.length > 0) {
         timelineBox.innerHTML = proj.timeline.map(t => `
-          <div style="display:flex; gap:1rem; align-items:flex-start; background:var(--bg-surface); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid ${t.done ? 'var(--emerald)' : 'var(--border-light)'};">
-            <i class="fa-solid ${t.done ? 'fa-circle-check' : 'fa-circle-notch'}" style="color:${t.done ? 'var(--emerald)' : 'var(--text-muted)'}; margin-top:0.25rem;"></i>
+          <div style="display:flex; gap:1rem; align-items:flex-start; background:var(--bg-surface); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid ${t.done  &bull;  'var(--emerald)' : 'var(--border-light)'};">
+            <i class="fa-solid ${t.done  &bull;  'fa-circle-check' : 'fa-circle-notch'}" style="color:${t.done  &bull;  'var(--emerald)' : 'var(--text-muted)'}; margin-top:0.25rem;"></i>
             <div>
-              <div style="font-weight:600; color:${t.done ? 'var(--text-primary)' : 'var(--text-muted)'};">${t.event}</div>
+              <div style="font-weight:600; color:${t.done  &bull;  'var(--text-primary)' : 'var(--text-muted)'};">${t.event}</div>
               <div style="font-size:0.8rem; color:var(--text-muted);">${t.date}</div>
             </div>
           </div>
@@ -404,9 +404,9 @@
 
       // Dynamic supporters calculation
       const projectDonations = (typeof MP.getDonations === 'function') 
-        ? MP.getDonations().filter(d => d.projectId === proj.id)
+         &bull;  MP.getDonations().filter(d => d.projectId === proj.id)
         : [];
-      const calculatedSupporters = (projectDonations.length > 0) ? projectDonations.length : (proj.supporters || 0);
+      const calculatedSupporters = (projectDonations.length > 0)  &bull;  projectDonations.length : (proj.supporters || 0);
 
       const supportersCount = document.getElementById('proj-supporters-count');
       if (supportersCount) supportersCount.textContent = calculatedSupporters;
@@ -428,7 +428,7 @@
           donateBtn.style.borderColor = 'var(--emerald)';
         } else {
           donateBtn.textContent = 'Support This Project';
-          donateBtn.href = `donate.html?project=${proj.id}`;
+          donateBtn.href = `donate.html &bull; project=${proj.id}`;
         }
       }
 
@@ -437,12 +437,12 @@
       }
     }
 
-    // ── LIGHTBOX ZOOM ENGINE ──
+    // â”€â”€ LIGHTBOX ZOOM ENGINE â”€â”€
     function openProjectMainLightbox() {
       const imgEl = document.getElementById('proj-main-img');
       if (!imgEl) return;
       const titleEl = document.getElementById('proj-title-en');
-      const captionText = `${titleEl ? titleEl.textContent : 'Project Photo'} — Field Documentation`;
+      const captionText = `${titleEl  &bull;  titleEl.textContent : 'Project Photo'} â€” Field Documentation`;
       openLightbox(imgEl.src, captionText);
     }
 
@@ -493,7 +493,7 @@
   <div class="modal-backdrop" id="lightbox-modal" onclick="closeLightbox(event)" style="display: none; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.92); z-index: 99999; padding: 1.5rem; backdrop-filter: blur(8px);">
     <div style="position: relative; max-width: 92vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; text-align: center;">
       <button type="button" onclick="closeLightboxDirect()" style="position: absolute; top: -3rem; right: 0; background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #FFF; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease;" title="Close (Esc)">
-        ✕
+        âœ•
       </button>
       <img id="lightbox-img" src="" alt="Zoomed Project Evidence" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 10px; box-shadow: 0 25px 65px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.15);">
       <div id="lightbox-caption" style="color: #FFFFFF; font-size: 0.925rem; font-weight: 700; margin-top: 1rem; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.25rem; border-radius: 99px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);"></div>
@@ -501,3 +501,4 @@
   </div>
 </body>
 </html>
+

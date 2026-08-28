@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
   <title>Submit a Masjid Need | Masajid Project</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2 &bull; family=Amiri:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta name="description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
@@ -14,13 +14,13 @@
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Masajid Project">
-  <meta property="og:title" content="Submit a Masjid Need — Masajid Project">
+  <meta property="og:title" content="Submit a Masjid Need â€” Masajid Project">
   <meta property="og:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
   <meta property="og:image" content="images/proj-001-medinat-interior.jpg">
   
   <!-- Twitter Card Preview -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Submit a Masjid Need — Masajid Project">
+  <meta name="twitter:title" content="Submit a Masjid Need â€” Masajid Project">
   <meta name="twitter:description" content="Nominate a mosque needing practical repairs, solar inverter power, sound equipment, or wudhu plumbing.">
   <meta name="twitter:image" content="images/proj-001-medinat-interior.jpg">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -73,7 +73,7 @@
       <h1 class="section__title">Submit a <span>Masjid Need</span></h1>
       
       <p style="color: var(--text-secondary); max-width: 680px; margin: 0 auto; font-size: 1.05rem;">
-        Know a mosque that requires essential repairs, lighting, solar backup, sound equipment, or Qur'ans? Submit details for our field audit team to review.
+        Know a mosque that requires essential repairs, lighting, solar backup, sound equipment, or Qur'ans &bull;  Submit details for our field audit team to review.
       </p>
     </div>
   </section>
@@ -96,7 +96,7 @@
 
           <div class="form-group">
             <label class="form-label">Masjid Name (Arabic - Optional)</label>
-            <input type="text" id="masjid-name-ar" class="form-input" placeholder="مثال: مسجد النور">
+            <input type="text" id="masjid-name-ar" class="form-input" placeholder="Ù…Ø«Ø§Ù„: Ù…Ø³Ø¬Ø¯ Ø§Ù„Ù†ÙˆØ±">
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
@@ -228,7 +228,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p>© 2026 Masajid Project Initiative. All rights reserved.</p>
+        <p>Â© 2026 Masajid Project Initiative. All rights reserved.</p>
         <p>Built with Sincerity for Sadaqah Jariyah</p>
       </div>
     </div>
@@ -317,14 +317,14 @@
       container.innerHTML = nominationMediaList.map((m, idx) => `
         <div style="position: relative; border-radius: var(--radius-sm); overflow: hidden; background: #000; height: 110px; border: 1px solid var(--border-card);">
           ${m.type === 'video' 
-            ? `<video src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline></video>
+             &bull;  `<video src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline></video>
                <div style="position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.65rem; padding: 2px 4px; border-radius: 3px;">
                  <i class="fa-solid fa-video"></i> Video
                </div>`
             : `<img src="${m.dataUrl}" style="width: 100%; height: 100%; object-fit: cover;">`
           }
           <button type="button" onclick="removeMediaItem(${idx})" style="position: absolute; top: 4px; right: 4px; background: rgba(239, 68, 68, 0.85); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem;">
-            ✕
+            âœ•
           </button>
         </div>
       `).join('');
@@ -357,15 +357,15 @@
 
     function handleFormSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('masjid-name')?.value.trim() || 'Masjid Community';
-      const nameAR = document.getElementById('masjid-name-ar')?.value.trim() || '';
-      const city = document.getElementById('city')?.value.trim() || 'Lagos';
-      const state = document.getElementById('state')?.value.trim() || 'Lagos State';
-      const category = document.getElementById('category')?.value || 'Lighting & Electrical';
-      const desc = document.getElementById('need-desc')?.value.trim() || 'Essential mosque improvement need.';
-      const submitter = document.getElementById('your-name')?.value.trim() || 'Community Member';
-      const contact = document.getElementById('your-contact')?.value.trim() || 'N/A';
-      const videoLink = document.getElementById('media-drive-link')?.value.trim() || '';
+      const name = document.getElementById('masjid-name') &bull; .value.trim() || 'Masjid Community';
+      const nameAR = document.getElementById('masjid-name-ar') &bull; .value.trim() || '';
+      const city = document.getElementById('city') &bull; .value.trim() || 'Lagos';
+      const state = document.getElementById('state') &bull; .value.trim() || 'Lagos State';
+      const category = document.getElementById('category') &bull; .value || 'Lighting & Electrical';
+      const desc = document.getElementById('need-desc') &bull; .value.trim() || 'Essential mosque improvement need.';
+      const submitter = document.getElementById('your-name') &bull; .value.trim() || 'Community Member';
+      const contact = document.getElementById('your-contact') &bull; .value.trim() || 'N/A';
+      const videoLink = document.getElementById('media-drive-link') &bull; .value.trim() || '';
 
       let saved = null;
       if (window.MP) {
@@ -386,7 +386,7 @@
         });
       }
 
-      const nomId = saved ? saved.id : ('NOM-' + Date.now());
+      const nomId = saved  &bull;  saved.id : ('NOM-' + Date.now());
       
       // Populate and show the confirmation modal
       const modalId = document.getElementById('success-nom-id');
@@ -398,7 +398,7 @@
       if (modalId) modalId.textContent = nomId;
       if (modalMasjid) modalMasjid.textContent = name;
       if (modalLocation) modalLocation.textContent = `${city}, ${state}`;
-      if (modalContact) modalContact.textContent = `${submitter} • ${contact}`;
+      if (modalContact) modalContact.textContent = `${submitter} â€¢ ${contact}`;
       if (modalCategory) modalCategory.textContent = category;
 
       const modal = document.getElementById('modal-nomination-success');
@@ -431,7 +431,7 @@
       
       <!-- Close X Button in Header -->
       <button type="button" onclick="closeSuccessModal()" style="position: absolute; top: 0.85rem; right: 0.85rem; background: #F1F5F9; border: 1px solid #CBD5E1; color: #475569; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; font-weight: 700;" title="Close">
-        ✕
+        âœ•
       </button>
 
       <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(5, 150, 105, 0.12); color: #059669; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 0.75rem; border: 1.5px solid rgba(5, 150, 105, 0.3);">
@@ -469,16 +469,16 @@
 
         <div style="padding-top: 0.65rem; border-top: 1px dashed #CBD5E1;">
           <span style="font-size: 0.7rem; color: #64748B; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Submitter / Contact Person:</span>
-          <div id="success-nom-contact" style="font-size: 0.875rem; font-weight: 700; color: #0F172A;">Saheed Alani • contact@email.com</div>
+          <div id="success-nom-contact" style="font-size: 0.875rem; font-weight: 700; color: #0F172A;">Saheed Alani â€¢ contact@email.com</div>
         </div>
       </div>
 
       <div style="background: #F1F5F9 !important; border-left: 4px solid #13547A !important; padding: 0.85rem 1rem !important; border-radius: 6px !important; text-align: left !important; margin-bottom: 1rem !important;">
         <h4 style="font-size: 0.875rem !important; font-weight: 800 !important; color: #13547A !important; margin: 0 0 0.35rem !important; display: flex !important; align-items: center !important; gap: 0.4rem !important; font-family: 'Figtree', sans-serif !important;">
-          <i class="fa-solid fa-phone-volume" style="color: #13547A !important;"></i> What Happens Next?
+          <i class="fa-solid fa-phone-volume" style="color: #13547A !important;"></i> What Happens Next &bull; 
         </h4>
         <p style="font-size: 0.8rem !important; color: #1E293B !important; margin: 0 !important; line-height: 1.45 !important; font-family: 'Figtree', sans-serif !important;">
-          Our assessment team will review the submitted details and contact the mosque representative within <strong style="color: #0F172A !important; font-weight: 800 !important;">48–72 hours</strong> to verify the need and schedule an on-site audit.
+          Our assessment team will review the submitted details and contact the mosque representative within <strong style="color: #0F172A !important; font-weight: 800 !important;">48â€“72 hours</strong> to verify the need and schedule an on-site audit.
         </p>
       </div>
 
@@ -494,3 +494,4 @@
   </div>
 </body>
 </html>
+
